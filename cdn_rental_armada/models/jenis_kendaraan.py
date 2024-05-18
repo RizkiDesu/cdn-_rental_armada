@@ -8,3 +8,4 @@ class CdnjenisKendaraan(models.Model):
     name = fields.Char(string='Jenis Kendaraan', required=True)
     merek_id = fields.Many2one(comodel_name='cdn.merek', string='Merek')
 
+
