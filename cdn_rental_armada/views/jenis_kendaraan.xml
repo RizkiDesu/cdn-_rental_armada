@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data>
+    
+        <!-- cdn.jenis.kendaraan tree view -->
+        <record id="cdn_jenis_kendaraan_view_tree" model="ir.ui.view">
+            <field name="name">Jenis Kendaraan</field>
+            <field name="model">cdn.jenis.kendaraan</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <!-- Add your fields here -->
+                    <field name="name"/>
+                    <field name="merek_id"/>
+                </tree>
+            </field>
+        </record>
+        <!-- cdn.jenis.kendaraan form view -->
+        <record id="cdn_jenis_kendaraan_view_form" model="ir.ui.view">
+            <field name="name">cdn.jenis.kendaraan.view.form</field>
+            <field name="model">cdn.jenis.kendaraan</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <sheet>
+                        <group>
+                            <!-- Add your fields here -->
+                            <group>    
+                                <field name="name"/>
+                            </group>
+                            <group>
+                                <field name="merek_id"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    <!-- cdn.jenis.kendaraan action window -->
+    <record id="cdn_jenis_kendaraan_action" model="ir.actions.act_window">
+        <field name="name">Jenis Kendaraan</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">cdn.jenis.kendaraan</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                <!-- Add Text Here -->
+            </p><p>
+                <!-- More details about what a user can do with this object will be OK --> 
+            
+            </p>
+        </field>
+    </record>
+    <!-- This Menu Item must have a parent and an action -->
+    <menuitem id="jenis_kendaraan_menu_act" name="Jenis Kendaraan" parent="armada_menu_categ" action="cdn_jenis_kendaraan_action" sequence="10"/>
+    </data>
+    
+
+</odoo>

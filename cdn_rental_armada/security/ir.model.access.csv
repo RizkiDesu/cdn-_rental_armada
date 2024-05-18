@@ -1,2 +1,3 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_cdn_rental_armada_cdn_rental_armada,cdn_rental_armada.cdn_rental_armada,model_cdn_rental_armada_cdn_rental_armada,base.group_user,1,1,1,1
+access.cdn.armada,access_cdn_armada,cdn_rental_armada.model_cdn_armada,base.group_user,1,1,1,1

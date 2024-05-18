@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data>
+    
+        <!-- cdn.merek tree view -->
+        <record id="cdn_merek_view_tree" model="ir.ui.view">
+            <field name="name">Merek Kendaraan</field>
+            <field name="model">cdn.merek</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <!-- Add your fields here -->
+                    <field name="name"/>
+                    
+                </tree>
+            </field>
+        </record>
+        <!-- cdn.merek form view -->
+        <record id="cdn_merek_view_form" model="ir.ui.view">
+            <field name="name">cdn.merek.view.form</field>
+            <field name="model">cdn.merek</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <sheet>
+                        <group>
+                            <!-- Add your fields here -->
+                            <group>    
+                                <field name="name"/>
+                            </group>
+                            <group>
+                                
+                            </group>
+                            <notebook>
+                                <page name="jenis" string="Nama Kendaraan">
+                                    <field name="jenis_ids">
+                                    <tree editable="top">
+                                        <field name="name"/>
+                                    </tree>
+                                    </field>
+                                </page>
+                            </notebook>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    <!-- cdn.merek action window -->
+    <record id="cdn_merek_action" model="ir.actions.act_window">
+        <field name="name">Merek Armada</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">cdn.merek</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                <!-- Add Text Here -->
+            </p><p>
+                <!-- More details about what a user can do with this object will be OK --> 
+            
+            </p>
+        </field>
+    </record>
+    <!-- This Menu Item must have a parent and an action -->
+    <menuitem id="merek_kendaraan_menu_act" name="Merek Kendaraan" parent="armada_menu_categ" action="cdn_merek_action" sequence="20"/>
+    </data>
+    
+
+</odoo>
