@@ -25,16 +25,10 @@
     # always loaded
     'data': [
         # 'security/ir.model.access.csv',
-<<<<<<< HEAD
-        'views/menu.xml',
+        'views/menu_view.xml',
         'views/armada.xml',
         'views/jenis_kendaraan.xml',
         'views/merek.xml',
-=======
-        'views/menu_view.xml',
-        'views/views.xml',
-        'views/templates.xml',
->>>>>>> 17bf3ee9b53084694dba5e85c8a64c2a5e6b1727
     ],
     # only loaded in demonstration mode
     'demo': [
