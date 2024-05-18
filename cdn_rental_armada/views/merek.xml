@@ -3,7 +3,7 @@
 
     <data>
     
-        <!-- cdn.merek tree view -->
+        <!-- adi -->
         <record id="cdn_merek_view_tree" model="ir.ui.view">
             <field name="name">Merek Kendaraan</field>
             <field name="model">cdn.merek</field>
