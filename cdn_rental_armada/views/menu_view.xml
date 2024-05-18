@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+        <!-- rizki -->
+        <menuitem id="armada_menu_root" name="Rental Armada" sequence="0"/>
+
+        <!-- rizki -->
+        <menuitem id="armada_menu_categ" name="Armada" parent="armada_menu_root" sequence="1"/>
+
+        <!-- rizki -->
+        <menuitem id="transaksi_menu_categ" name="Transaksi" parent="armada_menu_root" sequence="20"/>
+
+        <!-- rizki -->
+        <menuitem id="pengaturan_menu_categ" name="Pengaturan" parent="armada_menu_root" sequence="30"/>
+    
+    </data>
+</odoo>
