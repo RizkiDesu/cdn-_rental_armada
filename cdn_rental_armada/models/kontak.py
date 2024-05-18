@@ -1,7 +1,6 @@
 from odoo import models, fields, api
 
-
-
+# ian
 class ResPartner(models.Model):
    _inherit = 'res.partner'
 
