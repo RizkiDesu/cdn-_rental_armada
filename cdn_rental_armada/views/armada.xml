@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
-        <!-- cdn.armada tree view -->
+        <!-- adi-->
         <record id="cdn_armada_view_tree" model="ir.ui.view">
             <field name="name">Armada</field>
             <field name="model">cdn.armada</field>

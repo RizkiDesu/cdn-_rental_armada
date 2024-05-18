@@ -1,5 +1,6 @@
 from odoo import _, api, fields, models
 
+#adi
 class CdnjenisKendaraan(models.Model):
     _name = 'cdn.jenis.kendaraan'
     _description = 'cdn jenis kendaraan'

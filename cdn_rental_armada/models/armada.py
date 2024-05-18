@@ -1,7 +1,7 @@
 from odoo import _, api, fields, models
 
 
-
+#adi
 class CdnArmada(models.Model):
     _name = 'cdn.armada'
     _description = 'Cdn Armada'
