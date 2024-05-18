@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+    
+        <!-- This Menu Item will appear in the Upper bar, that's why It needs NO parent or action -->
+        <menuitem id="armada_menu_root" name="Rental Armada" sequence="0"/>
+
+        <!-- This Menu Item Must have a parent -->
+        <menuitem id="armada_menu_categ" name="Armada" parent="armada_menu_root" sequence="1"/>
+
+        <!-- This Menu Item Must have a parent -->
+        <menuitem id="transaksi_menu_categ" name="Transaksi" parent="armada_menu_root" sequence="20"/>
+
+        <!-- This Menu Item Must have a parent -->
+        <menuitem id="pengaturan_menu_categ" name="Pengaturan" parent="armada_menu_root" sequence="30"/>
+    
+    </data>
+    
+</odoo>
