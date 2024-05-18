@@ -5,5 +5,6 @@ from . import armada
 from . import jenis_kendaraan
 from . import merek
 from . import kontak
-from . import kontakawdasd
+
+# awkawokowak
 
