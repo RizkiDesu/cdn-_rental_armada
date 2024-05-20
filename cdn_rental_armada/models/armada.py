@@ -20,6 +20,8 @@ class CdnArmada(models.Model):
     no_mesin        = fields.Char(string='No Rangka & No Mesin',required=True)
     kondisi         = fields.Boolean(string='Kondisi Kendaraan', default="True", help="Jika aktif berarti armada dalam kondisi bagus")
     foto_mobil      = fields.Image('Foto Armada')
+    state           = fields.Selection(string='Status Armada', selection=[('siap', 'Siap Dipakai'), ('dipakai', 'Sedang Dipakai'), ('service','Sedang Diservis')], default="siap")
+    
     
     def name_get(self):
         return [(record.id, "[ %s ] %s %s" % (record.jenis_armada, record.merek_id.name, record.jenis_kendaraan.name)) for record in self]
@@ -35,3 +37,15 @@ class CdnArmada(models.Model):
             })
             vals['jenis_kendaraan'] = jenis_kendaraan.id
         return super(CdnArmada, self).create(vals)
+
+    def action_state_siap(self) :
+        for rec in self : 
+            rec.state = 'siap'
+
+    def action_state_dipakai(self) :
+        for rec in self : 
+            rec.state = 'dipakai'
+
+    def action_state_service(self) :
+        for rec in self : 
+            rec.state = 'service'
