@@ -13,7 +13,71 @@
                     <field name="jumlah_kursi"/>
                     <field name="tahun_pembuatan"/>
                     <field name="kondisi" widget="boolean_toggle"/>
+                    <field name="state" 
+                        decoration-success="state == 'siap'"
+                        decoration-warning="state == 'dipakai'" 
+                        decoration-danger="state == 'service'" 
+                        widget="badge"/>
                 </tree>
+            </field>
+        </record>
+        <!-- alvito -->
+        <!-- cdn.armada kanban view -->
+        <record id="cdn_armada_view_kanban" model="ir.ui.view">
+            <field name="name">cdn.armada.view.kanban</field>
+            <field name="model">cdn.armada</field>
+            <field name="arch" type="xml">
+                <kanban string="Kanban Description">
+                    <!-- Add your fields here -->
+                    <field name="id"/>
+                    <field name="jenis_armada"/>
+                    <field name="merek_id"/>
+                    <field name="jenis_kendaraan"/>
+                    <field name="jumlah_kursi"/>
+                    <field name="tahun_pembuatan"/>
+                    <field name="kondisi" widget="boolean_toggle"  />
+                    <field name="foto_mobil"/>
+                    <field name="no_plat"/>
+                    <templates>
+                        
+                            <t t-name="kanban-box">
+                            <div class="oe_kanban_global_click o_kanban_record_has_image_fill">
+                                <t t-if="record.foto_mobil.raw_value">
+
+                                    <div class="o_kanban_image_fill_left d-none d-md-block" t-attf-style="background-image:url('#{kanban_image('cdn.armada','foto_mobil', record.id.raw_value)}')"/>
+                                    
+                                </t>
+                                <t t-else="record.foto_mobil.raw_value">
+                                
+                                    <div class="o_kanban_image_fill_left d-none d-md-block" t-attf-style="background-image:url('#{kanban_image('cdn.armada','avatar_128', record.id.raw_value)}')"/>
+                                    
+                                </t>
+                                <div class="oe_kanban_details">
+                                    <h4>
+                                        <a type="open"><field name="jenis_kendaraan"/></a>
+                                    </h4>
+                                    <ul>
+
+                                        <li>
+                                            <span class="text-muted">Jenis armada: </span> <field name="jenis_armada"/>
+                                        </li>
+
+                                        <li>
+                                            <span class="text-muted">Merek: </span> <field name="merek_id"/>
+                                        </li>
+                                        <li>
+                                            <span class="text-muted">No Plat: </span> <field name="no_plat"/>
+                                        </li>
+                                        <li>
+                                            <span class="text-muted">Jmlh Kursi: </span> <field name="jumlah_kursi"/>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </t>
+                        
+                    </templates>
+                </kanban>
             </field>
         </record>
         <record id="cdn_armada_view_form" model="ir.ui.view">
@@ -21,24 +85,49 @@
             <field name="model">cdn.armada</field>
             <field name="arch" type="xml">
                 <form string="">
+                    <header>
+                        <button string="Siap Dipakai" name="action_state_siap" type="object" class="oe_highlight" states="dipakai,service"/>
+                        <button string="Sedang Dipakai" name="action_state_dipakai" type="object" class="oe_highlight" states="siap"/>
+                        <button string="Sedang Diservis" name="action_state_service" type="object" class="oe_highlight" states="siap"/>
+                        
+                        <field name="state" widget="statusbar" nolabel="1" statusbar_visible="siap,dipakai,service"/>
+                    </header>
+                    
                     <sheet>
+                    <div class="oe_button_box" name="button_box"> 
+                        <button name="tombol_jenis" type="object" class="oe_stat_button" icon="fa-superpowers" context="{'default_jenis_armada':jenis_armada}">
+                            <field name="jenis_armada" readonly="1"/>
+                        </button>
+                        <button name="tombol_merek_action" type="object" class="oe_stat_button" icon="fa-superpowers">
+                            Merek
+                        </button>
+                        <button name="tombol_service" type="object" class="oe_stat_button" icon="fa-superpowers" context="{'default_armada_id':active_id,'hide_nama_service':1}">
+                            <field name="hitung_service" string="Kali Perawatan" widget="statinfo"/>
+                        </button>
+                    </div>
+                    <widget name="web_ribbon" text="Kondisi Tidak Layak" bg_color="bg-danger" attrs="{'invisible':[('kondisi','=',True)]}" />
+                        <group name="data_kendaraan" string="Data Armada">
                     <div class="alert alert-danger text-center o_form_header" role="alert" attrs="{'invisible':[('kondisi','=',True)]}">
                         <strong>Armada sudah lama tidak di servis</strong>
                     </div>
                     <!-- <widget name="web_ribbon" text="Kondisi Tidak Layak" bg_color="bg-danger" attrs="{'invisible':[('kondisi','=',True)]}" /> -->
-                        <group name="data_kendaraan" string="Data Armada">
+                    <div>
+                            <field name="foto_mobil" widget="image" class="oe_avatar" />
+                    </div>   
+                       <group name="data_kendaraan" string="Data Armada">
+
                         <group>
                             <field name="jenis_armada"/>
                             <field name="merek_id"/>
                             <field name="jenis_kendaraan" context="{'default_merek_id': merek_id}" attrs = "{'readonly':[('merek_id', '=', False)]}"/>
                             <field name="jumlah_kursi"/>
-                            <field name="foto_mobil" widget="image"/>
                         </group>
                         <group>
                             <field name="tahun_pembuatan"/>
                             <field name="no_plat"/>
                             <field name="no_mesin"/>
                             <field name="kondisi" help="Jika aktif berarti armada dalam kondisi bagus" widget="boolean_toggle"/>
+                            <field name="terakhir_service"/>
                         </group>
                         </group>
                     </sheet>
@@ -49,7 +138,7 @@
             <field name="name">Armada</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">cdn.armada</field>
-            <field name="view_mode">tree,form</field>
+            <field name="view_mode">kanban,tree,form</field>
             <field name="help" type="html">
                 <p class="oe_view_nocontent_create">
                 </p><p>

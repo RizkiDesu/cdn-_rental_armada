@@ -10,7 +10,7 @@ class ResPartner(models.Model):
    umur          = fields.Integer(string='Umur', required=True)
    is_menikah    = fields.Boolean(string='Menikah', default=False, required=True)
    status        = fields.Selection(string='Status', selection=[('aktif', 'Aktif'), ('nonaktif', 'Nonaktif'),], default="aktif", required=True)
-   sim_line      = fields.One2many(comodel_name='cdn.sim', inverse_name='sim_id', string='No Sim')
+   sim_line      = fields.One2many(comodel_name='cdn.sim', inverse_name='sim_id', string='Izin Mengemudi')
    
 class CdnSim(models.Model):
    _name         = 'cdn.sim'
