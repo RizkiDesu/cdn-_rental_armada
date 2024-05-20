@@ -9,7 +9,7 @@ class ResPartner(models.Model):
    no_ktp        = fields.Char(string='No KTP', required=True)
    umur          = fields.Integer(string='Umur', required=True)
    is_menikah    = fields.Boolean(string='Menikah', default=False, required=True)
-   status        = fields.Boolean(string='Aktif', default=True)
+   status        = fields.Selection(string='Status', selection=[('aktif', 'Aktif'), ('nonaktif', 'Nonaktif'),], default="aktif", required=True)
    sim_line      = fields.One2many(comodel_name='cdn.sim', inverse_name='sim_id', string='No Sim')
    
 class CdnSim(models.Model):

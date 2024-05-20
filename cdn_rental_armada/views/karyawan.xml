@@ -10,12 +10,15 @@
          <field name="inherit_id" ref="base.view_partner_tree"/>
          <field name="arch" type="xml">
             <xpath expr="//tree" position="replace">
-            <tree>
+            <tree sample="1" decoration-danger="status == 'nonaktif'">
                <field name="name"/>
                <field name="jenis_kelamin"/>
                <field name="umur"/>
                <field name="mobile"/>
-               <field name="status"/>
+               <field name="status" 
+                  decoration-success="status == 'aktif'"  
+                  decoration-danger="status == 'nonaktif'" 
+                  widget="badge" />
             </tree>
             </xpath>
          </field>

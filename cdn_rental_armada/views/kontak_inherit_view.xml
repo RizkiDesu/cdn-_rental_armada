@@ -10,11 +10,12 @@
          <field name="arch" type="xml">
             <!-- field tambahan -->
             <xpath expr="//span[@name='address_name']" position="before">
-                  <field name="pekerjaan"/>
+                  <field name="pekerjaan" readonly="1" force_save="1"/>
                   <field name="jenis_kelamin"/>
                   <field name="no_ktp"/>
                   <field name="umur"/>
-                  <field name="is_menikah"/>
+                  <field name="is_menikah" widget="boolean_toggle"/>
+                  <field name="status"/>
             </xpath>
             <!-- untuk menghilangkan autofocus pada contact_addresses supaya page sim menjadi autofocus -->
             <xpath expr="//page[@name='contact_addresses']" position="attributes">
