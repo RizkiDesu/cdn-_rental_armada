@@ -3,14 +3,14 @@
 
     <data>
     
-        <!-- cdn.jenis.kendaraan tree view -->
+        <!-- adi -->
         <record id="cdn_jenis_kendaraan_view_tree" model="ir.ui.view">
             <field name="name">Jenis Kendaraan</field>
             <field name="model">cdn.jenis.kendaraan</field>
             <field name="arch" type="xml">
                 <tree>
                     <!-- Add your fields here -->
-                    <field name="name"/>
+                    <field name="name" required="1"/>
                     <field name="merek_id"/>
                 </tree>
             </field>

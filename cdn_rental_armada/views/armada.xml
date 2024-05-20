@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
-        <!-- cdn.armada tree view -->
+        <!-- adi -->
         <record id="cdn_armada_view_tree" model="ir.ui.view">
             <field name="name">Armada</field>
             <field name="model">cdn.armada</field>
@@ -11,7 +11,7 @@
                     <field name="merek_id"/>
                     <field name="jenis_kendaraan"/>
                     <field name="jumlah_kursi"/>
-                    <field name="tahun_pembuatan"/>
+                    <field name="tahun_pembuatan" />
                     <field name="no_plat"/>
                     <field name="no_mesin"/>
                     <field name="kondisi"/>
@@ -29,7 +29,7 @@
                         <group>
                             <field name="jenis_armada"/>
                             <field name="merek_id"/>
-                            <field name="jenis_kendaraan" domain="[('merek_id', '=', merek_id)]"/>
+                            <field name="jenis_kendaraan" context="{'default_merek_id': merek_id}"/>
                             <field name="jumlah_kursi"/>
                         </group>
                         <group>

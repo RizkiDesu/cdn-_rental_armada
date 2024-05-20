@@ -1,5 +1,6 @@
 from odoo import _, api, fields, models
 
+#adi
 class CdnMerek(models.Model):
     _name = 'cdn.merek'
     _description = 'Merek'

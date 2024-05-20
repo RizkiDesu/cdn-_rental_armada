@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+        <data>
+            <!-- Add you code here -->
+            <record id="category_rental" model="ir.module.category">
+                <field name="name">Rental Armada</field>
+                <field name="description">Rental Armada</field>
+            </record>
+            <record id="group_armada_karyawan" model="res.groups">
+                <field name="name">Karyawan</field>
+                <field name="category_id" ref="category_rental"></field>
+            </record>
+            <record id="group_armada_spv" model="res.groups">
+                <field name="name">Supervisor</field>
+                <field name="category_id" ref="category_rental"></field>
+                <field name="implied_ids" eval="[(4, ref('group_armada_karyawan'))]"></field>
+            </record>
+            <record id="group_armada_admin" model="res.groups">
+                <field name="name">Admin</field>
+                <field name="category_id" ref="category_rental"></field>
+                <field name="implied_ids" eval="[(4, ref('group_armada_spv'))]"></field>
+                <field name="users" eval="[(4, ref('base.user_admin'))]"></field>
+            </record>
+            <record id="group_armada_manager" model="res.groups">
+                <field name="name">Manager</field>
+                <field name="category_id" ref="category_rental"></field>
+                <field name="implied_ids" eval="[(4, ref('group_armada_admin'))]"></field>
+               
+            </record>
+        </data>
+</odoo>
