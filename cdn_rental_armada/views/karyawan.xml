@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+   <!-- ian -->
+   <data>
+
+      <!-- List View Karyawan -->
+      <record id="karyawan_tree_inherit" model="ir.ui.view">
+         <field name="name">karyawan_tree_inherit.inherit.view.tree</field>
+         <field name="model">res.partner</field>
+         <field name="inherit_id" ref="base.view_partner_tree"/>
+         <field name="arch" type="xml">
+            <xpath expr="//tree" position="replace">
+            <tree>
+               <field name="name"/>
+               <field name="jenis_kelamin"/>
+               <field name="umur"/>
+               <field name="mobile"/>
+               <field name="status"/>
+            </tree>
+            </xpath>
+         </field>
+      </record>
+
+      <!-- Menu Action Supir -->
+      <record id="karyawan_supir_action" model="ir.actions.act_window">
+         <field name="name">Supir</field>
+         <field name="type">ir.actions.act_window</field>
+         <field name="res_model">res.partner</field>
+         <field name="view_mode">tree,form</field>
+         <field name="context">{'default_pekerjaan': 'supir'}</field>
+         <field name="domain">[('pekerjaan','=','supir')]</field>
+      </record>
+      <menuitem id="karyawan_supir_menu_action" name="Supir" parent="karyawan_menu_categ" action="karyawan_supir_action" sequence="10"/>
+      
+      <!-- Menu Action Tenaga Bantuan -->
+      <record id="karyawan_tenaga_bantuan_action" model="ir.actions.act_window">
+         <field name="name">Tenaga Bantuan</field>
+         <field name="type">ir.actions.act_window</field>
+         <field name="res_model">res.partner</field>
+         <field name="view_mode">tree,form</field>
+         <field name="context">{'default_pekerjaan': 'tenaga_bantuan'}</field>
+         <field name="domain">[('pekerjaan','=','tenaga_bantuan')]</field>
+      </record>
+      <menuitem id="karyawan_tenaga_bantuan_menu_action" name="Tenaga Bantuan" parent="karyawan_menu_categ" action="karyawan_tenaga_bantuan_action" sequence="20"/>
+
+   </data>
+   
+</odoo>
