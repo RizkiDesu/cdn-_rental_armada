@@ -20,7 +20,7 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'product'],
+    'depends': ['base', 'product', 'account'],
 
     # always loaded
     'data': [
@@ -34,6 +34,7 @@
         'views/karyawan.xml',
         'views/pengaturan.xml',
         'views/product_inherit.xml',
+        'views/penagihan_inherit.xml',
         'views/perawatan.xml',
     ],
     # only loaded in demonstration mode
