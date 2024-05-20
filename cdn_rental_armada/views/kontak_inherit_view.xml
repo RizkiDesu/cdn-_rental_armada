@@ -10,7 +10,7 @@
          <field name="arch" type="xml">
             <!-- field tambahan -->
             <xpath expr="//span[@name='address_name']" position="before">
-                  <field name="pekerjaan" readonly="1" force_save="1"/>
+                  <field name="pekerjaan"/>
                   <field name="jenis_kelamin"/>
                   <field name="no_ktp"/>
                   <field name="umur"/>
