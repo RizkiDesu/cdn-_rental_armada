@@ -32,6 +32,7 @@
         'views/merek.xml',
         'views/kontak_inherit_view.xml',
         'views/karyawan.xml',
+        'views/pengaturan.xml',
         'views/product_inherit.xml',
     ],
     # only loaded in demonstration mode
