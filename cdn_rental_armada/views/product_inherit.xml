@@ -56,6 +56,6 @@
             </field>
         </record>
         <!-- This Menu Item must have a parent and an action -->
-        <menuitem id="product_menu_act" name="Product" parent="product_menu_categ" action="product_template_action" sequence="0"/>
+        <menuitem id="product_menu_act" name="Produk" parent="product_menu_categ" action="product_template_action" sequence="0"/>
     </data>
 </odoo>
