@@ -2,10 +2,16 @@
 <odoo>
     <data>
         <!-- rizki -->
-        <menuitem id="armada_menu_root" name="Rental Armada" sequence="0"/>
+        <menuitem id="armada_menu_root" name="Rental Armada" sequence="0" web_icon="cdn_rental_armada,static/description/odoo_icon.png"/>
 
         <!-- rizki -->
         <menuitem id="armada_menu_categ" name="Armada" parent="armada_menu_root" sequence="1"/>
+
+        <!-- ian -->
+        <menuitem id="karyawan_menu_categ" name="Karyawan" parent="armada_menu_root" sequence="10"/>
+        
+        <!-- rizki -->
+        <menuitem id="product_menu_categ" name="Product" parent="armada_menu_root" sequence="15"/>
 
         <!-- rizki -->
         <menuitem id="transaksi_menu_categ" name="Transaksi" parent="armada_menu_root" sequence="20"/>
