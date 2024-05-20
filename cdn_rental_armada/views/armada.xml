@@ -13,6 +13,11 @@
                     <field name="jumlah_kursi"/>
                     <field name="tahun_pembuatan"/>
                     <field name="kondisi" widget="boolean_toggle"/>
+                    <field name="state" 
+                        decoration-success="state == 'siap'"
+                        decoration-warning="state == 'dipakai'" 
+                        decoration-danger="state == 'service'" 
+                        widget="badge"/>
                 </tree>
             </field>
         </record>
@@ -21,6 +26,14 @@
             <field name="model">cdn.armada</field>
             <field name="arch" type="xml">
                 <form string="">
+                    <header>
+                        <button string="Siap Dipakai" name="action_state_siap" type="object" class="oe_highlight" states="dipakai,service"/>
+                        <button string="Sedang Dipakai" name="action_state_dipakai" type="object" class="oe_highlight" states="siap"/>
+                        <button string="Sedang Diservis" name="action_state_service" type="object" class="oe_highlight" states="siap"/>
+                        
+                        <field name="state" widget="statusbar" nolabel="1" statusbar_visible="siap,dipakai,service"/>
+                    </header>
+                    
                     <sheet>
                     <div class="alert alert-danger text-center o_form_header" role="alert" attrs="{'invisible':[('kondisi','=',True)]}">
                         <strong>Armada sudah lama tidak di servis</strong>
