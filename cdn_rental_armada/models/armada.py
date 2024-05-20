@@ -18,7 +18,7 @@ class CdnArmada(models.Model):
     tahun_pembuatan = fields.Integer(string='Tahun Pembuatan', required=True, default=lambda self: date.today().year)
     no_plat         = fields.Char(string='Plat Nomor', required=True)
     no_mesin        = fields.Char(string='No Rangka & No Mesin',required=True)
-    kondisi         = fields.Boolean(string='Kondisi Armada', default="True", help="Jika aktif berarti armada dalam kondisi bagus")
+    kondisi         = fields.Boolean(string='Kondisi Kendaraan', default="True", help="Jika aktif berarti armada dalam kondisi bagus")
     foto_mobil      = fields.Image('Foto Armada')
     
     def name_get(self):
