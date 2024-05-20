@@ -6,45 +6,41 @@
             <field name="name">Armada</field>
             <field name="model">cdn.armada</field>
             <field name="arch" type="xml">
-                <tree>
+                <tree sample="1" decoration-danger="kondisi == False">
                     <field name="jenis_armada"/>
                     <field name="merek_id"/>
                     <field name="jenis_kendaraan"/>
                     <field name="jumlah_kursi"/>
-                    <field name="tahun_pembuatan" />
-                    <field name="no_plat"/>
-                    <field name="no_mesin"/>
-                    <field name="kondisi"/>
+                    <field name="tahun_pembuatan"/>
+                    <field name="kondisi" widget="boolean_toggle"/>
                 </tree>
             </field>
         </record>
-        <!-- cdn.armada form view -->
         <record id="cdn_armada_view_form" model="ir.ui.view">
             <field name="name">cdn.armada.view.form</field>
             <field name="model">cdn.armada</field>
             <field name="arch" type="xml">
                 <form string="">
                     <sheet>
+                    <widget name="web_ribbon" text="Kondisi Tidak Layak" bg_color="bg-danger" attrs="{'invisible':[('kondisi','=',True)]}" />
                         <group name="data_kendaraan" string="Data Armada">
                         <group>
                             <field name="jenis_armada"/>
                             <field name="merek_id"/>
-                            <field name="jenis_kendaraan" context="{'default_merek_id': merek_id}"/>
+                            <field name="jenis_kendaraan" context="{'default_merek_id': merek_id}" attrs = "{'readonly':[('merek_id', '=', False)]}"/>
                             <field name="jumlah_kursi"/>
                         </group>
                         <group>
                             <field name="tahun_pembuatan"/>
                             <field name="no_plat"/>
                             <field name="no_mesin"/>
-                            <field name="kondisi"/>
+                            <field name="kondisi" help="Jika aktif berarti armada dalam kondisi bagus" widget="boolean_toggle"/>
                         </group>
                         </group>
                     </sheet>
                 </form>
             </field>
         </record>
-
-        <!-- cdn.armada action window -->
         <record id="cdn_armada_action" model="ir.actions.act_window">
             <field name="name">Armada</field>
             <field name="type">ir.actions.act_window</field>
@@ -52,15 +48,10 @@
             <field name="view_mode">tree,form</field>
             <field name="help" type="html">
                 <p class="oe_view_nocontent_create">
-                    <!-- Add Text Here -->
                 </p><p>
-                    <!-- More details about what a user can do with this object will be OK --> 
-                
                 </p>
             </field>
         </record>
-
-        <!-- This Menu Item must have a parent and an action -->
         <menuitem id="armada_menu_action" name="armada" parent="armada_menu_categ" action="cdn_armada_action" sequence="0"/>
     </data>
 </odoo>

@@ -8,7 +8,7 @@
             <field name="name">Jenis Kendaraan</field>
             <field name="model">cdn.jenis.kendaraan</field>
             <field name="arch" type="xml">
-                <tree>
+                <tree sample="1">
                     <!-- Add your fields here -->
                     <field name="name" required="1"/>
                     <field name="merek_id"/>
