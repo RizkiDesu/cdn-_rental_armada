@@ -34,6 +34,7 @@
         'views/karyawan.xml',
         'views/pengaturan.xml',
         'views/product_inherit.xml',
+        'views/perawatan.xml',
     ],
     # only loaded in demonstration mode
     'demo': [

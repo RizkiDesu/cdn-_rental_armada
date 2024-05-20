@@ -22,6 +22,17 @@
             <field name="arch" type="xml">
                 <form string="">
                     <sheet>
+                    <div class="oe_button_box" name="button_box"> 
+                        <button name="tombol_jenis" type="object" class="oe_stat_button" icon="fa-superpowers" context="{'default_jenis_armada':jenis_armada}">
+                            <field name="jenis_armada" readonly="1"/>
+                        </button>
+                        <button name="tombol_merek_action" type="object" class="oe_stat_button" icon="fa-superpowers">
+                            Merek
+                        </button>
+                        <button name="tombol_service" type="object" class="oe_stat_button" icon="fa-superpowers" context="{'default_armada_id':active_id,'hide_nama_service':1}">
+                            <field name="hitung_service" string="Kali Perawatan" widget="statinfo"/>
+                        </button>
+                    </div>
                     <widget name="web_ribbon" text="Kondisi Tidak Layak" bg_color="bg-danger" attrs="{'invisible':[('kondisi','=',True)]}" />
                         <group name="data_kendaraan" string="Data Armada">
                         <group>
@@ -36,6 +47,7 @@
                             <field name="no_plat"/>
                             <field name="no_mesin"/>
                             <field name="kondisi" help="Jika aktif berarti armada dalam kondisi bagus" widget="boolean_toggle"/>
+                            <field name="terakhir_service"/>
                         </group>
                         </group>
                     </sheet>

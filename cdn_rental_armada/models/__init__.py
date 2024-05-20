@@ -7,3 +7,4 @@ from . import merek
 from . import kontak
 from . import pengaturan
 from . import product_inherit
+from . import perawatan
