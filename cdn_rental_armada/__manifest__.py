@@ -30,6 +30,8 @@
         'views/armada.xml',
         'views/jenis_kendaraan.xml',
         'views/merek.xml',
+        'views/kontak_inherit_view.xml',
+        'views/karyawan.xml',
         'views/product_inherit.xml',
     ],
     # only loaded in demonstration mode

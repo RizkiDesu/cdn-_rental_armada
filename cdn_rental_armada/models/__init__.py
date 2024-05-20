@@ -6,6 +6,3 @@ from . import jenis_kendaraan
 from . import merek
 from . import kontak
 from . import product_inherit
-
-# tes
-# awkawokowak
