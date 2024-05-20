@@ -12,7 +12,7 @@
                     <field name="jenis_kendaraan"/>
                     <field name="jumlah_kursi"/>
                     <field name="tahun_pembuatan"/>
-                    <field name="kondisi" widget="boolean_toggle"/>
+                    <field name="kondisi" widget="boolean_toggle"  />
                 </tree>
             </field>
         </record>
@@ -26,13 +26,15 @@
                         <strong>Armada sudah lama tidak di servis</strong>
                     </div>
                     <!-- <widget name="web_ribbon" text="Kondisi Tidak Layak" bg_color="bg-danger" attrs="{'invisible':[('kondisi','=',True)]}" /> -->
-                        <group name="data_kendaraan" string="Data Armada">
+                    <div>
+                            <field name="foto_mobil" widget="image" class="oe_avatar" options="{&quot;preview_image&quot;: &quot;avatar_128&quot;}"/>
+                    </div>   
+                       <group name="data_kendaraan" string="Data Armada">
                         <group>
                             <field name="jenis_armada"/>
                             <field name="merek_id"/>
                             <field name="jenis_kendaraan" context="{'default_merek_id': merek_id}" attrs = "{'readonly':[('merek_id', '=', False)]}"/>
                             <field name="jumlah_kursi"/>
-                            <field name="foto_mobil" widget="image"/>
                         </group>
                         <group>
                             <field name="tahun_pembuatan"/>
