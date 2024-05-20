@@ -51,7 +51,7 @@
         </field>
     </record>
     <!-- This Menu Item must have a parent and an action -->
-    <menuitem id="jenis_kendaraan_menu_act" name="Jenis Armada" parent="armada_menu_categ" action="cdn_jenis_kendaraan_action" sequence="20"/>
+    <menuitem id="jenis_kendaraan_menu_act" name="Jenis Kendaraan" parent="armada_menu_categ" action="cdn_jenis_kendaraan_action" sequence="20"/>
     </data>
     
 
