@@ -106,7 +106,6 @@
                         </button>
                     </div>
                     <widget name="web_ribbon" text="Kondisi Tidak Layak" bg_color="bg-danger" attrs="{'invisible':[('kondisi','=',True)]}" />
-                        <group name="data_kendaraan" string="Data Armada">
                     <div class="alert alert-danger text-center o_form_header" role="alert" attrs="{'invisible':[('kondisi','=',True)]}">
                         <strong>Armada sudah lama tidak di servis</strong>
                     </div>
@@ -130,6 +129,7 @@
                             <field name="terakhir_service"/>
                         </group>
                         </group>
+                        
                     </sheet>
                 </form>
             </field>
