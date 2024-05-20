@@ -8,7 +8,7 @@
             <field name="name">Merek Kendaraan</field>
             <field name="model">cdn.merek</field>
             <field name="arch" type="xml">
-                <tree>
+                <tree sample="1">
                     <!-- Add your fields here -->
                     <field name="name"/>
                     
@@ -31,7 +31,7 @@
                                 
                             </group>
                             <notebook>
-                                <page name="jenis" string="Nama Kendaraan">
+                                <page name="jenis" string="Jenis Kendaraan">
                                     <field name="jenis_ids">
                                     <tree editable="top">
                                         <field name="name"/>
