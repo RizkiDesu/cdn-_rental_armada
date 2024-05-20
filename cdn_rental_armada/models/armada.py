@@ -1,4 +1,5 @@
 from odoo import _, api, fields, models
+from datetime import date
 
 
 #adi
@@ -10,14 +11,15 @@ class CdnArmada(models.Model):
         ('unique_no_mesin', 'Unique(no_mesin)','Nomor mesin tidak boleh sama!'),
     ]
 
-    merek_id        = fields.Many2one(comodel_name='cdn.merek', string='merek kendaraan',required=True)
-    jenis_kendaraan = fields.Many2one(comodel_name='cdn.jenis.kendaraan', string='Jenis kendaraan',required=True,domain="[('merek_id', '=', merek_id)]")
-    jumlah_kursi    = fields.Integer(string='Jumlah Kursi', required=True)
+    merek_id        = fields.Many2one(comodel_name='cdn.merek', string='Merek Kendaraan',required=True)
+    jenis_kendaraan = fields.Many2one(comodel_name='cdn.jenis.kendaraan', string='Jenis Kendaraan',required=True,domain="[('merek_id', '=', merek_id)]")
+    jumlah_kursi    = fields.Integer(string='Jumlah Kursi', required=True, default="2")
     jenis_armada    = fields.Selection(string='Jenis Armada', selection=[('bis', 'Bis Pariwisata'), ('travel', 'Travel'),('mobil', 'Mobil')], required=True)    
-    tahun_pembuatan = fields.Date(string='Tahun Pembuatan', required=True)
+    tahun_pembuatan = fields.Integer(string='Tahun Pembuatan', required=True, default=lambda self: date.today().year)
     no_plat         = fields.Char(string='Plat Nomor', required=True)
     no_mesin        = fields.Char(string='No Rangka & No Mesin',required=True)
-    kondisi         = fields.Boolean(string='Kondisi Armada', default="True")
+    kondisi         = fields.Boolean(string='Kondisi Armada', default="True", help="Jika aktif berarti armada dalam kondisi bagus")
+    foto_mobil      = fields.Image('Foto Armada')
     
     def name_get(self):
         return [(record.id, "[ %s ] %s %s" % (record.jenis_armada, record.merek_id.name, record.jenis_kendaraan.name)) for record in self]

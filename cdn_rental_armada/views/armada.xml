@@ -29,6 +29,7 @@
                             <field name="merek_id"/>
                             <field name="jenis_kendaraan" context="{'default_merek_id': merek_id}" attrs = "{'readonly':[('merek_id', '=', False)]}"/>
                             <field name="jumlah_kursi"/>
+                            <field name="foto_mobil" widget="image"/>
                         </group>
                         <group>
                             <field name="tahun_pembuatan"/>
@@ -52,6 +53,6 @@
                 </p>
             </field>
         </record>
-        <menuitem id="armada_menu_action" name="armada" parent="armada_menu_categ" action="cdn_armada_action" sequence="0"/>
+        <menuitem id="armada_menu_action" name="Armada" parent="armada_menu_categ" action="cdn_armada_action" sequence="0"/>
     </data>
 </odoo>
