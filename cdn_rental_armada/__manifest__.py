@@ -36,6 +36,7 @@
         'views/product_inherit.xml',
         'views/penagihan_inherit.xml',
         'views/perawatan.xml',
+        # 'reports/armada_report.xml',
     ],
     # only loaded in demonstration mode
     'demo': [
