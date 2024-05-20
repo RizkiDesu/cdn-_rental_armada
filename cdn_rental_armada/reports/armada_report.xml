@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+   <data>
+      <report id="report_armada"
+            string="Print PDF"
+            model="cdn.armada"
+            report_type="qweb-pdf"
+            menu="False"
+            file="cdn_armada.report_armada_template"
+            name="cdn_armada.report_armada_template"/>
+   
+      <template id="report_armada_template" name="Report Armada">
+         <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+               <div class="header" style="padding-top: 50px;">
+                  <table style="border: 8px;" width="100%">
+                     <tr style="padding: 5px;">
+                        <td style="padding: 2px;" width="50%" ><span t-field="o.jenis_armada"/></td>
+                        <td style="padding: 2px;" width="50%" ><span t-field="o.merek_id"/></td>
+                        <td style="padding: 2px;" width="50%" ><span t-field="o.jenis_kendaraan"/></td>
+                        <td style="padding: 2px;" width="50%" ><span t-field="o.jumlah_kursi"/></td>
+                        <td style="padding: 2px;" width="50%" ><span t-field="o.tahun_pembuatan"/></td>
+                        <td style="padding: 2px;" width="50%" ><span t-field="o.kondisi"/></td>
+                        <td style="padding: 2px;" width="50%" ><span t-field="o.state"/></td>
+                     </tr>
+                     <!-- <field name="jenis_armada"/>
+                     <field name="merek_id"/>
+                     <field name="jenis_kendaraan"/>
+                     <field name="jumlah_kursi"/>
+                     <field name="tahun_pembuatan"/>
+                     <field name="kondisi" widget="boolean_toggle"/>
+                     <field name="state" 
+                           decoration-success="state == 'siap'"
+                           decoration-warning="state == 'dipakai'" 
+                           decoration-danger="state == 'service'" 
+                           widget="badge"/> -->
+                  </table>
+               </div>
+               <!-- <div class="page">
+                  <style>
+                     table, tr, td {
+                        border: 1px solid #000;
+                        border-collapse: collapse;
+                     }
+                  </style>
+
+                  <table style="border: 8px;" width="100%">
+                     <tr>
+                        <td><span>Jenis Armada</span></td>
+                        <td><span>Merek</span></td>
+                        <td><span>Jumlah Kursi</span></td>
+                        <td><span>Tahun Pembuatan</span></td>
+                        <td><span>Kondisi</span></td>
+                        <td><span>Status Armada</span></td>
+                     </tr>
+                  </table>
+
+               </div> -->
+               
+            </t>
+         </t>
+      </template>
+   </data>
+   
+
+</odoo>
+
+
+
+   

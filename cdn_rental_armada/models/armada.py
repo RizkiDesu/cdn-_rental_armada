@@ -23,7 +23,7 @@ class CdnArmada(models.Model):
     service_ids     = fields.One2many(comodel_name='cdn.service', inverse_name='armada_id', string='List Armada')
     hitung_service  = fields.Integer(string='Jumlah Service', compute="_compute_service_count", store=True)
     terakhir_service = fields.Date(string='Terakhir Service', compute='_compute_tanggal_service_terakhir', store=True)
-    
+    state           = fields.Selection(string='Status Armada', selection=[('siap', 'Siap Dipakai'), ('dipakai', 'Sedang Dipakai'), ('service','Sedang Diservis')], default="siap")
     
     @api.depends('service_ids.tanggal')
     def _compute_tanggal_service_terakhir(self):
@@ -33,6 +33,8 @@ class CdnArmada(models.Model):
                 rec.terakhir_service = services.tanggal
             else:
                 rec.terakhir_service = False
+    
+
     
     
     def name_get(self):
@@ -83,5 +85,15 @@ class CdnArmada(models.Model):
             'view_mode': 'list,form',
             'type': 'ir.actions.act_window'
         }
-        
-        
+
+    def action_state_siap(self) :
+        for rec in self : 
+            rec.state = 'siap'
+
+    def action_state_dipakai(self) :
+        for rec in self : 
+            rec.state = 'dipakai'
+
+    def action_state_service(self) :
+        for rec in self : 
+            rec.state = 'service'
