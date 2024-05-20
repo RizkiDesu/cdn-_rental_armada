@@ -28,7 +28,7 @@
                             <field name="jenis_armada"/>
                             <field name="merek_id"/>
                             <field name="jenis_kendaraan" context="{'default_merek_id': merek_id}" attrs = "{'readonly':[('merek_id', '=', False)]}"/>
-                            <field name="jumlah_kursi"/>
+                            <field name="jumlah_kursi" />
                         </group>
                         <group>
                             <field name="tahun_pembuatan"/>
