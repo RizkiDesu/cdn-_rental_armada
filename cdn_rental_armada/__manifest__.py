@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "cdn_rental_armada",
+    'name': "Rental Armada",
 
     'summary': """
         Modul ini digunakan untuk mengelola data armada rental kendaraan 
