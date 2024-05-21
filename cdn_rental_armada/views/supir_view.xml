@@ -1,6 +1,51 @@
 <?xml version='1.0' encoding='utf-8'?>
 <odoo>
     <data>
+        <!-- cdn.supir kanban view -->
+        <record id="cdn_supir_view_kanban" model="ir.ui.view">
+            <field name="name">cdn.supir.view.kanban</field>
+            <field name="model">cdn.supir</field>
+            <field name="arch" type="xml">
+                <kanban string="Kanban Description">
+                    <!-- Add your fields here -->
+                    <field name="id"/>
+                    <field name="name"/>
+                    <field name="no_ktp"/>
+                    <field name="city"/>
+                    <field name="status"/>
+                    <field name="image_1920"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div class="oe_kanban_global_click o_kanban_record_has_image_fill">
+                                <t t-if="record.image_1920.raw_value">
+                                    <div class="o_kanban_image_fill_left d-none d-md-block" t-attf-style="background-image:url('#{kanban_image('cdn.supir','image_1920', record.id.raw_value)}')"/>
+                                </t>
+                                <t t-else="">
+                                    <div class="o_kanban_image_fill_left o_kanban_image_full" t-attf-style="background-image: url(#{kanban_image('cdn.supir', 'avatar_128', record.id.raw_value)})" role="img"/>
+                                </t>
+                                <div class="oe_kanban_details">
+                                    <h4>
+                                        <a type="open"><field name="name"/></a>
+                                    </h4>
+                                    <ul>
+                                        <li>
+                                            <span class="text-muted">No KTP</span> <field name="no_ktp"/>
+                                        </li>
+                                        <li>
+                                            <span class="text-muted">Kota</span> <field name="city"/>
+                                        </li>
+                                        <li>
+                                            <span class="text-muted">Status</span> <field name="status"/>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                    
+                </kanban>
+            </field>
+        </record>
     
         <!-- cdn.supir tree view -->
         <record id="cdn_supir_view_tree" model="ir.ui.view">
@@ -9,10 +54,13 @@
             <field name="arch" type="xml">
                 <tree>
                     <!-- Add your fields here -->
+                    <!-- <field name="i"/> -->
                     <field name="name"/>
                     <field name="no_ktp"/>
                     <field name="city"/>
+                    <field name="image_1920"/>
                     <field name="status"/>
+                        
                     
                 </tree>
             </field>
@@ -25,6 +73,17 @@
             <field name="arch" type="xml">
                 <form string="">
                     <sheet>
+                    <div class="alert alert-danger text-center o_form_header" role="alert" attrs="{'invisible':[('status','!=','nonaktif')]}">
+                        <div>
+                            <strong>
+                                Tidak Aktif !!!
+                            </strong>
+                        </div>
+                        <div>
+                            Supir atas nama <field name="name" readonly="1"/> Tidak Aktif
+                        </div>
+                        <a class="close" data-bs-dismiss="alert" href="#">[close]</a>
+                    </div>
                     <field name="image_1920" widget="image" class="oe_avatar"/>
                         <group>
                             <!-- Add your fields here -->
@@ -67,7 +126,7 @@
             <field name="name">Data Supir </field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">cdn.supir</field>
-            <field name="view_mode">tree,form</field>
+            <field name="view_mode">kanban,tree,form</field>
             <field name="help" type="html">
                 <p class="oe_view_nocontent_create">
                     <!-- Add Text Here -->

@@ -21,7 +21,7 @@ class CdnSim(models.Model):
    name        = fields.Char(string='Nama', required=True)
    no_sim      = fields.Char(string='No Sim', required=True)
    jenis_sim   = fields.Selection(string='Jenis Sim', selection=[('a', 'Sim A'), ('b', 'Sim B')], required=True) 
-   foto_sim    = fields.Image('Foto Sim', max_width=60, required=True)
+   foto_sim    = fields.Image('Foto Sim', required=True)
    
 # class CdnSim(models.Model):
 #     _name         = 'cdn.sim'
