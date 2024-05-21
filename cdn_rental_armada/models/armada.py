@@ -1,6 +1,6 @@
 from odoo import _, api, fields, models
 from datetime import date
-
+from dateutil import relativedelta
 
 #adi
 class CdnArmada(models.Model):
@@ -18,13 +18,21 @@ class CdnArmada(models.Model):
     tahun_pembuatan = fields.Integer(string='Tahun Pembuatan', required=True, default=lambda self: date.today().year)
     no_plat         = fields.Char(string='Plat Nomor', required=True)
     no_mesin        = fields.Char(string='No Rangka & No Mesin',required=True)
-    kondisi         = fields.Boolean(string='Kondisi Kendaraan', default="True", help="Jika aktif berarti armada dalam kondisi bagus")
+    
+    kondisi         = fields.Boolean(string='Kondisi Kendaraan', help="Jika aktif berarti armada dalam kondisi bagus", compute='_compute_kondisi')
+
     foto_mobil      = fields.Image('Foto Armada')
     service_ids     = fields.One2many(comodel_name='cdn.service', inverse_name='armada_id', string='List Armada')
     hitung_service  = fields.Integer(string='Jumlah Service', compute="_compute_service_count", store=True)
     terakhir_service = fields.Date(string='Terakhir Service', compute='_compute_tanggal_service_terakhir', store=True)
     state           = fields.Selection(string='Status Armada', selection=[('siap', 'Siap Dipakai'), ('dipakai', 'Sedang Dipakai'), ('service','Sedang Diservis')], default="siap")
     
+
+    # kondisi = fields.Char(compute='_compute_kondisi', string='kondisi')
+    
+
+             
+
     @api.depends('service_ids.tanggal')
     def _compute_tanggal_service_terakhir(self):
         for rec in self:
@@ -32,7 +40,7 @@ class CdnArmada(models.Model):
             if services:
                 rec.terakhir_service = services.tanggal
             else:
-                rec.terakhir_service = False
+                rec.terakhir_service = rec.terakhir_service # fix bug rizki
     
     def name_get(self):
         return [(record.id, "[ %s ] %s %s" % (record.jenis_armada, record.merek_id.name, record.jenis_kendaraan.name)) for record in self]
@@ -94,3 +102,33 @@ class CdnArmada(models.Model):
     def action_state_service(self) :
         for rec in self : 
             rec.state = 'service'
+
+
+    @api.depends('terakhir_service')
+    def _compute_kondisi(self):
+        is_keadaan = True
+        for rec in self: 
+            
+            hari_ini = date.today()
+
+            jangka_waktu = self.env['ir.config_parameter'].get_param('cdn_rental_armada.jangka_waktu')
+
+            print("tess.............")
+            # hari_batal_wajar = hari_ini - date(days=jangka_waktu)
+
+            hari_batal_wajar = hari_ini - relativedelta.relativedelta(days=int(jangka_waktu))
+            if rec.terakhir_service : 
+
+                print(".......................")
+                print( "hari_batal_wajar < hari_ini" )
+                print( hari_batal_wajar," < ", rec.terakhir_service )
+                print( hari_batal_wajar < rec.terakhir_service )
+                print(rec.terakhir_service)
+                if hari_batal_wajar < rec.terakhir_service:
+                    is_keadaan = True
+                else :
+                    is_keadaan = False
+            # else: 
+            #     is_keadaan = False
+
+            rec.kondisi = is_keadaan

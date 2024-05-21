@@ -105,9 +105,13 @@
                             <field name="hitung_service" string="Kali Perawatan" widget="statinfo"/>
                         </button>
                     </div>
+
+
                     <div class="alert alert-danger text-center o_form_header" role="alert" attrs="{'invisible':[('kondisi','=',True)]}">
                         <strong>Armada sudah lama tidak di servis</strong>
                     </div>
+
+
                     <!-- <widget name="web_ribbon" text="Kondisi Tidak Layak" bg_color="bg-danger" attrs="{'invisible':[('kondisi','=',True)]}" /> -->
                     <div>
                             <field name="foto_mobil" widget="image" class="oe_avatar" />
@@ -124,7 +128,8 @@
                             <field name="tahun_pembuatan"/>
                             <field name="no_plat"/>
                             <field name="no_mesin"/>
-                            <field name="kondisi" help="Jika aktif berarti armada dalam kondisi bagus" widget="boolean_toggle"/>
+                            
+                            <field name="kondisi" help="Jika aktif berarti armada dalam kondisi bagus" widget="boolean_toggle" invisible="1"/>
                             <field name="terakhir_service"/>
                         </group>
                         </group>
