@@ -1,0 +1,113 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+        <data>
+            <!-- cdn.tenaga.bantu tree view -->
+            <record id="cdn_tenaga_bantu_view_tree" model="ir.ui.view">
+                <field name="name">cdn.tenaga.bantu.view.tree</field>
+                <field name="model">cdn.tenaga.bantu</field>
+                <field name="arch" type="xml">
+                    <tree sample="1">
+                        <!-- Add your fields here -->
+                        <field name="name"/>
+                        <field name="no_ktp"/>
+                        <field name="city"/>
+                        <field name="status"/>
+
+                    </tree>
+                </field>
+            </record>
+
+            <!-- cdn.tenaga.bantu form view -->
+            <record id="cdn_tenaga_kerja_view_form" model="ir.ui.view">
+                <field name="name">cdn.tenaga.bantu.view.form</field>
+                <field name="model">cdn.tenaga.bantu</field>
+                <field name="arch" type="xml">
+                    <form string="">
+                        <sheet>
+                            <field name="image_1920" widget="image" class="oe_avatar" options="{&quot;preview_image&quot;: &quot;avatar_128&quot;}"/>
+                             <group>
+                            <!-- Add your fields here -->
+                            <group>
+                                
+                                <field name="name"/>
+                                <field name="no_ktp"/>
+                                <field name="street"/>
+                                <field name="city"/>
+                                <field name="mobile"/>
+                                <field name="email"/>
+                            </group>
+                            <group >
+                                <field name="jenis_kelamin"/>
+                                <field name="umur"/>
+                                <field name="is_menikah"/>
+                                <field name="status"/>
+                            </group>                            
+                        </group>
+                        </sheet>
+                    </form>
+                </field>
+            </record>
+             <!-- cdn.supir kanban view -->
+        <record id="cdn_tenaga_view_kanban" model="ir.ui.view">
+            <field name="name">cdn.tenaga.bantu.view.kanban</field>
+            <field name="model">cdn.tenaga.bantu</field>
+            <field name="arch" type="xml">
+                <kanban string="Kanban Description">
+                    <!-- Add your fields here -->
+                    <field name="id"/>
+                    <field name="name"/>
+                    <field name="no_ktp"/>
+                    <field name="city"/>
+                    <field name="status"/>
+                    <field name="image_1920"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div class="oe_kanban_global_click o_kanban_record_has_image_fill">
+                                <t t-if="record.image_1920.raw_value">
+                                    <div class="o_kanban_image_fill_left d-none d-md-block" t-attf-style="background-image:url('#{kanban_image('cdn.tenaga.bantu','image_1920', record.id.raw_value)}')"/>
+                                </t>
+                                <t t-else="">
+                                    <div class="o_kanban_image_fill_left o_kanban_image_full" t-attf-style="background-image: url(#{kanban_image('cdn.tenga.bantu', 'avatar_128', record.id.raw_value)})" role="img"/>
+                                </t>
+                                <div class="oe_kanban_details">
+                                    <h4>
+                                        <a type="open"><field name="name"/></a>
+                                    </h4>
+                                    <ul>
+                                        <li>
+                                            <span class="text-muted">No KTP</span> <field name="no_ktp"/>
+                                        </li>
+                                        <li>
+                                            <span class="text-muted">Kota</span> <field name="city"/>
+                                        </li>
+                                        <li>
+                                            <span class="text-muted">Status</span> <field name="status"/>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                    
+                </kanban>
+            </field>
+        </record>
+
+            <record id="cdn_tenaga_action" model="ir.actions.act_window">
+            <field name="name">Data Tenaga Bantu </field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">cdn.tenaga.bantu</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    <!-- Add Text Here -->
+                </p><p>
+                    <!-- More details about what a user can do with this object will be OK --> 
+                
+                </p>
+            </field>
+            </record>
+             <menuitem id="karyawan_tenaga_menu_action" name="Tenaga Bantu" parent="karyawan_menu_categ" action="cdn_tenaga_action" sequence="20"/>
+      
+        </data>
+</odoo>
