@@ -34,9 +34,6 @@ class CdnArmada(models.Model):
             else:
                 rec.terakhir_service = False
     
-
-    
-    
     def name_get(self):
         return [(record.id, "[ %s ] %s %s" % (record.jenis_armada, record.merek_id.name, record.jenis_kendaraan.name)) for record in self]
     
