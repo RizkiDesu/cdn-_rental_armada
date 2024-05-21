@@ -64,10 +64,10 @@
                         <t t-name="kanban-box">
                             <div class="oe_kanban_global_click o_kanban_record_has_image_fill">
                                 <t t-if="record.image_1920.raw_value">
-                                    <div class="o_kanban_image_fill_left d-none d-md-block" t-attf-style="background-image:url('#{kanban_image('cdn.supir','image_1920', record.id.raw_value)}')"/>
+                                    <div class="o_kanban_image_fill_left d-none d-md-block" t-attf-style="background-image:url('#{kanban_image('cdn.tenaga.bantu','image_1920', record.id.raw_value)}')"/>
                                 </t>
                                 <t t-else="">
-                                    <div class="o_kanban_image_fill_left o_kanban_image_full" t-attf-style="background-image: url(#{kanban_image('cdn.supir', 'avatar_128', record.id.raw_value)})" role="img"/>
+                                    <div class="o_kanban_image_fill_left o_kanban_image_full" t-attf-style="background-image: url(#{kanban_image('cdn.tenga.bantu', 'avatar_128', record.id.raw_value)})" role="img"/>
                                 </t>
                                 <div class="oe_kanban_details">
                                     <h4>
