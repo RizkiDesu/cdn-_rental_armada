@@ -9,3 +9,4 @@ from . import pengaturan
 from . import product_inherit
 from . import penagihan_inherit
 from . import perawatan
+from . import tenaga_bantu

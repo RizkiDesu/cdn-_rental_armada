@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+        <data>
+            <!-- cdn.tenaga.bantu tree view -->
+            <record id="cdn.tenaga.bantu_view_tree" model="ir.ui.view">
+                <field name="name">cdn.tenaga.bantu.view.tree</field>
+                <field name="model">cdn.tenaga.bantu</field>
+                <field name="arch" type="xml">
+                    <tree>
+                        <!-- Add your fields here -->
+                        <field name="name"/>
+                        <field name="jenis_kelamin"/>
+                        <field name="umur"/>
+                        <field name="mobile"/>
+                        <field name="status" 
+                        decoration-success="status == 'aktif'"  
+                        decoration-danger="status == 'nonaktif'" 
+                        widget="badge" />
+
+                    </tree>
+                </field>
+            </record>
+
+            <!-- cdn.tenaga.bantu form view -->
+            <record id="cdn.tenaga.kerja_view_form" model="ir.ui.view">
+                <field name="name">cdn.tenaga.bantu.view.form</field>
+                <field name="model">cdn.tenaga.bantu</field>
+                <field name="arch" type="xml">
+                    <form string="">
+                        <sheet>
+                            <field name="image_1920" widget="image" class="oe_avatar" options="{&quot;preview_image&quot;: &quot;avatar_128&quot;}"/>
+                            <group name="tenagabantu" string="Tenga Bantu">                                
+                            <group>
+                                <field name="name"/>
+                                <field name="jenis_kelamin"/>
+                                <field name="no_ktp"/>
+                                <field name="mobile"/>                               
+                            </group>
+                            <group>
+                                <field name="umur"/>
+                                <field name="is_menikah"/>
+                                <field name="status"/>
+                            </group>
+                            
+                                
+                            </group>
+                        </sheet>
+                    </form>
+                </field>
+            </record>
+            
+        </data>
+</odoo>
