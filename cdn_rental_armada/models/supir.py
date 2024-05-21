@@ -22,6 +22,8 @@ class CdnSim(models.Model):
    no_sim      = fields.Char(string='No Sim', required=True)
    jenis_sim   = fields.Selection(string='Jenis Sim', selection=[('a', 'Sim A'), ('b', 'Sim B')], required=True) 
    foto_sim    = fields.Image('Foto Sim', required=True)
+   masaberlaku = fields.Date(string='Masa Berlaku')
+   
    
 # class CdnSim(models.Model):
 #     _name         = 'cdn.sim'

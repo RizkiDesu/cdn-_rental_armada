@@ -38,7 +38,10 @@
         'views/product_inherit.xml',
         'views/penagihan_inherit.xml',
         'views/perawatan.xml',
-        # 'reports/armada_report.xml',
+        'reports/test_report.xml',
+        'reports/travel_tersedia.xml',
+        'reports/mobil_tersedia.xml',
+        'reports/bus_tersedia.xml',
     ],
     # only loaded in demonstration mode
     'demo': [

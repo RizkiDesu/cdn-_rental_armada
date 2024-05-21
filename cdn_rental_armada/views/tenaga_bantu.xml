@@ -41,20 +41,7 @@
                                 <field name="umur"/>
                                 <field name="is_menikah"/>
                                 <field name="status"/>
-                            </group>
-                            <notebook>
-                            <page name="SIM" string="SIM">
-                                <field name="sim_ids" >
-                                    <tree editable="bottom">
-                                        <field name="name"/>
-                                        <field name="no_sim"/>
-                                        <field name="jenis_sim"/>
-                                        <field name="foto_sim" widget="image" options="{'size': [150, 150]}"/>
-                                    </tree>
-                            </field>
-                            </page>
-                        </notebook>
-                            
+                            </group>                            
                         </group>
                         </sheet>
                     </form>
