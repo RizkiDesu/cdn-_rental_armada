@@ -1,7 +1,7 @@
 from odoo import _, api, fields, models
 
 
-
+# Triadi
 class CdnService(models.Model):
     _name = 'cdn.service'
     _description = 'Service'

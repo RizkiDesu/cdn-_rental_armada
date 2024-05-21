@@ -1,7 +1,7 @@
 from odoo import _, api, fields, models
 
 
-
+# Triadi
 class ResConfigSetting(models.TransientModel):
     _inherit = 'res.config.settings'
     

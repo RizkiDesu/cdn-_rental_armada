@@ -2,7 +2,7 @@
 <odoo>
     <data>
     
-       <!-- cdn.service tree view -->
+       <!-- Triadi -->
        <record id="cdn_service_view_tree" model="ir.ui.view">
         <field name="name">cdn.service.view.tree</field>
         <field name="model">cdn.service</field>

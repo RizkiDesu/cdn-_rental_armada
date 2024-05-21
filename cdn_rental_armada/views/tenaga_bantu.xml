@@ -6,7 +6,7 @@
                 <field name="name">cdn.tenaga.bantu.view.tree</field>
                 <field name="model">cdn.tenaga.bantu</field>
                 <field name="arch" type="xml">
-                    <tree>
+                    <tree sample="1">
                         <!-- Add your fields here -->
                         <field name="name"/>
                         <field name="no_ktp"/>

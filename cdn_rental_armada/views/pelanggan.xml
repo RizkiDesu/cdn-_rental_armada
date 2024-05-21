@@ -1,27 +1,25 @@
 <?xml version='1.0' encoding='utf-8'?>
 <odoo>
     <data>
-        <!-- cdn.supir kanban view -->
-        <record id="cdn_supir_view_kanban" model="ir.ui.view">
-            <field name="name">cdn.supir.view.kanban</field>
-            <field name="model">cdn.supir</field>
+        <!-- Triadi -->
+        <record id="cdn_pelanggan_view_kanban" model="ir.ui.view">
+            <field name="name">cdn.pelanggan.view.kanban</field>
+            <field name="model">cdn.pelanggan</field>
             <field name="arch" type="xml">
                 <kanban string="Kanban Description">
-                    <!-- Add your fields here -->
                     <field name="id"/>
                     <field name="name"/>
                     <field name="no_ktp"/>
                     <field name="city"/>
-                    <field name="status"/>
                     <field name="image_1920"/>
                     <templates>
                         <t t-name="kanban-box">
                             <div class="oe_kanban_global_click o_kanban_record_has_image_fill">
                                 <t t-if="record.image_1920.raw_value">
-                                    <div class="o_kanban_image_fill_left d-none d-md-block" t-attf-style="background-image:url('#{kanban_image('cdn.supir','image_1920', record.id.raw_value)}')"/>
+                                    <div class="o_kanban_image_fill_left d-none d-md-block" t-attf-style="background-image:url('#{kanban_image('cdn.pelanggan','image_1920', record.id.raw_value)}')"/>
                                 </t>
                                 <t t-else="">
-                                    <div class="o_kanban_image_fill_left o_kanban_image_full" t-attf-style="background-image: url(#{kanban_image('cdn.supir', 'avatar_128', record.id.raw_value)})" role="img"/>
+                                    <div class="o_kanban_image_fill_left o_kanban_image_full" t-attf-style="background-image: url(#{kanban_image('cdn.pelanggan', 'avatar_128', record.id.raw_value)})" role="img"/>
                                 </t>
                                 <div class="oe_kanban_details">
                                     <h4>
@@ -34,9 +32,6 @@
                                         <li>
                                             <span class="text-muted">Kota</span> <field name="city"/>
                                         </li>
-                                        <li>
-                                            <span class="text-muted">Status</span> <field name="status"/>
-                                        </li>
                                     </ul>
                                 </div>
                             </div>
@@ -47,10 +42,10 @@
             </field>
         </record>
     
-        <!-- cdn.supir tree view -->
-        <record id="cdn_supir_view_tree" model="ir.ui.view">
-            <field name="name">cdn.supir.view.tree</field>
-            <field name="model">cdn.supir</field>
+        <!-- cdn.pelanggan tree view -->
+        <record id="cdn_pelanggan_view_tree" model="ir.ui.view">
+            <field name="name">cdn.pelanggan.view.tree</field>
+            <field name="model">cdn.pelanggan</field>
             <field name="arch" type="xml">
                 <tree sample="1">
                     <!-- Add your fields here -->
@@ -58,38 +53,28 @@
                     <field name="name"/>
                     <field name="no_ktp"/>
                     <field name="city"/>
-                    <field name="image_1920"/>
-                    <field name="status"/>
-                        
-                    
                 </tree>
             </field>
         </record>
 
-        <!-- cdn.supir form view -->
-        <record id="cdn_supir_view_form" model="ir.ui.view">
-            <field name="name">cdn.supir.view.form</field>
-            <field name="model">cdn.supir</field>
+        <!-- cdn.pelanggan form view -->
+        <record id="cdn_pelanggan_view_form" model="ir.ui.view">
+            <field name="name">cdn.pelanggan.view.form</field>
+            <field name="model">cdn.pelanggan</field>
             <field name="arch" type="xml">
                 <form string="">
                     <sheet>
-                    <div class="alert alert-danger text-center o_form_header" role="alert" attrs="{'invisible':[('status','!=','nonaktif')]}">
-                        <div>
-                            <strong>
-                                Tidak Aktif !!!
-                            </strong>
-                        </div>
-                        <div>
-                            Supir atas nama <field name="name" readonly="1"/> Tidak Aktif
-                        </div>
-                        <a class="close" data-bs-dismiss="alert" href="#">[close]</a>
+                  
+                    <field name="image_1920" widget="image" class="oe_avatar" options="{&quot;preview_image&quot;: &quot;avatar_128&quot;}"/>
+                    <div class="oe_title mb24">
+                        Nama Pelanggan
+                        <h1>
+                            <field id="individual" class="text-break" name="name" default_focus="1" placeholder="e.g. Brandom Freeman"/>
+                        </h1>
                     </div>
-                    <field name="image_1920" widget="image" class="oe_avatar"/>
                         <group>
                             <!-- Add your fields here -->
                             <group>
-                                
-                                <field name="name"/>
                                 <field name="no_ktp"/>
                                 <field name="street"/>
                                 <field name="city"/>
@@ -100,20 +85,7 @@
                                 <field name="jenis_kelamin"/>
                                 <field name="umur"/>
                                 <field name="is_menikah"/>
-                                <field name="status"/>
                             </group>
-                            <notebook>
-                            <page name="SIM" string="SIM">
-                                <field name="sim_ids" >
-                                    <tree editable="bottom">
-                                        <field name="no_sim"/>
-                                        <field name="jenis_sim"/>
-                                        <field name="masaberlaku"/>
-                                        <field name="foto_sim" widget="image" options="{'size': [150, 150]}"/>
-                                    </tree>
-                            </field>
-                            </page>
-                        </notebook>
                             
                         </group>
                     </sheet>
@@ -121,11 +93,11 @@
             </field>
         </record>
 
-        <!-- cdn.supir action window -->
-        <record id="cdn_supir_action" model="ir.actions.act_window">
-            <field name="name">Data Supir </field>
+        <!-- cdn.pelanggan action window -->
+        <record id="cdn_pelanggan_action" model="ir.actions.act_window">
+            <field name="name">Data pelanggan </field>
             <field name="type">ir.actions.act_window</field>
-            <field name="res_model">cdn.supir</field>
+            <field name="res_model">cdn.pelanggan</field>
             <field name="view_mode">kanban,tree,form</field>
             <field name="help" type="html">
                 <p class="oe_view_nocontent_create">
@@ -137,7 +109,7 @@
             </field>
         </record>
 
-        <menuitem id="karyawan_supir_menu_action" name="Supir" parent="karyawan_menu_categ" action="cdn_supir_action" sequence="10"/>
+        <menuitem id="karyawan_pelanggan_menu_action" name="Pelanggan" parent="pelanggan_menu_categ" action="cdn_pelanggan_action" sequence="0"/>
       
     
     </data>

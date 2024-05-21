@@ -10,6 +10,9 @@
         <!-- ian -->
         <menuitem id="karyawan_menu_categ" name="Karyawan" parent="armada_menu_root" sequence="10"/>
 
+        <!-- ian -->
+        <menuitem id="pelanggan_menu_categ" name="Pelanggan" parent="armada_menu_root" sequence="12"/>
+
         <!-- rizki -->
         <menuitem id="product_menu_categ" name="Produk" parent="armada_menu_root" sequence="15"/>
 
