@@ -7,6 +7,7 @@ access_karyawan_cdn_service,access_karyawan_cdn_service,model_cdn_service,group_
 access_karyawan_cdn_tenaga_bantu,access_karyawan_cdn_tenaga_bantu,model_cdn_tenaga_bantu,group_armada_admin,1,1,1,1
 access_karyawan_cdn_supir,access_karyawan_cdn_supir,model_cdn_supir,group_armada_karyawan,1,0,0,0
 access_karyawan_cdn_pelanggan,access_karyawan_cdn_pelanggan,model_cdn_pelanggan,group_armada_karyawan,1,0,0,0
+access_karyawan_cdn_produk,access_karyawan_cdn_produk,model_cdn_produk,group_armada_karyawan,1,0,0,0
 
 
 access_spv_cdn_armada,access_spv_cdn_armada,model_cdn_armada,group_armada_spv,1,1,1,0
@@ -17,6 +18,7 @@ access_spv_cdn_service,access_spv_cdn_service,model_cdn_service,group_armada_spv
 access_spv_cdn_tenaga_bantu,access_admin_spv_tenaga_bantu,model_cdn_tenaga_bantu,group_armada_admin,1,1,1,1
 access_spv_cdn_supir,access_spv_cdn_supir,model_cdn_supir,group_armada_spv,1,1,1,0
 access_spv_cdn_pelanggan,access_spv_cdn_pelanggan,model_cdn_pelanggan,group_armada_spv,1,1,1,0
+access_spv_cdn_produk,access_spv_cdn_produk,model_cdn_produk,group_armada_spv,1,1,1,0
 
 
 access_admin_cdn_armada,access_admin_cdn_armada,model_cdn_armada,group_armada_admin,1,1,1,1
@@ -27,6 +29,7 @@ access_admin_cdn_service,access_admin_cdn_service,model_cdn_service,group_armada
 access_admin_cdn_tenaga_bantu,access_admin_cdn_tenaga_bantu,model_cdn_tenaga_bantu,group_armada_admin,1,1,1,1
 access_admin_cdn_supir,access_admin_cdn_supir,model_cdn_supir,group_armada_admin,1,1,1,1
 access_admin_cdn_pelanggan,access_admin_cdn_pelanggan,model_cdn_pelanggan,group_armada_admin,1,1,1,1
+access_admin_cdn_produk,access_admin_cdn_produk,model_cdn_produk,group_armada_admin,1,1,1,1
 
 
 access_manage_cdn_armada,access_manager_cdn_armada,model_cdn_armada,group_armada_manager,1,1,1,1
@@ -37,4 +40,5 @@ access_manager_cdn_service,access_manager_cdn_service,model_cdn_service,group_ar
 access_manager_cdn_tenaga_bantu,access_manager_cdn_tenaga_bantu,model_cdn_tenaga_bantu,group_armada_admin,1,1,1,1
 access_manager_cdn_supir,access_manager_cdn_supir,model_cdn_supir,group_armada_manager,1,1,1,1
 access_manager_cdn_pelanggan,access_manager_cdn_pelanggan,model_cdn_pelanggan,group_armada_manager,1,1,1,1
+access_manager_cdn_produk,access_manager_cdn_produk,model_cdn_produk,group_armada_manager,1,1,1,1
 
