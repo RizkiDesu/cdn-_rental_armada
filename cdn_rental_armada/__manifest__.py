@@ -33,6 +33,7 @@
         # 'views/kontak_inherit_view.xml',
         # 'views/karyawan.xml',
         'views/supir_view.xml',
+        'views/tenaga_bantu.xml',
         'views/pengaturan.xml',
         'views/product_inherit.xml',
         'views/penagihan_inherit.xml',
