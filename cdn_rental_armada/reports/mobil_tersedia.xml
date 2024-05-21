@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <template id="mobil_tersedia">
+            <t t-call="web.basic_layout">
+                <div class="page">
+                    <h2 align="center">Armada Tersedia</h2>
+                    <table class="table table-condensed">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th><span>Merek</span></th>
+                                <th><span>Jenis Kendaraan</span></th>
+                                <th><span>Jumlah Kursi</span></th>
+                                <th><span>Tahun Pembuatan</span></th>
+                                <th><span>Plat Nomor</span></th>
+                                <th><span>Status Armada</span></th>
+                                <!-- Add other headers as needed -->
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="docs" t-as="o" t-if="o.state == 'siap'and o.jenis_armada == 'mobil'">
+                                <td style="padding: 2px;" width="50%" ><span t-field="o.id"/></td>
+                                <td style="padding: 2px;" width="50%" ><span t-field="o.merek_id"/></td>
+                                <td style="padding: 2px;" width="50%" ><span t-field="o.jenis_kendaraan"/></td>
+                                <td style="padding: 2px;" width="50%" ><span t-field="o.jumlah_kursi"/></td>
+                                <td style="padding: 2px;" width="50%" ><span t-field="o.tahun_pembuatan"/></td>
+                                <td style="padding: 2px;" width="50%" ><span t-field="o.no_plat"/></td>
+                                <td style="padding: 2px;" width="50%" ><span t-field="o.state"/></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </t>
+        </template>
+</odoo>

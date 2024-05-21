@@ -1,0 +1,117 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+        <!-- Triadi -->
+        <record id="cdn_pelanggan_view_kanban" model="ir.ui.view">
+            <field name="name">cdn.pelanggan.view.kanban</field>
+            <field name="model">cdn.pelanggan</field>
+            <field name="arch" type="xml">
+                <kanban string="Kanban Description">
+                    <field name="id"/>
+                    <field name="name"/>
+                    <field name="no_ktp"/>
+                    <field name="city"/>
+                    <field name="image_1920"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div class="oe_kanban_global_click o_kanban_record_has_image_fill">
+                                <t t-if="record.image_1920.raw_value">
+                                    <div class="o_kanban_image_fill_left d-none d-md-block" t-attf-style="background-image:url('#{kanban_image('cdn.pelanggan','image_1920', record.id.raw_value)}')"/>
+                                </t>
+                                <t t-else="">
+                                    <div class="o_kanban_image_fill_left o_kanban_image_full" t-attf-style="background-image: url(#{kanban_image('cdn.pelanggan', 'avatar_128', record.id.raw_value)})" role="img"/>
+                                </t>
+                                <div class="oe_kanban_details">
+                                    <h4>
+                                        <a type="open"><field name="name"/></a>
+                                    </h4>
+                                    <ul>
+                                        <li>
+                                            <span class="text-muted">No KTP</span> <field name="no_ktp"/>
+                                        </li>
+                                        <li>
+                                            <span class="text-muted">Kota</span> <field name="city"/>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                    
+                </kanban>
+            </field>
+        </record>
+    
+        <!-- cdn.pelanggan tree view -->
+        <record id="cdn_pelanggan_view_tree" model="ir.ui.view">
+            <field name="name">cdn.pelanggan.view.tree</field>
+            <field name="model">cdn.pelanggan</field>
+            <field name="arch" type="xml">
+                <tree sample="1">
+                    <!-- Add your fields here -->
+                    <!-- <field name="i"/> -->
+                    <field name="name"/>
+                    <field name="no_ktp"/>
+                    <field name="city"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- cdn.pelanggan form view -->
+        <record id="cdn_pelanggan_view_form" model="ir.ui.view">
+            <field name="name">cdn.pelanggan.view.form</field>
+            <field name="model">cdn.pelanggan</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <sheet>
+                  
+                    <field name="image_1920" widget="image" class="oe_avatar" options="{&quot;preview_image&quot;: &quot;avatar_128&quot;}"/>
+                    <div class="oe_title mb24">
+                        Nama Pelanggan
+                        <h1>
+                            <field id="individual" class="text-break" name="name" default_focus="1" placeholder="e.g. Brandom Freeman"/>
+                        </h1>
+                    </div>
+                        <group>
+                            <!-- Add your fields here -->
+                            <group>
+                                <field name="no_ktp"/>
+                                <field name="street"/>
+                                <field name="city"/>
+                                <field name="mobile"/>
+                                <field name="email"/>
+                            </group>
+                            <group >
+                                <field name="jenis_kelamin"/>
+                                <field name="umur"/>
+                                <field name="is_menikah"/>
+                            </group>
+                            
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- cdn.pelanggan action window -->
+        <record id="cdn_pelanggan_action" model="ir.actions.act_window">
+            <field name="name">Data pelanggan </field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">cdn.pelanggan</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    <!-- Add Text Here -->
+                </p><p>
+                    <!-- More details about what a user can do with this object will be OK --> 
+                
+                </p>
+            </field>
+        </record>
+
+        <menuitem id="karyawan_pelanggan_menu_action" name="Pelanggan" parent="pelanggan_menu_categ" action="cdn_pelanggan_action" sequence="0"/>
+      
+    
+    </data>
+    
+</odoo>
