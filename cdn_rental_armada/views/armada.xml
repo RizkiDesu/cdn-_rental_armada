@@ -69,7 +69,11 @@
                                             <span class="text-muted">No Plat: </span> <field name="no_plat"/>
                                         </li>
                                         <li>
-                                            <span class="text-muted">Jmlh Kursi: </span> <field name="jumlah_kursi"/>
+                                            <span class="text-muted">Status: </span> <field name="state" 
+                                                                                            decoration-success="state == 'siap'"
+                                                                                            decoration-warning="state == 'dipakai'" 
+                                                                                            decoration-danger="state == 'tidak_siap'" 
+                                                                                            widget="badge"/>
                                         </li>
                                     </ul>
                                 </div>
