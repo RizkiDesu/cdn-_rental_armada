@@ -107,8 +107,7 @@
                             <field name="hitung_service" string="Kali Perawatan" widget="statinfo"/>
                         </button>
                     </div>
-
-                    <div class="alert alert-danger text-center o_form_header" role="alert" attrs="{'invisible':[('kondisi','!=',False)]}">
+                    <div class="alert alert-danger text-center o_form_header" role="alert" attrs="{'invisible':[('kondisi','==',False)]}">
                         <strong>Armada sudah lama tidak di servis / belum memasukan data kapan teakhir servce</strong>
                     </div>
 
