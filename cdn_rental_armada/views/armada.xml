@@ -57,11 +57,6 @@
                                         <a type="open"><field name="jenis_kendaraan"/></a>
                                     </h4>
                                     <ul>
-
-                                        <li>
-                                            <span class="text-muted">Jenis armada: </span> <field name="jenis_armada"/>
-                                        </li>
-
                                         <li>
                                             <span class="text-muted">Merek: </span> <field name="merek_id"/>
                                         </li>
@@ -69,7 +64,14 @@
                                             <span class="text-muted">No Plat: </span> <field name="no_plat"/>
                                         </li>
                                         <li>
-                                            <span class="text-muted">Jmlh Kursi: </span> <field name="jumlah_kursi"/>
+                                            <span class="text-muted">Jumlah Kursi: </span> <field name="jumlah_kursi"/>
+                                        </li>
+                                        <li>
+                                            <span class="text-muted">Status: </span> <field name="state" 
+                                                                                            decoration-success="state == 'siap'"
+                                                                                            decoration-warning="state == 'dipakai'" 
+                                                                                            decoration-danger="state == 'tidak_siap'" 
+                                                                                            widget="badge"/>
                                         </li>
                                     </ul>
                                 </div>
