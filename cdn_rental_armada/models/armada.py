@@ -109,7 +109,7 @@ class CdnArmada(models.Model):
         for rec in self : 
             rec.state = 'tidak_siap'
 
-
+    # rizki
     @api.depends('terakhir_service')
     def _compute_kondisi(self):
         is_keadaan = False
@@ -125,12 +125,6 @@ class CdnArmada(models.Model):
 
             hari_batal_wajar = hari_ini - relativedelta.relativedelta(days=int(jangka_waktu))
             if rec.terakhir_service : 
-
-                print(".......................")
-                print( "hari_batal_wajar < hari_ini" )
-                print( hari_batal_wajar," < ", rec.terakhir_service )
-                print( hari_batal_wajar < rec.terakhir_service )
-                print(rec.terakhir_service)
                 if hari_batal_wajar < rec.terakhir_service:
                     is_keadaan = True
                     state = 'siap'
