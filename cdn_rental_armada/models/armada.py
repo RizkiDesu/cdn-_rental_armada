@@ -43,7 +43,7 @@ class CdnArmada(models.Model):
                 rec.terakhir_service = rec.terakhir_service # fix bug rizki
     
     def name_get(self):
-        return [(record.id, "[ %s ] %s %s" % (record.jenis_armada, record.merek_id.name, record.jenis_kendaraan.name)) for record in self]
+        return [(record.id, "[ %s ][ %s ] %s %s" % (record.jenis_armada, record.no_plat, record.merek_id.name, record.jenis_kendaraan.name)) for record in self]
     
     @api.model
     def create(self, vals):
