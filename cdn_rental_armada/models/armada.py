@@ -19,13 +19,13 @@ class CdnArmada(models.Model):
     no_plat          = fields.Char(string='Plat Nomor', required=True)
     no_mesin         = fields.Char(string='No Rangka & No Mesin',required=True)
     
-    kondisi          = fields.Boolean(string='Kondisi Kendaraan', help="Jika aktif berarti armada dalam kondisi bagus", default=False)
+    kondisi          = fields.Boolean(string='Kondisi Kendaraan', help="Jika aktif berarti armada dalam kondisi bagus", compute="_compute_kondisi")
 
     foto_mobil       = fields.Image('Foto Armada')
     service_ids      = fields.One2many(comodel_name='cdn.service', inverse_name='armada_id', string='List Armada')
     hitung_service   = fields.Integer(string='Jumlah Service', compute="_compute_service_count", store=True)
     terakhir_service = fields.Date(string='Terakhir Service', compute='_compute_tanggal_service_terakhir', store=True)
-    state           = fields.Selection(string='Status Armada', selection=[('tidak_siap','Tidak Siap'), ('dipakai', 'Sedang Dipakai'), ('siap', 'Siap Dipakai')], store=True)
+    state           = fields.Selection(string='Status Armada', selection=[('tidak_siap','Tidak Siap'), ('dipakai', 'Sedang Dipakai'), ('siap', 'Siap Dipakai')])
 
     
 
@@ -35,12 +35,15 @@ class CdnArmada(models.Model):
     @api.onchange('kondisi')
     def _onchange_kondisi(self):
         if self.state :
-            self.state = 'dipakai'
-        else:
-            if self.kondisi == False:
+            self.state = 'siap'
+        else:   
+            if self.kondisi not in (False, True):
+                if self.kondisi == False:
+                    self.state = 'tidak_siap'
+                elif self.kondisi == True:
+                    self.state = 'siap'
+            else:
                 self.state = 'tidak_siap'
-            elif self.kondisi == True:
-                self.state = 'siap'
 
     @api.depends('service_ids.tanggal')
     def _compute_tanggal_service_terakhir(self):
