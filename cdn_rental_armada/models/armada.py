@@ -11,21 +11,21 @@ class CdnArmada(models.Model):
         ('unique_no_mesin', 'Unique(no_mesin)','Nomor mesin tidak boleh sama!'),
     ]
 
-    merek_id        = fields.Many2one(comodel_name='cdn.merek', string='Merek Kendaraan',required=True)
-    jenis_kendaraan = fields.Many2one(comodel_name='cdn.jenis.kendaraan', string='Jenis Kendaraan',required=True,domain="[('merek_id', '=', merek_id)]")
-    jumlah_kursi    = fields.Integer(string='Jumlah Kursi', required=True, default="2")
-    jenis_armada    = fields.Selection(string='Jenis Armada', selection=[('bis', 'Bis Pariwisata'), ('travel', 'Travel'),('mobil', 'Mobil')], required=True)    
-    tahun_pembuatan = fields.Integer(string='Tahun Pembuatan', required=True, default=lambda self: date.today().year)
-    no_plat         = fields.Char(string='Plat Nomor', required=True)
-    no_mesin        = fields.Char(string='No Rangka & No Mesin',required=True)
+    merek_id         = fields.Many2one(comodel_name='cdn.merek', string='Merek Kendaraan',required=True)
+    jenis_kendaraan  = fields.Many2one(comodel_name='cdn.jenis.kendaraan', string='Jenis Kendaraan',required=True,domain="[('merek_id', '=', merek_id)]")
+    jumlah_kursi     = fields.Integer(string='Jumlah Kursi', required=True, default="2")
+    jenis_armada     = fields.Selection(string='Jenis Armada', selection=[('bis', 'Bis Pariwisata'), ('travel', 'Travel'),('mobil', 'Mobil')], required=True)    
+    tahun_pembuatan  = fields.Integer(string='Tahun Pembuatan', required=True, default=lambda self: date.today().year)
+    no_plat          = fields.Char(string='Plat Nomor', required=True)
+    no_mesin         = fields.Char(string='No Rangka & No Mesin',required=True)
     
-    kondisi         = fields.Boolean(string='Kondisi Kendaraan', help="Jika aktif berarti armada dalam kondisi bagus", compute='_compute_kondisi')
+    kondisi          = fields.Boolean(string='Kondisi Kendaraan', help="Jika aktif berarti armada dalam kondisi bagus", default=False)
 
-    foto_mobil      = fields.Image('Foto Armada')
-    service_ids     = fields.One2many(comodel_name='cdn.service', inverse_name='armada_id', string='List Armada')
-    hitung_service  = fields.Integer(string='Jumlah Service', compute="_compute_service_count", store=True)
+    foto_mobil       = fields.Image('Foto Armada')
+    service_ids      = fields.One2many(comodel_name='cdn.service', inverse_name='armada_id', string='List Armada')
+    hitung_service   = fields.Integer(string='Jumlah Service', compute="_compute_service_count", store=True)
     terakhir_service = fields.Date(string='Terakhir Service', compute='_compute_tanggal_service_terakhir', store=True)
-    state           = fields.Selection(string='Status Armada', selection=[('tidak_siap','Tidak Siap'), ('dipakai', 'Sedang Dipakai'), ('siap', 'Siap Dipakai')], default='tidak_siap')
+    state            = fields.Selection(string='Status Armada', selection=[('tidak_siap','Tidak Siap'), ('dipakai', 'Sedang Dipakai'), ('siap', 'Siap Dipakai'), ('draft', 'Draft')], default='tidak_siap')
     
 
     # kondisi = fields.Char(compute='_compute_kondisi', string='kondisi')
@@ -47,6 +47,7 @@ class CdnArmada(models.Model):
     
     @api.model
     def create(self, vals):
+        vals['state'] = 'tidak_siap'
         if 'jenis_kendaraan' in vals and isinstance(vals['jenis_kendaraan'], str):
             jenis_kendaraan_name = vals['jenis_kendaraan']
             merek_id             = vals.get('merek_id')
@@ -55,6 +56,7 @@ class CdnArmada(models.Model):
                 'merek_id': merek_id,
             })
             vals['jenis_kendaraan'] = jenis_kendaraan.id
+        
 
         # if self.kondisi == False:
         #     self.state = 'tidak_siap'
@@ -110,35 +112,35 @@ class CdnArmada(models.Model):
             rec.state = 'tidak_siap'
 
 
-    @api.depends('terakhir_service')
-    def _compute_kondisi(self):
-        is_keadaan = False
-        state = 'tidak_siap'
-        for rec in self: 
+    # @api.depends('terakhir_service')
+    # def _compute_kondisi(self):
+    #     is_keadaan = False
+    #     state = 'tidak_siap'
+    #     for rec in self: 
             
-            hari_ini = date.today()
+    #         hari_ini = date.today()
 
-            jangka_waktu = self.env['ir.config_parameter'].get_param('cdn_rental_armada.jangka_waktu')
+    #         jangka_waktu = self.env['ir.config_parameter'].get_param('cdn_rental_armada.jangka_waktu')
 
-            print("tess.............")
-            # hari_batal_wajar = hari_ini - date(days=jangka_waktu)
+    #         print("tess.............")
+    #         # hari_batal_wajar = hari_ini - date(days=jangka_waktu)
 
-            hari_batal_wajar = hari_ini - relativedelta.relativedelta(days=int(jangka_waktu))
-            if rec.terakhir_service : 
+    #         hari_batal_wajar = hari_ini - relativedelta.relativedelta(days=int(jangka_waktu))
+    #         if rec.terakhir_service : 
 
-                print(".......................")
-                print( "hari_batal_wajar < hari_ini" )
-                print( hari_batal_wajar," < ", rec.terakhir_service )
-                print( hari_batal_wajar < rec.terakhir_service )
-                print(rec.terakhir_service)
-                if hari_batal_wajar < rec.terakhir_service:
-                    is_keadaan = True
-                    state = 'siap'
-                else :
-                    is_keadaan = False
-                    state = 'tidak_siap'
-            # else: 
-            #     is_keadaan = False
+    #             # print(".......................")
+    #             # print( "hari_batal_wajar < hari_ini" )
+    #             # print( hari_batal_wajar," < ", rec.terakhir_service )
+    #             # print( hari_batal_wajar < rec.terakhir_service )
+    #             # print(rec.terakhir_service)
+    #             if hari_batal_wajar < rec.terakhir_service:
+    #                 is_keadaan = True
+    #                 state = 'siap'
+    #             else :
+    #                 is_keadaan = False
+    #                 state = 'tidak_siap'
+    #         # else: 
+    #         #     is_keadaan = False
 
-            rec.state = state
-            rec.kondisi = is_keadaan
+    #         rec.state = state
+    #         rec.kondisi = is_keadaan
