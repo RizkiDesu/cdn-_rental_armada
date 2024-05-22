@@ -1,5 +1,9 @@
 from odoo import _, api, fields, models
+from datetime import date
+from dateutil import relativedelta
+import logging
 
+_logger = logging.getLogger(__name__)
 
 # Triadi
 class CdnService(models.Model):
@@ -14,19 +18,29 @@ class CdnService(models.Model):
     harga = fields.Integer(string='Pengeluran')
     deskripsi = fields.Text(string='Deskripsi')
     
-    @api.model
-    def create(self):
-        return {
-            'type': 'ir.actions.act_window',
-            'name': 'Armada',
-            'res_model': 'cdn.armada',
-            'view_mode': 'form',
-            'target': 'current',
-        }
-    # @api.model
-    # def create(self, vals):
-        
-    #     # super(CdnService, self).create(vals)
-        
-    #     return 
     
+
+    @api.model
+    def create(self, vals):
+        record = super(CdnService, self).create(vals)
+        hari_ini = date.today()
+        if 'tanggal' in vals:    
+            jangka_waktu = self.env['ir.config_parameter'].get_param('cdn_rental_armada.jangka_waktu')
+            hari_batal_wajar = hari_ini - relativedelta.relativedelta(days=int(jangka_waktu))
+            tgl = fields.Date.from_string(vals['tanggal'])
+            cek = self.env['cdn.armada'].search([('id', '=', record.armada_id.id)])
+            if hari_batal_wajar < tgl:
+                cek.state = 'siap'
+                cek.kondisi = True
+                # print(cek)
+                # print(vals['armada_id'])
+                # print(record.armada_id)
+                # print(record.armada_id.id)
+                
+            else :
+                cek.state = 'tidak_siap'
+                cek.kondisi = False
+                
+ 
+        return record
+

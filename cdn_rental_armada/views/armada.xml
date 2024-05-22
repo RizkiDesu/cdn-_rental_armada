@@ -108,9 +108,8 @@
                         </button>
                     </div>
 
-
-                    <div class="alert alert-danger text-center o_form_header" role="alert" attrs="{'invisible':[('kondisi','=',True)]}">
-                        <strong>Armada sudah lama tidak di servis / belum memasukan data kapan teakhir servce</strong>
+                    <div class="alert alert-danger text-center o_form_header" role="alert" attrs="{'invisible':[('state','!=','tidak_siap'),('kondisi' ,'=', False )]}">
+                        <strong>Armada sudah lama tidak di servis</strong>
                     </div>
 
 
@@ -143,6 +142,7 @@
         <record id="cdn_armada_action" model="ir.actions.act_window">
             <field name="name">Armada</field>
             <field name="type">ir.actions.act_window</field>
+            <field name="context">{'default_state': 'draft'}</field>
             <field name="res_model">cdn.armada</field>
             <field name="view_mode">kanban,tree,form</field>
             <field name="help" type="html">
