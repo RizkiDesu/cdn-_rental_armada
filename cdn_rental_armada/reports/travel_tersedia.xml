@@ -3,17 +3,23 @@
     <template id="travel_tersedia">
             <t t-call="web.basic_layout">
                 <div class="page">
+                    <style>
+                     table, tr, td {
+                        border: 1px solid #000;
+                        border-collapse: collapse;
+                     }
+                    </style>
                     <h2 align="center">Armada Tersedia</h2>
                     <table class="table table-condensed">
                         <thead>
                             <tr>
                                 <th>ID</th>
-                                <th><span>Merek</span></th>
-                                <th><span>Jenis_Kendaraan</span></th>
-                                <th><span>Jumlah_Kursi</span></th>
-                                <th><span>Tahun_Pembuatan</span></th>
-                                <th><span>Plat_Nomor</span></th>
-                                <th><span>Status_Armada</span></th>
+                                <th><span>Jenis<b style="color:white">_</b>Merek</span></th>
+                                <th><span>Jenis<b style="color:white">_</b></span></th>
+                                <th><span>Jumlah<b style="color:white">_</b>Kursi</span></th>
+                                <th><span>Tahun<b style="color:white">_</b>Pembuatan</span></th>
+                                <th><span>Plat<b style="color:white">_</b>Nomor</span></th>
+                                <th><span>Status<b style="color:white">_</b>Armada</span></th>
                                 <!-- Add other headers as needed -->
                             </tr>
                         </thead>

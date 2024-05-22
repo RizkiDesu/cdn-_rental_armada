@@ -2,6 +2,16 @@
 <odoo>
 
     <data>
+        <record id="report_armada_semua" model="ir.actions.report">
+            <field name="name">Kendaraan Siap Pakai</field>
+            <field name="model">cdn.armada</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">cdn_rental_armada.semua_tersedia</field>
+            <field name="report_file">cdn_rental_armada.semua_tersedia</field>
+            <field name="binding_model_id" ref="model_cdn_armada"/>
+            <field name="binding_type">report</field>
+        </record>
+
         <record id="report_armada_mobil" model="ir.actions.report">
             <field name="name">Mobil Siap Pakai</field>
             <field name="model">cdn.armada</field>
