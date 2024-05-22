@@ -109,7 +109,7 @@
                     </div>
 
 
-                    <div class="alert alert-danger text-center o_form_header" role="alert" attrs="{'invisible':[('kondisi','=',True)]}">
+                    <div class="alert alert-danger text-center o_form_header" role="alert" attrs="{'invisible':[('kondisi','!=',False)]}">
                         <strong>Armada sudah lama tidak di servis / belum memasukan data kapan teakhir servce</strong>
                     </div>
 
@@ -123,7 +123,7 @@
                         <group>
                             <field name="jenis_armada"/>
                             <field name="merek_id"/>
-                            <field name="jenis_kendaraan" context="{'default_merek_id': merek_id}" attrs = "{'readonly':[('merek_id', '=', False)]}"/>
+                            <field name="jenis_kendaraan" context="{'default_merek_id': merek_id}" attrs = "{'readonly':[('merek_id', '!=', True)]}"/>
                             <field name="jumlah_kursi"/>
                         </group>
                         <group>
