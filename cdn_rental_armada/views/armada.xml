@@ -16,7 +16,7 @@
                     <field name="state" 
                         decoration-success="state == 'siap'"
                         decoration-warning="state == 'dipakai'" 
-                        decoration-danger="state == 'service'" 
+                        decoration-danger="state == 'tidak_siap'" 
                         widget="badge"/>
                 </tree>
             </field>
@@ -86,11 +86,11 @@
             <field name="arch" type="xml">
                 <form string="">
                     <header>
-                        <button string="Siap Dipakai" name="action_state_siap" type="object" class="oe_highlight" states="dipakai,service"/>
+                        <button string="Tidak Siap" name="action_state_tidak_siap" type="object" class="oe_highlight" states="siap"/>
                         <button string="Sedang Dipakai" name="action_state_dipakai" type="object" class="oe_highlight" states="siap"/>
-                        <button string="Sedang Diservis" name="action_state_service" type="object" class="oe_highlight" states="siap"/>
+                        <button string="Siap Dipakai" name="action_state_siap" type="object" class="oe_highlight" states="dipakai,tidak_siap"/>
                         
-                        <field name="state" widget="statusbar" nolabel="1" statusbar_visible="siap,dipakai,service"/>
+                        <field name="state" widget="statusbar" nolabel="1" statusbar_visible="tidak_siap,dipakai,siap"/>
                     </header>
                     
                     <sheet>
