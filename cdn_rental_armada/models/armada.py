@@ -11,13 +11,14 @@ class CdnArmada(models.Model):
         ('unique_no_mesin', 'Unique(no_mesin)','Nomor mesin tidak boleh sama!'),
     ]
 
-    merek_id         = fields.Many2one(comodel_name='cdn.merek', string='Merek Kendaraan',required=True)
-    jenis_kendaraan  = fields.Many2one(comodel_name='cdn.jenis.kendaraan', string='Jenis Kendaraan',required=True,domain="[('merek_id', '=', merek_id)]")
-    jumlah_kursi     = fields.Integer(string='Jumlah Kursi', required=True, default="2")
-    jenis_armada     = fields.Selection(string='Jenis Armada', selection=[('bis', 'Bis Pariwisata'), ('travel', 'Travel'),('mobil', 'Mobil')], required=True)    
-    tahun_pembuatan  = fields.Integer(string='Tahun Pembuatan', required=True, default=lambda self: date.today().year)
-    no_plat          = fields.Char(string='Plat Nomor', required=True)
-    no_mesin         = fields.Char(string='No Rangka & No Mesin',required=True)
+    merek_id        = fields.Many2one(comodel_name='cdn.merek', string='Merek Kendaraan',required=True)
+    jenis_kendaraan = fields.Many2one(comodel_name='cdn.jenis.kendaraan', string='Jenis Kendaraan',required=True, domain="[('merek_id', '=', merek_id)]")
+    jumlah_kursi    = fields.Integer(string='Jumlah Kursi', required=True, default="2")
+    jenis_armada    = fields.Selection(string='Jenis Armada', selection=[('bis', 'Bis Pariwisata'), ('travel', 'Travel'),('mobil', 'Mobil')], required=True)    
+    tahun_pembuatan = fields.Integer(string='Tahun Pembuatan', required=True, default=lambda self: date.today().year)
+    no_plat         = fields.Char(string='Plat Nomor', required=True)
+    no_mesin        = fields.Char(string='No Rangka & No Mesin',required=True)
+    
     
     kondisi          = fields.Boolean(string='Kondisi Kendaraan', help="Jika aktif berarti armada dalam kondisi bagus", compute="_compute_kondisi")
 
@@ -34,15 +35,20 @@ class CdnArmada(models.Model):
 
     @api.onchange('kondisi')
     def _onchange_kondisi(self):
-        if self.state :
-            self.state = 'siap'
-        else:   
+
+        if self.state  :
+            self.state = 'dipakai'
+        else:
+
+
             if self.kondisi not in (False, True):
                 if self.kondisi == False:
                     self.state = 'tidak_siap'
                 elif self.kondisi == True:
                     self.state = 'siap'
+
             else:
+
                 self.state = 'tidak_siap'
 
     @api.depends('service_ids.tanggal')
@@ -70,10 +76,6 @@ class CdnArmada(models.Model):
             vals['jenis_kendaraan'] = jenis_kendaraan.id
         
 
-        # if self.kondisi == False:
-        #     self.state = 'tidak_siap'
-        # else:
-        #     self.state = 'siap'
 
         return super(CdnArmada, self).create(vals)
     
@@ -125,9 +127,10 @@ class CdnArmada(models.Model):
 
     @api.depends('terakhir_service')
     def _compute_kondisi(self):
-        is_keadaan = False
+        
         # state 
         for rec in self: 
+            is_keadaan = True
             hari_ini = date.today()
             jangka_waktu = self.env['ir.config_parameter'].get_param('cdn_rental_armada.jangka_waktu')
             hari_batal_wajar = hari_ini - relativedelta.relativedelta(days=int(jangka_waktu))
