@@ -25,7 +25,7 @@ class CdnArmada(models.Model):
     service_ids     = fields.One2many(comodel_name='cdn.service', inverse_name='armada_id', string='List Armada')
     hitung_service  = fields.Integer(string='Jumlah Service', compute="_compute_service_count", store=True)
     terakhir_service = fields.Date(string='Terakhir Service', compute='_compute_tanggal_service_terakhir', store=True)
-    state           = fields.Selection(string='Status Armada', selection=[('tidak_siap','Tidak Siap'), ('dipakai', 'Sedang Dipakai'), ('siap', 'Siap Dipakai')], default='tidak_siap')
+    state           = fields.Selection(string='Status Armada', selection=[('siap', 'Siap Dipakai'), ('dipakai', 'Sedang Dipakai'), ('service','Sedang Diservis')], default="siap")
     
 
     # kondisi = fields.Char(compute='_compute_kondisi', string='kondisi')
@@ -55,12 +55,6 @@ class CdnArmada(models.Model):
                 'merek_id': merek_id,
             })
             vals['jenis_kendaraan'] = jenis_kendaraan.id
-
-        # if self.kondisi == False:
-        #     self.state = 'tidak_siap'
-        # else:
-        #     self.state = 'siap'
-
         return super(CdnArmada, self).create(vals)
     
     def tombol_service(self):
@@ -105,15 +99,14 @@ class CdnArmada(models.Model):
         for rec in self : 
             rec.state = 'dipakai'
 
-    def action_state_tidak_siap(self) :
+    def action_state_service(self) :
         for rec in self : 
-            rec.state = 'tidak_siap'
+            rec.state = 'service'
 
 
     @api.depends('terakhir_service')
     def _compute_kondisi(self):
-        is_keadaan = False
-        state = 'tidak_siap'
+        is_keadaan = True
         for rec in self: 
             
             hari_ini = date.today()
@@ -133,12 +126,9 @@ class CdnArmada(models.Model):
                 print(rec.terakhir_service)
                 if hari_batal_wajar < rec.terakhir_service:
                     is_keadaan = True
-                    state = 'siap'
                 else :
                     is_keadaan = False
-                    state = 'tidak_siap'
             # else: 
             #     is_keadaan = False
 
-            rec.state = state
             rec.kondisi = is_keadaan

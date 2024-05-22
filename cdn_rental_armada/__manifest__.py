@@ -43,6 +43,7 @@
         'reports/travel_tersedia.xml',
         'reports/mobil_tersedia.xml',
         'reports/bus_tersedia.xml',
+        'reports/semua_tersedia.xml',
         'views/pelanggan.xml',
     ],
     # only loaded in demonstration mode

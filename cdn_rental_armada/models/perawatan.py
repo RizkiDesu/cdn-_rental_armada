@@ -14,6 +14,15 @@ class CdnService(models.Model):
     harga = fields.Integer(string='Pengeluran')
     deskripsi = fields.Text(string='Deskripsi')
     
+    @api.model
+    def create(self):
+        return {
+            'type': 'ir.actions.act_window',
+            'name': 'Armada',
+            'res_model': 'cdn.armada',
+            'view_mode': 'form',
+            'target': 'current',
+        }
     # @api.model
     # def create(self, vals):
         

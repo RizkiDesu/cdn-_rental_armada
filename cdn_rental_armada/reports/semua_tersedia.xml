@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <odoo>
-    <template id="bus_tersedia">
+    <template id="semua_tersedia">
             <t t-call="web.basic_layout">
                 <div class="page">
                     <style>
@@ -14,9 +14,9 @@
                         <thead>
                             <tr>
                                 <th>ID</th>
+                                <th><span>Jenis<b style="color:white">_</b>Armada</span></th>
                                 <th><span>Merek</span></th>
-                                <th><span>Jenis<b style="color:white">_</b>Merek</span></th>
-                                <th><span>Jenis<b style="color:white">_</b></span></th>
+                                <th><span>Jenis<b style="color:white">_</b>Kendaraan</span></th>
                                 <th><span>Jumlah<b style="color:white">_</b>Kursi</span></th>
                                 <th><span>Tahun<b style="color:white">_</b>Pembuatan</span></th>
                                 <th><span>Plat<b style="color:white">_</b>Nomor</span></th>
@@ -25,8 +25,9 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr t-foreach="docs" t-as="o" t-if="o.state == 'siap'and o.jenis_armada == 'bis'">
-                                <td style="padding: 2px;" width="5%" ><span t-field="o.id"/></td>
+                            <tr t-foreach="docs" t-as="o" t-if="o.state == 'siap'">
+                                <td style="padding: 2px;" width="50%" ><span t-field="o.id"/></td>
+                                <td style="padding: 2px;" width="50%" ><span t-field="o.jenis_armada"/></td>
                                 <td style="padding: 2px;" width="50%" ><span t-field="o.merek_id"/></td>
                                 <td style="padding: 2px;" width="50%" ><span t-field="o.jenis_kendaraan"/></td>
                                 <td style="padding: 2px;" width="50%" ><span t-field="o.jumlah_kursi"/></td>
