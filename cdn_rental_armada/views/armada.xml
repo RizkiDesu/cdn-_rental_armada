@@ -35,12 +35,12 @@
                     <field name="jenis_kendaraan"/>
                     <field name="jumlah_kursi"/>
                     <field name="tahun_pembuatan"/>
-                    <field name="kondisi" widget="boolean_toggle" invisible="1" />
+                    <field name="kondisi" />
                     <field name="foto_mobil"/>
                     <field name="no_plat"/>
                     <templates>
                         
-                            <t t-name="kanban-box">
+                            <t t-name="kanban-box" >
                             <div class="oe_kanban_global_click o_kanban_record_has_image_fill">
                                 <t t-if="record.foto_mobil.raw_value">
 
@@ -108,7 +108,7 @@
 
 
                     <div class="alert alert-danger text-center o_form_header" role="alert" attrs="{'invisible':[('kondisi','=',True)]}">
-                        <strong>Armada sudah lama tidak di servis</strong>
+                        <strong>Armada sudah lama tidak di servis / belum memasukan data kapan teakhir servce</strong>
                     </div>
 
 
