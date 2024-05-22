@@ -12,7 +12,7 @@
                     <field name="jenis_kendaraan"/>
                     <field name="jumlah_kursi"/>
                     <field name="tahun_pembuatan"/>
-                    <field name="kondisi" widget="boolean_toggle"/>
+                    <field name="kondisi" widget="boolean_toggle" invisible="1"/>
                     <field name="state" 
                         decoration-success="state == 'siap'"
                         decoration-warning="state == 'dipakai'" 
@@ -35,7 +35,7 @@
                     <field name="jenis_kendaraan"/>
                     <field name="jumlah_kursi"/>
                     <field name="tahun_pembuatan"/>
-                    <field name="kondisi" widget="boolean_toggle"  />
+                    <field name="kondisi" widget="boolean_toggle" invisible="1" />
                     <field name="foto_mobil"/>
                     <field name="no_plat"/>
                     <templates>
