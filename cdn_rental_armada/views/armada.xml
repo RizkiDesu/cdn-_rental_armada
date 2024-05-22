@@ -122,7 +122,7 @@
                         <group>
                             <field name="jenis_armada"/>
                             <field name="merek_id"/>
-                            <field name="jenis_kendaraan" context="{'default_merek_id': merek_id}" attrs = "{'readonly':[('merek_id', '!=', True)]}"/>
+                            <field name="jenis_kendaraan" context="{'default_merek_id': merek_id}" attrs = "{'readonly':[('merek_id', '=', False)]}"/>
                             <field name="jumlah_kursi"/>
                         </group>
                         <group>
@@ -142,7 +142,6 @@
         <record id="cdn_armada_action" model="ir.actions.act_window">
             <field name="name">Armada</field>
             <field name="type">ir.actions.act_window</field>
-            <field name="context">{'default_state': 'draft'}</field>
             <field name="res_model">cdn.armada</field>
             <field name="view_mode">kanban,tree,form</field>
             <field name="help" type="html">
