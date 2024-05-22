@@ -1,17 +1,19 @@
 
 {
-    'name'          : 'cdn_rental_armada',
-    'version'       : '1.0.0',
-    'summary'       : """odoo 16""",
-    'description'   : """Membuat module odoo16 Rental Armada""",
-    'category'      : 'rental_armada',
-    'author'        : 'Armada Team',
-    'maintainer'    : 'armada_team',
-    'website'       : 'https://www.website.com',
-    'license'       : 'AGPL-3',
-    'aplication'    : True,
-
-    'depends'       : ['base', 'product', 'account'],
+    'name': 'Rental Armada',
+    'version': '1.0.0',
+    'summary': """
+        Rental Armada Untuk Perusahaan Travel""",
+    'description': """
+        Membuat module odoo16 Rental Armada
+    """,
+    'category': 'Uncategorized',
+    'author': 'Armada Team',
+    'maintainer': 'armada_team',
+    'website': 'https://www.website.com',
+    'license': 'AGPL-3',
+    
+    'depends': ['base', 'product', 'account'],
     
     'data': [
         'security/group.xml',
@@ -36,6 +38,10 @@
         'reports/semua_tersedia.xml',
         'views/pelanggan.xml',
     ],
+    'demo': [
+        'demo/demo.xml',
+    ],
+    'aplication': True,
     
 
 }

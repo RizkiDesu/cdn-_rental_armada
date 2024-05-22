@@ -25,13 +25,22 @@ class CdnArmada(models.Model):
     service_ids      = fields.One2many(comodel_name='cdn.service', inverse_name='armada_id', string='List Armada')
     hitung_service   = fields.Integer(string='Jumlah Service', compute="_compute_service_count", store=True)
     terakhir_service = fields.Date(string='Terakhir Service', compute='_compute_tanggal_service_terakhir', store=True)
-    state            = fields.Selection(string='Status Armada', selection=[('tidak_siap','Tidak Siap'), ('dipakai', 'Sedang Dipakai'), ('siap', 'Siap Dipakai'), ('draft', 'Draft')], default='tidak_siap')
+    state           = fields.Selection(string='Status Armada', selection=[('tidak_siap','Tidak Siap'), ('dipakai', 'Sedang Dipakai'), ('siap', 'Siap Dipakai')], store=True)
+
     
 
     # kondisi = fields.Char(compute='_compute_kondisi', string='kondisi')
     
 
-             
+    @api.onchange('kondisi')
+    def _onchange_kondisi(self):
+        if self.state :
+            self.state = 'dipakai'
+        else:
+            if self.kondisi == False:
+                self.state = 'tidak_siap'
+            elif self.kondisi == True:
+                self.state = 'siap'
 
     @api.depends('service_ids.tanggal')
     def _compute_tanggal_service_terakhir(self):
@@ -111,36 +120,20 @@ class CdnArmada(models.Model):
         for rec in self : 
             rec.state = 'tidak_siap'
 
+    @api.depends('terakhir_service')
+    def _compute_kondisi(self):
+        is_keadaan = False
+        # state 
+        for rec in self: 
+            hari_ini = date.today()
+            jangka_waktu = self.env['ir.config_parameter'].get_param('cdn_rental_armada.jangka_waktu')
+            hari_batal_wajar = hari_ini - relativedelta.relativedelta(days=int(jangka_waktu))
+            if rec.terakhir_service : 
+                if hari_batal_wajar < rec.terakhir_service:
+                    is_keadaan = True
+                    
+                else :
+                    is_keadaan = False
+                    
 
-    # @api.depends('terakhir_service')
-    # def _compute_kondisi(self):
-    #     is_keadaan = False
-    #     state = 'tidak_siap'
-    #     for rec in self: 
-            
-    #         hari_ini = date.today()
-
-    #         jangka_waktu = self.env['ir.config_parameter'].get_param('cdn_rental_armada.jangka_waktu')
-
-    #         print("tess.............")
-    #         # hari_batal_wajar = hari_ini - date(days=jangka_waktu)
-
-    #         hari_batal_wajar = hari_ini - relativedelta.relativedelta(days=int(jangka_waktu))
-    #         if rec.terakhir_service : 
-
-    #             # print(".......................")
-    #             # print( "hari_batal_wajar < hari_ini" )
-    #             # print( hari_batal_wajar," < ", rec.terakhir_service )
-    #             # print( hari_batal_wajar < rec.terakhir_service )
-    #             # print(rec.terakhir_service)
-    #             if hari_batal_wajar < rec.terakhir_service:
-    #                 is_keadaan = True
-    #                 state = 'siap'
-    #             else :
-    #                 is_keadaan = False
-    #                 state = 'tidak_siap'
-    #         # else: 
-    #         #     is_keadaan = False
-
-    #         rec.state = state
-    #         rec.kondisi = is_keadaan
+            rec.kondisi = is_keadaan
