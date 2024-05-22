@@ -18,7 +18,7 @@ class CdnSim(models.Model):
    _rec_name     = 'no_sim'
 
    sim_id      = fields.Many2one(comodel_name='cdn.supir', string='SUPIR')
-   name        = fields.Char(string='Nama', required=True)
+   name        = fields.Char(string='Nama')
    no_sim      = fields.Char(string='No Sim', required=True)
    jenis_sim   = fields.Selection(string='Jenis Sim', selection=[('a', 'Sim A'), ('b', 'Sim B')], required=True) 
    foto_sim    = fields.Image('Foto Sim', required=True)
