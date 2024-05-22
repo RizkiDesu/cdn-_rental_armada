@@ -19,7 +19,6 @@ class CdnArmada(models.Model):
     no_plat         = fields.Char(string='Plat Nomor', required=True)
     no_mesin        = fields.Char(string='No Rangka & No Mesin',required=True)
     
-    
     kondisi          = fields.Boolean(string='Kondisi Kendaraan', help="Jika aktif berarti armada dalam kondisi bagus", compute="_compute_kondisi")
 
     foto_mobil       = fields.Image('Foto Armada')
@@ -28,28 +27,14 @@ class CdnArmada(models.Model):
     terakhir_service = fields.Date(string='Terakhir Service', compute='_compute_tanggal_service_terakhir', store=True)
     state           = fields.Selection(string='Status Armada', selection=[('tidak_siap','Tidak Siap'), ('dipakai', 'Sedang Dipakai'), ('siap', 'Siap Dipakai')])
 
-    
-
-    # kondisi = fields.Char(compute='_compute_kondisi', string='kondisi')
-    
-
     @api.onchange('kondisi')
-    def _onchange_kondisi(self):
-
-        if self.state  :
-            self.state = 'dipakai'
-        else:
-
-
-            if self.kondisi not in (False, True):
-                if self.kondisi == False:
-                    self.state = 'tidak_siap'
-                elif self.kondisi == True:
-                    self.state = 'siap'
-
-            else:
-
-                self.state = 'tidak_siap'
+    def _onchange_kondisi(self): # fix bug rizki
+        if  self.kondisi == True:
+            self.state = 'siap'
+        if  self.kondisi == False:
+            self.state = 'tidak_siap'
+        if self.kondisi not in (False, True): # jika kondisi tidak diisi
+            self.state = 'tidak_siap'
 
     @api.depends('service_ids.tanggal')
     def _compute_tanggal_service_terakhir(self):
@@ -59,7 +44,6 @@ class CdnArmada(models.Model):
                 rec.terakhir_service = services.tanggal
             else:
                 rec.terakhir_service = rec.terakhir_service # fix bug rizki
-    
     def name_get(self):
         return [(record.id, "[ %s ][ %s ] %s %s" % (record.jenis_armada, record.no_plat, record.merek_id.name, record.jenis_kendaraan.name)) for record in self]
     
@@ -74,9 +58,6 @@ class CdnArmada(models.Model):
                 'merek_id': merek_id,
             })
             vals['jenis_kendaraan'] = jenis_kendaraan.id
-        
-
-
         return super(CdnArmada, self).create(vals)
     
     def tombol_service(self):
@@ -130,16 +111,13 @@ class CdnArmada(models.Model):
         
         # state 
         for rec in self: 
-            is_keadaan = True
+            is_keadaan = False
             hari_ini = date.today()
             jangka_waktu = self.env['ir.config_parameter'].get_param('cdn_rental_armada.jangka_waktu')
             hari_batal_wajar = hari_ini - relativedelta.relativedelta(days=int(jangka_waktu))
             if rec.terakhir_service : 
                 if hari_batal_wajar < rec.terakhir_service:
                     is_keadaan = True
-                    
                 else :
                     is_keadaan = False
-                    
-
             rec.kondisi = is_keadaan
