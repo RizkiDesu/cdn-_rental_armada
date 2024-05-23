@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+
+        <!-- cdn.uji.kir tree view -->
+        <record id="cdn_uji_kir_view_tree" model="ir.ui.view">
+            <field name="name">cdn.uji.kir.view.tree</field>
+            <field name="model">cdn.uji.kir</field>
+            <field name="arch" type="xml">
+                <tree sample="1">
+                    <!-- Add your fields here -->
+                    <field name="armada_id"/>
+                    <field name="tanggal"/>
+                    <field name="tanggal_berakhir"/>
+                </tree>
+            </field>
+        </record>
+        <!-- cdn.uji.kir form view -->
+        <record id="cdn_uji_kir_view_form" model="ir.ui.view">
+            <field name="name">cdn.uji.kir.view.form</field>
+            <field name="model">cdn.uji.kir</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <sheet>
+                        <group>
+                            <!-- Add your fields here -->
+                            <field name="armada_id" readonly="context.get('hide_nama_service')"/>
+                            <field name="tanggal"/>
+                            <field name="tanggal_berakhir"/>
+                        </group>
+                        <notebook>
+                            <page name="deskripsi" string="deskripsi">
+                                <field name="deskripsi"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <!-- cdn.uji.kir action window -->
+        <record id="cdn_uji_kir_action" model="ir.actions.act_window">
+            <field name="name">Uji Kendaraan</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">cdn.uji.kir</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    <!-- Add Text Here -->
+                </p><p>
+                    <!-- More details about what a user can do with this object will be OK --> 
+                
+                </p>
+            </field>
+        </record>
+        
+    
+    </data>
+    
+</odoo>

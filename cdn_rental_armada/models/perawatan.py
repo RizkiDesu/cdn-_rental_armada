@@ -59,3 +59,15 @@ class CdnService(models.Model):
  
         return record
 
+
+class CdnUjiKir(models.Model):
+    _name = 'cdn.uji.kir'
+    _description = 'Cdn Uji Kir'
+    _rec_name = 'tanggal_berakhir'
+
+    armada_id = fields.Many2one(comodel_name='cdn.armada', string='Armada', required=True)
+    tanggal = fields.Date(string='Tanggal Uji Kir')
+    tanggal_berakhir = fields.Date(string='Berlaku Sampai')
+    deskripsi = fields.Text(string='Deskripsi')
+
+
