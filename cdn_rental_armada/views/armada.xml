@@ -107,12 +107,16 @@
                             <field name="hitung_service" string="Kali Perawatan" widget="statinfo"/>
                         </button>
                     </div>
-                    <div class="alert alert-danger text-center o_form_header" role="alert" attrs="{'invisible':[('kondisi','=',True)]}">
-                        <strong>Armada sudah lama tidak di servis / belum memasukan data kapan teakhir servce</strong>
+                    <div class="alert alert alert-danger text-center o_form_header" role="alert" attrs="{'invisible':[('state','!=','tidak_siap')]}">
+                            <div >
+                                <strong>Armada Belum Siap !!!</strong>
+                            </div>
+                            <div attrs="{'invisible':[('kondisi','!=',True)]}">
+                                Armada sudah lama tidak di servis !!!
+                            </div>
+                            <a class="close" data-bs-dismiss="alert" href="#">[close]</a>
                     </div>
-
-
-                    <!-- <widget name="web_ribbon" text="Kondisi Tidak Layak" bg_color="bg-danger" attrs="{'invisible':[('kondisi','=',True)]}" /> -->
+                    
                     <div>
                             <field name="foto_mobil" widget="image" class="oe_avatar" />
                     </div>   
