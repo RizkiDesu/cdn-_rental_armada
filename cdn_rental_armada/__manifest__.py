@@ -36,7 +36,7 @@
         'views/tenaga_bantu.xml',
         'views/pengaturan.xml',
         # 'views/product_inherit.xml',
-        'views/produk.xml',
+        # 'views/produk.xml',
         # 'views/penagihan_inherit.xml',
         'views/perawatan.xml',
         'reports/test_report.xml',
@@ -45,6 +45,7 @@
         'reports/bus_tersedia.xml',
         'reports/semua_tersedia.xml',
         'views/pelanggan.xml',
+        'views/varian.xml',
     ],
     # only loaded in demonstration mode
     'demo': [
