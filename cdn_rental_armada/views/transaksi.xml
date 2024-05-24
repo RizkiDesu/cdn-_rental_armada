@@ -11,6 +11,9 @@
                 <xpath expr="//field[@name='partner_id']" position="before">
                     <field name="jenis_armada"/>
                 </xpath>
+                <xpath expr="//field[@name='partner_id']" position="attributes">
+                    <attribute name="domain">[('type_orang','=','pelanggan')]</attribute>
+                </xpath>
 
                 <xpath expr="//page[@name='order_lines']" position="replace">
                     <page string="Order Lines" name="order_lines">
