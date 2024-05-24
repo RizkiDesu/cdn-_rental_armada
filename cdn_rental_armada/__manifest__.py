@@ -28,9 +28,14 @@
         'views/tenaga_bantu.xml',
         'views/pengaturan.xml',
         # 'views/product_inherit.xml',
+<<<<<<< HEAD
+        # 'views/produk.xml',
+        # 'views/penagihan_inherit.xml',
+=======
         'views/produk.xml',
 
         'views/uji_kir_view.xml',
+>>>>>>> 1e6aeae86e6cda7e921719d4290569007b8548d0
         'views/perawatan.xml',
 
         'reports/test_report.xml',
@@ -39,6 +44,7 @@
         'reports/bus_tersedia.xml',
         'reports/semua_tersedia.xml',
         'views/pelanggan.xml',
+        'views/varian.xml',
     ],
     'demo': [
         'demo/demo.xml',
