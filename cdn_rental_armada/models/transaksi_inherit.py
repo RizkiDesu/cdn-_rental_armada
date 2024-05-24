@@ -14,6 +14,7 @@ class CdnSaleOrder(models.Model):
 class CdnSaleOrderLines(models.Model):
    _inherit = 'sale.order.line'
    
+   armada_id      = fields.Many2one(comodel_name='cdn.armada', string='Armada')
    supir          = fields.Many2one(comodel_name='cdn.supir', string='Supir')
    tenaga_bantu   = fields.Many2one(comodel_name='cdn.tenaga.bantu', string='Tenaga Bantu')
 
