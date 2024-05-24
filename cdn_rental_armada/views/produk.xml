@@ -115,6 +115,6 @@
                </p>
          </field>
       </record>
-      <menuitem id="produk_menu_action" name="Produk" parent="product_menu_categ" action="cdn_produk_action" sequence="0"/>
+      <menuitem id="produk_menu_action" name="Produk" parent="product_product_menu_categ" action="cdn_produk_action" sequence="0"/>
    </data>
 </odoo>

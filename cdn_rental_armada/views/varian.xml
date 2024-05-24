@@ -74,9 +74,9 @@
             </field>
         </record>
 
-        <menuitem id="mobil_menu_action" name="Mobil" parent="product_menu_categ" action="mobil_action" sequence="10"/>
-        <menuitem id="bus_menu_action" name="Bus Pariwisata" parent="product_menu_categ" action="bus_action" sequence="20"/>
-        <menuitem id="travel_menu_action" name="Travel" parent="product_menu_categ" action="travel_action" sequence="30"/>
+        <menuitem id="mobil_menu_action" name="Mobil" parent="product_product_menu_categ" action="mobil_action" sequence="10"/>
+        <menuitem id="bus_menu_action" name="Bus Pariwisata" parent="product_product_menu_categ" action="bus_action" sequence="20"/>
+        <menuitem id="travel_menu_action" name="Travel" parent="product_product_menu_categ" action="travel_action" sequence="30"/>
     </data>
     
 </odoo>

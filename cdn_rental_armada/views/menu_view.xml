@@ -15,7 +15,10 @@
         <menuitem id="pelanggan_menu_categ" name="Pelanggan" parent="armada_menu_root" sequence="12"/>
 
         <!-- rizki -->
-        <menuitem id="product_menu_categ" name="Produk" parent="armada_menu_root" sequence="15"/>
+        <menuitem id="product_menu_categ" name="Produk Layanan" parent="armada_menu_root" sequence="15"/>
+        
+        <!-- This Menu Item Must have a parent -->
+        <menuitem id="product_product_menu_categ" name="Produk" parent="product_menu_categ" sequence="1"/>
 
         <!-- ian -->
         <menuitem id="transaksi_menu_categ" name="Transaksi" parent="armada_menu_root" sequence="20"/>
