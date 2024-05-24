@@ -103,9 +103,19 @@
                         <button name="tombol_merek_action" type="object" class="oe_stat_button" icon="fa-superpowers">
                             Merek
                         </button>
-                        <button name="tombol_service" type="object" class="oe_stat_button" icon="fa-wrench" context="{'default_armada_id':active_id,'hide_nama_service':1}">
-                            <field name="hitung_service" string="Kali Perawatan" widget="statinfo"/>
+
+
+
+                        
+                        <button name="tombol_ujikir" type="object" class="oe_stat_button" icon="fa-superpowers">
+                            Uji Kendaraan
                         </button>
+                        <button name="tombol_service" type="object" class="oe_stat_button" icon="fa-wrench" context="{'default_armada_id':active_id,'hide_nama_service':1}">
+                            <field name="hitung_service" string="Service" widget="statinfo"/>
+                        </button>
+
+
+                        
                     </div>
                     <div class="alert alert alert-danger text-center o_form_header" role="alert" attrs="{'invisible':[('state','!=','tidak_siap')]}">
                             <div >
@@ -135,6 +145,7 @@
                             
                             <field name="kondisi" help="Jika aktif berarti armada dalam kondisi bagus" widget="boolean_toggle" invisible="1"/>
                             <field name="terakhir_service"/>
+                            <field name="berlaku_ujikir"/>
                         </group>
                         </group>
                         
@@ -145,6 +156,10 @@
         <record id="cdn_armada_action" model="ir.actions.act_window">
             <field name="name">Armada</field>
             <field name="type">ir.actions.act_window</field>
+<<<<<<< HEAD
+            <!-- <field name="context">{'default_state': 'tidak_siap'}</field> -->
+=======
+>>>>>>> 1e6aeae86e6cda7e921719d4290569007b8548d0
             <field name="res_model">cdn.armada</field>
             <field name="view_mode">kanban,tree,form</field>
             <field name="help" type="html">

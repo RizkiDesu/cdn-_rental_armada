@@ -28,8 +28,8 @@
         'views/tenaga_bantu.xml',
         'views/pengaturan.xml',
         # 'views/product_inherit.xml',
-        'views/produk.xml',
-        # 'views/penagihan_inherit.xml',
+        # 'views/produk.xml',
+        'views/uji_kir_view.xml',
         'views/perawatan.xml',
         'reports/test_report.xml',
         'reports/travel_tersedia.xml',
@@ -39,6 +39,7 @@
         'views/pelanggan.xml',
         'views/transaksi.xml',
         # 'views/sale_order_line_inherit.xml',
+        'views/varian.xml',
     ],
     'demo': [
         'demo/demo.xml',
