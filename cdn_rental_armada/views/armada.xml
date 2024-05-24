@@ -97,11 +97,14 @@
                     
                     <sheet>
                     <div class="oe_button_box" name="button_box"> 
-                        <button name="tombol_jenis" type="object" class="oe_stat_button" icon="fa-car" context="{'default_jenis_armada':jenis_armada}">
+                        <!-- <button name="tombol_jenis" type="object" class="oe_stat_button" icon="fa-car" context="{'default_jenis_armada':jenis_armada}">
                             <field name="jenis_armada" readonly="1"/>
-                        </button>
-                        <button name="tombol_merek_action" type="object" class="oe_stat_button" icon="fa-superpowers">
+                        </button> -->
+                        <!-- <button name="tombol_merek_action" type="object" class="oe_stat_button" icon="fa-superpowers">
                             Merek
+                        </button> -->
+                        <button icon="fa-road">
+                            Perjalanan
                         </button>
 
 
@@ -137,12 +140,12 @@
                             <field name="merek_id"/>
                             <field name="jenis_kendaraan" context="{'default_merek_id': merek_id}" attrs = "{'readonly':[('merek_id', '=', False)]}"/>
                             <field name="jumlah_kursi"/>
+                            <field name="tahun_pembuatan"/>
                         </group>
                         <group>
-                            <field name="tahun_pembuatan"/>
                             <field name="no_plat"/>
                             <field name="no_mesin"/>
-                            
+                            <field name="no_rangka"/>
                             <field name="kondisi" help="Jika aktif berarti armada dalam kondisi bagus" widget="boolean_toggle" invisible="1"/>
                             <field name="terakhir_service"/>
                             <field name="berlaku_ujikir"/>

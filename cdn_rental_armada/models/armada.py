@@ -11,14 +11,15 @@ class CdnArmada(models.Model):
         ('unique_no_mesin', 'Unique(no_mesin)','Nomor mesin tidak boleh sama!'),
     ]
 
-    merek_id        = fields.Many2one(comodel_name='cdn.merek', string='Merek Kendaraan',required=True)
-    jenis_kendaraan = fields.Many2one(comodel_name='cdn.jenis.kendaraan', string='Jenis Kendaraan',required=True, domain="[('merek_id', '=', merek_id)]")
-    jumlah_kursi    = fields.Integer(string='Jumlah Kursi', required=True, default="2")
-    jenis_armada    = fields.Selection(string='Jenis Armada', selection=[('bis', 'Bis Pariwisata'), ('travel', 'Travel'),('mobil', 'Mobil')], required=True)    
-    tahun_pembuatan = fields.Integer(string='Tahun Pembuatan', required=True, default=lambda self: date.today().year)
-    no_plat         = fields.Char(string='Plat Nomor', required=True)
-    no_mesin        = fields.Char(string='No Rangka & No Mesin',required=True)
-    
+    merek_id         = fields.Many2one(comodel_name='cdn.merek', string='Merek Kendaraan',required=True)
+    jenis_kendaraan  = fields.Many2one(comodel_name='cdn.jenis.kendaraan', string='Jenis Kendaraan',required=True, domain="[('merek_id', '=', merek_id)]")
+    jumlah_kursi     = fields.Integer(string='Jumlah Kursi', required=True, default="2")
+    jenis_armada     = fields.Selection(string='Jenis Armada', selection=[('bis', 'Bis Pariwisata'), ('travel', 'Travel'),('mobil', 'Mobil')], required=True)    
+    tahun_pembuatan  = fields.Integer(string='Tahun Pembuatan', required=True, default=lambda self: date.today().year)
+    no_plat          = fields.Char(string='Plat Nomor', required=True)
+    no_mesin         = fields.Char(string='No Mesin',required=True)
+    no_rangka        = fields.Char(string='No Rangka',required=True)
+           
     kondisi          = fields.Boolean(string='Kondisi Kendaraan', help="Jika aktif berarti armada dalam kondisi bagus", compute="_compute_kondisi")
 
     foto_mobil       = fields.Image('Foto Armada')
@@ -27,7 +28,7 @@ class CdnArmada(models.Model):
     hitung_service   = fields.Integer(string='Jumlah Service', compute="_compute_service_count", store=True)
     berlaku_ujikir  = fields.Date(string='Berlaku Uji Kir', compute='_compute_tanggal_ujikir_terakhir', store=True)
     terakhir_service = fields.Date(string='Terakhir Service', compute='_compute_tanggal_service_terakhir', store=True)
-    state           = fields.Selection(string='Status Armada', selection=[('tidak_siap','Tidak Siap'), ('dipakai', 'Sedang Dipakai'), ('siap', 'Siap Dipakai')])
+    state            = fields.Selection(string='Status Armada', selection=[('tidak_siap','Tidak Siap'), ('dipakai', 'Sedang Dipakai'), ('siap', 'Siap Dipakai')])
 
     @api.model
     def create(self, vals):
@@ -110,13 +111,6 @@ class CdnArmada(models.Model):
             'type': 'ir.actions.act_window'
         }
         
-    def tombol_merek_action(self):
-        return {
-            'name': _('Merek Kendaraan'),
-            'res_model': 'cdn.merek',
-            'view_mode': 'list,form',
-            'type': 'ir.actions.act_window'
-        }
 
     def action_state_siap(self) :
         for rec in self : 

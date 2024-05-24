@@ -13,4 +13,4 @@ class CdnProduk(models.Model):
     jumlah_kursi    = fields.Integer(string='Jumlah Kursi', related='armada_id.jumlah_kursi')
     tahun_pembuatan = fields.Integer(string='Tahun Pembuatan', related='armada_id.tahun_pembuatan')
     no_plat         = fields.Char(string='Plat Nomor', related='armada_id.no_plat')
-    no_mesin        = fields.Char(string='No Rangka & No Mesin', related='armada_id.no_mesin')
+    no_mesin        = fields.Char(string='No Mesin', related='armada_id.no_mesin')
