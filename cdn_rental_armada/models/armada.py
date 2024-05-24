@@ -11,43 +11,27 @@ class CdnArmada(models.Model):
         ('unique_no_mesin', 'Unique(no_mesin)','Nomor mesin tidak boleh sama!'),
     ]
 
-    merek_id         = fields.Many2one(comodel_name='cdn.merek', string='Merek Kendaraan',required=True)
-    jenis_kendaraan  = fields.Many2one(comodel_name='cdn.jenis.kendaraan', string='Jenis Kendaraan',required=True,domain="[('merek_id', '=', merek_id)]")
-    jumlah_kursi     = fields.Integer(string='Jumlah Kursi', required=True, default="2")
-    jenis_armada     = fields.Selection(string='Jenis Armada', selection=[('bis', 'Bis Pariwisata'), ('travel', 'Travel'),('mobil', 'Mobil')], required=True)    
-    tahun_pembuatan  = fields.Integer(string='Tahun Pembuatan', required=True, default=lambda self: date.today().year)
-    no_plat          = fields.Char(string='Plat Nomor', required=True)
-    no_mesin         = fields.Char(string='No Rangka & No Mesin',required=True)
+    merek_id        = fields.Many2one(comodel_name='cdn.merek', string='Merek Kendaraan',required=True)
+    jenis_kendaraan = fields.Many2one(comodel_name='cdn.jenis.kendaraan', string='Jenis Kendaraan',required=True, domain="[('merek_id', '=', merek_id)]")
+    jumlah_kursi    = fields.Integer(string='Jumlah Kursi', required=True, default="2")
+    jenis_armada    = fields.Selection(string='Jenis Armada', selection=[('bis', 'Bis Pariwisata'), ('travel', 'Travel'),('mobil', 'Mobil')], required=True)    
+    tahun_pembuatan = fields.Integer(string='Tahun Pembuatan', required=True, default=lambda self: date.today().year)
+    no_plat         = fields.Char(string='Plat Nomor', required=True)
+    no_mesin        = fields.Char(string='No Rangka & No Mesin',required=True)
     
-    kondisi          = fields.Boolean(string='Kondisi Kendaraan', help="Jika aktif berarti armada dalam kondisi bagus", default=False)
+    kondisi          = fields.Boolean(string='Kondisi Kendaraan', help="Jika aktif berarti armada dalam kondisi bagus", compute="_compute_kondisi")
 
     foto_mobil       = fields.Image('Foto Armada')
     service_ids      = fields.One2many(comodel_name='cdn.service', inverse_name='armada_id', string='List Armada')
+    ujikir_ids      = fields.One2many(comodel_name='cdn.uji.kir', inverse_name='armada_id', string='List Uji Kir')
     hitung_service   = fields.Integer(string='Jumlah Service', compute="_compute_service_count", store=True)
+    berlaku_ujikir  = fields.Date(string='Berlaku Uji Kir', compute='_compute_tanggal_ujikir_terakhir', store=True)
     terakhir_service = fields.Date(string='Terakhir Service', compute='_compute_tanggal_service_terakhir', store=True)
-    state            = fields.Selection(string='Status Armada', selection=[('tidak_siap','Tidak Siap'), ('dipakai', 'Sedang Dipakai'), ('siap', 'Siap Dipakai'), ('draft', 'Draft')], default='tidak_siap')
-    
+    state           = fields.Selection(string='Status Armada', selection=[('tidak_siap','Tidak Siap'), ('dipakai', 'Sedang Dipakai'), ('siap', 'Siap Dipakai')])
 
-    # kondisi = fields.Char(compute='_compute_kondisi', string='kondisi')
-    
-
-             
-
-    @api.depends('service_ids.tanggal')
-    def _compute_tanggal_service_terakhir(self):
-        for rec in self:
-            services = self.env['cdn.service'].search([('armada_id', '=', rec.id)], order='tanggal desc', limit=1)
-            if services:
-                rec.terakhir_service = services.tanggal
-            else:
-                rec.terakhir_service = rec.terakhir_service # fix bug rizki
-    
-    def name_get(self):
-        return [(record.id, "[ %s ][ %s ] %s %s" % (record.jenis_armada, record.no_plat, record.merek_id.name, record.jenis_kendaraan.name)) for record in self]
-    
     @api.model
     def create(self, vals):
-        vals['state'] = 'tidak_siap'
+        # vals
         if 'jenis_kendaraan' in vals and isinstance(vals['jenis_kendaraan'], str):
             jenis_kendaraan_name = vals['jenis_kendaraan']
             merek_id             = vals.get('merek_id')
@@ -56,14 +40,49 @@ class CdnArmada(models.Model):
                 'merek_id': merek_id,
             })
             vals['jenis_kendaraan'] = jenis_kendaraan.id
-        
+        res = super(CdnArmada, self).create(vals)
+        return res
 
-        # if self.kondisi == False:
-        #     self.state = 'tidak_siap'
-        # else:
-        #     self.state = 'siap'
+    @api.onchange('kondisi')
+    def _onchange_kondisi(self): # fix bug rizki
+        if  self.kondisi == True:
+            self.state = 'siap'
+        if  self.kondisi == False:
+            self.state = 'tidak_siap'
+        if self.kondisi not in (False, True): # jika kondisi tidak diisi
+            self.state = 'tidak_siap'
+        # if self.terakhir_service is None : 
+        #     self.state = 'service'
+    @api.depends('ujikir_ids.tanggal_berakhir')
+    def _compute_tanggal_ujikir_terakhir(self):
+        for rec in self:
+            ujikir = self.env['cdn.uji.kir'].search([('armada_id', '=', rec.id)], order='tanggal_berakhir desc', limit=1)
+            if ujikir:
+                rec.berlaku_ujikir = ujikir.tanggal_berakhir
+            else:
+                rec.berlaku_ujikir = None
 
-        return super(CdnArmada, self).create(vals)
+    @api.depends('service_ids.tanggal')
+    def _compute_tanggal_service_terakhir(self):
+        for rec in self:
+            services = self.env['cdn.service'].search([('armada_id', '=', rec.id)], order='tanggal desc', limit=1)
+            if services:
+                rec.terakhir_service = services.tanggal
+            else:
+                rec.terakhir_service = None # fix bug rizki
+
+
+    def name_get(self):
+        return [(record.id, "[ %s ][ %s ] %s %s" % (record.jenis_armada, record.no_plat, record.merek_id.name, record.jenis_kendaraan.name)) for record in self]
+    
+
+    def tombol_ujikir(self):
+        action = self.env["ir.actions.actions"]._for_xml_id("cdn_rental_armada.cdn_uji_kir_action")
+        action['domain'] = [('armada_id', '=', self.id)]
+        action['context'] = {'default_armada_id': self.id}
+        return action
+    
+    
     
     def tombol_service(self):
         return {
@@ -111,36 +130,17 @@ class CdnArmada(models.Model):
         for rec in self : 
             rec.state = 'tidak_siap'
 
-
-    # @api.depends('terakhir_service')
-    # def _compute_kondisi(self):
-    #     is_keadaan = False
-    #     state = 'tidak_siap'
-    #     for rec in self: 
-            
-    #         hari_ini = date.today()
-
-    #         jangka_waktu = self.env['ir.config_parameter'].get_param('cdn_rental_armada.jangka_waktu')
-
-    #         print("tess.............")
-    #         # hari_batal_wajar = hari_ini - date(days=jangka_waktu)
-
-    #         hari_batal_wajar = hari_ini - relativedelta.relativedelta(days=int(jangka_waktu))
-    #         if rec.terakhir_service : 
-
-    #             # print(".......................")
-    #             # print( "hari_batal_wajar < hari_ini" )
-    #             # print( hari_batal_wajar," < ", rec.terakhir_service )
-    #             # print( hari_batal_wajar < rec.terakhir_service )
-    #             # print(rec.terakhir_service)
-    #             if hari_batal_wajar < rec.terakhir_service:
-    #                 is_keadaan = True
-    #                 state = 'siap'
-    #             else :
-    #                 is_keadaan = False
-    #                 state = 'tidak_siap'
-    #         # else: 
-    #         #     is_keadaan = False
-
-    #         rec.state = state
-    #         rec.kondisi = is_keadaan
+    @api.depends('terakhir_service')
+    def _compute_kondisi(self):
+        # state 
+        for rec in self: 
+            is_keadaan = None
+            hari_ini = date.today()
+            jangka_waktu = self.env['ir.config_parameter'].get_param('cdn_rental_armada.jangka_waktu')
+            hari_batal_wajar = hari_ini - relativedelta.relativedelta(days=int(jangka_waktu))
+            if rec.terakhir_service : 
+                if hari_batal_wajar < rec.terakhir_service:
+                    is_keadaan = False
+                else :
+                    is_keadaan = True 
+            rec.kondisi = is_keadaan

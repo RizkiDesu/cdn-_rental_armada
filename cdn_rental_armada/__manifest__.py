@@ -1,28 +1,20 @@
-# -*- coding: utf-8 -*-
+
 {
-    'name': "Rental Armada",
-
+    'name': 'Rental Armada',
+    'version': '1.0.0',
     'summary': """
-        Modul ini digunakan untuk mengelola data armada rental kendaraan 
-        """,
-
+        Rental Armada Untuk Perusahaan Travel""",
     'description': """
-        Aplikasi ini digunakan untuk mengelola data armada rental kendaraan dalam tugas cdn training
+        Membuat module odoo16 Rental Armada
     """,
-
-    'author': "CDN ARMADA TEAM",
-    'website': "https://www.yourcompany.com",
-
-    # Categories can be used to filter modules in modules listing
-    # Check https://github.com/odoo/odoo/blob/16.0/odoo/addons/base/data/ir_module_category_data.xml
-    # for the full list
-    'category': 'rental armada',
-    'version': '0.1',
-
-    # any module necessary for this one to work correctly
+    'category': 'Uncategorized',
+    'author': 'Armada Team',
+    'maintainer': 'armada_team',
+    'website': 'https://www.website.com',
+    'license': 'AGPL-3',
+    
     'depends': ['base', 'product', 'account'],
-
-    # always loaded
+    
     'data': [
         'security/group.xml',
         'security/ir.model.access.csv',
@@ -36,9 +28,16 @@
         'views/tenaga_bantu.xml',
         'views/pengaturan.xml',
         # 'views/product_inherit.xml',
+<<<<<<< HEAD
         # 'views/produk.xml',
         # 'views/penagihan_inherit.xml',
+=======
+        'views/produk.xml',
+
+        'views/uji_kir_view.xml',
+>>>>>>> 1e6aeae86e6cda7e921719d4290569007b8548d0
         'views/perawatan.xml',
+
         'reports/test_report.xml',
         'reports/travel_tersedia.xml',
         'reports/mobil_tersedia.xml',
@@ -47,9 +46,10 @@
         'views/pelanggan.xml',
         'views/varian.xml',
     ],
-    # only loaded in demonstration mode
     'demo': [
         'demo/demo.xml',
     ],
-    'application': True,
+    'aplication': True,
+    
+
 }
