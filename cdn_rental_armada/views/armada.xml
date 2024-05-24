@@ -108,7 +108,7 @@
                         </button>
 
                         
-                        <button name="tombol_ujikir" type="object" class="oe_stat_button" icon="fa-superpowers">
+                        <button name="tombol_ujikir" type="object" class="oe_stat_button" icon="fa-gears">
                             Uji Kendaraan
                         </button>
                         <button name="tombol_service" type="object" class="oe_stat_button" icon="fa-wrench" context="{'default_armada_id':active_id,'hide_nama_service':1}">
