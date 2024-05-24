@@ -13,7 +13,7 @@
     'website': 'https://www.website.com',
     'license': 'AGPL-3',
     
-    'depends': ['base', 'product', 'account'],
+    'depends': ['base', 'product', 'account', 'sale'],
     
     'data': [
         'security/group.xml',
@@ -37,6 +37,8 @@
         'reports/bus_tersedia.xml',
         'reports/semua_tersedia.xml',
         'views/pelanggan.xml',
+        'views/transaksi.xml',
+        # 'views/sale_order_line_inherit.xml',
     ],
     'demo': [
         'demo/demo.xml',
