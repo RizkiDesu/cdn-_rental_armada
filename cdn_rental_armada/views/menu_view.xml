@@ -3,9 +3,12 @@
     <data>
         <!-- rizki -->
         <menuitem id="armada_menu_root" name="Rental Armada" sequence="0" web_icon="cdn_rental_armada,static/description/odoo_icon.png"/>
+        
+        <!-- ian -->
+        <menuitem id="transaksi_menu_categ" name="Transaksi" parent="armada_menu_root" sequence="1"/>
 
         <!-- rizki -->
-        <menuitem id="armada_menu_categ" name="Armada" parent="armada_menu_root" sequence="1"/>
+        <menuitem id="armada_menu_categ" name="Armada" parent="armada_menu_root" sequence="5"/>
 
         <!-- ian -->
         <menuitem id="karyawan_menu_categ" name="Karyawan" parent="armada_menu_root" sequence="10"/>
@@ -15,9 +18,6 @@
 
         <!-- rizki -->
         <menuitem id="product_menu_categ" name="Produk" parent="armada_menu_root" sequence="15"/>
-
-        <!-- rizki -->
-        <menuitem id="transaksi_menu_categ" name="Transaksi" parent="armada_menu_root" sequence="20"/>
 
         <!-- rizki -->
         <menuitem id="pengaturan_menu_categ" name="Pengaturan" parent="armada_menu_root" sequence="30"/>

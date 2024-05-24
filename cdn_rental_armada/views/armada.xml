@@ -106,9 +106,19 @@
                         <button icon="fa-road">
                             Perjalanan
                         </button>
-                        <button name="tombol_service" type="object" class="oe_stat_button" icon="fa-wrench" context="{'default_armada_id':active_id,'hide_nama_service':1}">
-                            <field name="hitung_service" string="Kali Perawatan" widget="statinfo"/>
+
+
+
+                        
+                        <button name="tombol_ujikir" type="object" class="oe_stat_button" icon="fa-superpowers">
+                            Uji Kendaraan
                         </button>
+                        <button name="tombol_service" type="object" class="oe_stat_button" icon="fa-wrench" context="{'default_armada_id':active_id,'hide_nama_service':1}">
+                            <field name="hitung_service" string="Service" widget="statinfo"/>
+                        </button>
+
+
+                        
                     </div>
                     <div class="alert alert alert-danger text-center o_form_header" role="alert" attrs="{'invisible':[('state','!=','tidak_siap')]}">
                             <div >
@@ -138,6 +148,7 @@
                             <field name="no_rangka"/>
                             <field name="kondisi" help="Jika aktif berarti armada dalam kondisi bagus" widget="boolean_toggle" invisible="1"/>
                             <field name="terakhir_service"/>
+                            <field name="berlaku_ujikir"/>
                         </group>
                         </group>
                         
