@@ -11,16 +11,19 @@ class CdnArmada(models.Model):
         ('unique_no_mesin', 'Unique(no_mesin)','Nomor mesin tidak boleh sama!'),
     ]
 
-    merek_id         = fields.Many2one(comodel_name='cdn.merek', string='Merek Kendaraan',required=True)
-    jenis_kendaraan  = fields.Many2one(comodel_name='cdn.jenis.kendaraan', string='Jenis Kendaraan',required=True, domain="[('merek_id', '=', merek_id)]")
-    jumlah_kursi     = fields.Integer(string='Jumlah Kursi', required=True, default="2")
-    jenis_armada     = fields.Selection(string='Jenis Armada', selection=[('bis', 'Bis Pariwisata'), ('travel', 'Travel'),('mobil', 'Mobil')], required=True)    
-    tahun_pembuatan  = fields.Integer(string='Tahun Pembuatan', required=True, default=lambda self: date.today().year)
-    no_plat          = fields.Char(string='Plat Nomor', required=True)
-    no_mesin         = fields.Char(string='No Mesin',required=True)
-    no_rangka        = fields.Char(string='No Rangka',required=True)
+
+    merek_id         = fields.Many2one(comodel_name='cdn.merek', string='Merek Kendaraan')
+    jenis_kendaraan  = fields.Many2one(comodel_name='cdn.jenis.kendaraan', string='Jenis Kendaraan', domain="[('merek_id', '=', merek_id)]")
+    jumlah_kursi     = fields.Integer(string='Jumlah Kursi', default="2")
+    jenis_armada     = fields.Selection(string='Jenis Armada', selection=[('bis', 'Bis Pariwisata'), ('travel', 'Travel'),('mobil', 'Mobil')])    
+    tahun_pembuatan  = fields.Integer(string='Tahun Pembuatan', default=lambda self: date.today().year)
+    no_plat          = fields.Char(string='Plat Nomor')
+    no_mesin         = fields.Char(string='No Mesin')
+    no_rangka        = fields.Char(string='No Rangka')
+
     history_ids      = fields.One2many(comodel_name='cdn.history', inverse_name='armada_id', string='List Armada')
     
+
            
     kondisi          = fields.Boolean(string='Kondisi Kendaraan', help="Jika aktif berarti armada dalam kondisi bagus", compute="_compute_kondisi")
 
