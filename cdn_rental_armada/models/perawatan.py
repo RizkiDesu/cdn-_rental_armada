@@ -47,10 +47,7 @@ class CdnService(models.Model):
             if hari_batal_wajar < tgl:
                 cek.state = 'siap'
                 cek.kondisi = True
-                # print(cek)
-                # print(vals['armada_id'])
-                # print(record.armada_id)
-                # print(record.armada_id.id)
+
                 
             else :
                 cek.state = 'tidak_siap'
