@@ -101,6 +101,7 @@
                                 <field name="umur"/>
                                 <field name="is_menikah"/>
                                 <field name="status"/>
+                                <field name="type_orang" readonly="1"/>
                             </group>
                             <notebook>
                             <page name="SIM" string="SIM">
@@ -125,6 +126,7 @@
         <record id="cdn_supir_action" model="ir.actions.act_window">
             <field name="name">Data Supir </field>
             <field name="type">ir.actions.act_window</field>
+            <field name="context">{'default_type_orang': 'sopir'}</field>
             <field name="res_model">cdn.supir</field>
             <field name="view_mode">kanban,tree,form</field>
             <field name="help" type="html">
