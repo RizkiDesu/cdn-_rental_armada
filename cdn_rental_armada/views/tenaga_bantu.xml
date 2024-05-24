@@ -47,7 +47,8 @@
                                 <field name="umur"/>
                                 <field name="is_menikah"/>
                                 <field name="status"/>
-                                <field name="type_orang" readonly="1"/>
+                                <!-- <field name="type_orang"/> -->
+                                <field name="type_orang" invisible="1"/>
                             </group>                            
                         </group>
                         </sheet>
