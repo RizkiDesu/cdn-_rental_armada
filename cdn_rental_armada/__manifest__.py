@@ -29,8 +29,10 @@
         'views/pengaturan.xml',
         # 'views/product_inherit.xml',
         'views/produk.xml',
-        # 'views/penagihan_inherit.xml',
+
+        'views/uji_kir_view.xml',
         'views/perawatan.xml',
+
         'reports/test_report.xml',
         'reports/travel_tersedia.xml',
         'reports/mobil_tersedia.xml',
