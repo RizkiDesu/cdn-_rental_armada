@@ -15,5 +15,4 @@ from . import pelanggan
 from . import history
 from . import transaksi_inherit
 from . import varian_product
-from . import res_partner
 
