@@ -31,7 +31,7 @@
         # 'views/produk.xml',
         'views/uji_kir_view.xml',
         'views/perawatan.xml',
-        # 'views/rangka_mesin.xml',
+        'views/history.xml',
         'reports/test_report.xml',
         'reports/travel_tersedia.xml',
         'reports/mobil_tersedia.xml',
