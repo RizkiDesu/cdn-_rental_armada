@@ -12,7 +12,7 @@ from . import produk
 from . import perawatan
 from . import tenaga_bantu
 from . import pelanggan
-# from . import rangka_mesin
+from . import history
 from . import transaksi_inherit
 from . import varian_product
 

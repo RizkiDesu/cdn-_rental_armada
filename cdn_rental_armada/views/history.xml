@@ -1,33 +1,36 @@
-<!-- <?xml version='1.0' encoding='utf-8'?>
+<?xml version='1.0' encoding='utf-8'?>
 <odoo>
     <data>
     
        <!-- Alvito -->
-       <record id="cdn_rangka_mesin_view_tree" model="ir.ui.view">
-        <field name="name">cdn.rangka.mesin.view.tree</field>
-        <field name="model">cdn.rangka.mesin</field>
+       <record id="cdn_history_view_tree" model="ir.ui.view">
+        <field name="name">cdn.history.view.tree</field>
+        <field name="model">cdn.history</field>
         <field name="arch" type="xml">
             <tree sample="1">
                 <!-- Add your fields here -->
                 <field name="armada_id"/>
-                <field name="jenis"/>
-                <field name="no"/>
+                <field name="jarak"/>
+                <field name="tgl_pakai"/>
+                <field name="tujuan"/>
             </tree>
         </field>
        </record> 
 
-        <!-- cdn.rangka.mesin form view -->
-        <record id="cdn_rangka_mesin_view_form" model="ir.ui.view">
-            <field name="name">cdn.rangka.mesin.view.form</field>
-            <field name="model">cdn.rangka.mesin</field>
+        <!-- cdn.history form view -->
+        <record id="cdn_history_view_form" model="ir.ui.view">
+            <field name="name">cdn.history.view.form</field>
+            <field name="model">cdn.history</field>
             <field name="arch" type="xml">
                 <form string="">
                     <sheet>
                         <group>
                             <!-- Add your fields here -->
-                            <field name="armada_id" readonly="context.get('hide_nama_rangka_mesin')"/>
-                            <field name="jenis"/>
-                            <field name="no"/>
+                            <field name="armada_id" readonly="context.get('hide_nama_history')"/>
+                            <field name="jarak"/>
+                            <field name="tgl_pakai"/>
+                            <field name="tujuan"/>
+                            <field name="hari"/>
                            
                         </group>
                     </sheet>
@@ -36,10 +39,10 @@
         </record>
 
         <!-- cdn.rangka.mesin action window -->
-        <record id="cdn_rangka_mesin_action" model="ir.actions.act_window">
-            <field name="name">Rangka  Mesin</field>
+        <record id="cdn_history_action" model="ir.actions.act_window">
+            <field name="name">History Perjalanan</field>
             <field name="type">ir.actions.act_window</field>
-            <field name="res_model">cdn.rangka.mesin</field>
+            <field name="res_model">cdn.history</field>
             <field name="view_mode">tree,form</field>
             <field name="help" type="html">
                 <p class="oe_view_nocontent_create">
@@ -52,4 +55,4 @@
         </record>
     </data>
     
-</odoo> -->
+</odoo>

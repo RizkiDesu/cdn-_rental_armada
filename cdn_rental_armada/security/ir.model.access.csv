@@ -33,6 +33,7 @@ access_admin_cdn_supir,access_admin_cdn_supir,model_cdn_supir,group_armada_admin
 access_admin_cdn_pelanggan,access_admin_cdn_pelanggan,model_cdn_pelanggan,group_armada_admin,1,1,1,1
 access_admin_cdn_produk,access_admin_cdn_produk,model_cdn_produk,group_armada_admin,1,1,1,1
 access_admin_cdn_uji_kir,access_admin_cdn_uji_kir,model_cdn_uji_kir,group_armada_admin,1,1,1,1
+access_admin_cdn_history,access_admin_cdn_history,model_cdn_history,group_armada_admin,1,1,1,1
 
 
 access_manage_cdn_armada,access_manager_cdn_armada,model_cdn_armada,group_armada_manager,1,1,1,1
