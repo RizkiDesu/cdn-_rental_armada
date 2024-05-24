@@ -11,6 +11,7 @@ class CdnArmada(models.Model):
         ('unique_no_mesin', 'Unique(no_mesin)','Nomor mesin tidak boleh sama!'),
     ]
 
+
     merek_id         = fields.Many2one(comodel_name='cdn.merek', string='Merek Kendaraan')
     jenis_kendaraan  = fields.Many2one(comodel_name='cdn.jenis.kendaraan', string='Jenis Kendaraan', domain="[('merek_id', '=', merek_id)]")
     jumlah_kursi     = fields.Integer(string='Jumlah Kursi', default="2")
@@ -19,15 +20,20 @@ class CdnArmada(models.Model):
     no_plat          = fields.Char(string='Plat Nomor')
     no_mesin         = fields.Char(string='No Mesin')
     no_rangka        = fields.Char(string='No Rangka')
+
+    history_ids      = fields.One2many(comodel_name='cdn.history', inverse_name='armada_id', string='List Armada')
+    
+
            
     kondisi          = fields.Boolean(string='Kondisi Kendaraan', help="Jika aktif berarti armada dalam kondisi bagus", compute="_compute_kondisi")
 
     foto_mobil       = fields.Image('Foto Armada')
     service_ids      = fields.One2many(comodel_name='cdn.service', inverse_name='armada_id', string='List Armada')
-    ujikir_ids      = fields.One2many(comodel_name='cdn.uji.kir', inverse_name='armada_id', string='List Uji Kir')
+    ujikir_ids       = fields.One2many(comodel_name='cdn.uji.kir', inverse_name='armada_id', string='List Uji Kir')
     hitung_service   = fields.Integer(string='Jumlah Service', compute="_compute_service_count", store=True)
-    berlaku_ujikir  = fields.Date(string='Berlaku Uji Kir', compute='_compute_tanggal_ujikir_terakhir', store=True)
+    berlaku_ujikir   = fields.Date(string='Berlaku Uji Kir', compute='_compute_tanggal_ujikir_terakhir', store=True)
     terakhir_service = fields.Date(string='Terakhir Service', compute='_compute_tanggal_service_terakhir', store=True)
+    tanggal_pakai    = fields.Date(string='Terakhir di pakai', compute = '_compute_tanggal_pakai', store = True)   
     state            = fields.Selection(string='Status Armada', selection=[('tidak_siap','Tidak Siap'), ('dipakai', 'Sedang Dipakai'), ('siap', 'Siap Dipakai')])
 
     @api.model
@@ -71,7 +77,15 @@ class CdnArmada(models.Model):
                 rec.terakhir_service = services.tanggal
             else:
                 rec.terakhir_service = None # fix bug rizki
-
+    #Alvito
+    @api.depends('history_ids.tgl_pakai')
+    def _compute_tanggal_pakai(self):
+        for rec in self:
+            history = self.env['cdn.history'].search([('armada_id', '=', rec.id)], order='tgl_pakai desc', limit=1)
+            if history:
+                rec.tanggal_pakai = history.tgl_pakai
+            else:
+                rec.tanggal_pakai = None
 
     def name_get(self):
         return [(record.id, "[ %s ][ %s ] %s %s" % (record.jenis_armada, record.no_plat, record.merek_id.name, record.jenis_kendaraan.name)) for record in self]
@@ -83,7 +97,17 @@ class CdnArmada(models.Model):
         action['context'] = {'default_armada_id': self.id}
         return action
     
-    
+    #Alvito
+    def tombol_history(self):
+        return {
+            'name': _('History Perjalanan'),
+            'res_model': 'cdn.history',
+            'view_mode': 'list,form',
+            'context': {'default_history_id':self.id},
+            'domain': [('armada_id','=',self.id)],
+            'target': 'current',
+            'type': 'ir.actions.act_window'
+        }
     
     def tombol_service(self):
         return {

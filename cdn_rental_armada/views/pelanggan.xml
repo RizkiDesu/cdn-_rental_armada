@@ -85,6 +85,7 @@
                                 <field name="jenis_kelamin"/>
                                 <field name="umur"/>
                                 <field name="is_menikah"/>
+                                <field name="type_orang" readonly="1"/>
                             </group>
                             
                         </group>
@@ -98,6 +99,7 @@
             <field name="name">Data pelanggan </field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">cdn.pelanggan</field>
+            <field name="context">{'default_type_orang': 'pelanggan'}</field>
             <field name="view_mode">kanban,tree,form</field>
             <field name="help" type="html">
                 <p class="oe_view_nocontent_create">

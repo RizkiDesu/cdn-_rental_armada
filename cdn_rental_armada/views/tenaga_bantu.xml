@@ -47,6 +47,7 @@
                                 <field name="umur"/>
                                 <field name="is_menikah"/>
                                 <field name="status"/>
+                                <field name="type_orang" readonly="1"/>
                             </group>                            
                         </group>
                         </sheet>
@@ -103,6 +104,7 @@
             <field name="name">Data Tenaga Bantu </field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">cdn.tenaga.bantu</field>
+            <field name="context">{'default_type_orang': 'tenaga_bantu'}</field>
             <field name="view_mode">kanban,tree,form</field>
             <field name="help" type="html">
                 <p class="oe_view_nocontent_create">
