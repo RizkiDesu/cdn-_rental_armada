@@ -90,7 +90,7 @@
                     <header>
                         <button string="Tidak Siap" name="action_state_tidak_siap" type="object" class="oe_highlight" states="siap"/>
                         <button string="Sedang Dipakai" name="action_state_dipakai" type="object" class="oe_highlight" states="siap"/>
-                        <button string="Siap Dipakai" name="action_state_siap" type="object" class="oe_highlight" states="dipakai,tidak_siap"/>
+                        <button string="Siap Dipakai" name="action_state_siap" type="object" class="oe_highlight" states="dipakai,tidak_siap" groups="cdn_rental_armada.group_armada_admin"/>
                         
                         <field name="state" widget="statusbar" nolabel="1" statusbar_visible="tidak_siap,dipakai,siap"/>
                     </header>

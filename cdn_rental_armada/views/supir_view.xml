@@ -72,6 +72,13 @@
             <field name="model">cdn.supir</field>
             <field name="arch" type="xml">
                 <form string="">
+                    <header>
+                        <button string="Tidak Aktif" name="action_state_tidak_aktif" type="object" class="oe_highlight" states="siap"/>
+                        <button string="Bertugas" name="action_state_perjalanan" type="object" class="oe_highlight" states="siap"/>
+                        <button string="Siap Bertugas" name="action_state_siap" type="object" class="oe_highlight" states="perjalanan,tidak_aktif"/>
+
+                        <field name="state" widget="statusbar" nolabel="1" statusbar_visible="tidak_aktif,perjalanan,siap"/>
+                    </header>
                     <sheet>
                     <div class="alert alert-danger text-center o_form_header" role="alert" attrs="{'invisible':[('status','!=','nonaktif')]}">
                         <div>
