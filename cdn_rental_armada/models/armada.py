@@ -75,7 +75,7 @@ class CdnArmada(models.Model):
     def name_get(self):
         return [(record.id, "[ %s ][ %s ] %s %s" % (record.jenis_armada, record.no_plat, record.merek_id.name, record.jenis_kendaraan.name)) for record in self]
     
-
+    # rizki
     def tombol_ujikir(self):
         action = self.env["ir.actions.actions"]._for_xml_id("cdn_rental_armada.cdn_uji_kir_action")
         action['domain'] = [('armada_id', '=', self.id)]
