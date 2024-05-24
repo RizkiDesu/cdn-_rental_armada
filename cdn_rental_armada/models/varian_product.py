@@ -7,12 +7,13 @@ class ProductProduct(models.Model):
     jenis_armada     = fields.Selection(string='Jenis Armada', selection=[('bis', 'Bis Pariwisata'), ('travel', 'Travel'),('mobil', 'Mobil')], required=True, default='mobil')   
     
     @api.model
-    def create(self, vals):
+    def default_get(self, fields):
+        res = super(ProductProduct, self).default_get(fields)
+        # uom_day = self.env.ref('uom.product_uom_day', raise_if_not_found=False)
         satuan = self.env['uom.uom'].search([('name', '=', 'Hari')], limit=1)
         if satuan:
-            vals['uom_id'] = satuan.id
-            vals['uom_po_id'] = satuan.id
-            print('pruint..............................................')
-            print(satuan.id)
-        return super(ProductProduct, self).create(vals) 
+            self.uom_id = satuan.id
+            self.uom_po_id = satuan.id
+
+        return res
     
