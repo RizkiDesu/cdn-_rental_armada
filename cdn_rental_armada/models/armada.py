@@ -188,7 +188,10 @@ class CdnArmada(models.Model):
                     if rec.berlaku_ujikir and rec.berlaku_ujikir > hari_ini:
                         is_keadaan = False
                     else:
-                        is_keadaan = True
+                        if rec.berlaku_ujikir:
+                            is_keadaan = True
+                        else:
+                            is_keadaan = False
                 else :
 
                     is_keadaan = True 
