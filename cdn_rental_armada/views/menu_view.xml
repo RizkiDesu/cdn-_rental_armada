@@ -9,10 +9,10 @@
         <menuitem id="armada_menu_categ" name="Armada" parent="armada_menu_root" sequence="5"/>
 
         <!-- ian -->
-        <menuitem id="karyawan_menu_categ" name="Karyawan" parent="armada_menu_root" sequence="10"/>
+        <menuitem id="karyawan_menu_categ" name="Karyawan" parent="armada_menu_root" sequence="2"/>
 
         <!-- ian -->
-        <menuitem id="pelanggan_menu_categ" name="Pelanggan" parent="armada_menu_root" sequence="12"/>
+        <menuitem id="pelanggan_menu_categ" name="Pelanggan" parent="armada_menu_root" sequence="1"/>
 
         <!-- rizki -->
         <menuitem id="product_menu_categ" name="Produk Layanan" parent="armada_menu_root" sequence="15"/>
