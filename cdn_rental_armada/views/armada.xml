@@ -159,17 +159,57 @@
                 </form>
             </field>
         </record>
-        <record id="cdn_armada_action" model="ir.actions.act_window">
+
+        <record id="cdn_armada_mobil_action" model="ir.actions.act_window">
             <field name="name">Armada</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">cdn.armada</field>
             <field name="view_mode">kanban,tree,form</field>
+            <field name="domain">[('jenis_armada','=','mobil')]</field>
+            <field name="context">{'default_jenis_armada':'mobil' }</field>
             <field name="help" type="html">
                 <p class="oe_view_nocontent_create">
                 </p><p>
                 </p>
             </field>
         </record>
-        <menuitem id="armada_menu_action" name="Armada" parent="armada_menu_categ" action="cdn_armada_action" sequence="0"/>
+
+        <record id="cdn_armada_bis_action" model="ir.actions.act_window">
+            <field name="name">Armada</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">cdn.armada</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="domain">[('jenis_armada','=','bis')]</field>
+            <field name="context">{'default_jenis_armada':'bis' }</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                </p><p>
+                </p>
+            </field>
+        </record>
+
+        <record id="cdn_armada_travel_action" model="ir.actions.act_window">
+            <field name="name">Armada</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">cdn.armada</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="domain">[('jenis_armada','=','travel')]</field>
+            <field name="context">{'default_jenis_armada':'travel' }</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                </p><p>
+                </p>
+            </field>
+        </record>
+        
+        
+        <menuitem id="armada_menu_action" name="Armada" parent="armada_menu_categ" sequence="0">
+            
+            <menuitem id="armada_menu_action_bis" name="Bis" action="cdn_armada_bis_action" sequence="1"/>
+            <menuitem id="armada_menu_action_travel" name="Travel" action="cdn_armada_travel_action" sequence="2"/>
+            <menuitem id="armada_menu_action_mobil" name="Mobil" action="cdn_armada_mobil_action" sequence="3"/>
+
+        </menuitem>
+
     </data>
 </odoo>

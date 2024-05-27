@@ -37,11 +37,6 @@
             <field name="context">{'module' : 'cdn_rental_armada', 'bin_size' : False}</field>
         </record>
 
-        <menuitem id="pengaturan_config_settings_menu" 
-        name="Jangka Waktu Perawatan"
-        parent="pengaturan_menu_categ" 
-        sequence="0" 
-        action="pengaturan_config_settings_action"
-        />
+        <menuitem id="pengaturan_config_settings_menu" name="Pengaturan" parent="pengaturan_menu_categ" sequence="0" action="pengaturan_config_settings_action"/>
     </data>
 </odoo>

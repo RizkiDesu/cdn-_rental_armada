@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from . import models
+
 from . import armada
 from . import jenis_kendaraan
 from . import merek
@@ -15,4 +15,5 @@ from . import pelanggan
 from . import history
 from . import transaksi_inherit
 from . import varian_product
+from . import account_move
 

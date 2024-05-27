@@ -4,7 +4,7 @@ from odoo import models, fields, api, _
 
 
 class ProductTemplate(models.Model):
-    _inherit = 'product.template'
+    _inherit        = 'product.template'
 
     # nama_armada     = fields.Char(string='Nama Armada', required=True)
     armada_id       = fields.Many2one(comodel_name='cdn.armada', string='Nama Armada')
