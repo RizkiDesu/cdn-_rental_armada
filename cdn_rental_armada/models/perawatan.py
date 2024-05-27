@@ -66,5 +66,6 @@ class CdnUjiKir(models.Model):
     tanggal = fields.Date(string='Tanggal Uji Kir')
     tanggal_berakhir = fields.Date(string='Berlaku Sampai')
     deskripsi = fields.Text(string='Deskripsi')
+    foto_uji = fields.Image('Foto Uji Kir')
 
 

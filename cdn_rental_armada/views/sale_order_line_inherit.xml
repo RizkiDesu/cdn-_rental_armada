@@ -8,6 +8,7 @@
          <field name="model">sale.order.line</field>
          <field name="inherit_id" ref="sale.view_order_form"/>
          <field name="arch" type="xml">
+               
                <xpath expr="//field[@name='order_line']" position="replace">
                   <form>
                      <field name="display_type" invisible="1"/>

@@ -20,6 +20,8 @@ class CdnArmada(models.Model):
     no_plat          = fields.Char(string='Plat Nomor')
     no_mesin         = fields.Char(string='No Mesin')
     no_rangka        = fields.Char(string='No Rangka')
+    name             = fields.Char(string='Nama Armada')
+    
 
     history_ids      = fields.One2many(comodel_name='cdn.history', inverse_name='armada_id', string='List Armada')
     
@@ -36,10 +38,16 @@ class CdnArmada(models.Model):
     terakhir_service = fields.Date(string='Terakhir Service', compute='_compute_tanggal_service_terakhir', store=True)
     tanggal_pakai    = fields.Date(string='Terakhir di pakai', compute = '_compute_tanggal_pakai', store = True)   
     state            = fields.Selection(string='Status Armada', selection=[('tidak_siap','Tidak Siap'), ('dipakai', 'Sedang Dipakai'), ('siap', 'Siap Dipakai')])
+    total_jarak      = fields.Integer(string='Total Jarak (km)', compute='_compute_total_jarak', store=True)
+    hitung_ujikir   = fields.Integer(string='Jumlah Service', compute="_compute_ujikir_count", store=True)
 
     @api.model
     def create(self, vals):
         # vals
+        merek = self.env['cdn.merek'].browse(vals.get('merek_id')).name
+        jenis_kendaraan = self.env['cdn.jenis.kendaraan'].browse(vals['jenis_kendaraan']).name
+        vals['name'] = "[ %s ][ %s ] %s %s" % (vals['jenis_armada'], vals['no_plat'], merek, jenis_kendaraan)
+        
         if 'jenis_kendaraan' in vals and isinstance(vals['jenis_kendaraan'], str):
             jenis_kendaraan_name = vals['jenis_kendaraan']
             merek_id             = vals.get('merek_id')
@@ -125,6 +133,12 @@ class CdnArmada(models.Model):
         Jmlh = self.env['cdn.service']
         for rec in self:
             rec.hitung_service = Jmlh.sudo().search_count([('armada_id','=',rec.id)])
+    
+    @api.depends('ujikir_ids')
+    def _compute_ujikir_count(self):
+        Jmlh = self.env['cdn.uji.kir']
+        for rec in self:
+            rec.hitung_ujikir = Jmlh.sudo().search_count([('armada_id','=',rec.id)])
         
     def tombol_jenis(self):
         return {
@@ -136,6 +150,11 @@ class CdnArmada(models.Model):
             'type': 'ir.actions.act_window'
         }
         
+    @api.depends('history_ids.jarak')
+    def _compute_total_jarak(self):
+        for rec in self:
+            total = sum(history.jarak for history in rec.history_ids)
+            rec.total_jarak = total
 
     def action_state_siap(self) :
         for rec in self : 

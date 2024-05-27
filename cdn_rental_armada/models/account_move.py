@@ -13,8 +13,5 @@ class AccountMove(models.Model):
     supir          = fields.Many2one(comodel_name='cdn.supir', string='Supir')
     tenaga_bantu   = fields.Many2one(comodel_name='cdn.tenaga.bantu', string='Tenaga Bantu')
     armada_id      = fields.Many2one(comodel_name='cdn.armada', string='Armada')
+    jenis_armada   = fields.Selection(related='armada_id.jenis_armada')    
     
-    @api.onchange('jenis_armada')
-    def _onchange_jenis_armada(self):
-        if self.jenis_armada:
-            self.order_line = [(5, 0, 0)]
