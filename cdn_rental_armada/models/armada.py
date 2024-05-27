@@ -34,8 +34,20 @@ class CdnArmada(models.Model):
     berlaku_ujikir   = fields.Date(string='Berlaku Uji Kir', compute='_compute_tanggal_ujikir_terakhir', store=True)
     terakhir_service = fields.Date(string='Terakhir Service', compute='_compute_tanggal_service_terakhir', store=True)
     tanggal_pakai    = fields.Date(string='Terakhir di pakai', compute = '_compute_tanggal_pakai', store = True)   
-    state            = fields.Selection(string='Status Armada', selection=[('tidak_siap','Tidak Siap'), ('dipakai', 'Sedang Dipakai'), ('siap', 'Siap Dipakai')])
-
+    state            = fields.Selection(string='Status Armada', selection=[('tidak_siap','Tidak Siap'), ('dipakai', 'Sedang Dipakai'), ('siap', 'Siap Dipakai')] )
+    
+    # @api.depends('kondisi')
+    # def _compute_field_state(self):
+    #     status = None
+    #     for rec in self:
+    #         if rec.state == 'tidak_siap':
+    #             if rec.kondisi == True:
+    #                 status = 'siap'
+    #             if rec.kondisi == False:
+    #                 status = 'tidak_siap'
+    #             rec.state = status
+            
+    
     @api.model
     def create(self, vals):
         # vals
@@ -58,8 +70,7 @@ class CdnArmada(models.Model):
             self.state = 'tidak_siap'
         if self.kondisi not in (False, True): # jika kondisi tidak diisi
             self.state = 'tidak_siap'
-        # if self.terakhir_service is None : 
-        #     self.state = 'service'
+
     @api.depends('ujikir_ids.tanggal_berakhir')
     def _compute_tanggal_ujikir_terakhir(self):
         for rec in self:
@@ -148,7 +159,7 @@ class CdnArmada(models.Model):
         for rec in self : 
             rec.state = 'tidak_siap'
 
-    @api.depends('terakhir_service')
+    @api.depends('terakhir_service', 'berlaku_ujikir')
     def _compute_kondisi(self):
         # state 
         for rec in self: 
@@ -156,9 +167,24 @@ class CdnArmada(models.Model):
             hari_ini = date.today()
             jangka_waktu = self.env['ir.config_parameter'].get_param('cdn_rental_armada.jangka_waktu')
             hari_batal_wajar = hari_ini - relativedelta.relativedelta(days=int(jangka_waktu))
+            
+
             if rec.terakhir_service : 
-                if hari_batal_wajar < rec.terakhir_service:
-                    is_keadaan = False
+                if rec.terakhir_service > hari_batal_wajar:
+                    if rec.berlaku_ujikir and rec.berlaku_ujikir > hari_ini:
+                        is_keadaan = False
+                    else:
+                        is_keadaan = True
                 else :
-                    is_keadaan = True 
+                    if rec.berlaku_ujikir and rec.berlaku_ujikir > hari_ini:
+                        is_keadaan = False
+                    else:
+                        is_keadaan = True
+            
+            # if rec.terakhir_service : 
+            #     if hari_batal_wajar < rec.terakhir_service:
+                    
+            #         is_keadaan = False
+            #     else :
+            #         is_keadaan = True 
             rec.kondisi = is_keadaan
