@@ -60,7 +60,7 @@
         </field>
     </record>
     <!-- This Menu Item must have a parent and an action -->
-    <menuitem id="merek_kendaraan_menu_act" name="Merek Kendaraan" parent="armada_menu_categ" action="cdn_merek_action" sequence="10"/>
+    <menuitem id="merek_kendaraan_menu_act" name="Merek Kendaraan" parent="pengaturan_menu_categ" action="cdn_merek_action" sequence="25"/>
     </data>
     
 

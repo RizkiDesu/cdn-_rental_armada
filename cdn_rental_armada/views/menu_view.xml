@@ -6,7 +6,7 @@
         
 
         <!-- rizki -->
-        <menuitem id="armada_menu_categ" name="Armada" parent="armada_menu_root" sequence="5"/>
+        <!-- <menuitem id="armada_menu_categ" name="Armada" parent="armada_menu_root" sequence="5"/> -->
 
         <!-- ian -->
         <menuitem id="karyawan_menu_categ" name="Karyawan" parent="armada_menu_root" sequence="2"/>
