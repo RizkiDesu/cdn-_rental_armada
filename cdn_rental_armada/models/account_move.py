@@ -4,7 +4,8 @@ from odoo import _, api, fields, models
 
 class AccountMove(models.Model):
     _inherit = 'account.move'
-    jenis_armada   = fields.Selection(string='Jenis Armada', selection=[('bis', 'Bis Pariwisata'), ('travel', 'Travel'),('mobil', 'Mobil')], required=True)    
+    # jenis_armada   = fields.Selection(string='Jenis Armada', selection=[('bis', 'Bis Pariwisata'), ('travel', 'Travel'),('mobil', 'Mobil')], required=True)    
+    pemesanan_id   = fields.Integer(string='ID Pemesanan')
 
 class AccountMove(models.Model):
     _inherit = 'account.move.line'

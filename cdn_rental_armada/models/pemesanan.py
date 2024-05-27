@@ -19,19 +19,53 @@ class CdnPemesanan(models.Model):
    umur                 = fields.Integer(string='Umur', related='pelanggan_id.umur')
    tanggal_pemesanan    = fields.Date(string='Tanggal Pemesanan', default=date.today())
    produk_ids           = fields.One2many(comodel_name='cdn.pemesanan.armada', inverse_name='produk_armada_pemesanan_id', string='Daftar Produk')
+   invoice_id           = fields.Many2one('account.move', copy=False, string='Invoice')
    # produk_id            = fields.Many2one(comodel_name='product.product', string='Produk')
    # lst_price            = fields.Float(string='Harga Sewa/hari', related="produk_id.lst_price")
    # tanggal_pengembalian = fields.Date(string='Tanggal Pemesanan')
 
-   def action_state_buat_invoice(self):
-      for rec in self:
-         rec.state = 'terekam'
+   def action_state_lihat_invoice(self):
+      invoice_id = self.env['account.move'].search([('pemesanan_id', '=', self.id)])
+      return {
+         'type': 'ir.actions.act_window',
+         'name': 'Customer Invoice',
+         'res_model': 'account.move',
+         'view_mode': 'form',
+         'res_id': invoice_id.id,
+         'target': 'current',
+      }
 
-   # @api.onchange('durasi_sewa', 'tanggal_pemesanan')
-   # def _tgl_pengembalian(self):
-   #    for rec in self:
-   #       tanggal_pemesanan = rec.tanggal_pemesanan
-   #       rec.tanggal_pengembalian = tanggal_pemesanan + relativedelta.relativedelta(days=rec.durasi_sewa)
+   def action_state_buat_invoice(self):
+      """Method for creating invoice"""
+      self.state = 'terekam'
+      invoice_vals = {
+         'move_type': 'out_invoice',
+         'date': fields.Date.today(),
+         'invoice_date': fields.Date.today(),
+         'partner_id': self.pelanggan_id.id,
+         'pemesanan_id': self.id,
+         'invoice_line_ids': [],
+      }
+      for line in self.produk_ids:
+            invoice_line_vals = {
+               'product_id': line.produk_id.id,
+               'quantity': line.durasi_sewa,
+               'price_unit': line.biaya_sewa,
+               'armada_id': line.armada_id.id,
+               'supir': line.supir.id,
+               'tenaga_bantu': line.tenaga_bantuan.id,
+            }
+            invoice_vals['invoice_line_ids'].append((0, 0, invoice_line_vals))
+
+      self.invoice_id = self.env['account.move'].sudo().create(invoice_vals)
+      return {
+         'type': 'ir.actions.act_window',
+         'name': 'Customer Invoice',
+         'res_model': 'account.move',
+         'view_mode': 'form',
+         'res_id': self.invoice_id.id,
+         'target': 'current',
+      }
 
 class CdnPemesananArmada(models.Model):
    _name        = 'cdn.pemesanan.armada'

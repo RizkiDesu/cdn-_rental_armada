@@ -25,6 +25,7 @@
             <form string="">
                <header>
                   <button string="Buat Invoice" name="action_state_buat_invoice" type="object" class="oe_highlight" states="draft"/>
+                  <button string="Lihat Invoice" name="action_state_lihat_invoice" type="object" class="oe_highlight" states="terekam"/>
                   
                   <field name="state" widget="statusbar" nolabel="1" statusbar_visible="draft,terekam"/>
                </header>
@@ -33,6 +34,12 @@
                      <label for="name" string="No Referensi"/>
                      <h1>
                         <field name="name"/>
+                     </h1>
+                  </div>
+                  <div>
+                     <label for="invoice_id" string="No Invoice"/>
+                     <h1>
+                        <field name="invoice_id" invisible="1"/>
                      </h1>
                   </div>
                   <group string="Pelanggan">
