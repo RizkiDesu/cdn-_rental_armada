@@ -33,7 +33,7 @@
                   <div>
                      <label for="name" string="No Referensi"/>
                      <h1>
-                        <field name="name"/>
+                        <field name="name" readonly="1" force_save="1"/>
                      </h1>
                   </div>
                   <div>
@@ -77,7 +77,7 @@
                               <field name="jarak_tempuh" readonly="1" optional="hide"/>
                               <field name="durasi_sewa"/>
                               <field name="biaya_sewa" />
-                              <field name="subtotal" force-save="1"/>
+                              <field name="subtotal" force_save="1"/>
                            </tree>
                         </field>
                      </page>
@@ -109,7 +109,7 @@
                         <field name="jarak_tempuh" invisible="1"/>
                         <field name="tujuan"/>
                         <field name="durasi_sewa"/>
-                        <field name="biaya_sewa" force-save="1"/>
+                        <field name="biaya_sewa" force_save="1"/>
                      </group>
                   </group>
                </sheet>

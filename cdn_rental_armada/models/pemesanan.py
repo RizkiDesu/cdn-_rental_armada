@@ -24,6 +24,11 @@ class CdnPemesanan(models.Model):
    # lst_price            = fields.Float(string='Harga Sewa/hari', related="produk_id.lst_price")
    # tanggal_pengembalian = fields.Date(string='Tanggal Pemesanan')
 
+   @api.model
+   def create(self, vals):
+      vals['name'] = self.env['ir.sequence'].next_by_code('cdn.pemesanan')
+      return super(CdnPemesanan, self).create(vals) 
+     
    def action_state_lihat_invoice(self):
       invoice_id = self.env['account.move'].search([('pemesanan_id', '=', self.id)])
       return {
@@ -34,7 +39,6 @@ class CdnPemesanan(models.Model):
          'res_id': invoice_id.id,
          'target': 'current',
       }
-
    def action_state_buat_invoice(self):
       """Method for creating invoice"""
       self.state = 'terekam'
