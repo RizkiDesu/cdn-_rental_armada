@@ -13,7 +13,7 @@ from . import perawatan
 from . import tenaga_bantu
 from . import pelanggan
 from . import history
-from . import transaksi_inherit
 from . import varian_product
 from . import account_move
+from . import pemesanan
 

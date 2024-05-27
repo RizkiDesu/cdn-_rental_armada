@@ -38,10 +38,11 @@
         'reports/bus_tersedia.xml',
         'reports/semua_tersedia.xml',
         'views/pelanggan.xml',
-        'views/transaksi.xml',
+        # 'views/transaksi.xml',
         # 'views/sale_order_line_inherit.xml',
         'views/varian.xml',
         'views/account_move.xml',
+        'views/pemesanan.xml',
         
     ],
     'demo': [
