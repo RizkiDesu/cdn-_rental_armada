@@ -137,6 +137,7 @@
                        <group name="data_kendaraan" string="Data Armada">
 
                         <group>
+                        <field name="name"/>
                             <field name="jenis_armada"/>
                             <field name="merek_id"/>
                             <field name="jenis_kendaraan" context="{'default_merek_id': merek_id}" attrs = "{'readonly':[('merek_id', '=', False)]}"/>

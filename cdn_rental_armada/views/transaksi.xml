@@ -8,6 +8,11 @@
             <field name="model">sale.order</field>
             <field name="inherit_id" ref="sale.view_order_form"/>
             <field name="arch" type="xml">
+                <xpath expr="//button[@id='create_invoice']" position="replace">
+                <!-- attrs="{'invisible': [('invoice_status', '!=', 'to invoice')]}" -->
+                <button id="create_invoice_baru" name="aksi_invoice" string="Create Invoice" type="object" class="btn-primary" data-hotkey="q"/>
+                  
+               </xpath>
                 <xpath expr="//field[@name='partner_id']" position="before">
                     <field name="jenis_armada" attrs="{'readonly':[('state','=','sale') ]}"/>
                 </xpath>

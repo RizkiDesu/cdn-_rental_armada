@@ -20,6 +20,8 @@ class CdnArmada(models.Model):
     no_plat          = fields.Char(string='Plat Nomor')
     no_mesin         = fields.Char(string='No Mesin')
     no_rangka        = fields.Char(string='No Rangka')
+    name             = fields.Char(string='Nama Armada')
+    
 
     history_ids      = fields.One2many(comodel_name='cdn.history', inverse_name='armada_id', string='List Armada')
     
@@ -52,6 +54,10 @@ class CdnArmada(models.Model):
     @api.model
     def create(self, vals):
         # vals
+        merek = self.env['cdn.merek'].browse(vals.get('merek_id')).name
+        jenis_kendaraan = self.env['cdn.jenis.kendaraan'].browse(vals['jenis_kendaraan']).name
+        vals['name'] = "[ %s ][ %s ] %s %s" % (vals['jenis_armada'], vals['no_plat'], merek, jenis_kendaraan)
+        
         if 'jenis_kendaraan' in vals and isinstance(vals['jenis_kendaraan'], str):
             jenis_kendaraan_name = vals['jenis_kendaraan']
             merek_id             = vals.get('merek_id')
