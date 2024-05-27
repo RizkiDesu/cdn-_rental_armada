@@ -24,6 +24,7 @@ class CdnArmada(models.Model):
     history_ids      = fields.One2many(comodel_name='cdn.history', inverse_name='armada_id', string='List Armada')
     
 
+    uji              = fields.Boolean(string='Uji', help="Jika aktif berarti armada dalam kondisi bagus", compute="_compute_uji")
            
     kondisi          = fields.Boolean(string='Kondisi Kendaraan', help="Jika aktif berarti armada dalam kondisi bagus", compute="_compute_kondisi")
 
@@ -147,6 +148,19 @@ class CdnArmada(models.Model):
     def action_state_tidak_siap(self) :
         for rec in self : 
             rec.state = 'tidak_siap'
+            
+    @api.depends('berlaku_ujikir')
+    def _compute_uji(self):
+        # state 
+        for rec in self: 
+            is_keadaan2 = None
+            hari_ini2 = date.today()
+            if rec.berlaku_ujikir : 
+                if hari_ini2 <= rec.berlaku_ujikir:
+                    is_keadaan2 = False
+                else :
+                    is_keadaan2 = True 
+            rec.uji = is_keadaan2
 
     @api.depends('terakhir_service')
     def _compute_kondisi(self):
@@ -162,3 +176,6 @@ class CdnArmada(models.Model):
                 else :
                     is_keadaan = True 
             rec.kondisi = is_keadaan
+
+
+   
