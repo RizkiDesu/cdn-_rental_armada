@@ -4,7 +4,7 @@
         <xpath expr="." position="inside">
             <style type="text/css">
                 table, tr, td {
-                        border: 4px solid #000;
+                        border: 1px solid #000;
                         border-collapse: collapse;
                      }
             </style>
@@ -15,13 +15,14 @@
             <attribute name="class" add=" custom-table-style"/>
         </xpath>
         
-        <!-- Add a new column header for 'Supir' -->
+        
         <xpath expr="//th[@name='th_description']" position="inside">
             <th>Armada</th>
         </xpath>
-        <!-- Add a new column with the 'Supir' field data -->
+        
         <xpath expr="//td[@name='account_invoice_line_name']" position="inside">
             <td t-esc="line.armada_id.name"/>
         </xpath>
+
     </template>
 </odoo>

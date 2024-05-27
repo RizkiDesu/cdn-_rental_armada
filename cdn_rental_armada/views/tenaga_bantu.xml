@@ -12,7 +12,6 @@
                         <field name="no_ktp"/>
                         <field name="city"/>
                         <field name="status"/>
-
                     </tree>
                 </field>
             </record>
@@ -34,7 +33,6 @@
                              <group>
                             <!-- Add your fields here -->
                             <group>
-                                
                                 <field name="name"/>
                                 <field name="no_ktp"/>
                                 <field name="street"/>
@@ -102,21 +100,22 @@
         </record>
 
             <record id="cdn_tenaga_action" model="ir.actions.act_window">
-            <field name="name">Data Tenaga Bantu </field>
-            <field name="type">ir.actions.act_window</field>
-            <field name="res_model">cdn.tenaga.bantu</field>
-            <field name="context">{'default_type_orang': 'tenaga_bantu'}</field>
-            <field name="view_mode">kanban,tree,form</field>
-            <field name="help" type="html">
-                <p class="oe_view_nocontent_create">
-                    <!-- Add Text Here -->
-                </p><p>
-                    <!-- More details about what a user can do with this object will be OK --> 
-                
-                </p>
-            </field>
+                <field name="name">Data Tenaga Bantu </field>
+                <field name="type">ir.actions.act_window</field>
+                <field name="res_model">cdn.tenaga.bantu</field>
+                <field name="context">{'default_type_orang': 'tenaga_bantu'}</field>
+                <field name="view_mode">kanban,tree,form</field>
+                <field name="help" type="html">
+                    <p class="oe_view_nocontent_create">
+                        <!-- Add Text Here -->
+                    </p><p>
+                        <!-- More details about what a user can do with this object will be OK --> 
+                    
+                    </p>
+                </field>
             </record>
-             <menuitem id="karyawan_tenaga_menu_action" name="Tenaga Bantu" parent="karyawan_menu_categ" action="cdn_tenaga_action" sequence="20"/>
+            
+            <menuitem id="karyawan_tenaga_menu_action" name="Tenaga Bantu" parent="karyawan_menu_categ" action="cdn_tenaga_action" sequence="20"/>
       
         </data>
 </odoo>

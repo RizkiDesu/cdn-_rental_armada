@@ -11,14 +11,14 @@ class CdnTenagaKerja(models.Model):
     
     def action_state_siap(self):
         for rec in self:
-            rec.state = 'siap'
-            rec.status = 'aktif'
+            rec.state   = 'siap'
+            rec.status  = 'aktif'
         
     def action_state_perjalanan(self):
         for rec in self:
-            rec.state = 'perjalanan'
+            rec.state   = 'perjalanan'
         
     def action_state_tidak_aktif(self):
         for rec in self:
-            rec.state = 'tidak_aktif'
-            rec.status = 'aktif'
+            rec.state   = 'tidak_aktif'
+            rec.status  = 'aktif'
