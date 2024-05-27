@@ -37,20 +37,10 @@ class CdnArmada(models.Model):
     berlaku_ujikir   = fields.Date(string='Berlaku Uji Kir', compute='_compute_tanggal_ujikir_terakhir', store=True)
     terakhir_service = fields.Date(string='Terakhir Service', compute='_compute_tanggal_service_terakhir', store=True)
     tanggal_pakai    = fields.Date(string='Terakhir di pakai', compute = '_compute_tanggal_pakai', store = True)   
-    state            = fields.Selection(string='Status Armada', selection=[('tidak_siap','Tidak Siap'), ('dipakai', 'Sedang Dipakai'), ('siap', 'Siap Dipakai')] )
-    
-    # @api.depends('kondisi')
-    # def _compute_field_state(self):
-    #     status = None
-    #     for rec in self:
-    #         if rec.state == 'tidak_siap':
-    #             if rec.kondisi == True:
-    #                 status = 'siap'
-    #             if rec.kondisi == False:
-    #                 status = 'tidak_siap'
-    #             rec.state = status
-            
-    
+    state            = fields.Selection(string='Status Armada', selection=[('tidak_siap','Tidak Siap'), ('dipakai', 'Sedang Dipakai'), ('siap', 'Siap Dipakai')])
+    total_jarak      = fields.Integer(string='Total Jarak (km)', compute='_compute_total_jarak', store=True)
+    hitung_ujikir   = fields.Integer(string='Jumlah Service', compute="_compute_ujikir_count", store=True)
+
     @api.model
     def create(self, vals):
         # vals
@@ -77,7 +67,8 @@ class CdnArmada(models.Model):
             self.state = 'tidak_siap'
         if self.kondisi not in (False, True): # jika kondisi tidak diisi
             self.state = 'tidak_siap'
-
+        # if self.terakhir_service is None : 
+        #     self.state = 'service'
     @api.depends('ujikir_ids.tanggal_berakhir')
     def _compute_tanggal_ujikir_terakhir(self):
         for rec in self:
@@ -142,6 +133,12 @@ class CdnArmada(models.Model):
         Jmlh = self.env['cdn.service']
         for rec in self:
             rec.hitung_service = Jmlh.sudo().search_count([('armada_id','=',rec.id)])
+    
+    @api.depends('ujikir_ids')
+    def _compute_ujikir_count(self):
+        Jmlh = self.env['cdn.uji.kir']
+        for rec in self:
+            rec.hitung_ujikir = Jmlh.sudo().search_count([('armada_id','=',rec.id)])
         
     def tombol_jenis(self):
         return {
@@ -153,6 +150,11 @@ class CdnArmada(models.Model):
             'type': 'ir.actions.act_window'
         }
         
+    @api.depends('history_ids.jarak')
+    def _compute_total_jarak(self):
+        for rec in self:
+            total = sum(history.jarak for history in rec.history_ids)
+            rec.total_jarak = total
 
     def action_state_siap(self) :
         for rec in self : 
@@ -187,15 +189,18 @@ class CdnArmada(models.Model):
             hari_ini = date.today()
             jangka_waktu = self.env['ir.config_parameter'].get_param('cdn_rental_armada.jangka_waktu')
             hari_batal_wajar = hari_ini - relativedelta.relativedelta(days=int(jangka_waktu))
-            
-
             if rec.terakhir_service : 
                 if rec.terakhir_service > hari_batal_wajar:
                     if rec.berlaku_ujikir and rec.berlaku_ujikir > hari_ini:
                         is_keadaan = False
                     else:
-                        is_keadaan = True
+                        if rec.berlaku_ujikir:
+                            is_keadaan = True
+                        else:
+                            is_keadaan = False
                 else :
-
                     is_keadaan = True 
             rec.kondisi = is_keadaan
+
+
+   

@@ -103,13 +103,33 @@
                         <!-- <button name="tombol_merek_action" type="object" class="oe_stat_button" icon="fa-superpowers">
                             Merek
                         </button> -->
-                        <button name="tombol_history" type="object" class="oe_stat_button" icon="fa-clock-o" context="{'default_armada_id':active_id,'hide_nama_history':1}" string="Riwayat Perjalanan"/>
+                        <button name="tombol_history" type="object" class="oe_stat_button" icon="fa-clock-o" context="{'default_armada_id':active_id,'hide_nama_history':1}">
+                    
+                                <div class="o_field_widget o_stat_info mr4">
+                                    <span class="o_stat_text">Riwayat:</span>
+                                    
+                                    
+                                </div>
+                                <div class="o_field_widget o_stat_info">
+                                    <span class="o_stat_value"><field name="total_jarak"/></span>
+                                                             
+                                </div>
+                                <div class="o_field_widget o_stat_info mr4">
+                                    Km
+                                    
+                                    
+                                </div>
+                               
+                                           
+                        </button>
                           
-                        
+                       
+                         
 
                         
-                        <button name="tombol_ujikir" type="object" class="oe_stat_button" icon="fa-gears">
-                            Uji Kendaraan
+                        <button name="tombol_ujikir" type="object" class="oe_stat_button" icon="fa-gears" context="{'default_armada_id':active_id,'hide_nama_ujikir':1}">
+                            <field name="hitung_ujikir" string="Uji Kendaraang" widget="statinfo"/>
+
                         </button>
                         <button name="tombol_service" type="object" class="oe_stat_button" icon="fa-wrench" context="{'default_armada_id':active_id,'hide_nama_service':1}">
                             <field name="hitung_service" string="Service" widget="statinfo"/>
@@ -137,7 +157,7 @@
                        <group name="data_kendaraan" string="Data Armada">
 
                         <group>
-                        <field name="name"/>
+                            <field name="name"/>
                             <field name="jenis_armada"/>
                             <field name="merek_id"/>
                             <field name="jenis_kendaraan" context="{'default_merek_id': merek_id}" attrs = "{'readonly':[('merek_id', '=', False)]}"/>

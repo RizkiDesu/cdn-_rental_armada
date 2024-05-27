@@ -21,7 +21,7 @@
         <menuitem id="product_product_menu_categ" name="Produk" parent="product_menu_categ" sequence="1"/>
 
         <!-- ian -->
-        <menuitem id="transaksi_menu_categ" name="Transaksi" parent="armada_menu_root" sequence="20"/>
+        <menuitem id="pemesanan_menu_categ" name="Pemesanan" parent="armada_menu_root" sequence="20"/>
 
         <!-- rizki -->
         <menuitem id="pengaturan_menu_categ" name="Pengaturan" parent="armada_menu_root" sequence="30"/>
