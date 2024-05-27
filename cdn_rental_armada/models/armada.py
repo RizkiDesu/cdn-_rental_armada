@@ -162,7 +162,7 @@ class CdnArmada(models.Model):
                     is_keadaan2 = True 
             rec.uji = is_keadaan2
 
-    @api.depends('terakhir_service')
+    @api.depends('terakhir_service', 'berlaku_ujikir')
     def _compute_kondisi(self):
         # state 
         for rec in self: 
@@ -171,8 +171,14 @@ class CdnArmada(models.Model):
             jangka_waktu = self.env['ir.config_parameter'].get_param('cdn_rental_armada.jangka_waktu')
             hari_batal_wajar = hari_ini - relativedelta.relativedelta(days=int(jangka_waktu))
             if rec.terakhir_service : 
-                if hari_batal_wajar < rec.terakhir_service:
-                    is_keadaan = False
+                if rec.terakhir_service > hari_batal_wajar:
+                    if rec.berlaku_ujikir and rec.berlaku_ujikir > hari_ini:
+                        is_keadaan = False
+                    else:
+                        if rec.berlaku_ujikir:
+                            is_keadaan = True
+                        else:
+                            is_keadaan = False
                 else :
                     is_keadaan = True 
             rec.kondisi = is_keadaan
