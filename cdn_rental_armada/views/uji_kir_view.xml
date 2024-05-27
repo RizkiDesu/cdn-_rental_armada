@@ -22,9 +22,10 @@
             <field name="arch" type="xml">
                 <form string="">
                     <sheet>
+                    <field  name='foto_uji' widget="image" class="oe_avatar" />
                         <group>
                             <!-- Add your fields here -->
-                            <field name="armada_id" readonly="context.get('hide_nama_service')"/>
+                            <field name="armada_id" readonly="context.get('hide_nama_ujikir')"/>
                             <field name="tanggal"/>
                             <field name="tanggal_berakhir"/>
                         </group>
