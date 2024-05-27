@@ -125,6 +125,9 @@
                             <div attrs="{'invisible':[('kondisi','!=',True)]}">
                                 Armada sudah lama tidak di servis !!!
                             </div>
+                             <div attrs="{'invisible':[('uji','!=',True)]}">
+                                Uji armada sudah lewat tanggal 
+                            </div>
                             <a class="close" data-bs-dismiss="alert" href="#">[close]</a>
                     </div>
                     
@@ -144,6 +147,7 @@
                             <field name="no_plat"/>
                             <field name="no_mesin"/>
                             <field name="no_rangka"/>
+                            <field name="uji" help="Jika aktif berarti armada dalam kondisi bagus" invisible="1"/>
                             <field name="kondisi" help="Jika aktif berarti armada dalam kondisi bagus" widget="boolean_toggle" invisible="1"/>
                             <field name="terakhir_service"/>
                             <field name="berlaku_ujikir"/>
