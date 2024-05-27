@@ -16,7 +16,6 @@
             </tree>
         </field>
        </record> 
-
         <!-- cdn.history form view -->
         <record id="cdn_history_view_form" model="ir.ui.view">
             <field name="name">cdn.history.view.form</field>
@@ -25,13 +24,11 @@
                 <form string="">
                     <sheet>
                         <group>
-                            <!-- Add your fields here -->
                             <field name="armada_id" readonly="context.get('hide_nama_history')"/>
                             <field name="jarak"/>
                             <field name="tgl_pakai"/>
                             <field name="tujuan"/>
                             <field name="hari"/>
-                           
                         </group>
                     </sheet>
                 </form>

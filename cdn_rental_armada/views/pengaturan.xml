@@ -17,7 +17,7 @@
                                     <span class="o_form_label">Jangka Waktu Perawatan</span>
                                     <div class="content-group mt16">
                                         <span>Sebelum : </span>
-                                        <field name="jangka_waktu" class="text-center" style="width: 10%; min-width: 4rem;" />
+                                            <field name="jangka_waktu" class="text-center" style="width: 10%; min-width: 4rem;" />
                                         <span> hari</span>
                                     </div>
                                 </div>

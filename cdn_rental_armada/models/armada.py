@@ -6,12 +6,11 @@ from dateutil import relativedelta
 class CdnArmada(models.Model):
     _name            = 'cdn.armada'
     _description     = 'Armada'
+
     _sql_constraints = [
         ('unique_no_plat', 'Unique(no_plat)','Nomor polisi tidak boleh sama!'),
         ('unique_no_mesin', 'Unique(no_mesin)','Nomor mesin tidak boleh sama!'),
     ]
-
-
     merek_id         = fields.Many2one(comodel_name='cdn.merek', string='Merek Kendaraan')
     jenis_kendaraan  = fields.Many2one(comodel_name='cdn.jenis.kendaraan', string='Jenis Kendaraan', domain="[('merek_id', '=', merek_id)]")
     jumlah_kursi     = fields.Integer(string='Jumlah Kursi', default="2")
@@ -21,6 +20,7 @@ class CdnArmada(models.Model):
     no_mesin         = fields.Char(string='No Mesin')
     no_rangka        = fields.Char(string='No Rangka')
     name             = fields.Char(string='Nama Armada')
+    # print(name)
     
 
     history_ids      = fields.One2many(comodel_name='cdn.history', inverse_name='armada_id', string='List Armada')
@@ -39,14 +39,14 @@ class CdnArmada(models.Model):
     tanggal_pakai    = fields.Date(string='Terakhir di pakai', compute = '_compute_tanggal_pakai', store = True)   
     state            = fields.Selection(string='Status Armada', selection=[('tidak_siap','Tidak Siap'), ('dipakai', 'Sedang Dipakai'), ('siap', 'Siap Dipakai')])
     total_jarak      = fields.Integer(string='Total Jarak (km)', compute='_compute_total_jarak', store=True)
-    hitung_ujikir   = fields.Integer(string='Jumlah Service', compute="_compute_ujikir_count", store=True)
+    hitung_ujikir    = fields.Integer(string='Jumlah Service', compute="_compute_ujikir_count", store=True)
 
     @api.model
     def create(self, vals):
         # vals
-        merek = self.env['cdn.merek'].browse(vals.get('merek_id')).name
-        jenis_kendaraan = self.env['cdn.jenis.kendaraan'].browse(vals['jenis_kendaraan']).name
-        vals['name'] = "[ %s ][ %s ] %s %s" % (vals['jenis_armada'], vals['no_plat'], merek, jenis_kendaraan)
+        merek               = self.env['cdn.merek'].browse(vals.get('merek_id')).name
+        jenis_kendaraan     = self.env['cdn.jenis.kendaraan'].browse(vals['jenis_kendaraan']).name
+        vals['name']        = "[ %s ][ %s ] %s %s" % (vals['jenis_armada'], vals['no_plat'], merek, jenis_kendaraan)
         
         if 'jenis_kendaraan' in vals and isinstance(vals['jenis_kendaraan'], str):
             jenis_kendaraan_name = vals['jenis_kendaraan']
@@ -101,9 +101,9 @@ class CdnArmada(models.Model):
     
     # rizki
     def tombol_ujikir(self):
-        action = self.env["ir.actions.actions"]._for_xml_id("cdn_rental_armada.cdn_uji_kir_action")
-        action['domain'] = [('armada_id', '=', self.id)]
-        action['context'] = {'default_armada_id': self.id}
+        action              = self.env["ir.actions.actions"]._for_xml_id("cdn_rental_armada.cdn_uji_kir_action")
+        action['domain']    = [('armada_id', '=', self.id)]
+        action['context']   = {'default_armada_id': self.id}
         return action
     
     #Alvito

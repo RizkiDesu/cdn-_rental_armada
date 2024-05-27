@@ -19,10 +19,15 @@ class CdnPemesanan(models.Model):
    umur                 = fields.Integer(string='Umur', related='pelanggan_id.umur')
    tanggal_pemesanan    = fields.Date(string='Tanggal Pemesanan', default=date.today())
    produk_ids           = fields.One2many(comodel_name='cdn.pemesanan.armada', inverse_name='produk_armada_pemesanan_id', string='Daftar Produk')
+   
    invoice_id           = fields.Many2one('account.move', copy=False, string='Invoice')
-   # produk_id            = fields.Many2one(comodel_name='product.product', string='Produk')
-   # lst_price            = fields.Float(string='Harga Sewa/hari', related="produk_id.lst_price")
-   # tanggal_pengembalian = fields.Date(string='Tanggal Pemesanan')
+   total_harga          = fields.Float(string='Total', compute='_compute_total')
+
+   @api.depends('produk_ids.subtotal')
+   def _compute_total(self):
+      for rec in self:
+         total = sum(bayar.subtotal for bayar in rec.produk_ids)
+         rec.total_harga = total
 
    @api.model
    def create(self, vals):
@@ -70,11 +75,14 @@ class CdnPemesanan(models.Model):
          'res_id': self.invoice_id.id,
          'target': 'current',
       }
+   
 
 class CdnPemesananArmada(models.Model):
    _name        = 'cdn.pemesanan.armada'
    _description = 'cdn.pemesanan.armada'
-
+   # _rec_name = 'produk_armada_pemesanan_id'
+   
+   pelanggan_id               = fields.Many2one(related='produk_armada_pemesanan_id.pelanggan_id', store=True)
    produk_armada_pemesanan_id = fields.Many2one(comodel_name='cdn.pemesanan', string='Armada Pemesanan')
    produk_id                  = fields.Many2one(comodel_name='product.product', string='Produk')
    armada_id                  = fields.Many2one(comodel_name='cdn.armada', string='Armada')

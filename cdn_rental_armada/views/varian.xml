@@ -24,20 +24,6 @@
             </field>
         </record>
 
-        <!-- <record id="varian_action" model="ir.actions.act_window">
-            <field name="name">Produk</field>
-            <field name="type">ir.actions.act_window</field>
-            <field name="res_model">product.product</field>
-            <field name="context">{'default_detailed_type': 'service'}</field>
-            <field name="domain">[('detailed_type','=','service')]</field>
-            <field name="view_mode">kanban,tree,form</field>
-            <field name="help" type="html">
-                <p class="oe_view_nocontent_create">
-                </p><p>
-                </p>
-            </field>
-        </record> -->
-
         <record id="mobil_action" model="ir.actions.act_window">
             <field name="name">Mobil</field>
             <field name="type">ir.actions.act_window</field>
@@ -79,12 +65,13 @@
                 </p>
             </field>
         </record>
-        <!-- This Menu Item Must have a parent -->
+
         <menuitem id="product_product_menu_categ" name="Produk" parent="product_menu_categ" sequence="1">
             <menuitem id="mobil_menu_action" name="Mobil" action="mobil_action" sequence="10"/>
             <menuitem id="bus_menu_action" name="Bus Pariwisata" action="bus_action" sequence="5"/>
             <menuitem id="travel_menu_action" name="Travel" action="travel_action" sequence="6"/>
         </menuitem>
+        
     </data>
     
 </odoo>
