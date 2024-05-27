@@ -17,6 +17,9 @@
                     <field name="supir"/>
                     <field name="tenaga_bantu"/>
                 </xpath>
+                 <!-- <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="jenis_armada"/>
+                </xpath> -->
                 
             </field>
         </record>
