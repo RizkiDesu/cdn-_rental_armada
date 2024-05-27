@@ -82,8 +82,8 @@
         <!-- This Menu Item Must have a parent -->
         <menuitem id="product_product_menu_categ" name="Produk" parent="product_menu_categ" sequence="1">
             <menuitem id="mobil_menu_action" name="Mobil" action="mobil_action" sequence="10"/>
-            <menuitem id="bus_menu_action" name="Bus Pariwisata" action="bus_action" sequence="20"/>
-            <menuitem id="travel_menu_action" name="Travel" action="travel_action" sequence="30"/>
+            <menuitem id="bus_menu_action" name="Bus Pariwisata" action="bus_action" sequence="5"/>
+            <menuitem id="travel_menu_action" name="Travel" action="travel_action" sequence="6"/>
         </menuitem>
     </data>
     
