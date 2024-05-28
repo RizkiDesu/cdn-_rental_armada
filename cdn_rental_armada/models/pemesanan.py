@@ -11,8 +11,8 @@ class CdnPemesanan(models.Model):
    name                 = fields.Char(string='No Referensi')
 
 
-   # pelanggan_id         = fields.Many2one(comodel_name='res.partner', string='Pelanggan', domain=[('type_orang','=','pelanggan')])
-   pelanggan_id         = fields.Many2one(comodel_name='cdn.pelanggan', string='Pelanggan', domain=[('type_orang','=','pelanggan')])
+   pelanggan_id         = fields.Many2one(comodel_name='res.partner', string='Pelanggan', domain=[('type_orang','=','pelanggan')])
+   # pelanggan_id         = fields.Many2one(comodel_name='cdn.pelanggan', string='Pelanggan', domain=[('type_orang','=','pelanggan')])
 
    no_ktp               = fields.Char(string='No KTP', related='pelanggan_id.no_ktp')
    jalan                = fields.Char(string='Alamat', related='pelanggan_id.street')
