@@ -46,7 +46,7 @@ class CdnPemesanan(models.Model):
       }
    def action_state_buat_invoice(self):
       """Method for creating invoice"""
-      self.state = 'terekam'
+      
       invoice_vals = {
          'move_type': 'out_invoice',
          'date': fields.Date.today(),
@@ -64,9 +64,14 @@ class CdnPemesanan(models.Model):
                'supir': line.supir.id,
                'tenaga_bantu': line.tenaga_bantuan.id,
             }
+            line.armada_id.state = 'dipakai'
+            line.state = 'disewa'
+            line.supir.state = 'perjalanan'
+            line.tenaga_bantuan.state = 'perjalanan'
             invoice_vals['invoice_line_ids'].append((0, 0, invoice_line_vals))
 
       self.invoice_id = self.env['account.move'].sudo().create(invoice_vals)
+      self.state = 'terekam'
       return {
          'type': 'ir.actions.act_window',
          'name': 'Customer Invoice',
@@ -76,6 +81,19 @@ class CdnPemesanan(models.Model):
          'target': 'current',
       }
    
+   # def action_pengembalian_armada_pesanan(self):
+   #    return {
+   #       'type': 'ir.actions.act_window',
+   #       'name': 'Pengembalian Armada Pemesanan',
+   #       'res_model': 'cdn.pengembalian.armada.wizard',
+   #       'view_mode': 'form',
+   #       'view_id': self.env.ref('cdn_rental_armada.pengembalian_pemesanan_armada_wizard_view_form').id,
+   #       'target': 'new',
+   #       'context': {
+   #             'default_pemesanan_id': self.id,
+   #             'default_produk_ids': self.produk_ids,
+   #       },
+   #    }
 
 class CdnPemesananArmada(models.Model):
    _name        = 'cdn.pemesanan.armada'
@@ -91,11 +109,13 @@ class CdnPemesananArmada(models.Model):
    tenaga_bantuan             = fields.Many2one(comodel_name='cdn.tenaga.bantu', string='Tenaga Bantuan')
    durasi_sewa                = fields.Integer(string='Durasi Sewa/hari', default="1")
    biaya_sewa                 = fields.Float(string='Biaya Sewa/hari', related="produk_id.lst_price", store=True)
-   kilometer_awal             = fields.Float(string='KM Awal')
+   kilometer_awal             = fields.Float(string='KM Awal', related='armada_id.km_akhir')
    kilometer_akhir            = fields.Float(string='KM Akhir')
    jarak_tempuh               = fields.Float(string='Jarak Tempuh')
    tujuan                     = fields.Char(string='Tujuan')
    subtotal                   = fields.Float(string='Subtotal', compute="_onchange_subtotal")
+   state                      = fields.Selection(string='Status Armada', selection=[('siap', 'Siap'), ('disewa', 'Disewa'), ('dikembalikan', 'Telah Kembali'),], default="siap")
+   
    
    @api.onchange('durasi_sewa')
    def _onchange_subtotal(self):

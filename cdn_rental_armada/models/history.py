@@ -6,11 +6,12 @@ class CdnHistory(models.Model):
     _description    = 'Rangka & Mesin'
     _rec_name       = 'tujuan'
 
-    armada_id       = fields.Many2one(comodel_name='cdn.armada', string='Armada', required=True)
+    armada_id       = fields.Many2one(comodel_name='cdn.armada', string='Armada')
     jarak           = fields.Integer(string='Jarak (km)')
-    tgl_pakai       = fields.Date(string='Tanggal Dipakai', required=True)
-    tujuan          = fields.Char(string='Tujuan', required=True)
-    hari            = fields.Integer(string='Di Pakai Berapa Hari', required=True)
+    km_akhir        = fields.Float(string='Kilometer Terakhir (km)')
+    tgl_pakai       = fields.Date(string='Tanggal Dipakai')
+    tujuan          = fields.Char(string='Tujuan')
+    hari            = fields.Integer(string='Di Pakai Berapa Hari')
     
     
     

@@ -17,6 +17,9 @@
                   decoration-success="state == 'terekam'" 
                   decoration-warning="state == 'draft'"
                   widget="badge"/>
+               <!-- <button  name="action_pengembalian_armada_pesanan" string="Pengembalian Armada" class="btn-info" 
+                        attrs="{'invisible':[('state', '!=', 'terekam')]}"
+                        type="object"/> -->
                <field name="total_harga" sum="Total"/>
             </tree>
          </field>
@@ -84,6 +87,11 @@
                               <field name="durasi_sewa"/>
                               <field name="biaya_sewa" sum="Total"/>
                               <field name="subtotal" force_save="1" sum="Total"/>
+                              <field name="state" 
+                                 decoration-muted="state == 'siap'" 
+                                 decoration-success="state == 'dikembalikan'" 
+                                 decoration-warning="state == 'disewa'"
+                                 widget="badge"/>
                            </tree>
                         </field>
                      </page>
@@ -109,7 +117,7 @@
                         <field name="tenaga_bantuan" domain="[('state','=','siap')]"/>
                      </group>
                      <group>
-                        <field name="kilometer_awal"/>
+                        <field name="kilometer_awal" force_save="1"/>
                         <field name="kilometer_akhir" invisible="1"/>
                         <field name="jarak_tempuh" invisible="1"/>
                         <field name="tujuan"/>

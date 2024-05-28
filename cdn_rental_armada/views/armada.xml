@@ -155,6 +155,7 @@
                                 <field name="terakhir_service"/>
                                 <field name="berlaku_ujikir"/>
                                 <field name="tanggal_pakai"/>
+                                <field name="km_akhir"/>
                             </group>
                         </group>
                         
