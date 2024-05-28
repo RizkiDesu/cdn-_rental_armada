@@ -60,6 +60,7 @@
                   <group string="Pemesanan">
                      <group>
                         <field name="tanggal_pemesanan"/>
+                        
                         <field name="total_harga"/>
                      </group>
                   </group>
@@ -78,8 +79,8 @@
                               <field name="kilometer_akhir" readonly="1"  optional="hide"/>
                               <field name="jarak_tempuh" readonly="1" optional="hide"/>
                               <field name="durasi_sewa"/>
-                              <field name="biaya_sewa" sum="Total"/>
-                              <field name="subtotal" force_save="1" sum="Total"/>
+                              <field name="biaya_sewa" sum="Total" style="color:white;"/>
+                              <field name="subtotal" force_save="1" sum="Total" style="color:blue;"/>
                            </tree>
                         </field>
                      </page>
