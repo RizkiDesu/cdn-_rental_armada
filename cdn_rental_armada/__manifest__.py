@@ -13,7 +13,7 @@
     'website': 'https://www.website.com',
     'license': 'AGPL-3',
     
-    'depends': ['base', 'mail','product', 'account', 'sale' ],
+    'depends': ['base', 'mail','product', 'account', 'sale', 'stock' ],
     
     'data': [
         'security/group.xml',
@@ -45,6 +45,13 @@
         'views/account_move.xml',
         'views/pemesanan.xml',
         'wizards/pengembalian_armada.xml',
+
+        
+        'views/wilayah/kecamatan.xml',
+        'views/wilayah/desa.xml',
+        'views/wilayah/kota.xml',
+        'views/wilayah/propinsi.xml',
+        'views/wilayah/menu.xml',
     ],
     'demo': [
         'demo/demo.xml',

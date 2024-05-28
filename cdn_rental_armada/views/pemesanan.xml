@@ -55,13 +55,13 @@
                         <field name="pelanggan_id" attrs="{'readonly': [('state','=','terekam')]}"/>
                         <field name="no_ktp"/>
                         <field name="jalan"/>
-                        <field name="kota"/>
+                        <!-- <field name="kota"/> -->
+                        <field name="umur"/>
                      </group>
                      <group>
                         <field name="ponsel"/>
                         <field name="email"/>
                         <field name="jenis_kelamin"/>
-                        <field name="umur"/>
                      </group>
                   </group>
                   <group string="Pemesanan">
