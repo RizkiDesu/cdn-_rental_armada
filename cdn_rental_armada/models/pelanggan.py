@@ -7,19 +7,23 @@ class CdnPelanggan(models.Model):
     _inherits    = {'res.partner': 'partner_id'}
 
     # rizki
-    jumlahbayar_ids = fields.One2many(comodel_name='cdn.pemesanan', inverse_name='pelanggan_id', string='invoice')
-    total_bayar     =  fields.Float(string='total bayar', compute='_compute_total_bayar')
-
+    jumlahbayar_ids = fields.One2many(comodel_name='account.move', inverse_name='partner_id', string='invoice')
+    # total_invoice   = fields.Fload(string='total bayar')
+    # total_residual  = fields.Float(string='sisa bayar')
+    
     def tombol_tagihan(self):
-        action              = self.env["ir.actions.actions"]._for_xml_id("cdn_rental_armada.cdn_pemesanan_action")
-        action['domain']    = [('pelanggan_id', '=', self.id)]
-        action['context']   = {'default_pelanggan_id': self.id}
+        action              = self.env["ir.actions.actions"]._for_xml_id('account.action_move_out_invoice_type')
+        action['view_mode'] = 'tree,form'
+        action['domain']    = [('partner_id', '=', self.partner_id.id),('move_type', '=', 'out_invoice')]
+        action['context']   = {'default_partner_id': self.partner_id.id , 'default_move_type': 'out_invoice'}
         return action
 
-    @api.depends('jumlahbayar_ids.total_harga')
-    def _compute_total_bayar(self):
-        for rec in self:
-            Jmlh            = sum(total.total_harga for total in rec.jumlahbayar_ids)
-            rec.total_bayar = Jmlh
+    # @api.depends('jumlahbayar_ids.amount_total', 'jumlahbayar_ids.amount_residual')
+    # def _compute_total_invoice(self):
+    #     for rec in self:
+    #         rec.total_invoice  = sum(rec.jumlahbayar_ids.mapped('amount_total'))
+    #         rec.total_residual = sum(rec.jumlahbayar_ids.mapped('amount_residual'))
+
+
 
 
