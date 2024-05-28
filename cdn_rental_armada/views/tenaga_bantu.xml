@@ -11,7 +11,7 @@
                         <field name="name"/>
                         <field name="no_ktp"/>
                         <field name="city"/>
-                        <field name="status"/>
+                        <field name="state"/>
                     </tree>
                 </field>
             </record>
@@ -29,6 +29,17 @@
                             <field name="state" widget="statusbar" nolabel="1" statusbar_visible="tidak_aktif,perjalanan,siap"/>
                         </header>
                         <sheet>
+                            <div class="alert alert-danger text-center o_form_header" role="alert" attrs="{'invisible':[('state','!=','tidak_aktif')]}">
+                                <div>
+                                    <strong>
+                                        Tidak Aktif !!!
+                                    </strong>
+                                </div>
+                                <div>
+                                    Tenaga Bantu atas nama <field name="name" readonly="1"/> Tidak Aktif
+                                </div>
+                                <a class="close" data-bs-dismiss="alert" href="#">[close]</a>
+                            </div>
                             <field name="image_1920" widget="image" class="oe_avatar" options="{&quot;preview_image&quot;: &quot;avatar_128&quot;}"/>
                             <div class="oe_title mb24">
                                 Nama Tenaga Bantu
@@ -49,7 +60,6 @@
                                 <field name="jenis_kelamin"/>
                                 <field name="umur"/>
                                 <field name="is_menikah"/>
-                                <field name="status"/>
                                 <!-- <field name="type_orang"/> -->
                                 <field name="type_orang" invisible="1"/>
                             </group>                            
@@ -74,7 +84,7 @@
                     <field name="name"/>
                     <field name="no_ktp"/>
                     <field name="city"/>
-                    <field name="status"/>
+                    <field name="state"/>
                     <field name="image_1920"/>
                     <templates>
                         <t t-name="kanban-box">
@@ -97,7 +107,7 @@
                                             <span class="text-muted">Kota</span> <field name="city"/>
                                         </li>
                                         <li>
-                                            <span class="text-muted">Status</span> <field name="status"/>
+                                            <span class="text-muted">Status</span> <field name="state"/>
                                         </li>
                                     </ul>
                                 </div>

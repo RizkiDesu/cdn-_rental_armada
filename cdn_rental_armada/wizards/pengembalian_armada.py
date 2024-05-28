@@ -21,10 +21,14 @@ class CdnPengembalianArmadaWizard(models.TransientModel):
    @api.onchange('armada_id')
    def _onchange_armada_id(self):
       produk_armada = self.env['cdn.pemesanan.armada'].search([('armada_id', '=', self.armada_id.id)], limit=1)
+      pemesanan_id  = self.env['cdn.pemesanan'].search([('id','=',produk_armada.produk_armada_pemesanan_id.id)], limit=1)
       
+      print(pemesanan_id)
+      print(pemesanan_id.durasi)
+      print(pemesanan_id.tujuan)
       self.km_awal     = produk_armada.kilometer_awal
-      self.durasi_hari = produk_armada.durasi_sewa
-      self.tujuan      = produk_armada.tujuan
+      self.durasi_hari = pemesanan_id.durasi
+      self.tujuan      = pemesanan_id.tujuan
 
    @api.depends('km_akhir')
    def _compute_jarak_tempuh(self):
