@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+    <!-- cdn.propinsi tree view -->
+    <record id="cdn_propinsi_view_tree" model="ir.ui.view">
+        <field name="name">cdn.propinsi.view.tree</field>
+        <field name="model">cdn.propinsi</field>
+        <field name="arch" type="xml">
+            <tree>
+                <!-- Add your fields here -->
+                <field name="name"/>
+                <field name="kode"/>
+                <field name="singkat"/>
+                <field name="keterangan"/>
+            </tree>
+        </field>
+    </record>
+    <!-- cdn.propinsi form view -->
+    <record id="cdn_propinsi_view_form" model="ir.ui.view">
+        <field name="name">cdn.propinsi.view.form</field>
+        <field name="model">cdn.propinsi</field>
+        <field name="arch" type="xml">
+            <form string="">
+                <sheet>
+                    <group>
+                        <!-- Add your fields here -->
+                        <field name="name"/>
+                <field name="kode"/>
+                <field name="singkat"/>
+                <field name="keterangan"/>
+                    </group>
+                    <notebook>
+                        <page name="kota" string="Data Kota">
+                            <field name="kota_ids">
+                            <tree>
+                            <field name="name"/>
+                            <field name="kode"/>
+                            <field name="singkat"/>
+                            </tree>
+                            </field>
+                            
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+        <!-- cdn.propinsi action window -->
+        <record id="cdn_propinsi_action" model="ir.actions.act_window">
+            <field name="name">Data Propinsi</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">cdn.propinsi</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    <!-- Add Text Here -->
+                </p><p>
+                    <!-- More details about what a user can do with this object will be OK --> 
+                
+                </p>
+            </field>
+        </record>
+    <!-- This Menu Item must have a parent and an action -->
+    </data>
+    
+</odoo>
