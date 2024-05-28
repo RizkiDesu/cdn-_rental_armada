@@ -43,6 +43,11 @@
         'views/varian.xml',
         'views/account_move.xml',
         'views/pemesanan.xml',
+        'views/wilayah/desa.xml',
+        'views/wilayah/kecamatan.xml',
+        'views/wilayah/kota.xml',
+        'views/wilayah/propinsi.xml',
+        'views/wilayah/menu.xml',
     ],
     'demo': [
         'demo/demo.xml',
