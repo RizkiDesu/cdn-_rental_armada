@@ -13,6 +13,10 @@
                <field name="name" string="No Referensi"/>
                <field name="pelanggan_id"/>
                <field name="tanggal_pemesanan"/>
+               <field name="state" 
+                  decoration-success="state == 'terekam'" 
+                  decoration-warning="state == 'draft'"
+                  widget="badge"/>
                <field name="total_harga" sum="Total"/>
             </tree>
          </field>
@@ -45,7 +49,7 @@
                   </div>
                   <group string="Pelanggan">
                      <group>
-                        <field name="pelanggan_id" />
+                        <field name="pelanggan_id" attrs="{'readonly': [('state','=','terekam')]}"/>
                         <field name="no_ktp"/>
                         <field name="jalan"/>
                         <field name="kota"/>
@@ -59,14 +63,13 @@
                   </group>
                   <group string="Pemesanan">
                      <group>
-                        <field name="tanggal_pemesanan"/>
-                        
+                        <field name="tanggal_pemesanan" attrs="{'readonly': [('state','=','terekam')]}"/>
                         <field name="total_harga"/>
                      </group>
                   </group>
                   <notebook>
                      <page string="Produk">
-                        <field name="produk_ids">
+                        <field name="produk_ids" attrs="{'readonly': [('state','=','terekam')]}">
                            <tree>
                               <field name="produk_armada_pemesanan_id" invisible="1"/>
                               <field name="jenis_armada"/>
