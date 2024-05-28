@@ -30,10 +30,13 @@
                         </header>
                         <sheet>
                             <field name="image_1920" widget="image" class="oe_avatar" options="{&quot;preview_image&quot;: &quot;avatar_128&quot;}"/>
-                             <group>
+                            <div class="oe_title">
+                                <label for="name" class="oe_edit_only" string="Nama Lengkap Tenaga Bantu"/>
+                                <h2><field name="name" on_change="1"/></h2>
+                            </div>
+                            <group name="identitas_utama" string="Identitas Tenaga Bantu">
                             <!-- Add your fields here -->
-                            <group>
-                                <field name="name"/>
+                            <group>                                
                                 <field name="no_ktp"/>
                                 <field name="street"/>
                                 <field name="city"/>
@@ -50,6 +53,11 @@
                             </group>                            
                         </group>
                         </sheet>
+                        <div class="oe_chatter">
+                            <field name="message_follower_ids" widget="mail_followers"/>
+                            <field name="activity_ids" widget="mail_activity"/>
+                            <field name="message_ids" widget="mail_thread"/>
+                        </div>
                     </form>
                 </field>
             </record>

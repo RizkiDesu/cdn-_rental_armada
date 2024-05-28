@@ -5,6 +5,8 @@ class CdnPelanggan(models.Model):
     _name        = 'cdn.pelanggan'
     _description = 'Pelanggan'
     _inherits    = {'res.partner': 'partner_id'}
+    _inherit     = ['mail.thread', 'mail.activity.mixin']
+   
 
     # rizki
     jumlahbayar_ids = fields.One2many(comodel_name='cdn.pemesanan', inverse_name='pelanggan_id', string='invoice')
