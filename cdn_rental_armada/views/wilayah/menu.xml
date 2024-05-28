@@ -3,10 +3,10 @@
     <data>
     
         <menuitem id="wilayah_menu_categ" name="Wilayah" parent="pengaturan_menu_categ" sequence="50">
-            <menuitem id="desa_menu_act" name="Desa" action="cdn_desa_action" sequence="0"/>
-            <menuitem id="kecamatan_menu_act" name="Kecamatan" action="cdn_kecamatan_action" sequence="10"/>
+            <menuitem id="desa_menu_act" name="Desa" action="cdn_desa_action" sequence="40"/>
+            <menuitem id="kecamatan_menu_act" name="Kecamatan" action="cdn_kecamatan_action" sequence="30"/>
             <menuitem id="kota_menu_act" name="Kota" action="cdn_kota_action" sequence="20"/>
-            <menuitem id="propinsi_menu_act" name="Propinsi" action="cdn_propinsi_action" sequence="30"/>
+            <menuitem id="propinsi_menu_act" name="Propinsi" action="cdn_propinsi_action" sequence="0"/>
         </menuitem>
     
     </data>
