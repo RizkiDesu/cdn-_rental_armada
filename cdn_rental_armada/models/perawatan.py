@@ -19,22 +19,22 @@ class CdnService(models.Model):
     deskripsi       = fields.Text(string='Deskripsi')
     
 
-    @api.model
-    def create(self, vals):
-        record      = super(CdnService, self).create(vals)
-        hari_ini    = date.today()
-        if 'tanggal' in vals:    
-            jangka_waktu = self.env['ir.config_parameter'].get_param('cdn_rental_armada.jangka_waktu')
-            hari_batal_wajar = hari_ini - relativedelta.relativedelta(days=int(jangka_waktu))
-            tgl     = fields.Date.from_string(vals['tanggal'])
-            cek     = self.env['cdn.armada'].search([('id', '=', record.armada_id.id)])
-            if hari_batal_wajar < tgl:
-                cek.state       = 'siap'
-                cek.kondisi     = True
-            else :
-                cek.state       = 'tidak_siap'
-                cek.kondisi     = False
-        return record
+    # @api.model
+    # def create(self, vals):
+    #     record      = super(CdnService, self).create(vals)
+    #     hari_ini    = date.today()
+    #     if 'tanggal' in vals:    
+    #         jangka_waktu = self.env['ir.config_parameter'].get_param('cdn_rental_armada.jangka_waktu')
+    #         hari_batal_wajar = hari_ini - relativedelta.relativedelta(days=int(jangka_waktu))
+    #         tgl     = fields.Date.from_string(vals['tanggal'])
+    #         cek     = self.env['cdn.armada'].search([('id', '=', record.armada_id.id)])
+    #         if hari_batal_wajar < tgl:
+    #             cek.state       = 'siap'
+    #             cek.kondisi     = True
+    #         else :
+    #             cek.state       = 'tidak_siap'
+    #             cek.kondisi     = False
+    #     return record
 
 class CdnUjiKir(models.Model):
     _name           = 'cdn.uji.kir'
