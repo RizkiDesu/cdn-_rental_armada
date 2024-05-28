@@ -41,6 +41,8 @@ class CdnArmada(models.Model):
     total_jarak      = fields.Integer(string='Total Jarak (km)', compute='_compute_total_jarak', store=True)
     hitung_ujikir    = fields.Integer(string='Jumlah Service', compute="_compute_ujikir_count", store=True)
 
+
+    
     @api.model
     def create(self, vals):
         # vals
@@ -58,6 +60,16 @@ class CdnArmada(models.Model):
             vals['jenis_kendaraan'] = jenis_kendaraan.id
         res = super(CdnArmada, self).create(vals)
         return res
+    
+    def write(self, vals):
+        
+        for record in self:
+            merek_id = vals.get('merek_id', record.merek_id.id)
+            jenis_kendaraan_id = vals.get('jenis_kendaraan', record.jenis_kendaraan.id)
+            merek = self.env['cdn.merek'].browse(merek_id).name
+            jenis_kendaraan = self.env['cdn.jenis.kendaraan'].browse(jenis_kendaraan_id).name
+            vals['name'] = "[ %s ][ %s ] %s %s" % (record.jenis_armada, record.no_plat, merek, jenis_kendaraan)
+        return super(CdnArmada, self).write(vals)
 
     @api.onchange('kondisi')
     def _onchange_kondisi(self): # fix bug rizki
