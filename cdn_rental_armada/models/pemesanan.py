@@ -38,7 +38,7 @@ class CdnPemesanan(models.Model):
    desa_tujuan          = fields.Many2one(comodel_name='cdn.desa', string='Desa')
    tempat_jemput        = fields.Text(string='Tempat Penjemputan')
    tujuan               = fields.Text(string='Tempat Tujuan')
-   durasi               = fields.Integer(string='Durasi', help='Berapa lama?', default="1")
+   durasi               = fields.Integer(string='Durasi Sewa / hari', help='Berapa lama?', default="1")
    tanggal_kembali      = fields.Date( string='Tanggal Kembali')
    jenis_armada         = fields.Selection(string='Jenis Armada', selection=[('bis', 'Bis Pariwisata'), ('travel', 'Travel'),('mobil', 'Mobil')], required=True)    
    
@@ -90,7 +90,7 @@ class CdnPemesanan(models.Model):
       for line in self.produk_ids:
             invoice_line_vals = {
                'product_id': line.produk_id.id,
-               'quantity': line.durasi_sewa,
+               'quantity': self.durasi,
                'price_unit': line.biaya_sewa,
                'armada_id': line.armada_id.id,
                'supir': line.supir.id,
@@ -112,20 +112,6 @@ class CdnPemesanan(models.Model):
          'res_id': self.invoice_id.id,
          'target': 'current',
       }
-   
-   # def action_pengembalian_armada_pesanan(self):
-   #    return {
-   #       'type': 'ir.actions.act_window',
-   #       'name': 'Pengembalian Armada Pemesanan',
-   #       'res_model': 'cdn.pengembalian.armada.wizard',
-   #       'view_mode': 'form',
-   #       'view_id': self.env.ref('cdn_rental_armada.pengembalian_pemesanan_armada_wizard_view_form').id,
-   #       'target': 'new',
-   #       'context': {
-   #             'default_pemesanan_id': self.id,
-   #             'default_produk_ids': self.produk_ids,
-   #       },
-   #    }
 
 class CdnPemesananArmada(models.Model):
    _name        = 'cdn.pemesanan.armada'
