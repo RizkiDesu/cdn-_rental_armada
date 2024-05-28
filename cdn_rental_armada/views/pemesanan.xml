@@ -66,6 +66,30 @@
                   </group>
                   <group string="Pemesanan">
                      <group>
+                        <field name="jenis_armada"/>
+                        <field name="tanggal_pemesanan" attrs="{'readonly': [('state','=','terekam')]}"/>
+                        <field name="durasi" force_save="1"/>
+                        <!-- <field name="total_harga"/> -->
+                     </group>
+                     <group>
+                        <field name="tanggal_dipakai"/>
+                        <field name="tanggal_kembali" force_save="1"/>
+                     </group>
+                  </group>
+                  <group name="tempat" >
+                     <group name="penjemputan" string="Penjemputan">
+                        <field name="tempat_jemput"/>
+                        <field name="propinsi"/>
+                        <field name="kota" domain="[('propinsi_id', '=', propinsi)]"/>
+                        <field name="kecamatan" domain="[('kota_id', '=', kota)]"/>
+                        <field name="desa" domain="[('kecamatan_id', '=', kecamatan)]"/>
+                     </group>
+                     <group name="tujuan" string="Tujuan">
+                        <field name="tujuan"/>
+                        <field name="propinsi_tujuan"/>
+                        <field name="kota_tujuan" domain="[('propinsi_id', '=', propinsi)]"/>
+                        <field name="kecamatan_tujuan" domain="[('kota_id', '=', kota)]"/>
+                        <field name="desa_tujuan" domain="[('kecamatan_id', '=', kecamatan)]"/>
                         <field name="tanggal_pemesanan" attrs="{'readonly': [('state','=','terekam')]}"/>
                         <field name="total_harga"/>
                      </group>
@@ -75,9 +99,8 @@
                         <field name="produk_ids" attrs="{'readonly': [('state','=','terekam')]}">
                            <tree>
                               <field name="produk_armada_pemesanan_id" invisible="1"/>
-                              <field name="jenis_armada"/>
-                              <field name="produk_id" domain="[('jenis_armada', '=', jenis_armada)]"/>
-                              <field name="armada_id" domain="[('jenis_armada', '=', jenis_armada), ('state','=','siap')]"/>
+                              <field name="produk_id" domain="[('jenis_armada', '=', parent.jenis_armada)]"/>
+                              <field name="armada_id" domain="[('jenis_armada', '=', parent.jenis_armada), ('state','=','siap')]"/>
                               <field name="supir" domain="[('state','=','siap')]"/>
                               <field name="tenaga_bantuan" domain="[('state','=','siap')]"/>
                               <field name="tujuan"  optional="hide"/>
@@ -97,6 +120,7 @@
                      </page>
                   </notebook>
                </sheet>
+               
             </form>
          </field>
       </record>
@@ -110,19 +134,15 @@
                   <group>
                      <group>
                         <field name="produk_armada_pemesanan_id" invisible="1"/>
-                        <field name="jenis_armada"/>
-                        <field name="produk_id" domain="[('jenis_armada', '=', jenis_armada)]"/>
-                        <field name="armada_id" domain="[('jenis_armada', '=', jenis_armada), ('state','=','siap')]"/>
+                        <field name="produk_id" domain="[('jenis_armada', '=', parent.jenis_armada)]"/>
+                        <field name="armada_id" domain="[('jenis_armada', '=', parent.jenis_armada), ('state','=','siap')]"/>
                         <field name="supir" domain="[('state','=','siap')]"/>
                         <field name="tenaga_bantuan" domain="[('state','=','siap')]"/>
                      </group>
                      <group>
                         <field name="kilometer_awal" force_save="1"/>
-                        <field name="kilometer_akhir" invisible="1"/>
-                        <field name="jarak_tempuh" invisible="1"/>
-                        <field name="tujuan"/>
-                        <field name="durasi_sewa"/>
                         <field name="biaya_sewa" force_save="1"/>
+                        <field name="subtotal" force_save="1"/>
                      </group>
                   </group>
                </sheet>

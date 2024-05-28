@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+    
+        
+        
+        <!-- <record id="account_move_inherit" model="ir.ui.view">
+            <field name="name">account.move.inherit.view.tree</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.action_move_out_invoice_type"/>
+            <field name="arch" type="xml">
+                
+            </field>
+        </record> -->
+    
+    </data>
+    
+</odoo>

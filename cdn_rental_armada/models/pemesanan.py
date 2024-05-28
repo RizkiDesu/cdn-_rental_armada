@@ -1,6 +1,7 @@
 from odoo import models, fields, api, _
 from datetime import date
 from dateutil import relativedelta
+from odoo.exceptions import ValidationError
 
 class CdnPemesanan(models.Model):
    _name        = 'cdn.pemesanan'
@@ -9,7 +10,11 @@ class CdnPemesanan(models.Model):
    state                = fields.Selection(string='State', selection=[('draft', 'Draft'), ('terekam', 'Terekam')], default="draft")
    status_pembayaran    = fields.Selection(string='State', selection=[('belum_lunas', 'Belum Lunas'), ('lunas', 'Lunas')], default="belum_lunas")
    name                 = fields.Char(string='No Referensi')
+
+
    pelanggan_id         = fields.Many2one(comodel_name='res.partner', string='Pelanggan', domain=[('type_orang','=','pelanggan')])
+   # pelanggan_id         = fields.Many2one(comodel_name='cdn.pelanggan', string='Pelanggan', domain=[('type_orang','=','pelanggan')])
+
    no_ktp               = fields.Char(string='No KTP', related='pelanggan_id.no_ktp')
    jalan                = fields.Char(string='Alamat', related='pelanggan_id.street')
    kota                 = fields.Char(string='Kota', related='pelanggan_id.city')
@@ -19,10 +24,37 @@ class CdnPemesanan(models.Model):
    umur                 = fields.Integer(string='Umur', related='pelanggan_id.umur')
    tanggal_pemesanan    = fields.Date(string='Tanggal Pemesanan', default=date.today())
    produk_ids           = fields.One2many(comodel_name='cdn.pemesanan.armada', inverse_name='produk_armada_pemesanan_id', string='Daftar Produk')
-   
+
    invoice_id           = fields.Many2one('account.move', copy=False, string='Invoice')
    total_harga          = fields.Float(string='Total', compute='_compute_total')
-
+   tanggal_dipakai      = fields.Date(string='Tanggal Pemakaian')
+   propinsi             = fields.Many2one(comodel_name='cdn.propinsi', string='Provinsi')
+   kota                 = fields.Many2one(comodel_name='cdn.kota', string='Kota')
+   kecamatan            = fields.Many2one(comodel_name='cdn.kecamatan', string='Kecamatan')
+   desa                 = fields.Many2one(comodel_name='cdn.desa', string='Desa')
+   propinsi_tujuan      = fields.Many2one(comodel_name='cdn.propinsi', string='Provinsi')
+   kota_tujuan          = fields.Many2one(comodel_name='cdn.kota', string='Kota')
+   kecamatan_tujuan     = fields.Many2one(comodel_name='cdn.kecamatan', string='Kecamatan')
+   desa_tujuan          = fields.Many2one(comodel_name='cdn.desa', string='Desa')
+   tempat_jemput        = fields.Text(string='Tempat Penjemputan')
+   tujuan               = fields.Text(string='Tempat Tujuan')
+   durasi               = fields.Integer(string='Durasi', help='Berapa lama?', default="1")
+   tanggal_kembali      = fields.Date( string='Tanggal Kembali')
+   jenis_armada         = fields.Selection(string='Jenis Armada', selection=[('bis', 'Bis Pariwisata'), ('travel', 'Travel'),('mobil', 'Mobil')], required=True)    
+   
+   @api.onchange('durasi','tanggal_dipakai')
+   def _onchange_tanggal_kembali(self):
+      for rec in self:
+            if rec.tanggal_dipakai and rec.durasi is not None:
+                rec.tanggal_kembali = rec.tanggal_dipakai + relativedelta.relativedelta(days=rec.durasi)
+            else:
+                rec.tanggal_kembali = False
+   @api.constrains('tanggal_dipakai')
+   def _check_tanggal_dipakai(self):
+        for rec in self:
+            if rec.tanggal_dipakai and rec.tanggal_dipakai < date.today():
+                raise ValidationError("Tanggal Dipakai tidak boleh minimal hari ini.")
+   
    @api.depends('produk_ids.subtotal')
    def _compute_total(self):
       for rec in self:
@@ -104,10 +136,8 @@ class CdnPemesananArmada(models.Model):
    produk_armada_pemesanan_id = fields.Many2one(comodel_name='cdn.pemesanan', string='Armada Pemesanan')
    produk_id                  = fields.Many2one(comodel_name='product.product', string='Produk')
    armada_id                  = fields.Many2one(comodel_name='cdn.armada', string='Armada')
-   jenis_armada               = fields.Selection(string='Jenis Armada', selection=[('bis', 'Bis Pariwisata'), ('travel', 'Travel'),('mobil', 'Mobil')], required=True)    
    supir                      = fields.Many2one(comodel_name='cdn.supir', string='Supir')
    tenaga_bantuan             = fields.Many2one(comodel_name='cdn.tenaga.bantu', string='Tenaga Bantuan')
-   durasi_sewa                = fields.Integer(string='Durasi Sewa/hari', default="1")
    biaya_sewa                 = fields.Float(string='Biaya Sewa/hari', related="produk_id.lst_price", store=True)
    kilometer_awal             = fields.Float(string='KM Awal', related='armada_id.km_akhir')
    kilometer_akhir            = fields.Float(string='KM Akhir')
@@ -117,7 +147,9 @@ class CdnPemesananArmada(models.Model):
    state                      = fields.Selection(string='Status Armada', selection=[('siap', 'Siap'), ('disewa', 'Disewa'), ('dikembalikan', 'Telah Kembali'),], default="siap")
    
    
-   @api.onchange('durasi_sewa')
+   @api.onchange('produk_id')
    def _onchange_subtotal(self):
       for rec in self:
-         rec.subtotal = rec.durasi_sewa * rec.biaya_sewa
+         durasi = rec.produk_armada_pemesanan_id.durasi
+         tot = durasi * rec.biaya_sewa 
+         rec.subtotal = tot
