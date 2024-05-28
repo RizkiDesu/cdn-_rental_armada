@@ -91,11 +91,13 @@
                     </div>
                     <field name="image_1920" widget="image" class="oe_avatar"/>
 
-                        <div class="oe_title">
-                            <label for="name" class="oe_edit_only" string="Nama Lengkap Supir"/>
-                            <h2><field name="name" on_change="1"/></h2>
-                        </div>
-                        <group name = "identitas_utama" string="Identitas Supir">
+                    <div class="oe_title mb24">
+                        Nama Sopir
+                        <h1>
+                            <field id="individual" class="text-break" name="name" default_focus="1" placeholder="e.g. Brandom Freeman"/>
+                        </h1>
+                    </div>
+                    <group name = "identitas_utama" string="Identitas Supir">
                             <!-- Add your fields here -->
                             <group>
                                 <field name="no_ktp"/>
