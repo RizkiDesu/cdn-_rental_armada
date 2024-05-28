@@ -64,6 +64,7 @@
             <field name="arch" type="xml">
                 <form string="">
                     <sheet>
+
                     <div class="oe_button_box" name="button_box"> 
                         <button type="object" name="tombol_tagihan" class="oe_stat_button" icon="fa-money" context="{'default_pelanggan_id': active_id}">
                                 <div class="o_field_widget o_stat_info mr4">
@@ -84,6 +85,9 @@
                         </h1>
                     </div>
                         <group name="identitas" string="Identitas Pelanggan">
+
+                        
+
                             <!-- Add your fields here -->
                             <group>
                                 <field name="no_ktp"/>

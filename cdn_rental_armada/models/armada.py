@@ -13,6 +13,7 @@ class CdnArmada(models.Model):
         ('unique_no_plat', 'Unique(no_plat)','Nomor polisi tidak boleh sama!'),
         ('unique_no_mesin', 'Unique(no_mesin)','Nomor mesin tidak boleh sama!'),
     ]
+
     merek_id         = fields.Many2one(comodel_name='cdn.merek', string='Merek Kendaraan', tracking=True)
     jenis_kendaraan  = fields.Many2one(comodel_name='cdn.jenis.kendaraan', string='Jenis Kendaraan', domain="[('merek_id', '=', merek_id)]", tracking=True)
     jumlah_kursi     = fields.Integer(string='Jumlah Kursi', default="2", tracking=True)
@@ -29,6 +30,8 @@ class CdnArmada(models.Model):
     
 
     uji              = fields.Boolean(string='Uji', help="Jika aktif berarti armada dalam kondisi bagus", compute="_compute_uji" , tracking=True)
+   
+
            
     kondisi          = fields.Boolean(string='Kondisi Kendaraan', help="Jika aktif berarti armada dalam kondisi bagus", compute="_compute_kondisi", tracking=True)
 
@@ -47,7 +50,7 @@ class CdnArmada(models.Model):
     
     @api.model
     def create(self, vals):
-        # vals
+        # vals['kondisi']
         merek               = self.env['cdn.merek'].browse(vals.get('merek_id')).name
         jenis_kendaraan     = self.env['cdn.jenis.kendaraan'].browse(vals['jenis_kendaraan']).name
         vals['name']        = "[ %s ][ %s ] %s %s" % (vals['jenis_armada'], vals['no_plat'], merek, jenis_kendaraan)
@@ -81,8 +84,7 @@ class CdnArmada(models.Model):
             self.state = 'tidak_siap'
         if self.kondisi not in (False, True): # jika kondisi tidak diisi
             self.state = 'tidak_siap'
-        # if self.terakhir_service is None : 
-        #     self.state = 'service'
+
     @api.depends('ujikir_ids.tanggal_berakhir')
     def _compute_tanggal_ujikir_terakhir(self):
         for rec in self:
@@ -194,8 +196,8 @@ class CdnArmada(models.Model):
                 else :
                     is_keadaan2 = True 
             rec.uji = is_keadaan2
-
-    @api.depends('terakhir_service', 'berlaku_ujikir')
+    
+    @api.depends('terakhir_service')
     def _compute_kondisi(self):
         # state 
         for rec in self: 
@@ -205,13 +207,7 @@ class CdnArmada(models.Model):
             hari_batal_wajar = hari_ini - relativedelta.relativedelta(days=int(jangka_waktu))
             if rec.terakhir_service : 
                 if rec.terakhir_service > hari_batal_wajar:
-                    if rec.berlaku_ujikir and rec.berlaku_ujikir > hari_ini:
-                        is_keadaan = False
-                    else:
-                        if rec.berlaku_ujikir:
-                            is_keadaan = True
-                        else:
-                            is_keadaan = False
+                    is_keadaan = False
                 else :
                     is_keadaan = True 
             rec.kondisi = is_keadaan
