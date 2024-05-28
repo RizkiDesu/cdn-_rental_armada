@@ -135,7 +135,13 @@
                         
                         <div>
                                 <field name="foto_mobil" widget="image" class="oe_avatar" />
-                        </div>   
+                        </div> 
+                        <div class="oe_title mb24">
+                            Plat Nomor
+                            <h1>
+                                <field id="individual" class="text-break" name="no_plat" default_focus="1" placeholder="e.g. Brandom Freeman"/>
+                            </h1>
+                        </div>  
                         <group name="data_kendaraan" string="Data Armada">
 
                             <group>
@@ -147,7 +153,6 @@
                                 <field name="tahun_pembuatan"/>
                             </group>
                             <group>
-                                <field name="no_plat"/>
                                 <field name="no_mesin"/>
                                 <field name="no_rangka"/>
                                 <field name="uji" help="Jika aktif berarti armada dalam kondisi bagus" invisible="1"/>
