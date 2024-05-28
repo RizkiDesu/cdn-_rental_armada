@@ -39,6 +39,7 @@
         'views/varian.xml',
         'views/account_move.xml',
         'views/pemesanan.xml',
+        'views/penagihan_line.xml',
         'reports/inherit_report.xml',
         'views/varian.xml',
         'views/account_move.xml',
