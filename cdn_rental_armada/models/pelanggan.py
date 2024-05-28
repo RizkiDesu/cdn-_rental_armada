@@ -12,15 +12,14 @@ class CdnPelanggan(models.Model):
 
     def tombol_tagihan(self):
         action              = self.env["ir.actions.actions"]._for_xml_id("cdn_rental_armada.cdn_pemesanan_action")
-        action['domain']    = [('pelanggan_id', '=', self.partner_id.id)]
-        action['context']   = {'default_pelanggan_id': self.partner_id.id}
+        action['domain']    = [('pelanggan_id', '=', self.id)]
+        action['context']   = {'default_pelanggan_id': self.id}
         return action
 
     @api.depends('jumlahbayar_ids.total_harga')
     def _compute_total_bayar(self):
         for rec in self:
-            Jmlh            = self.env['cdn.pemesanan'].search([('pelanggan_id', '=', rec.partner_id.id)])
-            rec.total_bayar = sum(bayar.total_harga for bayar in Jmlh)
-
+            Jmlh            = sum(total.total_harga for total in rec.jumlahbayar_ids)
+            rec.total_bayar = Jmlh
 
 

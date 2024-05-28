@@ -11,15 +11,19 @@
                 </xpath>
                 <xpath expr="//field[@name='detailed_type']" position="attributes">    
                     <attribute name="readonly">1</attribute>
+                    <attribute name="force_save">1</attribute>
                 </xpath>
                 <xpath expr="//field[@name='jenis_armada']" position="attributes">    
                     <attribute name="readonly">1</attribute>
+                    <attribute name="force_save">1</attribute>
                 </xpath>
                 <xpath expr="//field[@name='uom_id']" position="attributes">    
                     <attribute name="readonly">1</attribute>
+                    <attribute name="force_save">1</attribute>
                 </xpath>
                 <xpath expr="//field[@name='uom_po_id']" position="attributes">    
                     <attribute name="readonly">1</attribute>
+                    <attribute name="force_save">1</attribute>
                 </xpath>
             </field>
         </record>
