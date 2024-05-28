@@ -11,6 +11,7 @@
                 <!-- Add your fields here -->
                 <field name="armada_id"/>
                 <field name="jarak"/>
+                <field name="km_akhir"/>
                 <field name="tgl_pakai"/>
                 <field name="tujuan"/>
             </tree>
@@ -26,6 +27,7 @@
                         <group>
                             <field name="armada_id" readonly="context.get('hide_nama_history')"/>
                             <field name="jarak"/>
+                            <field name="km_akhir"/>
                             <field name="tgl_pakai"/>
                             <field name="tujuan"/>
                             <field name="hari"/>

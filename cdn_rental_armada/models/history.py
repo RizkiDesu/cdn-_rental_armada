@@ -7,11 +7,13 @@ class CdnHistory(models.Model):
     _rec_name       = 'tujuan'
     _inherit     = ['mail.thread', 'mail.activity.mixin']
 
-    armada_id       = fields.Many2one(comodel_name='cdn.armada', string='Armada', required=True, tracking=True)
-    jarak           = fields.Integer(string='Jarak (km)', tracking=True)
-    tgl_pakai       = fields.Date(string='Tanggal Dipakai', required=True, tracking=True)
-    tujuan          = fields.Char(string='Tujuan', required=True, tracking=True)
-    hari            = fields.Integer(string='Di Pakai Berapa Hari', required=True, tracking=True)
+    armada_id       = fields.Many2one(comodel_name='cdn.armada', string='Armada')
+    jarak           = fields.Integer(string='Jarak (km)')
+    km_akhir        = fields.Float(string='Kilometer Terakhir (km)')
+    tgl_pakai       = fields.Date(string='Tanggal Dipakai')
+    tujuan          = fields.Char(string='Tujuan')
+    hari            = fields.Integer(string='Di Pakai Berapa Hari')
+
     
     
     

@@ -35,16 +35,18 @@ class CdnArmada(models.Model):
            
     kondisi          = fields.Boolean(string='Kondisi Kendaraan', help="Jika aktif berarti armada dalam kondisi bagus", compute="_compute_kondisi", tracking=True)
 
-    foto_mobil       = fields.Image('Foto Armada', tracking=True)
-    service_ids      = fields.One2many(comodel_name='cdn.service', inverse_name='armada_id', string='List Armada', tracking=True)
-    ujikir_ids       = fields.One2many(comodel_name='cdn.uji.kir', inverse_name='armada_id', string='List Uji Kir', tracking=True)
-    hitung_service   = fields.Integer(string='Jumlah Service', compute="_compute_service_count", store=True, tracking=True)
-    berlaku_ujikir   = fields.Date(string='Berlaku Uji Kir', compute='_compute_tanggal_ujikir_terakhir', store=True, tracking=True)
-    terakhir_service = fields.Date(string='Terakhir Service', compute='_compute_tanggal_service_terakhir', store=True, tracking=True)
-    tanggal_pakai    = fields.Date(string='Terakhir di pakai', compute = '_compute_tanggal_pakai', store = True, tracking=True)   
-    state            = fields.Selection(string='Status Armada', selection=[('tidak_siap','Tidak Siap'), ('dipakai', 'Sedang Dipakai'), ('siap', 'Siap Dipakai')], tracking=True)
-    total_jarak      = fields.Integer(string='Total Jarak (km)', compute='_compute_total_jarak', store=True, tracking=True)
-    hitung_ujikir    = fields.Integer(string='Jumlah Service', compute="_compute_ujikir_count", store=True, tracking=True)
+    foto_mobil       = fields.Image('Foto Armada')
+    service_ids      = fields.One2many(comodel_name='cdn.service', inverse_name='armada_id', string='List Armada')
+    ujikir_ids       = fields.One2many(comodel_name='cdn.uji.kir', inverse_name='armada_id', string='List Uji Kir')
+    hitung_service   = fields.Integer(string='Jumlah Service', compute="_compute_service_count", store=True)
+    berlaku_ujikir   = fields.Date(string='Berlaku Uji Kir', compute='_compute_tanggal_ujikir_terakhir', store=True)
+    terakhir_service = fields.Date(string='Terakhir Service', compute='_compute_tanggal_service_terakhir', store=True)
+    tanggal_pakai    = fields.Date(string='Terakhir di pakai', compute = '_compute_tanggal_pakai', store = True)   
+    km_akhir         = fields.Float(string='Kilometer Terakhir', compute = '_compute_kilometer_terakhir', store = True)   
+    state            = fields.Selection(string='Status Armada', selection=[('tidak_siap','Tidak Siap'), ('dipakai', 'Sedang Dipakai'), ('siap', 'Siap Dipakai')])
+    total_jarak      = fields.Integer(string='Total Jarak (km)', compute='_compute_total_jarak', store=True)
+    hitung_ujikir    = fields.Integer(string='Jumlah Service', compute="_compute_ujikir_count", store=True)
+
 
 
     
@@ -102,6 +104,15 @@ class CdnArmada(models.Model):
                 rec.terakhir_service = services.tanggal
             else:
                 rec.terakhir_service = None # fix bug rizki
+                
+    @api.depends('history_ids.km_akhir')
+    def _compute_kilometer_terakhir(self):
+        for rec in self:
+            histori = self.env['cdn.history'].search([('armada_id', '=', rec.id)], order='id desc', limit=1)
+            if histori:
+                rec.km_akhir = histori.km_akhir
+            else:
+                rec.km_akhir = None # fix bug rizki
     #Alvito
     @api.depends('history_ids.tgl_pakai')
     def _compute_tanggal_pakai(self):
