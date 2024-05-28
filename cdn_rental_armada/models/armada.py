@@ -6,46 +6,51 @@ from dateutil import relativedelta
 class CdnArmada(models.Model):
     _name            = 'cdn.armada'
     _description     = 'Armada'
+    _inherit         = ['mail.thread', 'mail.activity.mixin']
+
 
     _sql_constraints = [
         ('unique_no_plat', 'Unique(no_plat)','Nomor polisi tidak boleh sama!'),
         ('unique_no_mesin', 'Unique(no_mesin)','Nomor mesin tidak boleh sama!'),
     ]
-    merek_id         = fields.Many2one(comodel_name='cdn.merek', string='Merek Kendaraan')
-    jenis_kendaraan  = fields.Many2one(comodel_name='cdn.jenis.kendaraan', string='Jenis Kendaraan', domain="[('merek_id', '=', merek_id)]")
-    jumlah_kursi     = fields.Integer(string='Jumlah Kursi', default="2")
-    jenis_armada     = fields.Selection(string='Jenis Armada', selection=[('bis', 'Bis Pariwisata'), ('travel', 'Travel'),('mobil', 'Mobil')])    
-    tahun_pembuatan  = fields.Integer(string='Tahun Pembuatan', default=lambda self: date.today().year)
-    no_plat          = fields.Char(string='Plat Nomor')
-    no_mesin         = fields.Char(string='No Mesin')
-    no_rangka        = fields.Char(string='No Rangka')
-    name             = fields.Char(string='Nama Armada')
+
+    merek_id         = fields.Many2one(comodel_name='cdn.merek', string='Merek Kendaraan', tracking=True)
+    jenis_kendaraan  = fields.Many2one(comodel_name='cdn.jenis.kendaraan', string='Jenis Kendaraan', domain="[('merek_id', '=', merek_id)]", tracking=True)
+    jumlah_kursi     = fields.Integer(string='Jumlah Kursi', default="2", tracking=True)
+    jenis_armada     = fields.Selection(string='Jenis Armada', selection=[('bis', 'Bis Pariwisata'), ('travel', 'Travel'),('mobil', 'Mobil')], tracking=True)    
+    tahun_pembuatan  = fields.Integer(string='Tahun Pembuatan', default=lambda self: date.today().year , tracking=True)
+    no_plat          = fields.Char(string='Plat Nomor', tracking=True)
+    no_mesin         = fields.Char(string='No Mesin', tracking=True)
+    no_rangka        = fields.Char(string='No Rangka', tracking=True)
+    name             = fields.Char(string='Nama Armada', tracking=True)
     # print(name)
     
 
-    history_ids      = fields.One2many(comodel_name='cdn.history', inverse_name='armada_id', string='List Armada')
+    history_ids      = fields.One2many(comodel_name='cdn.history', inverse_name='armada_id', string='List Armada', tracking=True)
     
 
-    uji              = fields.Boolean(string='Uji', help="Jika aktif berarti armada dalam kondisi bagus", compute="_compute_uji")
-           
-    kondisi          = fields.Boolean(string='Kondisi Kendaraan', help="Jika aktif berarti armada dalam kondisi bagus", compute="_compute_kondisi")
+    uji              = fields.Boolean(string='Uji', help="Jika aktif berarti armada dalam kondisi bagus", compute="_compute_uji" , tracking=True)
+   
 
-    foto_mobil       = fields.Image('Foto Armada')
-    service_ids      = fields.One2many(comodel_name='cdn.service', inverse_name='armada_id', string='List Armada')
-    ujikir_ids       = fields.One2many(comodel_name='cdn.uji.kir', inverse_name='armada_id', string='List Uji Kir')
-    hitung_service   = fields.Integer(string='Jumlah Service', compute="_compute_service_count", store=True)
-    berlaku_ujikir   = fields.Date(string='Berlaku Uji Kir', compute='_compute_tanggal_ujikir_terakhir', store=True)
-    terakhir_service = fields.Date(string='Terakhir Service', compute='_compute_tanggal_service_terakhir', store=True)
-    tanggal_pakai    = fields.Date(string='Terakhir di pakai', compute = '_compute_tanggal_pakai', store = True)   
-    state            = fields.Selection(string='Status Armada', selection=[('tidak_siap','Tidak Siap'), ('dipakai', 'Sedang Dipakai'), ('siap', 'Siap Dipakai')])
-    total_jarak      = fields.Integer(string='Total Jarak (km)', compute='_compute_total_jarak', store=True)
-    hitung_ujikir    = fields.Integer(string='Jumlah Service', compute="_compute_ujikir_count", store=True)
+           
+    kondisi          = fields.Boolean(string='Kondisi Kendaraan', help="Jika aktif berarti armada dalam kondisi bagus", compute="_compute_kondisi", tracking=True)
+
+    foto_mobil       = fields.Image('Foto Armada', tracking=True)
+    service_ids      = fields.One2many(comodel_name='cdn.service', inverse_name='armada_id', string='List Armada', tracking=True)
+    ujikir_ids       = fields.One2many(comodel_name='cdn.uji.kir', inverse_name='armada_id', string='List Uji Kir', tracking=True)
+    hitung_service   = fields.Integer(string='Jumlah Service', compute="_compute_service_count", store=True, tracking=True)
+    berlaku_ujikir   = fields.Date(string='Berlaku Uji Kir', compute='_compute_tanggal_ujikir_terakhir', store=True, tracking=True)
+    terakhir_service = fields.Date(string='Terakhir Service', compute='_compute_tanggal_service_terakhir', store=True, tracking=True)
+    tanggal_pakai    = fields.Date(string='Terakhir di pakai', compute = '_compute_tanggal_pakai', store = True, tracking=True)   
+    state            = fields.Selection(string='Status Armada', selection=[('tidak_siap','Tidak Siap'), ('dipakai', 'Sedang Dipakai'), ('siap', 'Siap Dipakai')], tracking=True)
+    total_jarak      = fields.Integer(string='Total Jarak (km)', compute='_compute_total_jarak', store=True, tracking=True)
+    hitung_ujikir    = fields.Integer(string='Jumlah Service', compute="_compute_ujikir_count", store=True, tracking=True)
 
 
     
     @api.model
     def create(self, vals):
-        # vals
+        # vals['kondisi']
         merek               = self.env['cdn.merek'].browse(vals.get('merek_id')).name
         jenis_kendaraan     = self.env['cdn.jenis.kendaraan'].browse(vals['jenis_kendaraan']).name
         vals['name']        = "[ %s ][ %s ] %s %s" % (vals['jenis_armada'], vals['no_plat'], merek, jenis_kendaraan)
@@ -79,8 +84,7 @@ class CdnArmada(models.Model):
             self.state = 'tidak_siap'
         if self.kondisi not in (False, True): # jika kondisi tidak diisi
             self.state = 'tidak_siap'
-        # if self.terakhir_service is None : 
-        #     self.state = 'service'
+
     @api.depends('ujikir_ids.tanggal_berakhir')
     def _compute_tanggal_ujikir_terakhir(self):
         for rec in self:
@@ -192,8 +196,8 @@ class CdnArmada(models.Model):
                 else :
                     is_keadaan2 = True 
             rec.uji = is_keadaan2
-
-    @api.depends('terakhir_service', 'berlaku_ujikir')
+    
+    @api.depends('terakhir_service')
     def _compute_kondisi(self):
         # state 
         for rec in self: 
@@ -203,13 +207,7 @@ class CdnArmada(models.Model):
             hari_batal_wajar = hari_ini - relativedelta.relativedelta(days=int(jangka_waktu))
             if rec.terakhir_service : 
                 if rec.terakhir_service > hari_batal_wajar:
-                    if rec.berlaku_ujikir and rec.berlaku_ujikir > hari_ini:
-                        is_keadaan = False
-                    else:
-                        if rec.berlaku_ujikir:
-                            is_keadaan = True
-                        else:
-                            is_keadaan = False
+                    is_keadaan = False
                 else :
                     is_keadaan = True 
             rec.kondisi = is_keadaan

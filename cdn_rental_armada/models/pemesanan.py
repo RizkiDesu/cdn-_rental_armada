@@ -10,7 +10,11 @@ class CdnPemesanan(models.Model):
    state                = fields.Selection(string='State', selection=[('draft', 'Draft'), ('terekam', 'Terekam')], default="draft")
    status_pembayaran    = fields.Selection(string='State', selection=[('belum_lunas', 'Belum Lunas'), ('lunas', 'Lunas')], default="belum_lunas")
    name                 = fields.Char(string='No Referensi')
+
+
    pelanggan_id         = fields.Many2one(comodel_name='res.partner', string='Pelanggan', domain=[('type_orang','=','pelanggan')])
+   # pelanggan_id         = fields.Many2one(comodel_name='cdn.pelanggan', string='Pelanggan', domain=[('type_orang','=','pelanggan')])
+
    no_ktp               = fields.Char(string='No KTP', related='pelanggan_id.no_ktp')
    jalan                = fields.Char(string='Alamat', related='pelanggan_id.street')
    kota                 = fields.Char(string='Kota', related='pelanggan_id.city')

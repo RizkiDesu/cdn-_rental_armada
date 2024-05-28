@@ -87,6 +87,8 @@
                         <field name="kota_tujuan" domain="[('propinsi_id', '=', propinsi)]"/>
                         <field name="kecamatan_tujuan" domain="[('kota_id', '=', kota)]"/>
                         <field name="desa_tujuan" domain="[('kecamatan_id', '=', kecamatan)]"/>
+                        <field name="tanggal_pemesanan" attrs="{'readonly': [('state','=','terekam')]}"/>
+                        <field name="total_harga"/>
                      </group>
                   </group>
                   <notebook>
@@ -105,6 +107,7 @@
                      </page>
                   </notebook>
                </sheet>
+               
             </form>
          </field>
       </record>
