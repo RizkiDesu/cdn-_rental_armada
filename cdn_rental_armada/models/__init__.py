@@ -15,4 +15,5 @@ from . import varian_product
 from . import account_move
 from . import pemesanan
 from . import wilayah
+from . import produk
 

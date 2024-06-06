@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    
+    <data>
+    
+        <template id="product_list" name="List Produk">
+            <t t-call="website.layout">
+                <div class="container">
+                    <h1>Product</h1>
+                    <div class="row">
+                        <t t-foreach="products" t-as="product">
+                            <div class="col-md-4 mb-4">
+                                <div class="card">
+                                    <img t-attf-src="data:image/jpg;base64,{{ product.images }}" class="card-img-top" style="width:100%; height:200px; object-fit:cover;" />
+                                    <div class="card-body">
+                                        <h5 class="card-title"><t t-esc="product.name"/></h5>
+                                        <p class="card-text">
+                                            <strong>Product :</strong> <t t-esc="product.name"/><br/>
+                                            <strong>Hargat:</strong> <t t-esc="product.lst_price"/><br/>
+                                            <strong>Jenis Armada:</strong> <t t-esc="product.jenis_armada"/><br/>
+                                            <strong>Description:</strong> <t t-esc="product.description"/>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </div>
+                </div>
+            </t>
+        </template>
+    
+    </data>
+    
+    
+</odoo>

@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+    
+        <!-- cdn.produk.armada tree view -->
+        <record id="cdn_produk_armada_view_tree" model="ir.ui.view">
+            <field name="name">cdn.produk.armada.view.tree</field>
+            <field name="model">cdn.produk.armada</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <!-- Add your fields here -->
+                    <!-- <field name=""/> -->
+                    <field name="name"/>
+                    <field name="lst_price"/>
+                    <field name="uom_id"/>
+                    <field name="jenis_armada"/>
+                    
+                </tree>
+            </field>
+        </record>
+        <!-- cdn.produk.armada form view -->
+        <record id="cdn_produk_armada_view_form" model="ir.ui.view">
+            <field name="name">cdn.produk.armada.view.form</field>
+            <field name="model">cdn.produk.armada</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <sheet>
+                        <field name="images" widget="image" class="oe_avatar" options="{'preview_image': 'images'}"/>
+
+                        <div class="oe_title mb24">
+                            Nama Produk
+                            <h1>
+                                <field id="individual" class="text-break" name="name" default_focus="1" placeholder="Travel"/>
+                            </h1>
+                        </div>
+                        
+                        <group>
+                            <!-- <field name="name"/> -->
+                            <field name="lst_price"/>
+                            <field name="uom_id"/>
+                            <field name="jenis_armada"/>
+                            <field name="taxes_id" widget="many2many_tags"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <!-- cdn.produk.armada action window -->
+        <record id="cdn_produk_armada_action" model="ir.actions.act_window">
+            <field name="name">cdn.produk.armada.action</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">cdn.produk.armada</field>
+            <field name="view_mode">tree,form</field>
+
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    <!-- Add Text Here -->
+                </p><p>
+                    <!-- More details about what a user can do with this object will be OK --> 
+                
+                </p>
+            </field>
+        </record>
+
+        <!-- This Menu Item must have a parent and an action -->
+        <menuitem id="_menu_act" name="Produk" parent="product_menu_categ" action="cdn_produk_armada_action" sequence="0"/>
+    
+    </data>
+    
+</odoo>

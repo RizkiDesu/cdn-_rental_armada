@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+        
+        <template id="armada_list" name="List Armada">
+            <t t-call="website.layout">
+                <div class="container">
+                    <h1>Armada</h1>
+                    <div class="row">
+                        <t t-foreach="armadas" t-as="armada">
+                            <div class="col-md-4 mb-4">
+                                <div class="card">
+                                    <img t-attf-src="data:image/jpg;base64,{{ armada.foto_mobil }}" class="card-img-top" style="width:100%; height:200px; object-fit:cover;" />
+                                    <div class="card-body">
+                                        <h5 class="card-title"><t t-esc="armada.name"/></h5>
+                                        <p class="card-text">
+                                            <strong>No Rangka:</strong> <t t-esc="armada.no_rangka"/><br/>
+                                            <strong>No Plat:</strong> <t t-esc="armada.no_plat"/><br/>
+                                            <strong>No Mesin:</strong> <t t-esc="armada.no_mesin"/><br/>
+                                            <strong>Jenis Armada:</strong> <t t-esc="armada.jenis_armada"/><br/>
+                                            <strong>Merek:</strong> <t t-esc="armada.merek_id.name"/>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </div>
+                </div>
+            </t>
+        </template>
+
+
+        
+
+
+    
+    </data>
+    
+</odoo>
