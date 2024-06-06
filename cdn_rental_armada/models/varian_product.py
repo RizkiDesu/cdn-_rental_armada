@@ -5,7 +5,6 @@ class ProductProduct(models.Model):
     jenis_armada        = fields.Selection(string='Jenis Armada', selection=[('bis', 'Bis Pariwisata'), ('travel', 'Travel'),('mobil', 'Mobil')], required=True, default='mobil')
     armada_id = fields.Integer(string='ID Armada')
     
-    
     # @tools.ormcache()
     # def _set_default_uom_id(self):
     #     return self.env.ref('uom.product_uom_day')

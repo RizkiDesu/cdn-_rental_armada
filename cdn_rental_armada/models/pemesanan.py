@@ -2,13 +2,14 @@ from odoo import models, fields, api, _
 from datetime import date
 from dateutil import relativedelta
 from odoo.exceptions import ValidationError
+import http.client
 
 class CdnPemesanan(models.Model):
    _name        = 'cdn.pemesanan'
    _description = 'cdn.pemesanan'
 
    state                = fields.Selection(string='State', selection=[('draft', 'Draft'), ('terekam', 'Terekam')], default="draft")
-   status_pembayaran    = fields.Selection(string='State', selection=[('belum_lunas', 'Belum Lunas'), ('lunas', 'Lunas')], default="belum_lunas")
+   # status_pembayaran    = fields.Selection(string='State', selection=[('belum_lunas', 'Belum Lunas'), ('lunas', 'Lunas')], default="belum_lunas")
    name                 = fields.Char(string='No Referensi')
 
 
@@ -41,6 +42,7 @@ class CdnPemesanan(models.Model):
    durasi               = fields.Integer(string='Durasi Sewa / hari', help='Berapa lama?', default="1")
    tanggal_kembali      = fields.Date( string='Tanggal Kembali')
    jenis_armada         = fields.Selection(string='Jenis Armada', selection=[('bis', 'Bis Pariwisata'), ('travel', 'Travel'),('mobil', 'Mobil')], required=True)    
+   status_pembayaran    = fields.Selection(string='Status Pembayaran', related='invoice_id.payment_state',store=True)
    
    @api.onchange('durasi','tanggal_dipakai')
    def _onchange_tanggal_kembali(self):
@@ -64,7 +66,9 @@ class CdnPemesanan(models.Model):
    @api.model
    def create(self, vals):
       vals['name'] = self.env['ir.sequence'].next_by_code('cdn.pemesanan')
-      return super(CdnPemesanan, self).create(vals) 
+      rekaman = super(CdnPemesanan, self).create(vals)
+      rekaman.status_pembayaran = 'not_paid'
+      return rekaman
      
    def action_state_lihat_invoice(self):
       invoice_id = self.env['account.move'].search([('pemesanan_id', '=', self.id)])
@@ -78,41 +82,45 @@ class CdnPemesanan(models.Model):
       }
    def action_state_buat_invoice(self):
       """Method for creating invoice"""
+      if self.env['cdn.pemesanan.armada'].search([('produk_armada_pemesanan_id', '=', self.id)]):
+         invoice_vals = {
+            'move_type': 'out_invoice',
+            'date': fields.Date.today(),
+            'invoice_date': fields.Date.today(),
+            'partner_id': self.pelanggan_id.id,
+            'pemesanan_id': self.id,
+            'invoice_line_ids': [],
+         }
+         for line in self.produk_ids:
+               invoice_line_vals = {
+                  'product_id': line.produk_id.id,
+                  'quantity': self.durasi,
+                  'price_unit': line.biaya_sewa,
+                  'armada_id': line.armada_id.id,
+                  'supir': line.supir.id,
+                  'tenaga_bantu': line.tenaga_bantuan.id,
+               }
+               line.armada_id.state = 'dipakai'
+               line.state = 'disewa'
+               line.supir.state = 'perjalanan'
+               line.tenaga_bantuan.state = 'perjalanan'
+               invoice_vals['invoice_line_ids'].append((0, 0, invoice_line_vals))
+
+         self.invoice_id = self.env['account.move'].sudo().create(invoice_vals)
+         self.state = 'terekam'
+         
+         return {
+            'type': 'ir.actions.act_window',
+            'name': 'Customer Invoice',
+            'res_model': 'account.move',
+            'view_mode': 'form',
+            'res_id': self.invoice_id.id,
+            'target': 'current',
+         }
+      else:
+         raise ValidationError("Silahkan isi Produk Armada")
       
-      invoice_vals = {
-         'move_type': 'out_invoice',
-         'date': fields.Date.today(),
-         'invoice_date': fields.Date.today(),
-         'partner_id': self.pelanggan_id.id,
-         'pemesanan_id': self.id,
-         'invoice_line_ids': [],
-      }
-      for line in self.produk_ids:
-            invoice_line_vals = {
-               'product_id': line.produk_id.id,
-               'quantity': self.durasi,
-               'price_unit': line.biaya_sewa,
-               'armada_id': line.armada_id.id,
-               'supir': line.supir.id,
-               'tenaga_bantu': line.tenaga_bantuan.id,
-            }
-            line.armada_id.state = 'dipakai'
-            line.state = 'disewa'
-            line.supir.state = 'perjalanan'
-            line.tenaga_bantuan.state = 'perjalanan'
-            invoice_vals['invoice_line_ids'].append((0, 0, invoice_line_vals))
-
-      self.invoice_id = self.env['account.move'].sudo().create(invoice_vals)
-      self.state = 'terekam'
-      return {
-         'type': 'ir.actions.act_window',
-         'name': 'Customer Invoice',
-         'res_model': 'account.move',
-         'view_mode': 'form',
-         'res_id': self.invoice_id.id,
-         'target': 'current',
-      }
-
+      
 class CdnPemesananArmada(models.Model):
    _name        = 'cdn.pemesanan.armada'
    _description = 'cdn.pemesanan.armada'
@@ -131,7 +139,7 @@ class CdnPemesananArmada(models.Model):
    tujuan                     = fields.Char(string='Tujuan')
    subtotal                   = fields.Float(string='Subtotal', compute="_onchange_subtotal")
    state                      = fields.Selection(string='Status Armada', selection=[('siap', 'Siap'), ('disewa', 'Disewa'), ('dikembalikan', 'Telah Kembali'),], default="siap")
-   
+   gambar_mobil               = fields.Image('Gambar', related='armada_id.foto_mobil') 
    
    @api.onchange('produk_id')
    def _onchange_subtotal(self):
