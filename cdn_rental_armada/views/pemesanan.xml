@@ -11,12 +11,16 @@
             <tree>
                <!-- Add your fields here -->
                <field name="name" string="No Referensi"/>
-               <field name="pelanggan_id"/>
                <field name="tanggal_pemesanan"/>
+               <field name="pelanggan_id"/>
+               <field name="status_pembayaran" widget="badge" decoration-danger="status_pembayaran == 'not_paid'" decoration-warning="status_pembayaran in ('partial', 'in_payment')" decoration-success="status_pembayaran in ('paid', 'reversed')" />
                <field name="state" 
                   decoration-success="state == 'terekam'" 
                   decoration-warning="state == 'draft'"
                   widget="badge"/>
+               <!-- <button  name="action_pengembalian_armada_pesanan" string="Pengembalian Armada" class="btn-info" 
+                        attrs="{'invisible':[('state', '!=', 'terekam')]}"
+                        type="object"/> -->
                <field name="total_harga" sum="Total"/>
             </tree>
          </field>
@@ -52,59 +56,97 @@
                         <field name="pelanggan_id" attrs="{'readonly': [('state','=','terekam')]}"/>
                         <field name="no_ktp"/>
                         <field name="jalan"/>
-                        <field name="kota"/>
+                        <!-- <field name="kota"/> -->
+                        <field name="umur"/>
                      </group>
                      <group>
                         <field name="ponsel"/>
                         <field name="email"/>
                         <field name="jenis_kelamin"/>
-                        <field name="umur"/>
                      </group>
                   </group>
                   <group string="Pemesanan">
                      <group>
-                        <field name="jenis_armada"/>
-                        <field name="tanggal_pemesanan" attrs="{'readonly': [('state','=','terekam')]}"/>
-                        <field name="durasi" force_save="1"/>
+                        <field name="tanggal_pemesanan" readonly="True" force_save="1" attrs="{'readonly': [('state','=','terekam')]}"/>
+                        <field name="jenis_armada" attrs="{'readonly': [('state','=','terekam')]}"/>
+                        <field name="durasi" force_save="1" attrs="{'readonly': [('state','=','terekam')]}"/>
                         <!-- <field name="total_harga"/> -->
                      </group>
                      <group>
-                        <field name="tanggal_dipakai"/>
-                        <field name="tanggal_kembali" force_save="1"/>
+                        <field name="tanggal_dipakai" attrs="{'readonly': [('state','=','terekam')]}"/>
+                        <field name="tanggal_kembali" readonly="1" force_save="1"/>
                      </group>
                   </group>
                   <group name="tempat" >
                      <group name="penjemputan" string="Penjemputan">
-                        <field name="tempat_jemput"/>
-                        <field name="propinsi"/>
-                        <field name="kota" domain="[('propinsi_id', '=', propinsi)]"/>
-                        <field name="kecamatan" domain="[('kota_id', '=', kota)]"/>
-                        <field name="desa" domain="[('kecamatan_id', '=', kecamatan)]"/>
+                        <field name="tempat_jemput"  attrs="{'readonly': [('state','=','terekam')]}"/>
+                        <field name="propinsi"  attrs="{'readonly': [('state','=','terekam')]}"/>
+                        <field name="kota" domain="[('propinsi_id', '=', propinsi)]"  attrs="{'readonly': [('state','=','terekam')]}"/>
+                        <field name="kecamatan" domain="[('kota_id', '=', kota)]"  attrs="{'readonly': [('state','=','terekam')]}"/>
+                        <field name="desa" domain="[('kecamatan_id', '=', kecamatan)]"  attrs="{'readonly': [('state','=','terekam')]}"/>
                      </group>
                      <group name="tujuan" string="Tujuan">
-                        <field name="tujuan"/>
-                        <field name="propinsi_tujuan"/>
-                        <field name="kota_tujuan" domain="[('propinsi_id', '=', propinsi)]"/>
-                        <field name="kecamatan_tujuan" domain="[('kota_id', '=', kota)]"/>
-                        <field name="desa_tujuan" domain="[('kecamatan_id', '=', kecamatan)]"/>
+                        <field name="tujuan"  attrs="{'readonly': [('state','=','terekam')]}"/>
+                        <field name="propinsi_tujuan"  attrs="{'readonly': [('state','=','terekam')]}"/>
+                        <field name="kota_tujuan" domain="[('propinsi_id', '=', propinsi)]" attrs="{'readonly': [('state','=','terekam')]}"/>
+                        <field name="kecamatan_tujuan" domain="[('kota_id', '=', kota)]" attrs="{'readonly': [('state','=','terekam')]}"/>
+                        <field name="desa_tujuan" domain="[('kecamatan_id', '=', kecamatan)]" attrs="{'readonly': [('state','=','terekam')]}"/>
                      </group>
                   </group>
                   <notebook>
                      <page string="Produk">
                         <field name="produk_ids" attrs="{'readonly': [('state','=','terekam')]}">
-                           <tree>
-                              <field name="produk_armada_pemesanan_id" invisible="1"/>
-                              <field name="produk_id" domain="[('jenis_armada', '=', parent.jenis_armada)]"/>
-                              <field name="armada_id" domain="[('jenis_armada', '=', parent.jenis_armada), ('state','=','siap')]"/>
-                              <field name="supir" domain="[('state','=','siap')]"/>
-                              <field name="tenaga_bantuan" domain="[('state','=','siap')]"/>
-                              <field name="biaya_sewa" sum="Total" style="color:white;"/>
-                              <field name="subtotal" force_save="1" sum="Total" style="color:blue;"/>
-                           </tree>
+                           <kanban string="Kanban Description">
+                           <field name="produk_armada_pemesanan_id" invisible="1"/>
+                           <field name="produk_id"/>
+                           <field name="armada_id"/>
+                           <field name="gambar_mobil"/>
+                           <field name="supir"/>
+                           <field name="tenaga_bantuan"/>
+                           <field name="kilometer_awal"/>
+                           <field name="kilometer_akhir"/>
+                           <field name="jarak_tempuh"/>
+                           <field name="biaya_sewa"/>
+                           <field name="subtotal"/>
+                           <field name="state"/>
+                           <templates>
+                              <t t-name="kanban-box">
+                                    <div class="oe_kanban_global_click o_kanban_record_has_image_fill">
+                                       <t t-if="record.gambar_mobil.raw_value">
+                                          <div class="o_kanban_image_fill_left d-none d-md-block" t-attf-style="background-image:url('#{kanban_image('cdn.pemesanan.armada','gambar_mobil', record.id.raw_value)}')"/>
+                                       </t>
+                                       <t t-else="">
+                                          <div class="o_kanban_image_fill_left d-none d-md-block" t-attf-style="background-image:url('#{kanban_image('cdn.pemesanan.armada','avatar_128', record.id.raw_value)}')"/>
+                                       </t>
+                                       <div class="oe_kanban_details">
+                                          <h4>
+                                                <a type="open"><field name="armada_id"/></a>
+                                          </h4>
+                                          <ul>
+                                                <li>
+                                                   <span class="text-muted">Sopir: </span><field name="supir"/>
+                                                </li>
+                                                <li>
+                                                   <span class="text-muted">Tenaga Bantuan: </span><field name="tenaga_bantuan"/>
+                                                </li>
+                                                <li>
+                                                   <span class="text-muted">Biaya Sewa: </span><field name="biaya_sewa"/>
+                                                </li>
+                                                <li>
+                                                   <span class="text-muted">Status: </span><field name="state" decoration-muted="state == 'siap'" decoration-success="state == 'dikembalikan'" decoration-warning="state == 'disewa'" widget="badge"/>
+                                                </li>
+                                          </ul>
+                                       </div>
+                                    </div>
+                              </t>
+                           </templates>
+                        </kanban>
+
                         </field>
                      </page>
                   </notebook>
                </sheet>
+               
             </form>
          </field>
       </record>
@@ -118,12 +160,13 @@
                   <group>
                      <group>
                         <field name="produk_armada_pemesanan_id" invisible="1"/>
-                        <field name="produk_id" domain="[('jenis_armada', '=', parent.jenis_armada)]"/>
-                        <field name="armada_id" domain="[('jenis_armada', '=', parent.jenis_armada), ('state','=','siap')]"/>
+                        <field name="produk_id" domain="[('jenis_armada', '=', parent.jenis_armada)]" required="1"/>
+                        <field name="armada_id" domain="[('jenis_armada', '=', parent.jenis_armada), ('state','=','siap')]" required="1"/>
                         <field name="supir" domain="[('state','=','siap')]"/>
                         <field name="tenaga_bantuan" domain="[('state','=','siap')]"/>
                      </group>
                      <group>
+                        <field name="kilometer_awal" force_save="1"/>
                         <field name="biaya_sewa" force_save="1"/>
                         <field name="subtotal" force_save="1"/>
                      </group>

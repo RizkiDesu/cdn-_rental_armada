@@ -4,7 +4,7 @@ class CdnTenagaKerja(models.Model):
     _name           = "cdn.tenaga.bantu"
     _description    = "Tenaga Bantu"
     _inherits       = {'res.partner': 'partner_id'}
-
+    _inherit         = ['mail.thread', 'mail.activity.mixin']
     
     state           = fields.Selection(string='Status Tenaga Bantu', selection=[('tidak_aktif','Tidak Aktif'), ('perjalanan', 'Bertugas'), ('siap', 'Siap')], default='tidak_aktif')
     sim_ids         = fields.One2many(comodel_name='cdn.sim', inverse_name='sim_id', string='Izin Mengemudi')

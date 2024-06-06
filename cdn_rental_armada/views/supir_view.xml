@@ -12,7 +12,7 @@
                     <field name="name"/>
                     <field name="no_ktp"/>
                     <field name="city"/>
-                    <field name="status"/>
+                    <field name="state"/>
                     <field name="image_1920"/>
                     <templates>
                         <t t-name="kanban-box">
@@ -32,10 +32,10 @@
                                             <span class="text-muted">No KTP</span> <field name="no_ktp"/>
                                         </li>
                                         <li>
-                                            <span class="text-muted">Kota</span> <field name="city"/>
+                                            <span class="text-muted">No Hp</span> <field name="mobile"/>
                                         </li>
                                         <li>
-                                            <span class="text-muted">Status</span> <field name="status"/>
+                                            <span class="text-muted">Status</span> <field name="state"/>
                                         </li>
                                     </ul>
                                 </div>
@@ -57,9 +57,9 @@
                     <!-- <field name="i"/> -->
                     <field name="name"/>
                     <field name="no_ktp"/>
-                    <field name="city"/>
+                    <!-- <field name="city"/> -->
                     <field name="image_1920"/>
-                    <field name="status"/>
+                    <field name="state"/>
                 </tree>
             </field>
         </record>
@@ -78,7 +78,7 @@
                         <field name="state" widget="statusbar" nolabel="1" statusbar_visible="tidak_aktif,perjalanan,siap"/>
                     </header>
                     <sheet>
-                    <div class="alert alert-danger text-center o_form_header" role="alert" attrs="{'invisible':[('status','!=','nonaktif')]}">
+                    <div class="alert alert-danger text-center o_form_header" role="alert" attrs="{'invisible':[('state','!=','tidak_aktif')]}">
                         <div>
                             <strong>
                                 Tidak Aktif !!!
@@ -90,22 +90,26 @@
                         <a class="close" data-bs-dismiss="alert" href="#">[close]</a>
                     </div>
                     <field name="image_1920" widget="image" class="oe_avatar"/>
-                        <group>
+
+                    <div class="oe_title mb24">
+                        Nama Sopir
+                        <h1>
+                            <field id="individual" class="text-break" name="name" default_focus="1" placeholder="e.g. Brandom Freeman"/>
+                        </h1>
+                    </div>
+                    <group name = "identitas_utama" string="Identitas Supir">
                             <!-- Add your fields here -->
                             <group>
-                                
-                                <field name="name"/>
                                 <field name="no_ktp"/>
                                 <field name="street"/>
-                                <field name="city"/>
-                                <field name="mobile"/>
-                                <field name="email"/>
+                                <!-- <field name="city"/> -->
+                                <field name="mobile" widget="phone"/>
+                                <field name="email" widget="email"/>
                             </group>
                             <group >
                                 <field name="jenis_kelamin"/>
                                 <field name="umur"/>
                                 <field name="is_menikah"/>
-                                <field name="status"/>
                                 <field name="type_orang" invisible="1"/>
                                 <!-- <field name="type_orang" readonly="1"/> -->
                             </group>
@@ -124,6 +128,11 @@
                             
                         </group>
                     </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                   </div>
                 </form>
             </field>
         </record>
