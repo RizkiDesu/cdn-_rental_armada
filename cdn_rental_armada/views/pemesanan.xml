@@ -96,7 +96,7 @@
                   <notebook>
                      <page string="Produk">
                         <field name="produk_ids" attrs="{'readonly': [('state','=','terekam')]}">
-                           <kanban string="Kanban Description">\
+                           <kanban string="Kanban Description">
                            <field name="id"/>
                            <field name="produk_armada_pemesanan_id" invisible="1"/>
                            <field name="produk_id"/>
@@ -114,7 +114,7 @@
                               <t t-name="kanban-box">
                                     <div class="oe_kanban_global_click o_kanban_record_has_image_fill">
                                        <div class="o_kanban_image">
-                                             <img alt="Gambar Armada" t-att-src="kanban_image('cdn_pemesanan', 'gambar_mobil', record.id.raw_value)"/>
+                                             <img alt="Gambar Armada" t-att-src="kanban_image('cdn.pemesanan.armada', 'gambar_mobil', record.id.raw_value)"/>
                                        </div>
                                        
                                        <div class="oe_kanban_details">
