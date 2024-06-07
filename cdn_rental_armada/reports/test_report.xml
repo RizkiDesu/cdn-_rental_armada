@@ -41,7 +41,17 @@
             <field name="binding_model_id" ref="model_cdn_armada"/>
             <field name="binding_type">report</field>
         </record>
-    
+
+        <record id="report_booking_menu" model="ir.actions.report">
+            <field name="name">Cetak Surat Booking</field>
+            <field name="model">cdn.pemesanan</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">cdn_rental_armada.report_booking</field>
+            <field name="report_file">cdn_rental_armada.report_booking</field>
+            <field name="binding_model_id" ref="model_cdn_pemesanan"/>
+            <field name="binding_type">report</field>
+        </record>
+
     </data>
     
 

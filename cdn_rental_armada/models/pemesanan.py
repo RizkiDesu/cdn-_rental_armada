@@ -120,7 +120,10 @@ class CdnPemesanan(models.Model):
       else:
          raise ValidationError("Silahkan isi Produk Armada")
       
-      
+   def get_current_company(self):
+      current_company = self.env.user.company_id
+      return current_company
+   
 class CdnPemesananArmada(models.Model):
    _name        = 'cdn.pemesanan.armada'
    _description = 'cdn.pemesanan.armada'
