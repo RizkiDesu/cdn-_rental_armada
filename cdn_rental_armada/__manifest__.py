@@ -13,12 +13,27 @@
     'website': 'https://www.website.com',
     'license': 'AGPL-3',
     
-    'depends': ['base', 'mail','product', 'account', 'sale', 'stock' ],
+    'depends': ['base', 'mail','product', 'account', 'sale', 'stock', 'website' ],
     
     'data': [
         'security/group.xml',
         'security/ir.model.access.csv',
+
+        'data/sequence_data.xml',
         'data/ir_config_parameter.xml',
+        # 'data/navbar_site.xml',
+        'views/armada_site.xml',
+        'views/produk_site.xml',
+
+        
+
+        'reports/report_booking.xml',
+        'reports/test_report.xml',
+        'reports/travel_tersedia.xml',
+        'reports/mobil_tersedia.xml',
+        'reports/bus_tersedia.xml',
+        'reports/semua_tersedia.xml',
+
         'views/menu_view.xml',
         'views/armada.xml',
         'views/jenis_kendaraan.xml',
@@ -29,30 +44,26 @@
         'views/uji_kir_view.xml',
         'views/perawatan.xml',
         'views/history.xml',
-        'reports/report_booking.xml',
-        'reports/test_report.xml',
-        'reports/travel_tersedia.xml',
-        'reports/mobil_tersedia.xml',
-        'reports/bus_tersedia.xml',
-        'reports/semua_tersedia.xml',
         'views/pelanggan.xml',
-        'data/sequence_data.xml',
-        'views/varian.xml',
+
+        'views/produk.xml',
         'views/account_move.xml',
         'views/pemesanan.xml',
         'views/penagihan_line.xml',
         'reports/inherit_report.xml',
-        'views/varian.xml',
+
+        # 'views/varian.xml',
         'views/account_move.xml',
         'views/pemesanan.xml',
         'wizards/pengembalian_armada.xml',
 
-        
         'views/wilayah/kecamatan.xml',
         'views/wilayah/desa.xml',
         'views/wilayah/kota.xml',
         'views/wilayah/propinsi.xml',
         'views/wilayah/menu.xml',
+
+
     ],
     'demo': [
         'demo/demo.xml',

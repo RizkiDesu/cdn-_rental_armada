@@ -3,6 +3,7 @@
         <data>
             <!-- alvito -->
             <!-- Add you code here -->
+
             <record id="category_rental" model="ir.module.category">
                 <field name="name">Rental Armada</field>
                 <field name="description">Rental Armada</field>
