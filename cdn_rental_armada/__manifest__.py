@@ -27,6 +27,7 @@
 
         
 
+        'reports/report_booking.xml',
         'reports/test_report.xml',
         'reports/travel_tersedia.xml',
         'reports/mobil_tersedia.xml',
