@@ -47,7 +47,7 @@
         </record>
         <!-- cdn.produk.armada action window -->
         <record id="cdn_produk_armada_action" model="ir.actions.act_window">
-            <field name="name">cdn.produk.armada.action</field>
+            <field name="name">Produk</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">cdn.produk.armada</field>
             <field name="view_mode">tree,form</field>
