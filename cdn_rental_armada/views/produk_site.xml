@@ -16,7 +16,7 @@
                                         <h5 class="card-title"><t t-esc="product.name"/></h5>
                                         <p class="card-text">
                                             <strong>Product :</strong> <t t-esc="product.name"/><br/>
-                                            <strong>Hargat:</strong> <t t-esc="product.lst_price"/><br/>
+                                            <strong>Harga:</strong> <t t-esc="product.lst_price"/><br/>
                                             <strong>Jenis Armada:</strong> <t t-esc="product.jenis_armada"/><br/>
                                             <strong>Description:</strong> <t t-esc="product.description"/>
                                         </p>
