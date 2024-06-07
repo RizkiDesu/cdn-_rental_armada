@@ -11,9 +11,9 @@
                     <!-- Add your fields here -->
                     <!-- <field name=""/> -->
                     <field name="name"/>
-                    <field name="lst_price"/>
-                    <field name="uom_id"/>
                     <field name="jenis_armada"/>
+                    <field name="uom_id"/>
+                    <field name="lst_price"/>
                     
                 </tree>
             </field>

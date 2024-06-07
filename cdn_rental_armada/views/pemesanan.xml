@@ -88,15 +88,16 @@
                      <group name="tujuan" string="Tujuan">
                         <field name="tujuan"  attrs="{'readonly': [('state','=','terekam')]}"/>
                         <field name="propinsi_tujuan"  attrs="{'readonly': [('state','=','terekam')]}"/>
-                        <field name="kota_tujuan" domain="[('propinsi_id', '=', propinsi)]" attrs="{'readonly': [('state','=','terekam')]}"/>
-                        <field name="kecamatan_tujuan" domain="[('kota_id', '=', kota)]" attrs="{'readonly': [('state','=','terekam')]}"/>
-                        <field name="desa_tujuan" domain="[('kecamatan_id', '=', kecamatan)]" attrs="{'readonly': [('state','=','terekam')]}"/>
+                        <field name="kota_tujuan" domain="[('propinsi_id', '=', propinsi_tujuan)]" attrs="{'readonly': [('state','=','terekam')]}"/>
+                        <field name="kecamatan_tujuan" domain="[('kota_id', '=', kota_tujuan)]" attrs="{'readonly': [('state','=','terekam')]}"/>
+                        <field name="desa_tujuan" domain="[('kecamatan_id', '=', kecamatan_tujuan)]" attrs="{'readonly': [('state','=','terekam')]}"/>
                      </group>
                   </group>
                   <notebook>
                      <page string="Produk">
                         <field name="produk_ids" attrs="{'readonly': [('state','=','terekam')]}">
-                           <kanban string="Kanban Description">
+                           <kanban string="Kanban Description">\
+                           <field name="id"/>
                            <field name="produk_armada_pemesanan_id" invisible="1"/>
                            <field name="produk_id"/>
                            <field name="armada_id"/>
@@ -112,10 +113,9 @@
                            <templates>
                               <t t-name="kanban-box">
                                     <div class="oe_kanban_global_click o_kanban_record_has_image_fill">
-                                       
-                                          <!-- <div class="o_kanban_image_fill_left d-none d-md-block" t-attf-style="background-image:url('#{kanban_image('cdn.pemesanan.armada','gambar_mobil', record.id.raw_value)}')"/> -->
-                                       
-                                       <div class="o_kanban_image_fill_left d-none d-md-block" t-attf-style="background-image:url('#{kanban_image('cdn.pemesanan.armada','avatar_128', record.id.raw_value)}')"/>
+                                       <div class="o_kanban_image">
+                                             <img alt="Gambar Armada" t-att-src="kanban_image('cdn_pemesanan', 'gambar_mobil', record.id.raw_value)"/>
+                                       </div>
                                        
                                        <div class="oe_kanban_details">
                                           <h4>
