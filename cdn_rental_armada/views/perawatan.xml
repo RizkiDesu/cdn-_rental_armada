@@ -27,9 +27,9 @@
                         <group>
                             <!-- Add your fields here -->
                             <field name="armada_id" readonly="context.get('hide_nama_service')"/>
-                            <field name="tanggal"/>
-                            <field name="jenis_service"/>
-                            <field name="harga"/>
+                            <field name="tanggal" required="1"/>
+                            <field name="jenis_service" required="1"/>
+                            <field name="harga" required="1"/>
                         </group>
                         <notebook>
                             <page name="deskripsi" string="deskripsi">
