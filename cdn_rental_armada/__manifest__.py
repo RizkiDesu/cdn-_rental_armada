@@ -56,7 +56,8 @@
         'views/account_move.xml',
         'views/pemesanan.xml',
         'wizards/pengembalian_armada.xml',
-
+        
+        
         'views/wilayah/kecamatan.xml',
         'views/wilayah/desa.xml',
         'views/wilayah/kota.xml',
