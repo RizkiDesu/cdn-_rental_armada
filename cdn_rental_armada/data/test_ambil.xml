@@ -4,7 +4,7 @@
     
        <record id="ID3" model="cdn.pelanggan">
         <field name="name">Siapa</field>
-        <field name="image_1920" type="binary" file="cdn_rental_armada\static\src\img\bunga.jpeg"/>
+        <field name="image_1920" file="/cdn_rental_armada/static/src/img/bunga.jpeg"/>
        </record> 
     
     </data>
