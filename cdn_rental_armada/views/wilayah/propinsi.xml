@@ -32,13 +32,12 @@
                     <notebook>
                         <page name="kota" string="Data Kota">
                             <field name="kota_ids">
-                            <tree>
-                            <field name="name"/>
-                            <field name="kode"/>
-                            <field name="singkat"/>
-                            </tree>
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="kode"/>
+                                    <field name="singkat"/>
+                                </tree>
                             </field>
-                            
                         </page>
                     </notebook>
                 </sheet>
