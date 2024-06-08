@@ -7,7 +7,6 @@
             <field name="parent_id" ref="website.main_menu"/>
             <field name="sequence">10</field>
         </record>
-        
         <record id="menu_armada_blog" model="website.menu">
             <field name="name">Armada</field>
             <field name="url">/armada</field>
@@ -26,8 +25,5 @@
             <field name="parent_id" ref="website.main_menu"/>
             <field name="sequence">40</field>
         </record>
-    
     </data>
- 
-
 </odoo>

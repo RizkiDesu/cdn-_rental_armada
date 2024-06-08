@@ -46,6 +46,11 @@ class CdnArmada(models.Model):
     state            = fields.Selection(string='Status Armada', selection=[('tidak_siap','Tidak Siap'), ('dipakai', 'Sedang Dipakai'), ('siap', 'Siap Dipakai')])
     total_jarak      = fields.Integer(string='Total Jarak (km)', compute='_compute_total_jarak', store=True)
     hitung_ujikir    = fields.Integer(string='Jumlah Service', compute="_compute_ujikir_count", store=True)
+    priority = fields.Selection([
+        ('0', 'Normal'),
+        ('1', 'Favorite'),
+    ], default='0', string="Favorite")
+    # priority         = fields.Boolean(string='Favorit',default="True")
 
 
 

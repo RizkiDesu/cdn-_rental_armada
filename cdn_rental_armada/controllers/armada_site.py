@@ -5,7 +5,7 @@ from odoo.http import request
 class ArmadaSite(http.Controller):
     @http.route('/armada', auth='public', website=True)
     def index(self, **kw):
-        armadas = request.env['cdn.armada'].sudo().search([('state', '=', 'siap')])
+        armadas = request.env['cdn.armada'].sudo().search([('priority', '=', 1)])
         return request.render('cdn_rental_armada.armada_list', {'armadas': armadas})
     
     @http.route('/' , auth='public', website=True)
