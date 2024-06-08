@@ -21,7 +21,7 @@
 
         'data/sequence_data.xml',
         'data/ir_config_parameter.xml',
-        # 'data/navbar_site.xml',
+        'data/navbar_site.xml',
         'views/armada_site.xml',
         'views/produk_site.xml',
 
@@ -56,7 +56,8 @@
         'views/account_move.xml',
         'views/pemesanan.xml',
         'wizards/pengembalian_armada.xml',
-
+        
+        
         'views/wilayah/kecamatan.xml',
         'views/wilayah/desa.xml',
         'views/wilayah/kota.xml',
