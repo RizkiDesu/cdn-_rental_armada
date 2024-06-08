@@ -21,7 +21,7 @@
 
         'data/sequence_data.xml',
         'data/ir_config_parameter.xml',
-        # 'data/navbar_site.xml',
+        'data/navbar_site.xml',
         'views/armada_site.xml',
         'views/produk_site.xml',
 
