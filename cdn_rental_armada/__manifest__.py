@@ -13,7 +13,7 @@
     'website': 'https://www.website.com',
     'license': 'AGPL-3',
     
-    'depends': ['base', 'mail','product', 'account', 'sale', 'stock', 'website' ],
+    'depends': ['base', 'mail','product', 'account', 'sale', 'stock' ],
     
     'data': [
         'security/group.xml',
