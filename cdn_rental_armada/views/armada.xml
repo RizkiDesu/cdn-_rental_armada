@@ -38,47 +38,46 @@
                     <field name="kondisi" />
                     <field name="foto_mobil"/>
                     <field name="no_plat"/>
-                    <templates>
-                        
-                            <t t-name="kanban-box" >
-                            <div class="oe_kanban_global_click o_kanban_record_has_image_fill">
-                                <t t-if="record.foto_mobil.raw_value">
+                    <field name="priority"/>
 
-                                    <div class="o_kanban_image_fill_left d-none d-md-block" t-attf-style="background-image:url('#{kanban_image('cdn.armada','foto_mobil', record.id.raw_value)}')"/>
-                                    
-                                </t>
-                                <t t-else="record.foto_mobil.raw_value">
-                                
-                                    <div class="o_kanban_image_fill_left d-none d-md-block" t-attf-style="background-image:url('#{kanban_image('cdn.armada','avatar_128', record.id.raw_value)}')"/>
-                                    
-                                </t>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div class="oe_kanban_card oe_kanban_global_click">
+                                <div class="o_kanban_image me-1">
+                                    <t t-if="record.foto_mobil.raw_value">
+                                        <img t-att-src="kanban_image('cdn.armada','foto_mobil', record.id.raw_value)" alt="Armada" class="o_image_64_contain"/>
+                                    </t>
+                                    <t t-else="">
+                                        <img t-att-src="kanban_image('cdn.armada','foto_mobil', record.id.raw_value)" alt="Armada" class="o_image_64_contain"/>
+                                    </t>
+                                </div>
                                 <div class="oe_kanban_details">
-                                    <h4>
-                                        <a type="open"><field name="jenis_kendaraan"/></a>
-                                    </h4>
-                                    <ul>
-                                        <li>
-                                            <span class="text-muted">Merek: </span> <field name="merek_id"/>
-                                        </li>
-                                        <li>
-                                            <span class="text-muted">No Plat: </span> <field name="no_plat"/>
-                                        </li>
-                                        <li>
-                                            <span class="text-muted">Jumlah Kursi: </span> <field name="jumlah_kursi"/>
-                                        </li>
-                                        <li>
-                                            <span class="text-muted">Status: </span> <field name="state" 
-                                                                                            decoration-success="state == 'siap'"
-                                                                                            decoration-warning="state == 'dipakai'" 
-                                                                                            decoration-danger="state == 'tidak_siap'" 
-                                                                                            widget="badge"/>
-                                        </li>
-                                    </ul>
+                                    <div class="o_kanban_record_top mb-0">
+                                        <div class="o_kanban_record_headings">
+                                            <strong class="o_kanban_record_title">
+                                                <field name="name"/>
+                                            </strong>
+                                        </div>
+                                        <field name="priority" widget="priority"/>
+                                    </div>
+                                    <div name="jumlah-kursi" class="mt-1">
+                                        <span class="text-muted">Jumlah Kursi: </span>
+                                        <field name="jumlah_kursi"/>
+                                    </div>
+                                    <div name="product_lst_price" class="mt-1">
+                                        <span class="text-muted">Status: </span>
+                                        <field name="state"
+                                            decoration-success="state == 'siap'"
+                                            decoration-warning="state == 'dipakai'"
+                                            decoration-danger="state == 'tidak_siap'"
+                                            widget="badge"/>
+                                    </div>
                                 </div>
                             </div>
                         </t>
-                        
                     </templates>
+
+
                 </kanban>
             </field>
         </record>
@@ -132,14 +131,16 @@
                                 </div>
                             <a class="close" data-bs-dismiss="alert" href="#">[close]</a>
                         </div>
-                        
                         <div>
                                 <field name="foto_mobil" widget="image" class="oe_avatar" />
                         </div> 
-                        <div class="oe_title mb24">
-                            Plat Nomor
+                        <div class="oe_title">
+                           No. Polisi
                             <h1>
-                                <field id="individual" class="text-break" name="no_plat" default_focus="1" placeholder="e.g. Brandom Freeman"/>
+                                <div class="d-flex">
+                                    <field name="priority" widget="priority" class="me-3"/>
+                                    <field id="individual" class="text-break" name="no_plat" default_focus="1" placeholder="Contoh : N12345HR"/>
+                                </div>
                             </h1>
                         </div>  
                         <group name="data_kendaraan" string="Data Armada">
