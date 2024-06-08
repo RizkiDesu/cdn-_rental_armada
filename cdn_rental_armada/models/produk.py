@@ -19,6 +19,10 @@ class CdnProdukArmada(models.Model):
     uom_id = fields.Many2one(comodel_name='uom.uom', string='Unit of Measure',
                             default=_get_default_uom_id, required=True,
                             help="Default unit of measure used for all stock operations.")
+    priority = fields.Selection([
+        ('0', 'Normal'),
+        ('1', 'Favorite'),
+    ], default='0', string="Favorite")
     
     @api.model
     def create(self, vals):
