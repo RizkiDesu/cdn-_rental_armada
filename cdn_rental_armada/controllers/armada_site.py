@@ -11,6 +11,10 @@ class ArmadaSite(http.Controller):
     @http.route('/' , auth='public', website=True)
     def home(self, **kw):
         products = request.env['cdn.produk.armada'].sudo().search([])
-        renderweb = request.render('cdn_rental_armada.product_list', {'products': products})
-        return renderweb
+        return request.render('cdn_rental_armada.product_list', {'products': products})
+    
+    @http.route('/test' , auth='public', website=True)
+    def home(self, **kw):
+        # products = request.env['cdn.produk.armada'].sudo().search([])
+        return request.render('cdn_rental_armada.test_landing')
     

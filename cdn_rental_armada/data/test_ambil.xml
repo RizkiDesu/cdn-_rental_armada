@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+    
+       <record id="ID3" model="cdn.pelanggan">
+        <field name="name">Siapa</field>
+        <field name="image_1920" type="binary" file="cdn_rental_armada\static\src\img\bunga.jpeg"/>
+       </record> 
+    
+    </data>
+    
+</odoo>
