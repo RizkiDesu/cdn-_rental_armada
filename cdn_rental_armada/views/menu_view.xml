@@ -2,7 +2,7 @@
 <odoo>
     <data>
         <!-- rizki -->
-        <menuitem id="armada_menu_root" name="Rental Armada" sequence="0" web_icon="cdn_rental_armada,static/description/odoo_icon.png"/>
+        <menuitem id="armada_menu_root" name="Rental Armada" sequence="0" web_icon="cdn_rental_armada,static/description/icon.png"/>
         
 
         <!-- rizki -->
