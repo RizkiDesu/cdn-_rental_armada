@@ -13,7 +13,7 @@
     'website': 'https://www.website.com',
     'license': 'AGPL-3',
     
-    'depends': ['base', 'mail','product', 'account', 'sale', 'stock' ],
+    'depends': ['base', 'mail','product', 'account', 'sale', 'stock','website' ],
     
     'data': [
         'security/group.xml',
@@ -22,8 +22,10 @@
         'data/sequence_data.xml',
         'data/ir_config_parameter.xml',
         'data/navbar_site.xml',
+        # 'data/test_ambil.xml',
         'views/armada_site.xml',
         'views/produk_site.xml',
+        'views/test_site.xml',
 
         
 
@@ -68,6 +70,24 @@
     'demo': [
         'demo/demo.xml',
     ],
+    'assets': {
+        'web.assets_frontend': [
+            '/cdn_rental_armada/static/src/css/bootstrap.min.css',
+            'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css',
+            '/cdn_rental_armada/static/src/lib/owlcarousel/assets/owl.carousel.min.css',
+            '/cdn_rental_armada/static/src/lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css',
+            '/cdn_rental_armada/static/src/css/style.css',
+            'https://code.jquery.com/jquery-3.4.1.min.js',
+            'https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js',
+            '/cdn_rental_armada/static/src/lib/easing/easing.min.js',
+            '/cdn_rental_armada/static/src/lib/waypoints/waypoints.min.js',
+            '/cdn_rental_armada/static/src/lib/owlcarousel/owl.carousel.min.js',
+            '/cdn_rental_armada/static/src/lib/tempusdominus/js/moment.min.js',
+            '/cdn_rental_armada/static/src/lib/tempusdominus/js/moment-timezone.min.js',
+            '/cdn_rental_armada/static/src/lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js',
+            '/cdn_rental_armada/static/src/js/main.js',
+        ],
+    },
     'aplication': True,
     
 
