@@ -3,6 +3,17 @@ from odoo import http
 from odoo.http import request
 
 class ArmadaSite(http.Controller):
+    @http.route('/' , auth='public', website=True)
+    def home(self, **kw):
+        products = request.env['cdn.produk.armada'].sudo().search([('priority', '=', '1')])
+        armadas = request.env['cdn.armada'].sudo().search([('priority', '=', 1)])
+
+        website = request.render('cdn_rental_armada.home_page', {
+            'products': products, 
+            'armadas': armadas
+            })
+        return website
+
     @http.route('/armada', auth='public', website=True)
     def index(self, **kw):
         armadas = request.env['cdn.armada'].sudo().search([('priority', '=', 1)])
@@ -15,14 +26,9 @@ class ArmadaSite(http.Controller):
         # return renderweb
         return "produk booking"
     
-    @http.route('/' , auth='public', website=True)
-    def home(self, **kw):
-        products = request.env['cdn.produk.armada'].sudo().search([('priority', '=', '1')])
-        renderweb = request.render('cdn_rental_armada.product_list', {'products': products})
-        return renderweb
     
     @http.route('/test' , auth='public', website=True)
-    def home(self, **kw):
+    def test(self, **kw):
         # products = request.env['cdn.produk.armada'].sudo().search([])
         return request.render('cdn_rental_armada.test_landing')
     

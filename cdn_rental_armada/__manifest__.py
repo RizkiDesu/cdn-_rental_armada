@@ -21,7 +21,11 @@
 
         'data/sequence_data.xml',
         'data/ir_config_parameter.xml',
+
+
+        
         'data/navbar_site.xml',
+        'views/home_page_site.xml',
         # 'data/test_ambil.xml',
         'views/armada_site.xml',
         'views/produk_site.xml',
