@@ -107,9 +107,6 @@
                            <field name="gambar_mobil"/>
                            <field name="supir"/>
                            <field name="tenaga_bantuan"/>
-                           <field name="kilometer_awal"/>
-                           <field name="kilometer_akhir"/>
-                           <field name="jarak_tempuh"/>
                            <field name="biaya_sewa"/>
                            <field name="subtotal"/>
                            <field name="state" 
