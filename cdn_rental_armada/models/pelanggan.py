@@ -20,7 +20,8 @@ class CdnPelanggan(models.Model):
     
     jml_boking      = fields.Integer(string='Jumlah Boking', compute='_compute_jml_boking')
 
-    status = fields.Selection(string='Status', selection=[('terdaftar', 'Terdaftar'), ('tidak_terdaftar', 'Belum Terdaftar'),], default="tidak_terdaftar")
+
+    status          = fields.Selection(string='Status', selection=[('terdaftar', 'Terdaftar'), ('tidak_terdaftar', 'Belum Terdaftar'),], default="tidak_terdaftar")
 
     
     def konfirmasi_web(self):
