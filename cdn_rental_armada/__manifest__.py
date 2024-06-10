@@ -29,11 +29,10 @@
         # 'data/test_ambil.xml',
         'views/armada_site.xml',
         'views/produk_site.xml',
-        'views/form_pendaftaran.xml',
-        'views/form_booking_website.xml',
+        'views/form_pendaftaran_site.xml',
+        'views/form_booking_site.xml',
 
         
-
         'reports/report_booking.xml',
         'reports/test_report.xml',
         'reports/travel_tersedia.xml',
@@ -62,6 +61,7 @@
         # 'views/varian.xml',
         'views/account_move.xml',
         'views/pemesanan.xml',
+        'views/denda.xml',
         'wizards/pengembalian_armada.xml',
         
         

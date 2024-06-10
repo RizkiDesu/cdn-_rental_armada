@@ -15,11 +15,11 @@ class ResConfigSetting(models.TransientModel):
     
 
 
-class CdnYourService(models.Model):
-    _name = 'cdn.your.service'
-    _description = 'Your Service'
+# class CdnYourService(models.Model):
+#     _name = 'cdn.your.service'
+#     _description = 'Your Service'
     
-    name = fields.Char(string='Nama Layanan')
+#     name = fields.Char(string='Nama Layanan')
     
     
 
