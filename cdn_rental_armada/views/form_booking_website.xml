@@ -1,0 +1,194 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+    <!-- Triadi -->
+        <template id="form_booking_website" name="Booking">
+            <t t-call="website.layout">
+                <style>
+
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        h1, h2 {
+            color: #333;
+        }
+
+        .bg-dark {
+            background-color: #122b3b !important;
+        }
+        .form-control {
+            border: none;
+            border-radius: 10px;
+        }
+        .room-image {
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        .room-image img {
+            border-radius: 15px;
+        }
+
+        .btn-warning {
+            background-color: #ff9800;
+            border: none;
+        }
+
+        .btn-warning:hover {
+            background-color: #e68a00;
+        }
+
+        h2 {
+            color: #ff9800;
+        }
+        label {
+            color: white;
+        }
+        .select2-container {
+            width: 100% !important;
+            background-color: white;
+            color: black;
+        }
+
+        .select2-selection {
+            height: 40px; /* Ganti dengan ukuran tetap yang diinginkan */
+            text-align: center;
+            background-color: white;
+            color: black;
+        }
+
+        .select2-selection__rendered {
+            line-height: 40px;
+            background-color: white;
+            color: black; /* Sama dengan height dari .select2-selection untuk menjaga teks tetap di tengah */
+        }
+
+        .select2-selection__arrow {
+            height: 40px;
+            background-color: white;
+            color: black; /* Sama dengan height dari .select2-selection */
+        }
+    </style>
+
+
+<div class="container-fluid">
+        <div class="row" style="mar">
+            <div class="col-md-6 bg-light">
+                <div class="text-center">
+                    <img src="/cdn_rental_armada/static/src/img/vendor-2.png" alt="Logo" class="img-fluid mb-4"/>
+                    <h1 class="">Booking</h1>
+                    <div class="room-image">
+                        <img src="/cdn_rental_armada/static/src/img/bg-banner.jpg" alt="Room" class="img-fluid"/>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 bg-dark text-white p-5">
+                <form class="custom-form">
+                    <h3 align="center" class="text-primary">Data Booking</h3>
+                        <div class="mb-3">
+                            <div class="row">
+                                <div class="col-md-9">
+                                    <label for="armada" class="form-label">Jenis Armada dan Jumlah</label>
+                                    <input type="text" class="form-control" id="armada"/>
+                                </div>
+                                <div class="col">
+                                    <label for="jmlh" class="form-label">Jumlah</label>
+                                    <input type="text" class="form-control" id="jmlh"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="mb-3 col">
+                                <label for="tanggal" class="form-label">Tanggal Pemakaian</label>
+                                <input type="date" class="form-control" id="tanggal"/>
+                            </div>
+                            <div class="mb-3 col">
+                                <label for="durasi" class="form-label">Durasi Lama (Hari)</label>
+                                <input type="number" class="form-control" id="durasi"/>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="alamat-penjemputan" class="form-label">Alamat Penjemputan</label>
+                            <input type="text" class="form-control" id="alamat-penjemputan"/>
+                        </div>
+                        <div class="row">
+                            <div class="col mb-2 select2-input">
+                                <label for="provinsi" class="form-label">Provinsi</label>
+                                <select class="select2 form-select" id="provinsi">
+                                    <option>Jawa Timur</option>
+                                    <!-- Add more options as needed -->
+                                </select>
+                            </div>
+                            <div class="col mb-3 select2-input">
+                                <label for="kota" class="form-label">Kota</label>
+                                <select class=" select2 form-select" id="kota">
+                                    <option>Malang</option>
+                                    <!-- Add more options as needed -->
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col mb-3 select2-input">
+                                <label for="kecamatan" class="form-label">Kecamatan</label>
+                                <select class=" select2 form-select" id="kecamatan">
+                                    <option>Singosari</option>
+                                    <!-- Add more options as needed -->
+                                </select>
+                            </div>
+                            <div class="col mb-3 select2-input">
+                                <label for="desa" class="form-label">Desa</label>
+                                <select class=" select2 form-select" id="desa">
+                                    <option>Randuagung</option>
+                                    <!-- Add more options as needed -->
+                                </select>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="alamat-tujuan" class="form-label">Alamat Tujuan (Jika Ada)</label>
+                            <input type="text" class="form-control" id="alamat-tujuan"/>
+                        </div>
+                        <div class="row">
+                            <div class="col mb-3 select2-input">
+                                <label for="provinsi-tujuan" class="form-label">Provinsi</label>
+                                <select class=" select2 form-select" id="provinsi-tujuan">
+                                    <option>Jawa Timur</option>
+                                    <!-- Add more options as needed -->
+                                </select>
+                            </div>
+                            <div class="col mb-3 select2-input">
+                                <label for="kota-tujuan" class="form-label">Kota</label>
+                                <select class=" select2 form-select" id="kota-tujuan">
+                                    <option>Malang</option>
+                                    <!-- Add more options as needed -->
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col mb-3 select2-input">
+                                <label for="kecamatan-tujuan" class="form-label">Kecamatan</label>
+                                <select class=" select2 form-select" id="kecamatan-tujuan">
+                                    <option>Singosari</option>
+                                    <!-- Add more options as needed -->
+                                </select>
+                            </div>
+                            <div class="col mb-3 select2-input">
+                                <label for="desa-tujuan" class="form-label">Desa</label>
+                                <select class="select2 form-select" id="desa-tujuan">
+                                    <option>Randuagung</option>
+                                    <!-- Add more options as needed -->
+                                </select>
+                            </div>
+                        </div>
+                        <p style="color: white;">* Pastikan data sudah benar sebelum melanjutkan</p>
+                        <button type="submit" class="btn btn-primary w-100 mb-4">Booking</button>
+                    </form>
+            </div>
+        </div>
+    </div>
+            </t>
+        </template>
+    
+    </data>
+    
+</odoo>

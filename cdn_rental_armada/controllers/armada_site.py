@@ -24,11 +24,10 @@ class ArmadaSite(http.Controller):
         # products = request.env['cdn.produk.armada'].sudo().search([('priority', '=', '1')])
         # renderweb = request.render('cdn_rental_armada.product_booking', {'products': products})
         # return renderweb
-        return "produk booking"
+        return request.render('cdn_rental_armada.form_booking_website')
     
     
-    @http.route('/test' , auth='public', website=True)
+    @http.route('/daftar' , auth='public', website=True)
     def test(self, **kw):
         # products = request.env['cdn.produk.armada'].sudo().search([])
-        return request.render('cdn_rental_armada.test_landing')
-    
+        return request.render('cdn_rental_armada.form_daftar_website') 
