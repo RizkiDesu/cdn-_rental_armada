@@ -26,8 +26,35 @@ class ArmadaSite(http.Controller):
         # return renderweb
         return request.render('cdn_rental_armada.form_booking_website')
     
-    
-    @http.route('/daftar' , auth='public', website=True)
-    def test(self, **kw):
-        # products = request.env['cdn.produk.armada'].sudo().search([])
-        return request.render('cdn_rental_armada.form_daftar_website') 
+    @http.route('/form_daftar' , auth='public', website=True)
+    def daftar(self, **kw):
+        # buat_pelanggan = 
+        return request.render('cdn_rental_armada.form_daftar_website',{})
+
+    @http.route('/daftar_save', auth='public', website=True, csrf=False, methods=['POST'])
+    def save_person(self, **kw):
+        # image = request.httprequest.files.get('image')
+        # image_base64 = base64.b64encode(image.read()) if image else False
+        # print(kw)
+        
+        # {'nama': 'dsfsdf', 
+        # 'ktp': 'fsfsf', 
+        # 'telepon': 'sfs', 
+        # 'email': 's4y4pu1an6@gmail.com', 
+        # 'kelamin': 'Laki - Laki', 
+        # 'umur': '435', 
+        # 'status': 'Menikah', 
+        # 'alamat': 'Dusun Kutukan Rt 03/ Rw 02 Desa Rejosari, Kecamantan Bantur, Kab. Malang, Jawa Timur'}
+
+        request.env['cdn.pelanggan'].sudo().create({
+            'name': kw.get('nama'),
+            'email': kw.get('email'),
+            'umur': kw.get('umur'),
+            'street': kw.get('alamat'),
+            'no_ktp': kw.get('ktp'),
+            'is_menikah': kw.get('status'),
+            'jenis_kelamin': kw.get('kelamin'),
+            'mobile': kw.get('telepon'),
+            'type_orang' : 'pelanggan',
+        })
+        return request.redirect('/form_daftar')
