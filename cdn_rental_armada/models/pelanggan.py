@@ -1,4 +1,7 @@
 from odoo import _, api, fields, models 
+from odoo.exceptions import ValidationError
+import logging
+_logger = logging.getLogger(__name__)
 
 # Triadi
 class CdnPelanggan(models.Model):
@@ -13,8 +16,33 @@ class CdnPelanggan(models.Model):
     total_bayar = fields.Float(string='Total Bayar', compute='_compute_total_bayar')
     total_residual = fields.Float(string='Total Residual', compute='_compute_total_residual')
     boking_ids = fields.One2many(comodel_name='cdn.pemesanan', inverse_name='pelanggan_id', string='Boking')
-    
+    status = fields.Selection(string='Status', selection=[('terdaftar', 'Terdaftar'), ('tidak_terdaftar', 'Belum Terdaftar'),], default="tidak_terdaftar")
     jml_boking = fields.Integer(string='Jumlah Boking', compute='_compute_jml_boking')
+    
+    def konfirmasi_web(self):
+        portal_group = self.env.ref('base.group_portal')
+        user_model = self.env['res.users']
+        for rec in self:
+            existing_user = user_model.search([('login', '=', rec.no_ktp)], limit=1)
+            if existing_user:
+                raise ValidationError("Pengguna dengan nomor KTP %s Sudah Terdaftar.", rec.no_ktp)
+                continue
+
+            # Create a new user
+            new_user = user_model.create({
+                'name': rec.name,
+                'login': rec.email,
+                'email': rec.email,
+                'password': rec.no_ktp,
+                'groups_id': [(6, 0, [portal_group.id])],
+            })
+
+            # Log the creation of the new user
+            _logger.info('Created new portal user %s with email %s.', new_user.name, new_user.email)
+
+            # Update the status
+            rec.status = 'terdaftar'
+        return True
     
     @api.depends('boking_ids')
     def _compute_jml_boking(self):
