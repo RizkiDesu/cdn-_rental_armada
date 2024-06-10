@@ -5,27 +5,48 @@ from odoo.http import request
 class ArmadaSite(http.Controller):
     @http.route('/' , auth='public', website=True)
     def home(self, **kw):
-        products = request.env['cdn.produk.armada'].sudo().search([('priority', '=', '1')])
-        armadas = request.env['cdn.armada'].sudo().search([('priority', '=', 1)])
-
-        website = request.render('cdn_rental_armada.home_page', {
-            'products': products, 
-            'armadas': armadas
-            })
-        return website
+        var ={
+            'products': request.env['cdn.produk.armada'].sudo().search([('priority', '=', '1')]),
+            'armadas': request.env['cdn.armada'].sudo().search([('priority', '=', 1)])
+        }
+        return request.render('cdn_rental_armada.home_page', var)
 
     @http.route('/armada', auth='public', website=True)
     def index(self, **kw):
         armadas = request.env['cdn.armada'].sudo().search([('priority', '=', 1)])
         return request.render('cdn_rental_armada.armada_list', {'armadas': armadas})
         
-    @http.route('/booking' , auth='public', website=True)
+
+    @http.route('/form_booking' , auth='public', website=True)
     def Produk(self, **kw):
-        # products = request.env['cdn.produk.armada'].sudo().search([('priority', '=', '1')])
-        # renderweb = request.render('cdn_rental_armada.product_booking', {'products': products})
-        # return renderweb
-        return request.render('cdn_rental_armada.form_booking_website')
-    
+        var = {
+            'provinsi': request.env['cdn.propinsi'].sudo().search([]),
+            'kota': request.env['cdn.kota'].sudo().search([]),
+            'kecamatan': request.env['cdn.kecamatan'].sudo().search([]),
+            'desa': request.env['cdn.desa'].sudo().search([]),
+            'provinsi_tujuan': request.env['cdn.propinsi'].sudo().search([]),
+            'kota_tujuan': request.env['cdn.kota'].sudo().search([]),
+            'kecamatan_tujuan': request.env['cdn.kecamatan'].sudo().search([]),
+            'desa_tujuan': request.env['cdn.desa'].sudo().search([])
+
+        }
+        return request.render('cdn_rental_armada.form_booking_website', var)
+
+    @http.route('/booking_save', auth='public', website=True, csrf=False, methods=['POST'])
+    def save_booking(self, **kw):
+        return request.redirect('/form_daftar')
+        
+
+
+
+
+
+
+
+
+
+
+
     @http.route('/form_daftar' , auth='public', website=True)
     def daftar(self, **kw):
         # buat_pelanggan = 

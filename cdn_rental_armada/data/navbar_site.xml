@@ -21,7 +21,7 @@
         </record>
         <record id="menu_booking_blog" model="website.menu">
             <field name="name">Booking</field>
-            <field name="url">/booking</field>
+            <field name="url">/form_booking</field>
             <field name="parent_id" ref="website.main_menu"/>
             <field name="sequence">40</field>
         </record>

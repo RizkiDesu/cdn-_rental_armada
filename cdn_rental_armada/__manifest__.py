@@ -33,7 +33,6 @@
         'views/form_booking_site.xml',
 
         
-
         'reports/report_booking.xml',
         'reports/test_report.xml',
         'reports/travel_tersedia.xml',
