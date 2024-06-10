@@ -10,8 +10,12 @@
                         <!-- Add your fields here -->
                         <field name="name"/>
                         <field name="no_ktp"/>
-                        <!-- <field name="city"/> -->
-                        <field name="state"/>
+                        <field name="city"/>
+                        <field name="state"
+                            decoration-success="state == 'siap'"
+                            decoration-warning="state == 'perjalanan'" 
+                            decoration-danger="state == 'tidak_aktif'" 
+                            widget="badge"/>
                     </tree>
                 </field>
             </record>
@@ -108,7 +112,11 @@
                                             <span class="text-muted">No Hp</span> <field name="mobile"/>
                                         </li>
                                         <li>
-                                            <span class="text-muted">Status</span> <field name="state"/>
+                                            <span class="text-muted">Status</span> <field name="state"
+                                                decoration-success="state == 'siap'"
+                                                decoration-warning="state == 'perjalanan'" 
+                                                decoration-danger="state == 'tidak_aktif'" 
+                                                widget="badge"/>
                                         </li>
                                     </ul>
                                 </div>

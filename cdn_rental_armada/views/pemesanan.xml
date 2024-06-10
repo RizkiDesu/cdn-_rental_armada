@@ -15,8 +15,9 @@
                <field name="pelanggan_id"/>
                <field name="status_pembayaran" widget="badge" decoration-danger="status_pembayaran == 'not_paid'" decoration-warning="status_pembayaran in ('partial', 'in_payment')" decoration-success="status_pembayaran in ('paid', 'reversed')" />
                <field name="state" 
-                  decoration-success="state == 'terekam'" 
-                  decoration-warning="state == 'draft'"
+                  decoration-success="state == 'selesai'" 
+                  decoration-warning="state == 'berjalan'"
+                  decoration-muted="state == 'draft'"
                   widget="badge"/>
                <!-- <button  name="action_pengembalian_armada_pesanan" string="Pengembalian Armada" class="btn-info" 
                         attrs="{'invisible':[('state', '!=', 'terekam')]}"
@@ -34,9 +35,10 @@
             <form string="">
                <header>
                   <button string="Buat Invoice" name="action_state_buat_invoice" type="object" class="oe_highlight" states="draft"/>
-                  <button string="Lihat Invoice" name="action_state_lihat_invoice" type="object" class="oe_highlight" states="terekam"/>
-                  
-                  <field name="state" widget="statusbar" nolabel="1" statusbar_visible="draft,terekam"/>
+                  <button string="Selesai" name="action_state_selesai" type="object" class="oe_highlight" states="berjalan"/>
+                  <button string="Lihat Invoice" name="action_state_lihat_invoice" type="object" class="" states="berjalan,selesai"/>
+                
+                  <field name="state" widget="statusbar" nolabel="1" statusbar_visible="draft,berjalan,selesai"/>
                </header>
                <sheet>
                   <div class="oe_title">
@@ -53,7 +55,7 @@
                   </div>
                   <group string="Pelanggan">
                      <group>
-                        <field name="pelanggan_id" attrs="{'readonly': [('state','=','terekam')]}"/>
+                        <field name="pelanggan_id" attrs="{'readonly': [('state','!=','draft')]}"/>
                         <field name="no_ktp"/>
                         <field name="jalan"/>
                         <!-- <field name="kota"/> -->
@@ -73,17 +75,17 @@
                         <!-- <field name="total_harga"/> -->
                      </group>
                      <group>
-                        <field name="tanggal_dipakai" attrs="{'readonly': [('state','=','terekam')]}"/>
+                        <field name="tanggal_dipakai" attrs="{'readonly': [('state','!=','draft')]}"/>
                         <field name="tanggal_kembali" readonly="1" force_save="1"/>
                      </group>
                   </group>
                   <group name="tempat" >
                      <group name="penjemputan" string="Penjemputan">
-                        <field name="tempat_jemput"  attrs="{'readonly': [('state','=','terekam')]}"/>
-                        <field name="propinsi"  attrs="{'readonly': [('state','=','terekam')]}"/>
-                        <field name="kota" domain="[('propinsi_id', '=', propinsi)]"  attrs="{'readonly': [('state','=','terekam')]}"/>
-                        <field name="kecamatan" domain="[('kota_id', '=', kota)]"  attrs="{'readonly': [('state','=','terekam')]}"/>
-                        <field name="desa" domain="[('kecamatan_id', '=', kecamatan)]"  attrs="{'readonly': [('state','=','terekam')]}"/>
+                        <field name="tempat_jemput"  attrs="{'readonly': [('state','!=','draft')]}"/>
+                        <field name="propinsi"  attrs="{'readonly': [('state','!=','draft')]}"/>
+                        <field name="kota" domain="[('propinsi_id', '=', propinsi)]"  attrs="{'readonly': [('state','!=','draft')]}"/>
+                        <field name="kecamatan" domain="[('kota_id', '=', kota)]"  attrs="{'readonly': [('state','!=','draft')]}"/>
+                        <field name="desa" domain="[('kecamatan_id', '=', kecamatan)]"  attrs="{'readonly': [('state','!=','draft')]}"/>
                      </group>
                      <group name="tujuan" string="Tujuan">
                         <field name="tujuan"  attrs="{'readonly': [('state','=','terekam')]}"/>
@@ -91,6 +93,7 @@
                         <field name="kota_tujuan" domain="[('propinsi_id', '=', propinsi_tujuan)]" attrs="{'readonly': [('state','=','terekam')]}"/>
                         <field name="kecamatan_tujuan" domain="[('kota_id', '=', kota_tujuan)]" attrs="{'readonly': [('state','=','terekam')]}"/>
                         <field name="desa_tujuan" domain="[('kecamatan_id', '=', kecamatan_tujuan)]" attrs="{'readonly': [('state','=','terekam')]}"/>
+
                      </group>
                   </group>
                   <notebook>
@@ -109,7 +112,13 @@
                            <field name="jarak_tempuh"/>
                            <field name="biaya_sewa"/>
                            <field name="subtotal"/>
-                           <field name="state"/>
+                           <field name="state" 
+                                 decoration-muted="state == 'siap'" 
+                                 decoration-success="state in ('dikembalikan', 'dikembalikan_denda')" 
+                                 decoration-warning="state == 'disewa'"
+                                 widget="badge"/>
+                             <button string="Lihat Invoice Denda" name="lihat_invoice_produk_armada_pemesanan" type="object" class="oe_highlight" attrs="{'invisible' : [('state','!=','dikembalikan_denda')]}"/>
+                        
                            <templates>
                               <t t-name="kanban-box">
                                     <div class="oe_kanban_global_click o_kanban_record_has_image_fill">
@@ -132,7 +141,11 @@
                                                    <span class="text-muted">Biaya Sewa: </span><field name="biaya_sewa"/>
                                                 </li>
                                                 <li>
-                                                   <span class="text-muted">Status: </span><field name="state" decoration-muted="state == 'siap'" decoration-success="state == 'dikembalikan'" decoration-warning="state == 'disewa'" widget="badge"/>
+                                                   <span class="text-muted">Status: </span><field name="state" 
+                                                                                                  decoration-muted="state == 'siap'" 
+                                                                                     decoration-success="state in ('dikembalikan', 'dikembalikan_denda')" 
+                                                                                     decoration-warning="state == 'disewa'"
+                                                                                     widget="badge"/>
                                                 </li>
                                           </ul>
                                        </div>
@@ -140,7 +153,6 @@
                               </t>
                            </templates>
                         </kanban>
-
                         </field>
                      </page>
                   </notebook>
@@ -165,9 +177,8 @@
                         <field name="tenaga_bantuan" domain="[('state','=','siap')]"/>
                      </group>
                      <group>
-                        <field name="kilometer_awal" force_save="1"/>
                         <field name="biaya_sewa" force_save="1"/>
-                        <field name="subtotal" force_save="1"/>
+                        <field name="subtotal" readonly="1" force_save="1"/>
                      </group>
                   </group>
                </sheet>
