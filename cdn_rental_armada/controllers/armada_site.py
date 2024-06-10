@@ -33,6 +33,52 @@ class ArmadaSite(http.Controller):
 
         }
         return request.render('cdn_rental_armada.form_booking_website', var)
+    
+    # ------------------------------ jemput ---------------------------------------------
+
+    @http.route('/get_kota_by_provinsi', type='json', auth='public')
+    def get_kota_by_provinsi(self, provinsi_id):
+        print(provinsi_id)
+        kota_records = request.env['cdn.kota'].sudo().search([('propinsi_id', '=', int(provinsi_id))])
+        kota_data = [{'id': kota.id, 'name': kota.name} for kota in kota_records]
+        return {'status': 200, 'kota': kota_data}
+
+    @http.route('/get_kecamatan_by_kota', type='json', auth='public')
+    def get_kecamatan_by_kota(self, kota_id):
+        kecamatan_records = request.env['cdn.kecamatan'].sudo().search([('kota_id', '=', int(kota_id))])
+        kecamatan_data = [{'id': kecamatan.id, 'name': kecamatan.name} for kecamatan in kecamatan_records]
+        return {'status': 200, 'kecamatan': kecamatan_data}
+
+    @http.route('/get_desa_by_kecamatan', type='json', auth='public')
+    def get_desa_by_kecamatan(self, kecamatan_id):
+        desa_records = request.env['cdn.desa'].sudo().search([('kecamatan_id', '=', int(kecamatan_id))])
+        desa_data = [{'id': desa.id, 'name': desa.name} for desa in desa_records]
+        return {'status': 200, 'desa': desa_data}
+    
+
+    # -------------------- tujuan ----------------------------------------------
+
+
+    @http.route('/get_kota_by_provinsi_tujuan', type='json', auth='public')
+    def get_kota_by_provinsi_tujuan(self, provinsi_id):
+        print(provinsi_id)
+        kota_records = request.env['cdn.kota'].sudo().search([('propinsi_id', '=', int(provinsi_id))])
+        kota_data = [{'id': kota.id, 'name': kota.name} for kota in kota_records]
+        return {'status': 200, 'kota': kota_data}
+
+    @http.route('/get_kecamatan_by_kota_tujuan', type='json', auth='public')
+    def get_kecamatan_by_kota_tujuan(self, kota_id):
+        kecamatan_records = request.env['cdn.kecamatan'].sudo().search([('kota_id', '=', int(kota_id))])
+        kecamatan_data = [{'id': kecamatan.id, 'name': kecamatan.name} for kecamatan in kecamatan_records]
+        return {'status': 200, 'kecamatan': kecamatan_data}
+
+    @http.route('/get_desa_by_kecamatan_tujuan', type='json', auth='public')
+    def get_desa_by_kecamatan_tujuan(self, kecamatan_id):
+        desa_records = request.env['cdn.desa'].sudo().search([('kecamatan_id', '=', int(kecamatan_id))])
+        desa_data = [{'id': desa.id, 'name': desa.name} for desa in desa_records]
+        return {'status': 200, 'desa': desa_data}
+    
+
 
     @http.route('/booking_save', auth='public', website=True, csrf=False, methods=['POST'])
     def save_booking(self, **kw):
