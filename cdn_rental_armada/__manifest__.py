@@ -61,6 +61,7 @@
         # 'views/varian.xml',
         'views/account_move.xml',
         'views/pemesanan.xml',
+        'views/denda.xml',
         'wizards/pengembalian_armada.xml',
         
         
@@ -95,6 +96,7 @@
             'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js',
             'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css',
             '/cdn_rental_armada/static/src/jees/script.js',
+
         ],
     },
     'aplication': True,

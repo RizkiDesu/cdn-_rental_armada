@@ -117,7 +117,7 @@ class CdnArmada(models.Model):
             if histori:
                 rec.km_akhir = histori.km_akhir
             else:
-                rec.km_akhir = None # fix bug rizki
+                rec.km_akhir = 0 # fix bug rizki
     #Alvito
     @api.depends('history_ids.tgl_pakai')
     def _compute_tanggal_pakai(self):

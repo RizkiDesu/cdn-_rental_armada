@@ -58,7 +58,7 @@
                             widget="badge" attrs="{'invisible': [('status', '==', 'tidak_terdaftar')]}"/>
                     
                     <button name="konfirmasi_web" 
-                            string=" Konfirmasi" 
+                            string=" Daftarkan Akun" 
                             type="object" 
                             class="btn-primary fa fa-check" 
                             attrs="{'invisible': [('status', '==', 'terdaftar')]}"/>

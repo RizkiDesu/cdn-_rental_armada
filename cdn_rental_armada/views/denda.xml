@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+   <data>
+   
+      <!-- account.move tree view -->
+      <record id=">account_move_denda_view_tree" model="ir.ui.view">
+         <field name="name">account.move.view.tree</field>
+         <field name="model">account.move</field>
+         <field name="arch" type="xml">
+            <tree>
+               <field name="id"/>
+            </tree>
+         </field>
+      </record>
+
+      <record id="account_move_action_denda" model="ir.actions.act_window">
+         <field name="name">Tagihan Denda</field>
+         <field name="res_model">account.move</field>
+         <field name="domain">[('tagihan_denda','=',True)]</field>
+        <field name="context">{'default_move_type': 'out_invoice', 'default_tagihan_denda' : True}</field>
+         <field name="view_mode">tree,form</field>
+      </record>
+
+      <!-- This Menu Item must have a parent and an action -->
+      <menuitem id="denda_menu_act" name="Tagihan Denda" parent="pemesanan_menu_categ" action="account_move_action_denda" sequence="30"/>
+   
+   </data>
+   
+
+</odoo>

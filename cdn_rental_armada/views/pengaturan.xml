@@ -11,7 +11,7 @@
                     <div class="app_settings_block"  id="hari_service" string="Rental Armada" data-key="cdn_rental_armada">
                         <h2>Perawatan Kendaraan</h2>
                         <div class="row mt16 o_settings_container" id="end_contract_setting">
-                            <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="col col-lg-6 o_setting_box">
                                 <div class="o_setting_left_pane"/>
                                 <div class="o_setting_right_pane">
                                     <span class="o_form_label">Jangka Waktu Perawatan</span>
@@ -23,7 +23,78 @@
                                 </div>
                             </div>
                         </div>
+
+                        <h2>Konfigurasi Website</h2>
+                        <div class="col-xs-12 row o_settings_container" id="website_landing_settings">
+                            <div class="col-xs-12 col-md-6 o_setting_box">
+                                <div class="o_setting_right_pane border-start-0">
+                                    <div class="content-group">
+                                        <div class="row mt8">
+                                            <label class="col-lg-3" string="Deskripsi" for="deskripsi">Deskripsi</label>
+                                            <field id="deskripsi" name="deskripsi" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-md-6 o_setting_box">
+                                <div class="o_setting_right_pane border-start-0">
+                                    <div class="content-group">
+                                        <div class="row mt8">
+                                            <label class="col-lg-3" string="Slogan" for="slogan">Slogan</label>
+                                            <field id="slogan" name="slogan"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="col-xs-12 row o_settings_container" id="website_landing_settings">
+                            <div class="col-xs-12 col-md-6 o_setting_box">
+                                <div class="o_setting_right_pane border-start-0">
+                                    <div class="content-group">
+                                        <div class="row mt8">
+                                            <label class="col-lg-3" string="Pelayanan" for="pelayanan">Pelayanan</label>
+                                            <field id="pelayanan" name="pelayanan"  widget="many2many_tags"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> -->
+                        <h2>Konfigurasi Event</h2>
+                        <div class="col-xs-12 row o_settings_container" id="event_settings">
+                            <div class="col-xs-12 col-md-6 o_setting_box">
+                                <div class="o_setting_right_pane border-start-0">
+                                    <div class="content-group">
+                                        <div class="row mt8">
+                                            <label class="col-lg-3" string="Headline" for="headline">Headline</label>
+                                            <field id="headline" name="headline" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-md-6 o_setting_box">
+                                <div class="o_setting_right_pane border-start-0">
+                                    <div class="content-group">
+                                        <div class="row mt8">
+                                            <label class="col-lg-3" string="Deskripsi Event" for="deskripsi_event">Deskripsi Event</label>
+                                            <field id="deskripsi_event" name="deskripsi_event" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-md-6 o_setting_box">
+                                <div class="o_setting_right_pane border-start-0">
+                                    <div class="content-group">
+                                        <div class="row mt8">
+                                            <label class="col-lg-3" string="Tanggal Event" for="tanggal_event">Tanggal Event</label>
+                                            <field id="tanggal_event" name="tanggal_event" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
+
                 </xpath>
             </field>
         </record>
