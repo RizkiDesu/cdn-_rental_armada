@@ -2,9 +2,6 @@
     "use strict";
     // Dropdown on mouse hover
     $(document).ready(function () {
-        $('.select2').select2({
-            theme: "bootstrap"
-        });
         function toggleNavbarMethod() {
             if ($(window).width() > 992) {
                 $('.navbar .dropdown').on('mouseover', function () {

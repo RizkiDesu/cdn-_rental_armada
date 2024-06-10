@@ -8,8 +8,9 @@ class CdnPemesanan(models.Model):
    _name        = 'cdn.pemesanan'
    _description = 'cdn.pemesanan'
 
-   state                = fields.Selection(string='State', selection=[('draft', 'Draft'), ('terekam', 'Terekam')], default="draft")
-   # status_pembayaran    = fields.Selection(string='State', selection=[('belum_lunas', 'Belum Lunas'), ('lunas', 'Lunas')], default="belum_lunas")
+   state                = fields.Selection(string='State', selection=[('draft', 'Draft'), ('berjalan','Sedang Berjalan'), ('selesai', 'Selesai')], default="draft")
+   status_pembayaran    = fields.Selection(string='State', selection=[('belum_lunas', 'Belum Lunas'), ('lunas', 'Lunas')], default="belum_lunas")
+
    name                 = fields.Char(string='No Referensi')
 
 
@@ -24,7 +25,7 @@ class CdnPemesanan(models.Model):
    jenis_kelamin        = fields.Selection(string='Jenis Kelamin', related='pelanggan_id.jenis_kelamin')
    umur                 = fields.Integer(string='Umur', related='pelanggan_id.umur')
    tanggal_pemesanan    = fields.Date(string='Tanggal Pemesanan', default=date.today())
-   produk_ids           = fields.One2many(comodel_name='cdn.pemesanan.armada', inverse_name='produk_armada_pemesanan_id', string='Daftar Produk')
+   produk_ids           = fields.One2many(comodel_name='cdn.pemesanan.armada', inverse_name='produk_armada_pemesanan_id', string='Daftar Produk', ondelete="cascade")
 
    invoice_id           = fields.Many2one('account.move', copy=False, string='Invoice')
    total_harga          = fields.Float(string='Total', compute='_compute_total')
@@ -80,8 +81,28 @@ class CdnPemesanan(models.Model):
          'res_id': invoice_id.id,
          'target': 'current',
       }
+
+   def action_state_selesai(self):
+      # hitung jumlah produk armada yang telah disewa
+      count = self.env['cdn.pemesanan.armada'].search_count([('produk_armada_pemesanan_id', '=', self.id), ('state','=','disewa')])
+      
+      if count > 0:
+         return {
+            'type': 'ir.actions.client',
+            'tag': 'display_notification',
+            'params': {
+               'title': 'Gagal Ubah Status',
+               'type': 'danger',
+               'message': 'Terdapat armada yang belum kembali',
+               'sticky': False,
+            }
+         }
+      else:
+         self.state = 'selesai'
+
    def action_state_buat_invoice(self):
       """Method for creating invoice"""
+
       if self.env['cdn.pemesanan.armada'].search([('produk_armada_pemesanan_id', '=', self.id)]):
          invoice_vals = {
             'move_type': 'out_invoice',
@@ -107,7 +128,7 @@ class CdnPemesanan(models.Model):
                invoice_vals['invoice_line_ids'].append((0, 0, invoice_line_vals))
 
          self.invoice_id = self.env['account.move'].sudo().create(invoice_vals)
-         self.state = 'terekam'
+         self.state = 'berjalan'
          
          return {
             'type': 'ir.actions.act_window',
@@ -123,30 +144,38 @@ class CdnPemesanan(models.Model):
    def get_current_company(self):
       current_company = self.env.user.company_id
       return current_company
-   
+  
 class CdnPemesananArmada(models.Model):
    _name        = 'cdn.pemesanan.armada'
    _description = 'cdn.pemesanan.armada'
-   # _rec_name = 'produk_armada_pemesanan_id'
+   _rec_name = 'armada_id'
    
-   pelanggan_id               = fields.Many2one(related='produk_armada_pemesanan_id.pelanggan_id', store=True)
    produk_armada_pemesanan_id = fields.Many2one(comodel_name='cdn.pemesanan', string='Armada Pemesanan')
+   pelanggan_id               = fields.Many2one(related='produk_armada_pemesanan_id.pelanggan_id', store=True)
    produk_id                  = fields.Many2one(comodel_name='product.product', string='Produk')
    armada_id                  = fields.Many2one(comodel_name='cdn.armada', string='Armada')
    supir                      = fields.Many2one(comodel_name='cdn.supir', string='Supir')
    tenaga_bantuan             = fields.Many2one(comodel_name='cdn.tenaga.bantu', string='Tenaga Bantuan')
    biaya_sewa                 = fields.Float(string='Biaya Sewa/hari', related="produk_id.lst_price", store=True)
-   kilometer_awal             = fields.Float(string='KM Awal', related='armada_id.km_akhir')
-   kilometer_akhir            = fields.Float(string='KM Akhir')
-   jarak_tempuh               = fields.Float(string='Jarak Tempuh')
-   tujuan                     = fields.Char(string='Tujuan')
    subtotal                   = fields.Float(string='Subtotal', compute="_onchange_subtotal")
-   state                      = fields.Selection(string='Status Armada', selection=[('siap', 'Siap'), ('disewa', 'Disewa'), ('dikembalikan', 'Telah Kembali'),], default="siap")
+   state                      = fields.Selection(string='Status Armada', selection=[('siap', 'Siap'), ('disewa', 'Disewa'), ('dikembalikan', 'Telah Kembali'), ('dikembalikan_denda', 'Telah Kembali (Denda)'),], default="siap")
    gambar_mobil               = fields.Image('Gambar', related='armada_id.foto_mobil') 
    
    @api.onchange('produk_id')
    def _onchange_subtotal(self):
       for rec in self:
          durasi = rec.produk_armada_pemesanan_id.durasi
-         tot = durasi * rec.biaya_sewa 
+         tot = durasi * rec.biaya_sewa
          rec.subtotal = tot
+   
+   def lihat_invoice_produk_armada_pemesanan(self) :
+      for rec in self : 
+         invoice_lines = self.env['account.move.line'].search([('produk_pemesanan_id','=',rec.id)])
+         return {
+            'type': 'ir.actions.act_window',
+            'name': 'Tagihan Denda',
+            'res_model': 'account.move',
+            'view_mode': 'form',
+            'res_id': invoice_lines.move_id.id,
+            'target': 'current',
+         }
