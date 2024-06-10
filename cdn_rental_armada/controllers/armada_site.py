@@ -24,6 +24,8 @@ class ArmadaSite(http.Controller):
             'kota': request.env['cdn.kota'].sudo().search([]),
             'kecamatan': request.env['cdn.kecamatan'].sudo().search([]),
             'desa': request.env['cdn.desa'].sudo().search([]),
+
+            
             'provinsi_tujuan': request.env['cdn.propinsi'].sudo().search([]),
             'kota_tujuan': request.env['cdn.kota'].sudo().search([]),
             'kecamatan_tujuan': request.env['cdn.kecamatan'].sudo().search([]),
