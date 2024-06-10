@@ -21,6 +21,9 @@
                 // "cdn_training",
                 // "om_hospital",
                 "cdn_rental_armada",
+                
+                "-d", 
+                "cdn_rental"
             ],
             "cwd": "C://odoo//odoo16//server//",
             "env": {},

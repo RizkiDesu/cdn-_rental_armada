@@ -1,0 +1,177 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+        <template id="report_booking">
+            <t t-call="web.basic_layout" t-foreach="docs" t-as="o">
+                <div class="page">
+                <style>
+                    body {
+                        font-family: Arial, sans-serif;
+                        margin: 0;
+                        padding: 0;
+                    }
+                    .header, .section {
+                        margin-bottom: 20px;
+                    }
+                    .section-header {
+                        background-color: #ddd;
+                        padding: 10px;
+                        font-weight: bold;
+                    }
+                    .section-content {
+                        padding: 10px;
+                        border: 1px solid #ddd;
+                    }
+                    table {
+                        width: 100%;
+                        border-collapse: collapse;
+                        margin-bottom: 20px;
+                    }
+                    table, th, td {
+                        border: 1px solid #000;
+                    }
+                    th, td {
+                        padding: 10px;
+                        text-align: left;
+                    }
+                    .note {
+                        font-size: 0.9em;
+                    }
+                    .note ul {
+                        padding-left: 20px;
+                    }
+                    .invi {
+                        border: 1px solid white !important;
+                        border-collapse: collapse !important;
+                    }
+                </style>
+                <div class="container">
+                    <div class="header">
+                        <table style="width: 100%;" class="invi">
+                            <tbody class="invi">
+                                <tr class="invi">
+                                    <td class="invi" style="text-align: right;border: 1px solid white;border-collapse: collapse">
+                                        <img t-att-src="image_data_uri(o.env.user.company_id.logo)" alt="Logo" border="0" width="100"/>
+                                    </td>
+                                    <td class="invi" style="text-align: center;border: 1px solid white;border-collapse: collapse">
+                                       <h1> <t t-esc="o.env.user.company_id.name"></t></h1>
+                                        <p><t t-esc="o.env.user.company_id.street"></t></p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="section" align="center">
+                        <div class="section-header">Details Pelanggan</div>
+                        <div class="section-content">
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td class="invi">Nama Pelanggan</td>
+                                        <td class="invi">: <t t-esc="o.pelanggan_id.name"/></td>
+                                        <td class="invi">Umur</td>
+                                        <td class="invi">: <t t-esc="o.umur"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="invi">Jenis Kelamin</td>
+                                        <td class="invi">: <t t-esc="o.jenis_kelamin"/></td>
+                                        <td class="invi">Alamat</td>
+                                        <td class="invi">: <t t-esc="o.jalan"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="invi">Email</td>
+                                        <td class="invi">: <t t-esc="o.email"/></td>
+                                        <td class="invi">Telp</td>
+                                        <td class="invi">: <t t-esc="o.ponsel"/></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <div class="section" align="center">
+                        <div class="section-header">Detail Pemesanan</div>
+                        <div class="section-content">
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td class="invi">Jenis Kendaraan</td>
+                                        <td class="invi">: <t t-esc="o.jenis_armada"/></td>
+                                        <td class="invi">Tanggal Pemakaian</td>
+                                        <td class="invi">: <t t-esc="o.tanggal_dipakai"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="invi">Tanggal Pemesanan</td>
+                                        <td class="invi">: <t t-esc="o.tanggal_pemesanan"/></td>
+                                        <td class="invi">Tanggal Kembali</td>
+                                        <td class="invi">: <t t-esc="o.tanggal_kembali"/> </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="invi">Total Biaya</td>
+                                        <td class="invi">: Rp. <t t-esc="o.total_harga"/></td>
+                                        <td class="invi">Durasi Sewa</td>
+                                        <td class="invi">: <t t-esc="o.durasi"/> Hari</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <div class="section" align="center">
+                        <div class="section-header">Penjemputan dan Tujuan</div>
+                        <div class="section-content">
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td class="invi">Alamat Penjemputan</td>
+                                        <td class="invi">: <t t-esc="o.tempat_jemput"/></td>
+                                        <td class="invi">Tujuan (jika ada)</td>
+                                        <td class="invi">: <t t-esc="o.tujuan"/></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <div class="section" align="center">
+                        <div class="section-header">Detail Penyewaan Kendaraan</div>
+                        <div class="section-content">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Armada</th>
+                                        <th>Sopir</th>
+                                        <th>Tenaga Bantu</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr t-foreach="o.produk_ids" t-as="p">
+                                        <td><t t-esc="p.id"/></td>
+                                        <td><t t-esc="p.armada_id.name"/></td>
+                                        <td><t t-esc="p.supir.name"/></td>
+                                        <td><t t-esc="p.tenaga_bantuan.name"/></td>
+                                    </tr>                                   
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <div class="section note">
+                        <div class="section-header">Ketentuan - Ketentuan Persewaan Kendaraan :</div>
+                        <div class="section-content">
+                            <ul>
+                                <li>Kendaraan tersebut (yang disewakan) tidak dapat dipindah tangankan kepada pihak lain / kedua tanpa seizin pemilik kendaraan.</li>
+                                <li>Kendaraan tersebut diatas tidak dapat dijadikan jaminan/digadaikan dengan tujuan apapun kepada siapapun.</li>
+                                <li>Pelanggaran akan diproses melalui jalur pidana dan pemilik kendaraan berhak untuk mengambil kembali kendaraan apabila terjadi pelanggaran atau terdapat kejanggalan lainnya mengenai pemakaian kendaraan dimana hal ini dirasakan oleh pemilik kendaraan.</li>
+                                <li>Pengembalian kendaraan harus dalam keadaan seperti pada saat keluarnya surat ini, jika ada body tabrakan adalah tanggung jawab penyewa.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </t>
+        </template>
+    </data>
+</odoo>

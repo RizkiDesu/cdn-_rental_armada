@@ -56,9 +56,9 @@
                             <group>                                
                                 <field name="no_ktp"/>
                                 <field name="street"/>
-                                <field name="city"/>
-                                <field name="mobile"/>
-                                <field name="email"/>
+                                <!-- <field name="city"/> -->
+                                <field name="mobile" widget="phone"/>
+                                <field name="email" widget="email"/>
                             </group>
                             <group >
                                 <field name="jenis_kelamin"/>
@@ -88,6 +88,7 @@
                     <field name="name"/>
                     <field name="no_ktp"/>
                     <field name="city"/>
+                    <field name="mobile"/>
                     <field name="state"/>
                     <field name="image_1920"/>
                     <templates>
@@ -108,7 +109,7 @@
                                             <span class="text-muted">No KTP</span> <field name="no_ktp"/>
                                         </li>
                                         <li>
-                                            <span class="text-muted">Kota</span> <field name="city"/>
+                                            <span class="text-muted">No Hp</span> <field name="mobile"/>
                                         </li>
                                         <li>
                                             <span class="text-muted">Status</span> <field name="state"

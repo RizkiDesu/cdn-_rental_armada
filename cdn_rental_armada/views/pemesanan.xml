@@ -11,8 +11,9 @@
             <tree>
                <!-- Add your fields here -->
                <field name="name" string="No Referensi"/>
-               <field name="pelanggan_id"/>
                <field name="tanggal_pemesanan"/>
+               <field name="pelanggan_id"/>
+               <field name="status_pembayaran" widget="badge" decoration-danger="status_pembayaran == 'not_paid'" decoration-warning="status_pembayaran in ('partial', 'in_payment')" decoration-success="status_pembayaran in ('paid', 'reversed')" />
                <field name="state" 
                   decoration-success="state == 'selesai'" 
                   decoration-warning="state == 'berjalan'"
@@ -57,20 +58,20 @@
                         <field name="pelanggan_id" attrs="{'readonly': [('state','!=','draft')]}"/>
                         <field name="no_ktp"/>
                         <field name="jalan"/>
-                        <field name="kota"/>
+                        <!-- <field name="kota"/> -->
+                        <field name="umur"/>
                      </group>
                      <group>
                         <field name="ponsel"/>
                         <field name="email"/>
                         <field name="jenis_kelamin"/>
-                        <field name="umur"/>
                      </group>
                   </group>
                   <group string="Pemesanan">
                      <group>
-                        <field name="jenis_armada" attrs="{'readonly': [('state','!=','draft')]}"/>
-                        <field name="tanggal_pemesanan" attrs="{'readonly': [('state','!=','draft')]}"/>
-                        <field name="durasi" force_save="1" attrs="{'readonly': [('state','!=','draft')]}"/>
+                        <field name="tanggal_pemesanan" readonly="True" force_save="1" attrs="{'readonly': [('state','=','terekam')]}"/>
+                        <field name="jenis_armada" attrs="{'readonly': [('state','=','terekam')]}"/>
+                        <field name="durasi" force_save="1" attrs="{'readonly': [('state','=','terekam')]}"/>
                         <!-- <field name="total_harga"/> -->
                      </group>
                      <group>
@@ -87,32 +88,71 @@
                         <field name="desa" domain="[('kecamatan_id', '=', kecamatan)]"  attrs="{'readonly': [('state','!=','draft')]}"/>
                      </group>
                      <group name="tujuan" string="Tujuan">
-                        <field name="tujuan"  attrs="{'readonly': [('state','!=','draft')]}"/>
-                        <field name="propinsi_tujuan"  attrs="{'readonly': [('state','!=','draft')]}"/>
-                        <field name="kota_tujuan" domain="[('propinsi_id', '=', propinsi)]" attrs="{'readonly': [('state','!=','draft')]}"/>
-                        <field name="kecamatan_tujuan" domain="[('kota_id', '=', kota)]" attrs="{'readonly': [('state','!=','draft')]}"/>
-                        <field name="desa_tujuan" domain="[('kecamatan_id', '=', kecamatan)]" attrs="{'readonly': [('state','!=','draft')]}"/>
+                        <field name="tujuan"  attrs="{'readonly': [('state','=','terekam')]}"/>
+                        <field name="propinsi_tujuan"  attrs="{'readonly': [('state','=','terekam')]}"/>
+                        <field name="kota_tujuan" domain="[('propinsi_id', '=', propinsi_tujuan)]" attrs="{'readonly': [('state','=','terekam')]}"/>
+                        <field name="kecamatan_tujuan" domain="[('kota_id', '=', kota_tujuan)]" attrs="{'readonly': [('state','=','terekam')]}"/>
+                        <field name="desa_tujuan" domain="[('kecamatan_id', '=', kecamatan_tujuan)]" attrs="{'readonly': [('state','=','terekam')]}"/>
+
                      </group>
                   </group>
                   <notebook>
                      <page string="Produk">
-                        <field name="produk_ids" attrs="{'readonly': [('state','!=','draft')]}">
-                           <tree>
-                              <field name="produk_armada_pemesanan_id" invisible="1"/>
-                              <field name="produk_id" domain="[('jenis_armada', '=', parent.jenis_armada)]"/>
-                              <field name="armada_id" domain="[('jenis_armada', '=', parent.jenis_armada), ('state','=','siap')]"/>
-                              <field name="supir" domain="[('state','=','siap')]"/>
-                              <field name="tenaga_bantuan" domain="[('state','=','siap')]"/>
-                              <field name="biaya_sewa" sum="Total"/>
-                              <field name="subtotal" force_save="1" sum="Total"/>
-                              <field name="state" 
+                        <field name="produk_ids" attrs="{'readonly': [('state','=','terekam')]}">
+                           <kanban string="Kanban Description">
+                           <field name="id"/>
+                           <field name="produk_armada_pemesanan_id" invisible="1"/>
+                           <field name="produk_id"/>
+                           <field name="armada_id"/>
+                           <field name="gambar_mobil"/>
+                           <field name="supir"/>
+                           <field name="tenaga_bantuan"/>
+                           <field name="kilometer_awal"/>
+                           <field name="kilometer_akhir"/>
+                           <field name="jarak_tempuh"/>
+                           <field name="biaya_sewa"/>
+                           <field name="subtotal"/>
+                           <field name="state" 
                                  decoration-muted="state == 'siap'" 
                                  decoration-success="state in ('dikembalikan', 'dikembalikan_denda')" 
                                  decoration-warning="state == 'disewa'"
                                  widget="badge"/>
-                              <button string="Lihat Invoice Denda" name="lihat_invoice_produk_armada_pemesanan" type="object" class="oe_highlight" attrs="{'invisible' : [('state','!=','dikembalikan_denda')]}"/>
+                             <button string="Lihat Invoice Denda" name="lihat_invoice_produk_armada_pemesanan" type="object" class="oe_highlight" attrs="{'invisible' : [('state','!=','dikembalikan_denda')]}"/>
                         
-                           </tree>
+                           <templates>
+                              <t t-name="kanban-box">
+                                    <div class="oe_kanban_global_click o_kanban_record_has_image_fill">
+                                       <div class="o_kanban_image">
+                                             <img alt="Gambar Armada" t-att-src="kanban_image('cdn.pemesanan.armada', 'gambar_mobil', record.id.raw_value)"/>
+                                       </div>
+                                       
+                                       <div class="oe_kanban_details">
+                                          <h4>
+                                                <a type="open"><field name="armada_id"/></a>
+                                          </h4>
+                                          <ul>
+                                                <li>
+                                                   <span class="text-muted">Sopir: </span><field name="supir"/>
+                                                </li>
+                                                <li>
+                                                   <span class="text-muted">Tenaga Bantuan: </span><field name="tenaga_bantuan"/>
+                                                </li>
+                                                <li>
+                                                   <span class="text-muted">Biaya Sewa: </span><field name="biaya_sewa"/>
+                                                </li>
+                                                <li>
+                                                   <span class="text-muted">Status: </span><field name="state" 
+                                                                                                  decoration-muted="state == 'siap'" 
+                                                                                     decoration-success="state in ('dikembalikan', 'dikembalikan_denda')" 
+                                                                                     decoration-warning="state == 'disewa'"
+                                                                                     widget="badge"/>
+                                                </li>
+                                          </ul>
+                                       </div>
+                                    </div>
+                              </t>
+                           </templates>
+                        </kanban>
                         </field>
                      </page>
                   </notebook>
@@ -131,8 +171,8 @@
                   <group>
                      <group>
                         <field name="produk_armada_pemesanan_id" invisible="1"/>
-                        <field name="produk_id" domain="[('jenis_armada', '=', parent.jenis_armada)]"/>
-                        <field name="armada_id" domain="[('jenis_armada', '=', parent.jenis_armada), ('state','=','siap')]"/>
+                        <field name="produk_id" domain="[('jenis_armada', '=', parent.jenis_armada)]" required="1"/>
+                        <field name="armada_id" domain="[('jenis_armada', '=', parent.jenis_armada), ('state','=','siap')]" required="1"/>
                         <field name="supir" domain="[('state','=','siap')]"/>
                         <field name="tenaga_bantuan" domain="[('state','=','siap')]"/>
                      </group>

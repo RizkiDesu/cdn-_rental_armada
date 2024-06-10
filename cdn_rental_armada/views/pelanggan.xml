@@ -30,7 +30,7 @@
                                             <span class="text-muted">No KTP</span> <field name="no_ktp"/>
                                         </li>
                                         <li>
-                                            <span class="text-muted">Kota</span> <field name="city"/>
+                                            <span class="text-muted">No Hp</span> <field name="mobile"/>
                                         </li>
                                     </ul>
                                 </div>
@@ -51,7 +51,9 @@
                     <!-- <field name="i"/> -->
                     <field name="name"/>
                     <field name="no_ktp"/>
-                    <field name="city"/>
+                    <field name="status" optional="hide"/>
+                    <button name="konfirmasi_web" string=" Konfirmasi" type="object" class="btn-primary fa fa-check" attrs="{'invisible': [('status', '==', 'terdaftar')]}"/>
+                    <!-- <field name="city"/> -->
                     <!-- <field name="name"/> -->
                 </tree>
             </field>
@@ -64,15 +66,20 @@
             <field name="arch" type="xml">
                 <form string="">
                     <sheet>
+                        <!-- rizki -->
                         <div class="oe_button_box" name="button_box"> 
+                            <button type="object" name="tombol_booking" class="oe_stat_button" icon="fa-pencil-square-o" context="{'default_pelanggan_id': active_id}">
+                                
+                                <field name="jml_boking" string="Pemesanan" widget="statinfo" modifiers="{&quot;readonly&quot;: true}"/>
+                            </button>
                             <button type="object" name="tombol_tagihan" class="oe_stat_button" icon="fa-money" context="{'default_pelanggan_id': active_id}">
                                     <div class="o_field_widget o_stat_info mr4">
                                         <span class="o_stat_text">Inv:</span>
                                         <span class="o_stat_text">Due:</span>
                                     </div>
                                     <div class="o_field_widget o_stat_info">
-                                        <span class="o_stat_value"><field name="total_bayar" readonly="1"/></span>
-                                        <span class="o_stat_value"><field name="total_residual" readonly="1"/></span>
+                                        <span class="o_stat_value"><field name="total_bayar" widget="monetary" modifiers="{&quot;readonly&quot;: true}"/></span>
+                                        <span class="o_stat_value"><field name="total_residual" widget="monetary" modifiers="{&quot;readonly&quot;: true}"/></span>
                                     </div>
                             </button>
                         </div>
@@ -88,14 +95,14 @@
                         <group name="identitas" string="Identitas Pelanggan">
                             <!-- Add your fields here -->
                             <group>
-                                <field name="no_ktp"/>
+                                <field name="no_ktp" required="1"/>
                                 <field name="street"/>
-                                <field name="city"/>
-                                <field name="mobile"/>
-                                <field name="email"/>
+                                <!-- <field name="city"/> -->
+                                <field name="mobile" widget="phone" required="1"/>
+                                <field name="email" widget="email" required="1"/>
                             </group>
                             <group >
-                                <field name="jenis_kelamin"/>
+                                <field name="jenis_kelamin" required="1"/>
                                 <field name="umur"/>
                                 <field name="is_menikah"/>
                                 <field name="type_orang" invisible="1"/>

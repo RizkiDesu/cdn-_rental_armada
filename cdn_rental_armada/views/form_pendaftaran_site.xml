@@ -1,0 +1,113 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+    <!-- Triadi -->
+    
+        <template id="form_daftar_website" name="Pendaftaran">
+            <t t-call="website.layout">
+                <style>
+                    h1, h2 {
+                        color: #333;
+                    }
+
+                    .bg-dark {
+                        background-color: #122b3b !important;
+                    }
+
+                    .room-image {
+                        border-radius: 15px;
+                        overflow: hidden;
+                    }
+
+                    .room-image img {
+                        border-radius: 15px;
+                    }
+                    .form-control{
+                        border: none;
+                        border-radius: 10px;
+                    }
+                    .btn-primary{
+                        border: none;
+                        border-radius: 10px;
+                    }
+                    .form-select{
+                        border: none;
+                        border-radius: 10px;
+                    }
+                </style>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-6 d-flex align-items-center justify-content-center bg-light">
+                            <div class="text-center">
+                                <img src="/cdn_rental_armada/static/src/img/vendor-2.png" alt="Logo" class="img-fluid mb-4"/>
+                                <h1>PENDAFTARAN</h1>
+                                <div class="room-image">
+                                    <img src="/cdn_rental_armada/static/src/img/about.png" alt="Room" class="img-fluid"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 bg-dark text-white p-5">
+                            <h3 align="center" class="text-primary">Data Pelanggan</h3>
+                            <form t-att-action="'/daftar_save'" method="post" enctype="multipart/form-data">
+                            <!-- <form> -->
+                                <div class="form-group">
+                                    <label for="nama">Nama Lengkap</label>
+                                    <input type="text" class="form-control" id="nama" name="nama" t-att-value="''" placeholder="Nama Lengkap"/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="ktp">No. KTP</label>
+                                    <input type="text" class="form-control" name="ktp" id="ktp" t-att-value="''" placeholder="No. KTP"/>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col">
+                                            <label for="telepon">No. Telepon</label>
+                                            <input type="text" class="form-control" name="telepon" t-att-value="''" id="telepon" placeholder="No. Telepon"/>
+                                        </div>
+                                        <div class="col">
+                                            <label for="email">Email</label>
+                                            <input type="email" class="form-control" name="email" t-att-value="''" id="email" placeholder="Email"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="gender">Jenis Kelamin</label>
+                                    <div class="form-group">
+                                        <select class="form-select" id="exampleFormControlSelect1" name="kelamin">
+                                            <option t-att-value="'l'">Laki-Laki</option>
+                                            <option t-att-value="'p'">Perempuan</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col">
+                                            <label for="umur">Umur</label>
+                                            <input type="text" class="form-control" id="umur" t-att-value="''" placeholder="Umur" name="umur"/>
+                                        </div>
+                                        <div class="col">
+                                            <label for="status">Status</label>
+                                            <div class="form-group">
+                                                <select class="form-select" name="status">
+                                                    <option t-att-value="True">Menikah</option>
+                                                    <option t-att-value="False">Lajang</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="alamat">Alamat</label>
+                                    <input type="text" class="form-control" id="alamat" placeholder="Alamat" t-att-value="''" name="alamat"/>
+                                </div>
+                                <button type="submit" class="btn btn-primary btn-block">Submit</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </template>
+    
+    </data>
+    
+</odoo>

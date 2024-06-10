@@ -35,7 +35,7 @@ class CdnArmada(models.Model):
            
     kondisi          = fields.Boolean(string='Kondisi Kendaraan', help="Jika aktif berarti armada dalam kondisi bagus", compute="_compute_kondisi", tracking=True)
 
-    foto_mobil       = fields.Image('Foto Armada')
+    foto_mobil       = fields.Binary(string='Armada', tracking=True)
     service_ids      = fields.One2many(comodel_name='cdn.service', inverse_name='armada_id', string='List Armada')
     ujikir_ids       = fields.One2many(comodel_name='cdn.uji.kir', inverse_name='armada_id', string='List Uji Kir')
     hitung_service   = fields.Integer(string='Jumlah Service', compute="_compute_service_count", store=True)
@@ -46,6 +46,11 @@ class CdnArmada(models.Model):
     state            = fields.Selection(string='Status Armada', selection=[('tidak_siap','Tidak Siap'), ('dipakai', 'Sedang Dipakai'), ('siap', 'Siap Dipakai')])
     total_jarak      = fields.Integer(string='Total Jarak (km)', compute='_compute_total_jarak', store=True)
     hitung_ujikir    = fields.Integer(string='Jumlah Service', compute="_compute_ujikir_count", store=True)
+    priority = fields.Selection([
+        ('0', 'Normal'),
+        ('1', 'Favorite'),
+    ], default='0', string="Favorite")
+    # priority         = fields.Boolean(string='Favorit',default="True")
 
 
 
@@ -208,7 +213,7 @@ class CdnArmada(models.Model):
                     is_keadaan2 = True 
             rec.uji = is_keadaan2
     
-    @api.depends('terakhir_service')
+    @api.depends('terakhir_service', 'state', 'service_ids')
     def _compute_kondisi(self):
         # state 
         for rec in self: 
@@ -220,7 +225,7 @@ class CdnArmada(models.Model):
                 if rec.terakhir_service > hari_batal_wajar:
                     is_keadaan = False
                 else :
-                    is_keadaan = True 
+                    is_keadaan = True
             rec.kondisi = is_keadaan
 
 
