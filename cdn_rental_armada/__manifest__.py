@@ -29,7 +29,8 @@
         # 'data/test_ambil.xml',
         'views/armada_site.xml',
         'views/produk_site.xml',
-        'views/test_site.xml',
+        'views/form_pendaftaran.xml',
+        'views/form_booking_website.xml',
 
         
 
@@ -90,7 +91,10 @@
             '/cdn_rental_armada/static/src/liba/tempusdominus/js/moment.min.js',
             '/cdn_rental_armada/static/src/liba/tempusdominus/js/moment-timezone.min.js',
             '/cdn_rental_armada/static/src/liba/tempusdominus/js/tempusdominus-bootstrap-4.min.js',
-            '/cdn_rental_armada/static/src/js/main.js',
+            '/cdn_rental_armada/static/src/jees/main.js',
+            '/cdn_rental_armada/static/src/jees/selectt.js',
+            'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js',
+            'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css',
         ],
     },
     'aplication': True,
