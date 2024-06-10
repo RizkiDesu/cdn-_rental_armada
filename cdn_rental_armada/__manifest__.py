@@ -29,8 +29,8 @@
         # 'data/test_ambil.xml',
         'views/armada_site.xml',
         'views/produk_site.xml',
-        'views/form_pendaftaran.xml',
-        'views/form_booking_website.xml',
+        'views/form_pendaftaran_site.xml',
+        'views/form_booking_site.xml',
 
         
 

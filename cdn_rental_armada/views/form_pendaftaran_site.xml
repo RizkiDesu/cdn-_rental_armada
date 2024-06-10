@@ -30,6 +30,10 @@
                         border: none;
                         border-radius: 10px;
                     }
+                    .form-select{
+                        border: none;
+                        border-radius: 10px;
+                    }
                 </style>
                 <div class="container-fluid">
                     <div class="row">
@@ -44,33 +48,34 @@
                         </div>
                         <div class="col-md-6 bg-dark text-white p-5">
                             <h3 align="center" class="text-primary">Data Pelanggan</h3>
-                            <form>
+                            <form t-att-action="'/daftar_save'" method="post" enctype="multipart/form-data">
+                            <!-- <form> -->
                                 <div class="form-group">
                                     <label for="nama">Nama Lengkap</label>
-                                    <input type="text" class="form-control" id="nama" name="nama" placeholder="Nama Lengkap"/>
+                                    <input type="text" class="form-control" id="nama" name="nama" t-att-value="''" placeholder="Nama Lengkap"/>
                                 </div>
                                 <div class="form-group">
                                     <label for="ktp">No. KTP</label>
-                                    <input type="text" class="form-control" name="ktp" id="ktp" placeholder="No. KTP"/>
+                                    <input type="text" class="form-control" name="ktp" id="ktp" t-att-value="''" placeholder="No. KTP"/>
                                 </div>
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col">
                                             <label for="telepon">No. Telepon</label>
-                                            <input type="text" class="form-control" name="telepon" id="telepon" placeholder="No. Telepon"/>
+                                            <input type="text" class="form-control" name="telepon" t-att-value="''" id="telepon" placeholder="No. Telepon"/>
                                         </div>
                                         <div class="col">
                                             <label for="email">Email</label>
-                                            <input type="email" class="form-control" name="email" id="email" placeholder="Email"/>
+                                            <input type="email" class="form-control" name="email" t-att-value="''" id="email" placeholder="Email"/>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="gender">Jenis Kelamin</label>
                                     <div class="form-group">
-                                        <select class="form-control" id="exampleFormControlSelect1" name="kelamin">
-                                        <option>Laki - Laki</option>
-                                        <option>Perempuan</option>
+                                        <select class="form-select" id="exampleFormControlSelect1" name="kelamin">
+                                            <option t-att-value="'l'">Laki-Laki</option>
+                                            <option t-att-value="'p'">Perempuan</option>
                                         </select>
                                     </div>
                                 </div>
@@ -78,14 +83,14 @@
                                     <div class="row">
                                         <div class="col">
                                             <label for="umur">Umur</label>
-                                            <input type="text" class="form-control" id="umur" placeholder="Umur" name="umur"/>
+                                            <input type="text" class="form-control" id="umur" t-att-value="''" placeholder="Umur" name="umur"/>
                                         </div>
                                         <div class="col">
                                             <label for="status">Status</label>
                                             <div class="form-group">
-                                                <select class="form-control" name="status">
-                                                <option>Menikah</option>
-                                                <option>Lajang</option>
+                                                <select class="form-select" name="status">
+                                                    <option t-att-value="True">Menikah</option>
+                                                    <option t-att-value="False">Lajang</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -93,7 +98,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="alamat">Alamat</label>
-                                    <input type="text" class="form-control" id="alamat" placeholder="Alamat" name="alamat"/>
+                                    <input type="text" class="form-control" id="alamat" placeholder="Alamat" t-att-value="''" name="alamat"/>
                                 </div>
                                 <button type="submit" class="btn btn-primary btn-block">Submit</button>
                             </form>

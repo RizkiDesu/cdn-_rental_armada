@@ -13,17 +13,23 @@
             <field name="parent_id" ref="website.main_menu"/>
             <field name="sequence">20</field>
         </record>
+        <record id="menu_daftar_blog" model="website.menu">
+            <field name="name">Daftar</field>
+            <field name="url">/form_daftar</field>
+            <field name="parent_id" ref="website.main_menu"/>
+            <field name="sequence">30</field>
+        </record>
         <record id="menu_booking_blog" model="website.menu">
             <field name="name">Booking</field>
             <field name="url">/booking</field>
             <field name="parent_id" ref="website.main_menu"/>
-            <field name="sequence">30</field>
+            <field name="sequence">40</field>
         </record>
         <record id="menu_contactus_blog" model="website.menu">
             <field name="name">Contactus</field>
             <field name="url">/contactus</field>
             <field name="parent_id" ref="website.main_menu"/>
-            <field name="sequence">40</field>
+            <field name="sequence">50</field>
         </record>
     </data>
 </odoo>
