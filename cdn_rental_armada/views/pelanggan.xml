@@ -52,7 +52,7 @@
                     <field name="name"/>
                     <field name="no_ktp"/>
                     <field name="status" optional="hide"/>
-                    <button name="konfirmasi_web" string=" Konfirmasi" type="object" class="btn-primary fa fa-check" attrs="{'invisible': [('status', '==', 'terdaftar')]}"/>
+                    <button name="konfirmasi_web" string=" Daftarkan Akun" type="object" class="btn-primary fa fa-check" attrs="{'invisible': [('status', '==', 'terdaftar')]}"/>
                     <!-- <field name="city"/> -->
                     <!-- <field name="name"/> -->
                 </tree>

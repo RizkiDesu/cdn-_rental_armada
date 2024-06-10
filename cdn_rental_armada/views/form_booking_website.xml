@@ -47,28 +47,24 @@
         }
         .select2-container {
             width: 100% !important;
-            background-color: white;
-            color: black;
+            height: calc(1.5em + .75rem + 2px);
+            padding: .375rem .75rem;
+            font-size: 1rem;
+            line-height: 1.5;
+            border-radius: 10px;
         }
 
         .select2-selection {
-            height: 40px; /* Ganti dengan ukuran tetap yang diinginkan */
             text-align: center;
-            background-color: white;
-            color: black;
         }
 
         .select2-selection__rendered {
-            line-height: 40px;
-            background-color: white;
-            color: black; /* Sama dengan height dari .select2-selection untuk menjaga teks tetap di tengah */
+            lin 
         }
 
-        .select2-selection__arrow {
-            height: 40px;
-            background-color: white;
-            color: black; /* Sama dengan height dari .select2-selection */
+        .select2-selection__arrow { 
         }
+        
     </style>
 
 
@@ -113,16 +109,16 @@
                             <input type="text" class="form-control" id="alamat-penjemputan"/>
                         </div>
                         <div class="row">
-                            <div class="col mb-2 select2-input">
+                            <div class="col mb-2 form-group">
                                 <label for="provinsi" class="form-label">Provinsi</label>
-                                <select class="select2 form-select" id="provinsi">
+                                <select class="select2" id="provinsi" data-allow-clear="1">
                                     <option>Jawa Timur</option>
                                     <!-- Add more options as needed -->
                                 </select>
                             </div>
                             <div class="col mb-3 select2-input">
                                 <label for="kota" class="form-label">Kota</label>
-                                <select class=" select2 form-select" id="kota">
+                                <select class=" select2" id="kota">
                                     <option>Malang</option>
                                     <!-- Add more options as needed -->
                                 </select>
@@ -131,14 +127,14 @@
                         <div class="row">
                             <div class="col mb-3 select2-input">
                                 <label for="kecamatan" class="form-label">Kecamatan</label>
-                                <select class=" select2 form-select" id="kecamatan">
+                                <select class=" select2" id="kecamatan">
                                     <option>Singosari</option>
                                     <!-- Add more options as needed -->
                                 </select>
                             </div>
                             <div class="col mb-3 select2-input">
                                 <label for="desa" class="form-label">Desa</label>
-                                <select class=" select2 form-select" id="desa">
+                                <select class=" select2" id="desa">
                                     <option>Randuagung</option>
                                     <!-- Add more options as needed -->
                                 </select>
@@ -151,14 +147,14 @@
                         <div class="row">
                             <div class="col mb-3 select2-input">
                                 <label for="provinsi-tujuan" class="form-label">Provinsi</label>
-                                <select class=" select2 form-select" id="provinsi-tujuan">
+                                <select class=" select2" id="provinsi-tujuan">
                                     <option>Jawa Timur</option>
                                     <!-- Add more options as needed -->
                                 </select>
                             </div>
                             <div class="col mb-3 select2-input">
                                 <label for="kota-tujuan" class="form-label">Kota</label>
-                                <select class=" select2 form-select" id="kota-tujuan">
+                                <select class=" select2" id="kota-tujuan">
                                     <option>Malang</option>
                                     <!-- Add more options as needed -->
                                 </select>
@@ -167,14 +163,14 @@
                         <div class="row">
                             <div class="col mb-3 select2-input">
                                 <label for="kecamatan-tujuan" class="form-label">Kecamatan</label>
-                                <select class=" select2 form-select" id="kecamatan-tujuan">
+                                <select class=" select2" id="kecamatan-tujuan">
                                     <option>Singosari</option>
                                     <!-- Add more options as needed -->
                                 </select>
                             </div>
                             <div class="col mb-3 select2-input">
                                 <label for="desa-tujuan" class="form-label">Desa</label>
-                                <select class="select2 form-select" id="desa-tujuan">
+                                <select class="select2" id="desa-tujuan">
                                     <option>Randuagung</option>
                                     <!-- Add more options as needed -->
                                 </select>

@@ -42,6 +42,29 @@ class CdnPelanggan(models.Model):
 
             # Update the status
             rec.status = 'terdaftar'
+            mail_content = _(
+            '<h3>Pendaftaran akun anda sudah dikonfirmasi oleh kami</h3><br/>Hi %s, <br/> Terimakasih, '
+            'pendaftaran akun Anda telah dikonfirmasi oleh kami!<br/>'
+            'Sekarang, Anda dapat melanjutkan untuk memesan persewaan armada kami secara online.<br/><br/>'
+            'Silahkan Log in menggunakan akun berikut : <br/><br/>'
+            '<table><tr><td>Email : %s<td/><tr/>'
+            '<tr><td>Password  : %s<td/><tr/>'
+            '<table/>'
+            '<br/>Jika Anda memiliki pertanyaan atau membutuhkan bantuan lebih lanjut,'
+            '<br/>jangan ragu untuk menghubungi tim layanan kami.'
+            '<br/><br/>Selamat menikmati layanan kami!'
+            '<br/><br/>Admin,'
+            '<br/><br/><br/>%s'
+            
+            ) % \
+                       (rec.name, rec.email, rec.no_ktp,self.env.user.partner_id.name)
+            main_content = {
+                'subject': "Pendaftaran Akun Rental Armada",
+                'author_id': self.env.user.partner_id.id,
+                'body_html': mail_content,
+                'email_to': rec.email,
+            }
+            self.env['mail.mail'].create(main_content).send()
         return True
     
     @api.depends('boking_ids')
