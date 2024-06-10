@@ -46,13 +46,22 @@
             <field name="name">cdn.pelanggan.view.tree</field>
             <field name="model">cdn.pelanggan</field>
             <field name="arch" type="xml">
-                <tree sample="1">
+                <tree sample="1" decoration-success="status == 'terdaftar'" 
+                            decoration-danger="status == 'tidak_terdaftar'">
                     <!-- Add your fields here -->
                     <!-- <field name="i"/> -->
                     <field name="name"/>
                     <field name="no_ktp"/>
-                    <field name="status" optional="hide"/>
-                    <button name="konfirmasi_web" string=" Konfirmasi" type="object" class="btn-primary fa fa-check" attrs="{'invisible': [('status', '==', 'terdaftar')]}"/>
+                    <!-- <field name="status" optional="hide"/> -->
+                    <field name="status" decoration-success="status == 'terdaftar'" 
+                            decoration-danger="status == 'tidak_terdaftar'" 
+                            widget="badge" attrs="{'invisible': [('status', '==', 'tidak_terdaftar')]}"/>
+                    
+                    <button name="konfirmasi_web" 
+                            string=" Konfirmasi" 
+                            type="object" 
+                            class="btn-primary fa fa-check" 
+                            attrs="{'invisible': [('status', '==', 'terdaftar')]}"/>
                     <!-- <field name="city"/> -->
                     <!-- <field name="name"/> -->
                 </tree>
@@ -65,7 +74,17 @@
             <field name="model">cdn.pelanggan</field>
             <field name="arch" type="xml">
                 <form string="">
+                    <header>
+                        <button name="konfirmasi_web" 
+                            string=" Konfirmasi" 
+                            type="object" 
+                            class="btn-primary fa fa-check" 
+                            attrs="{'invisible': [('status', '==', 'terdaftar')]}"/>
+                        
+                        <!-- <field name="status" widget="statusbar" nolabel="1" statusbar_visible="terdaftar,tidak_terdaftar"/> -->
+                    </header>
                     <sheet>
+
                         <!-- rizki -->
                         <div class="oe_button_box" name="button_box"> 
                             <button type="object" name="tombol_booking" class="oe_stat_button" icon="fa-pencil-square-o" context="{'default_pelanggan_id': active_id}">
@@ -97,7 +116,6 @@
                             <group>
                                 <field name="no_ktp" required="1"/>
                                 <field name="street"/>
-                                <!-- <field name="city"/> -->
                                 <field name="mobile" widget="phone" required="1"/>
                                 <field name="email" widget="email" required="1"/>
                             </group>
@@ -106,6 +124,7 @@
                                 <field name="umur"/>
                                 <field name="is_menikah"/>
                                 <field name="type_orang" invisible="1"/>
+                                <field name="status" invisible="1"/>
                             </group>
                         </group>
                     </sheet>
@@ -124,7 +143,7 @@
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">cdn.pelanggan</field>
             <field name="context">{'default_type_orang': 'pelanggan'}</field>
-            <field name="view_mode">kanban,tree,form</field>
+            <field name="view_mode">tree,kanban,form</field>
             <field name="help" type="html">
                 <p class="oe_view_nocontent_create">
                     <!-- Add Text Here -->

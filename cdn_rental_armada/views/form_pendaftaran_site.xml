@@ -83,7 +83,7 @@
                                     <div class="row">
                                         <div class="col">
                                             <label for="umur">Umur</label>
-                                            <input type="text" class="form-control" id="umur" t-att-value="''" placeholder="Umur" name="umur"/>
+                                            <input type="number" class="form-control" id="umur" t-att-value="''" min="17" placeholder="Umur" name="umur"/>
                                         </div>
                                         <div class="col">
                                             <label for="status">Status</label>

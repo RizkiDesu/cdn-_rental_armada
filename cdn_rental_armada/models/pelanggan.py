@@ -13,11 +13,13 @@ class CdnPelanggan(models.Model):
 
     # rizki
     jumlahbayar_ids = fields.One2many(comodel_name='account.move.line', inverse_name='partner_id', string='invoice')
+
     total_bayar     = fields.Float(string='Total Bayar', compute='_compute_total_bayar')
     total_residual  = fields.Float(string='Total Residual', compute='_compute_total_residual')
     boking_ids      = fields.One2many(comodel_name='cdn.pemesanan', inverse_name='pelanggan_id', string='Boking')
     
     jml_boking      = fields.Integer(string='Jumlah Boking', compute='_compute_jml_boking')
+
 
     status          = fields.Selection(string='Status', selection=[('terdaftar', 'Terdaftar'), ('tidak_terdaftar', 'Belum Terdaftar'),], default="tidak_terdaftar")
 
