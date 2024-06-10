@@ -7,28 +7,61 @@
          <field name="model">cdn.pengembalian.armada.wizard</field>
          <field name="arch" type="xml">
             <form string="">
-               <group string="Armada">
-                  <field name="armada_id"/>
+               <group string="Pesanan">
+                  <field name="pemesanan_id" />
+                  <field name="produk_pemesanan_id" attrs="{'readonly': [('pemesanan_id','=',False)]}" domain="[('produk_armada_pemesanan_id','=',pemesanan_id), ('state','=','disewa')]"/>
                </group>
                <group string="Informasi">
                   <group>
                      <field name="km_awal" readonly="1" force_save="1"/>
                      <field name="km_akhir"/>
-                     <field name="jarak_tempuh"/>
+                     <field name="jarak_tempuh" force_save="1"/>
                   </group>
                   <group>
                      <field name="tujuan" readonly="1" force_save="1"/>
                      <field name="durasi_hari" readonly="1" force_save="1"/>
                      <field name="status_armada"/>
+                     <field name="denda"/>
+                  </group>
+                  
+               </group>
+               <group string="Denda" attrs="{'invisible': [('denda','=',False)]}">
+                  <group>
+                     <field name="denda_rusak"/>
+                     <field name="bagian_dalam" attrs="{'invisible': [('denda_rusak','=',False)]}"/>
+                     <field name="bagian_luar" attrs="{'invisible': [('denda_rusak','=',False)]}"/>
+                  </group>
+                  <group>
+                     <field name="denda_telat"/>
+                     <field name="biaya_denda_telat" attrs="{'invisible': [('denda_telat','=',False)]}"/>
                   </group>
                </group>
-               <group string="keterangan">
+               <group string="keterangan" attrs="{'invisible': [('denda','=',True)]}">
                   <field name="keterangan"/>
                </group>
-               <!-- <footer>
-                  <button string="Konfirmasi" name="konfirmasi_pengembalian" type="object" class="oe_highlight"/>
+               <notebook attrs="{'invisible': [('denda','=',False)]}">
+                  <page name="bagian_dalam_page" string="Bagian Dalam" attrs="{'invisible': [('bagian_dalam','=',False)]}">
+                     <group>
+                        <field name="biaya_bagian_dalam"/>
+                     </group>
+                     <group>
+                        <field name="keterangan_bagian_dalam"/>
+                     </group>
+                  </page>
+                  <page name="bagian_luar_page" string="Bagian Luar" attrs="{'invisible': [('bagian_luar','=',False)]}">
+                     <group>
+                        <field name="biaya_bagian_luar"/>
+                     </group>
+                     <group>
+                        <field name="keterangan_bagian_luar"/>
+                     </group>
+                  </page>
+               </notebook>
+               <footer>
+                  <button string="Buat Invoice Denda" name="konfirmasi_pengembalian" type="object" class="oe_highlight" attrs="{'invisible': [('denda','!=',True)]}"/>
+                  <button string="Konfirmasi" name="konfirmasi_pengembalian" type="object" class="oe_highlight" attrs="{'invisible': [('denda','!=',False)]}"/>
                   <button special="cancel" string="Discard" type="object"/>
-               </footer> -->
+               </footer>
             </form>
          </field>
       </record>
@@ -43,6 +76,6 @@
       </record>
 
       <menuitem id="pengembalian_armada_wizard_action_menu" name="Pengembalian Armada" action="pengembalian_armada_pesanan_wizard_action" parent="pemesanan_menu_categ" sequence="20"/>
-
+   
    </data>
 </odoo>

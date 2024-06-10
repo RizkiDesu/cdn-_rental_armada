@@ -44,6 +44,7 @@
         'views/varian.xml',
         'views/account_move.xml',
         'views/pemesanan.xml',
+        'views/denda.xml',
         'wizards/pengembalian_armada.xml',
     ],
     'demo': [

@@ -35,7 +35,11 @@
                                             <span class="text-muted">Kota</span> <field name="city"/>
                                         </li>
                                         <li>
-                                            <span class="text-muted">Status</span> <field name="state"/>
+                                            <span class="text-muted">Status</span> <field name="state" 
+                                                decoration-success="state == 'siap'"
+                                                decoration-warning="state == 'perjalanan'" 
+                                                decoration-danger="state == 'tidak_aktif'" 
+                                                widget="badge"/>
                                         </li>
                                     </ul>
                                 </div>
@@ -59,7 +63,11 @@
                     <field name="no_ktp"/>
                     <field name="city"/>
                     <field name="image_1920"/>
-                    <field name="state"/>
+                    <field name="state" 
+                            decoration-success="state == 'siap'"
+                            decoration-warning="state == 'perjalanan'" 
+                            decoration-danger="state == 'tidak_aktif'" 
+                            widget="badge"/>
                 </tree>
             </field>
         </record>

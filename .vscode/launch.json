@@ -13,8 +13,8 @@
             "console": "integratedTerminal",
             "program": "C://odoo//odoo16//server//odoo-bin",
             "args": [
-                // "--config=C:\\odoo\\odoo16\\server\\odoo.conf",
-                "--config=C:\\odoo\\addons\\conf\\odoo.conf",
+                "--config=C:\\odoo\\odoo16\\server\\odoo.conf",
+                // "--config=C:\\odoo\\addons\\conf\\odoo.conf",
                 //mendirek database "-d",
                 // "db_training",
                 "-u",
