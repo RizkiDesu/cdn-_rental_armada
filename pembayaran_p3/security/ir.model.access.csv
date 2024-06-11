@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_pembayaran_p3_pembayaran,access_pembayaran_p3_pembayaran,model_pembayaran_p3_pembayaran,base.group_user,1,1,1,1
+access_pembayaran_p3_wizard_bayar,access_pembayaran_p3_wizard_bayar,model_pembayaran_p3_wizard_bayar,base.group_user,1,1,1,1

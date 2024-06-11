@@ -110,3 +110,4 @@ odoo.define('cdn_rental_armada.location_filter', function (require) {
     window.filterKecamatanByKotaTujuan  = filterKecamatanByKotaTujuan
     window.filterDesaByKecamatanTujuan  = filterDesaByKecamatanTujuan
 });
+
