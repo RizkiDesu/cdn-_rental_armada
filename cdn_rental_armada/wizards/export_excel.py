@@ -1,5 +1,9 @@
 from odoo import _, api, fields, models
 import time
+import requests
+import json
+import random
+import string
 
 class WizardArmadaTersedia(models.TransientModel):
     _name = 'wizard.armada.tersedia'
@@ -10,16 +14,28 @@ class WizardArmadaTersedia(models.TransientModel):
     
 
     def export_excel(self):
-       return {
-         'type': 'ir.actions.client',
-         'tag': 'display_notification',
-         'params': {
-            'title': 'Berhasil',
-            'type': 'success',
-            'message': 'Armada telah kembali',
-            'sticky': False,
-            'next' : {
-                'type' : 'ir.actions.act_window_close'
-            }
-         }
+      source_data = {
+         "virtual_account" : ''.join(random.choices(string.digits, k=10)),
+         "amount" : "900000",
+         "exp_date" : "2024-07-12",
+         "description" : "awokaowdkoa"
       }
+      # headers = {'Content-Type': 'application/json'}
+      response = requests.post('{}/virtual_account/create'.format('http://localhost:8069'), headers={'Content-Type': 'application/json'}, data=json.dumps(source_data))
+      print(response)
+      print(response.json()['is_success'])
+
+      pass
+      # return {
+      #    'type': 'ir.actions.client',
+      #    'tag': 'display_notification',
+      #    'params': {
+      #       'title': 'Berhasil',
+      #       'type': 'success',
+      #       'message': 'Armada telah kembali',
+      #       'sticky': False,
+      #       'next' : {
+      #             'type' : 'ir.actions.act_window_close'
+      #       }
+      #    }
+      # }

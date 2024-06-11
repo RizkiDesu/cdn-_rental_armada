@@ -1,8 +1,13 @@
 from odoo import models, fields, api, _
-from datetime import date
+from datetime import date, timedelta
 from dateutil import relativedelta
 from odoo.exceptions import ValidationError
 import http.client
+
+import requests
+import json
+import random
+import string
 
 class CdnPemesanan(models.Model):
    _name        = 'cdn.pemesanan'
@@ -127,9 +132,40 @@ class CdnPemesanan(models.Model):
                line.tenaga_bantuan.state = 'perjalanan'
                invoice_vals['invoice_line_ids'].append((0, 0, invoice_line_vals))
 
-         self.invoice_id = self.env['account.move'].sudo().create(invoice_vals)
+         invoice_id = self.env['account.move'].sudo().create(invoice_vals)
+         self.invoice_id = invoice_id
          self.state = 'berjalan'
          
+         # data_bayar = {
+         #    "virtual_account" : ''.join(random.choices(string.digits, k=10)),
+         #    "amount" : invoice_id.amount_total,
+         #    "exp_date" : fields.Date.to_string(fields.Date.today() + timedelta(days=1)),
+         #    # "exp_date" : "2024-07-12",.strftime('%Y-%m-%d %H:%M:%S')
+         #    "description" : "Pembayaran Invoice Pemesanan Armada"
+         # }
+         # response = requests.post('http://localhost:8069/virtual_account/create', headers={'Content-Type': 'application/json'}, data=json.dumps(data_bayar))
+         # resp = response.json()
+         
+         # if resp['is_success'] != True:
+         #    return {
+         #       'type': 'ir.actions.client',
+         #       'tag': 'display_notification',
+         #       'params': {
+         #          'title': 'Gagal',
+         #          'type': 'danger',
+         #          'message': 'Gagal Buat Pembayaran',
+         #          'sticky': False,
+         #          'next' : {
+         #             'type': 'ir.actions.act_window',
+         #             'name': 'Customer Invoice',
+         #             'res_model': 'account.move',
+         #             'view_mode': 'form',
+         #             'res_id': invoice_id.id,
+         #             'target': 'current',
+         #          }
+         #       }
+         #    }
+         # else:
          return {
             'type': 'ir.actions.act_window',
             'name': 'Customer Invoice',
