@@ -10,6 +10,10 @@ class CdnPelanggan(models.Model):
     _inherits    = {'res.partner': 'partner_id'}
     _inherit     = ['mail.thread', 'mail.activity.mixin']
    
+    _sql_constraints = [
+            ('unique_ktp', 'Unique(no_ktp)','Nomor KTP tidak boleh sama!'),
+            ('unique_email', 'Unique(email)','Email tidak boleh sama!'),
+        ]
 
     # rizki
     jumlahbayar_ids = fields.One2many(comodel_name='account.move.line', inverse_name='partner_id', string='invoice')
