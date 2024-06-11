@@ -160,6 +160,10 @@ class CdnPemesananArmada(models.Model):
    subtotal                   = fields.Float(string='Subtotal', compute="_onchange_subtotal")
    state                      = fields.Selection(string='Status Armada', selection=[('siap', 'Siap'), ('disewa', 'Disewa'), ('dikembalikan', 'Telah Kembali'), ('dikembalikan_denda', 'Telah Kembali (Denda)'),], default="siap")
    gambar_mobil               = fields.Image('Gambar', related='armada_id.foto_mobil') 
+   invoice_denda              = fields.Many2one(comodel_name='account.move', string='Invoice Denda')
+   status_pembayaran_denda    = fields.Selection(string='Status Pembayaran Denda', related='invoice_denda.payment_state')
+   
+
    
    @api.onchange('produk_id')
    def _onchange_subtotal(self):
