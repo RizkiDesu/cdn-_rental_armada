@@ -11,15 +11,15 @@ class ResConfigSetting(models.TransientModel):
     headline        = fields.Char(string='Headline', config_parameter="cdn_rental_armada.headline", default="50%")
     deskripsi_event = fields.Char(string='Deskripsi Event', config_parameter="cdn_rental_armada.event", default="event persewaan")
     tanggal_event   = fields.Datetime(string='Tanggal Event', config_parameter="cdn_rental_armada.tanggal_event")
-    # pelayanan       = fields.Many2many(comodel_name='cdn.your.service', string='pelayanan', config_parameter="cdn_rental_armada.pelayanan")
+    pelayanan       = fields.Many2many(comodel_name='cdn.your.service', string='pelayanan', config_parameter="cdn_rental_armada.pelayanan")
     
 
 
-# class CdnYourService(models.Model):
-#     _name = 'cdn.your.service'
-#     _description = 'Your Service'
+class CdnYourService(models.Model):
+    _name = 'cdn.your.service'
+    _description = 'Your Service'
     
-#     name = fields.Char(string='Nama Layanan')
+    name = fields.Char(string='Nama Layanan')
     
     
 
