@@ -142,6 +142,7 @@ class CdnPengembalianArmadaWizard(models.TransientModel):
          invoice_id = self.env['account.move'].sudo().create(invoice_vals)
 
          produk_armada.state = 'dikembalikan_denda'
+         produk_armada.invoice_denda = invoice_id
 
          return {
             'type'      : 'ir.actions.act_window',
@@ -153,22 +154,22 @@ class CdnPengembalianArmadaWizard(models.TransientModel):
          }
       else:
          produk_armada.state = 'dikembalikan'
-         action_close = {
-            'type': 'ir.actions.act_window_close'
+         action_notification =  {
+            'type': 'ir.actions.client',
+            'tag': 'display_notification',
+            'params': {
+               'title': 'Berhasil',
+               'type': 'success',
+               'message': 'Armada telah kembali',
+               'sticky': False,
+               'next' : {
+                  'type': 'ir.actions.act_window_close'
+               }
+            }
          }
          
-         return action_close
+         return action_notification
 
-      # action_notification =  {
-      #    'type': 'ir.actions.client',
-      #    'tag': 'display_notification',
-      #    'params': {
-      #       'title': 'Berhasil',
-      #       'type': 'success',
-      #       'message': 'Armada telah kembali',
-      #       'sticky': False,
-      #    }
-      # }
          
       
    

@@ -131,9 +131,9 @@
                                 <label for="kota" class="form-label">Kota</label>
                                 <select class="select2" id="kota" name="kota" onchange="filterKecamatanByKota(this.value)">
                                     <option t-att-value=""></option>
-                                    <t t-foreach="kota" t-as="kota">
+                                    <!-- <t t-foreach="kota" t-as="kota">
                                         <option t-att-value="kota.id"><t t-esc="kota.name"/></option>
-                                    </t>
+                                    </t> -->
                                 </select>
                             </div>
                         </div>
@@ -142,18 +142,18 @@
                                 <label for="kecamatan" class="form-label">Kecamatan</label>
                                 <select class="select2" id="kecamatan" name="kecamatan" onchange="filterDesaByKecamatan(this.value)">
                                     <option t-att-value=""></option>
-                                    <t t-foreach="kecamatan" t-as="kecamatan">
+                                    <!-- <t t-foreach="kecamatan" t-as="kecamatan">
                                         <option t-att-value="kecamatan.id"><t t-esc="kecamatan.name"/></option>
-                                    </t>
+                                    </t> -->
                                 </select>
                             </div>
                             <div class="col mb-3 select2-input">
                                 <label for="desa" class="form-label">Desa</label>
                                 <select class="select2" id="desa" name="desa" >
                                     <option t-att-value=""></option>
-                                    <t t-foreach="desa" t-as="desa">
+                                    <!-- <t t-foreach="desa" t-as="desa">
                                         <option t-att-value="desa.id"><t t-esc="desa.name"/></option>
-                                    </t>
+                                    </t> -->
                                 </select>
                             </div>
                         </div>
@@ -179,9 +179,9 @@
                                 <label for="kota_tujuan" class="form-label">Kota</label>
                                 <select class=" select2" id="kota_tujuan" name="kota_tujuan" onchange="filterKecamatanByKotaTujuan(this.value)">
                                     <option t-att-value=""></option>
-                                    <t t-foreach="kota_tujuan" t-as="kota_tujuan">
+                                    <!-- <t t-foreach="kota_tujuan" t-as="kota_tujuan">
                                         <option t-att-value="kota_tujuan.id"><t t-esc="kota_tujuan.name"/></option>
-                                    </t>
+                                    </t> -->
                                 </select>
                             </div>
                         </div>
@@ -190,18 +190,18 @@
                                 <label for="kecamatan_tujuan" class="form-label">Kecamatan</label>
                                 <select class=" select2" id="kecamatan_tujuan" name="kecamatan_tujuan" onchange="filterDesaByKecamatanTujuan(this.value)">
                                     <option t-att-value=""></option>
-                                    <t t-foreach="kecamatan_tujuan" t-as="kecamatan_tujuan">
+                                    <!-- <t t-foreach="kecamatan_tujuan" t-as="kecamatan_tujuan">
                                         <option t-att-value="kecamatan_tujuan.id"><t t-esc="kecamatan_tujuan.name"/></option>
-                                    </t>
+                                    </t> -->
                                 </select>
                             </div>
                             <div class="col mb-3 select2-input">
                                 <label for="desa_tujuan" class="form-label">Desa</label>
                                 <select class="select2" id="desa_tujuan" name="desa_tujuan">
                                     <option t-att-value=""></option>
-                                    <t t-foreach="desa_tujuan" t-as="desa_tujuan">
+                                    <!-- <t t-foreach="desa_tujuan" t-as="desa_tujuan">
                                         <option t-att-value="desa_tujuan.id"><t t-esc="desa_tujuan.name"/></option>
-                                    </t>
+                                    </t> -->
                                 </select>
                             </div>
                         </div>

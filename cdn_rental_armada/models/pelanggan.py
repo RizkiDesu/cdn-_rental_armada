@@ -2,6 +2,7 @@ from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
 import logging
 _logger = logging.getLogger(__name__)
+import xlrd
 
 # Triadi
 class CdnPelanggan(models.Model):

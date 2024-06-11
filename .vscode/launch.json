@@ -23,9 +23,8 @@
                 "cdn_rental_armada",
                 
                 "-d", 
-                "cdn_rental",
-
-                // "--dev xml,reload"
+                "armada_fx",
+                // "cdn_rental",
             ],
             "cwd": "C://odoo//odoo16//server//",
             "env": {},
