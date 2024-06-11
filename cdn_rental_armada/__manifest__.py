@@ -63,6 +63,7 @@
         'views/pemesanan.xml',
         'views/denda.xml',
         'wizards/pengembalian_armada.xml',
+        'wizards/export_excel.xml',
         
         
         'views/wilayah/kecamatan.xml',
