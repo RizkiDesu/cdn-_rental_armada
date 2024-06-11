@@ -17,7 +17,7 @@
                      <field name="km_akhir"/>
                      <field name="jarak_tempuh" force_save="1"/>
                   </group>
-                  <group>
+                  <group>  
                      <field name="tujuan" readonly="1" force_save="1"/>
                      <field name="durasi_hari" readonly="1" force_save="1"/>
                      <field name="status_armada"/>

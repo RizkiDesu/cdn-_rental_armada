@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+    
+        <!-- wizard.armada.tersedi form view -->
+        <record id="wizard_armada_tersedia_view_form" model="ir.ui.view">
+            <field name="name">wizard.armada.tersedia.view.form</field>
+            <field name="model">wizard.armada.tersedia</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <sheet>
+                        <group>
+                            <!-- Add your fields here -->
+                            <field name="jenis_armada"/>
+                            <field name="state"/>
+                        </group>
+                    </sheet>
+                </form>
+                <footer>
+                        <button string="Submit" name="export_excel" type="object" class="oe_highlight"/>
+                        <button special="cancel" string="Tutup" type="object"/>
+                </footer>
+            </field>
+        </record>
+
+        <!-- model.name action window -->
+        <record id="wizard_armada_tersedia_action" model="ir.actions.act_window">
+            <field name="name">wizard.armada.tersedia.action</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">wizard.armada.tersedia</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    <!-- Add Text Here -->
+                </p><p>
+                    <!-- More details about what a user can do with this object will be OK --> 
+                
+                </p>
+            </field>
+        </record>
+        <!-- This Menu Item must have a parent and an action -->
+        <menuitem id="export_menu_act" name="Export" parent="pengaturan_menu_categ" action="wizard_armada_tersedia_action" sequence="1"/>
+    </data>
+    
+</odoo>

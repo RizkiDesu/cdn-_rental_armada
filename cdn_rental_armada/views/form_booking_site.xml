@@ -57,14 +57,15 @@
         .select2-selection {
             text-align: center;
         }
-
-        .select2-selection__rendered {
-            lin 
-        }
-
-        .select2-selection__arrow { 
+        .select2-default{
+            height: inherit;
+            margin-left: -1rem;
+            border-radius: 10px;
         }
         
+        b[role="presentation"] {
+            margin-top: 5.5px;
+        }
     </style>
 
 
