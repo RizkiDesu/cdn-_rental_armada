@@ -121,61 +121,33 @@
                         <div class="row">
                             <div class="col mb-2 form-group">
                                 <label for="provinsi" class="form-label">Provinsi</label>
-<<<<<<< HEAD:cdn_rental_armada/views/form_booking_website.xml
                                 <select class="select2" id="provinsi" data-allow-clear="1">
                                     <option>Jawa Timur</option>
                                     <!-- Add more options as needed -->
-=======
-                                <select class="select2 form-select" id="provinsi" name="provinsi">
-                                    <t t-foreach="provinsi" t-as="provinsi">
-                                        <option t-att-value="provinsi.id"><t t-esc="provinsi.name"/></option>
-                                    </t>
->>>>>>> 557afd0c692eb752cfa42f4951b2114b645b46a6:cdn_rental_armada/views/form_booking_site.xml
                                 </select>
                             </div>
 
                             <div class="col mb-3 select2-input">
                                 <label for="kota" class="form-label">Kota</label>
-<<<<<<< HEAD:cdn_rental_armada/views/form_booking_website.xml
                                 <select class=" select2" id="kota">
                                     <option>Malang</option>
                                     <!-- Add more options as needed -->
-=======
-                                <select class=" select2 form-select" id="kota" name="kota">
-                                    <t t-foreach="kota" t-as="kota">
-                                        <option t-att-value="kota.id"><t t-esc="kota.name"/></option>
-                                    </t>
->>>>>>> 557afd0c692eb752cfa42f4951b2114b645b46a6:cdn_rental_armada/views/form_booking_site.xml
                                 </select>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col mb-3 select2-input">
                                 <label for="kecamatan" class="form-label">Kecamatan</label>
-<<<<<<< HEAD:cdn_rental_armada/views/form_booking_website.xml
                                 <select class=" select2" id="kecamatan">
                                     <option>Singosari</option>
                                     <!-- Add more options as needed -->
-=======
-                                <select class=" select2 form-select" id="kecamatan" name="kecamatan">
-                                    <t t-foreach="kecamatan" t-as="kecamatan">
-                                        <option t-att-value="kecamatan.id"><t t-esc="kecamatan.name"/></option>
-                                    </t>
->>>>>>> 557afd0c692eb752cfa42f4951b2114b645b46a6:cdn_rental_armada/views/form_booking_site.xml
                                 </select>
                             </div>
                             <div class="col mb-3 select2-input">
                                 <label for="desa" class="form-label">Desa</label>
-<<<<<<< HEAD:cdn_rental_armada/views/form_booking_website.xml
                                 <select class=" select2" id="desa">
                                     <option>Randuagung</option>
                                     <!-- Add more options as needed -->
-=======
-                                <select class=" select2 form-select" id="desa" name="desa">
-                                    <t t-foreach="desa" t-as="desa">
-                                        <option t-att-value="desa.id"><t t-esc="desa.name"/></option>
-                                    </t>
->>>>>>> 557afd0c692eb752cfa42f4951b2114b645b46a6:cdn_rental_armada/views/form_booking_site.xml
                                 </select>
                             </div>
                         </div>
@@ -191,60 +163,32 @@
                         <div class="row">
                             <div class="col mb-3 select2-input">
                                 <label for="provinsi-tujuan" class="form-label">Provinsi</label>
-<<<<<<< HEAD:cdn_rental_armada/views/form_booking_website.xml
                                 <select class=" select2" id="provinsi-tujuan">
                                     <option>Jawa Timur</option>
                                     <!-- Add more options as needed -->
-=======
-                                <select class=" select2 form-select" id="provinsi-tujuan" name="provinsi-tujuan" >
-                                    <t t-foreach="provinsi_tujuan" t-as="provinsi_tujuan">
-                                        <option t-att-value="provinsi_tujuan.id"><t t-esc="provinsi_tujuan.name"/></option>
-                                    </t>
->>>>>>> 557afd0c692eb752cfa42f4951b2114b645b46a6:cdn_rental_armada/views/form_booking_site.xml
                                 </select>
                             </div>
                             <div class="col mb-3 select2-input">
                                 <label for="kota-tujuan" class="form-label">Kota</label>
-<<<<<<< HEAD:cdn_rental_armada/views/form_booking_website.xml
                                 <select class=" select2" id="kota-tujuan">
                                     <option>Malang</option>
                                     <!-- Add more options as needed -->
-=======
-                                <select class=" select2 form-select" id="kota-tujuan" name="kota-tujuan">
-                                    <t t-foreach="kota_tujuan" t-as="kota_tujuan">
-                                        <option t-att-value="kota_tujuan.id"><t t-esc="kota_tujuan.name"/></option>
-                                    </t>
->>>>>>> 557afd0c692eb752cfa42f4951b2114b645b46a6:cdn_rental_armada/views/form_booking_site.xml
                                 </select>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col mb-3 select2-input">
                                 <label for="kecamatan-tujuan" class="form-label">Kecamatan</label>
-<<<<<<< HEAD:cdn_rental_armada/views/form_booking_website.xml
                                 <select class=" select2" id="kecamatan-tujuan">
                                     <option>Singosari</option>
                                     <!-- Add more options as needed -->
-=======
-                                <select class=" select2 form-select" id="kecamatan-tujuan" name="kecamatan-tujuan">
-                                    <t t-foreach="kecamatan_tujuan" t-as="kecamatan_tujuan">
-                                        <option t-att-value="kecamatan_tujuan.id"><t t-esc="kecamatan_tujuan.name"/></option>
-                                    </t>
->>>>>>> 557afd0c692eb752cfa42f4951b2114b645b46a6:cdn_rental_armada/views/form_booking_site.xml
                                 </select>
                             </div>
                             <div class="col mb-3 select2-input">
                                 <label for="desa-tujuan" class="form-label">Desa</label>
-<<<<<<< HEAD:cdn_rental_armada/views/form_booking_website.xml
                                 <select class="select2" id="desa-tujuan">
                                     <option>Randuagung</option>
                                     <!-- Add more options as needed -->
-=======
-                                <select class="select2 form-select" id="desa-tujuan" name="desa-tujuan">
-                                    <t t-foreach="desa_tujuan" t-as="desa_tujuan">
-                                        <option t-att-value="desa_tujuan.id"><t t-esc="desa_tujuan.name"/></option>
-                                    </t>
->>>>>>> 557afd0c692eb752cfa42f4951b2114b645b46a6:cdn_rental_armada/views/form_booking_site.xml
                                 </select>
                             </div>
                         </div>
