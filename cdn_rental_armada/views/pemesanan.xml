@@ -144,6 +144,10 @@
                                                                                      decoration-warning="state == 'disewa'"
                                                                                      widget="badge"/>
                                                 </li>
+                                                <li attrs="{'invisible' : [('state','!=','dikembalikan_denda')]}">
+                                                   <span class="text-muted">Status Invoice Denda : <field name="status_pembayaran_denda"/></span>
+                                                   <button string="Lihat Invoice Denda" name="lihat_invoice_produk_armada_pemesanan" type="object" class="oe_highlight" />
+                                                </li>
                                           </ul>
                                        </div>
                                     </div>
