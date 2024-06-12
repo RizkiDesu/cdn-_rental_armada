@@ -29,16 +29,38 @@ class pembayaran(http.Controller):
          # invoices = http.request.env['account.move'].search([('name', '=', datarow['va'])])
          # if not invoices:
          #    raise UserError("Invoice with name {} not found.".format(datarow['va']))
-         # wizard = http.request.env['account.payment.register'].create({})
-         # wizard.invoice_ids = [(6, 0, invoices.ids)]
+         # wizard = http.request.env['account.payment.register'].create({
+         #    'payment_date' : datarow['date'],
+         #    'amount'       : datarow['amount'],
+         #    'payment_method_id' : 1,
+         #    'journal_id'   : 1,
+         #    'communication' : datarow['kode_p'],
+         #    'partner_id'   : 1,
+         #    'partner_type' : 'customer',
+         #    'payment_type' : 'inbound',
+         #    'payment_difference_handling' : 'open',
+         #    'currency_id'  : 1,
+         #    'payment_method_id' : 1,
+         # })
+         # # wizard.invoice_ids = [(6, 0, invoices.ids)]
          # wizard.action_create_payments()
          
 
-         # akun_move = request.env['account.move'].sudo().search([('name', '=', datarow['va'])])
+         invoice = request.env['account.move'].sudo().search([('name', '=', datarow['va'])])
          # akun_move.write({
          #    'payment_state' : 'paid',
-         #    
+         #    # 'amount_total'  : datarow['amount'],
+         #    'amount_residual' : 0,
+            
          # })
+         # invoice.payment_state == 'not_paid' and invoice.state == 'posted':
+         action_data = invoice.action_register_payment()
+         invoice.payment_by_id = action_data['context']['default_journal_id'] = request.env.user.company_id.account_journal_id.id
+         wizard = Form(request.env['account.payment.register'].with_context(action_data['context'])).save()
+         action = wizard.action_create_payments()
+         # invoice.write({'payment_state': 'paid'})
+         success_invoice_payment.append(invoice)
+
       except Exception as e:
          traceback.print_exception(*sys.exc_info()) 
          datarow['is_success']   = ustr(e)
