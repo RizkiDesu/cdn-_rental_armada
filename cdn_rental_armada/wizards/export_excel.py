@@ -3,6 +3,8 @@ import xlsxwriter
 import os
 import base64
 
+# CREATED BY TRIADI
+# ------------------------------- WIZARD ARMADA TERSEDIA EXPORT EXCEL --------------------------------
 class WizardArmadaTersedia(models.TransientModel):
     _name = 'wizard.armada.tersedia'
     _description = 'Wizard Armada Tersedia'

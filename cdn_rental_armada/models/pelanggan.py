@@ -4,31 +4,33 @@ import logging
 _logger = logging.getLogger(__name__)
 import xlrd
 
-# Triadi
+# CREATED BY TRIADI
+# ------------------------------- INHERITS PELANGGAN --------------------------------
 class CdnPelanggan(models.Model):
     _name        = 'cdn.pelanggan'
     _description = 'Pelanggan'
     _inherits    = {'res.partner': 'partner_id'}
     _inherit     = ['mail.thread', 'mail.activity.mixin']
    
+   # ------------------------------- UNIQUENESS --------------------------------
     _sql_constraints = [
             ('unique_ktp', 'Unique(no_ktp)','Nomor KTP tidak boleh sama!'),
             ('unique_email', 'Unique(email)','Email tidak boleh sama!'),
         ]
 
-    # rizki
+    # CREATED BY RIZKI
+    # ------------------------------- TAGIAHAN DAN BOKING --------------------------------
     jumlahbayar_ids = fields.One2many(comodel_name='account.move.line', inverse_name='partner_id', string='invoice')
-
     total_bayar     = fields.Float(string='Total Bayar', compute='_compute_total_bayar')
     total_residual  = fields.Float(string='Total Residual', compute='_compute_total_residual')
     boking_ids      = fields.One2many(comodel_name='cdn.pemesanan', inverse_name='pelanggan_id', string='Boking')
-    
     jml_boking      = fields.Integer(string='Jumlah Boking', compute='_compute_jml_boking')
 
 
+    # CREATED BY TRIADI
+    # -------------------------------  STATUS AKUN --------------------------------
     status          = fields.Selection(string='Status', selection=[('terdaftar', 'Terdaftar'), ('tidak_terdaftar', 'Belum Terdaftar'),], default="tidak_terdaftar")
-
-    
+    # ------------------------------- KONFIRMASI MASUKAN KE AKUN PORTAL --------------------------------
     def konfirmasi_web(self):
         portal_group = self.env.ref('base.group_portal')
         user_model = self.env['res.users']
@@ -38,7 +40,7 @@ class CdnPelanggan(models.Model):
                 raise ValidationError("Pengguna dengan nomor KTP %s Sudah Terdaftar.", rec.no_ktp)
                 continue
 
-            # Create a new user
+            # ------------------------ MEMBUAT USER PORTAL ------------------------
             new_user = user_model.create({
                 'name': rec.name,
                 'login': rec.email,
@@ -47,11 +49,11 @@ class CdnPelanggan(models.Model):
                 'groups_id': [(6, 0, [portal_group.id])],
             })
 
-            # Log the creation of the new user
+            # ------------------------ LOGIN USER PORTAL KIRIM EMAIL --------------------------------
             _logger.info('Created new portal user %s with email %s.', new_user.name, new_user.email)
 
-            # Update the status
             rec.status = 'terdaftar'
+            # ------------------------ TEMPLATE EMAIL ----------------------------------------------
             mail_content = _(
             '<h3>Pendaftaran akun anda sudah dikonfirmasi oleh kami</h3><br/>Hi %s, <br/> Terimakasih, '
             'pendaftaran akun Anda telah dikonfirmasi oleh kami!<br/>'

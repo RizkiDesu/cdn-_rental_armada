@@ -1,5 +1,9 @@
 from odoo import _, api, fields, models
 
+
+# CREATED BY IAN
+# REVISI BY ALVITO
+# ------------------------------- TENAGA BANTU --------------------------------
 class CdnTenagaKerja(models.Model):
     _name           = "cdn.tenaga.bantu"
     _description    = "Tenaga Bantu"
@@ -7,7 +11,7 @@ class CdnTenagaKerja(models.Model):
     _inherit         = ['mail.thread', 'mail.activity.mixin']
     
     state           = fields.Selection(string='Status Tenaga Bantu', selection=[('tidak_aktif','Tidak Aktif'), ('perjalanan', 'Bertugas'), ('siap', 'Siap')], default='tidak_aktif')
-    sim_ids         = fields.One2many(comodel_name='cdn.sim', inverse_name='sim_id', string='Izin Mengemudi')
+    # sim_ids         = fields.One2many(comodel_name='cdn.sim', inverse_name='sim_id', string='Izin Mengemudi')
     
     def action_state_siap(self):
         for rec in self:

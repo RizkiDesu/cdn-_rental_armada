@@ -1,6 +1,17 @@
 from odoo import _, api, fields, models, tools
 
+# CREATED BY TRIADI
+# ------------------------------- INHERIT PRODUCT PRODUCT --------------------------------
+class ProductProduct(models.Model):
+    _inherit            = 'product.product'
+    
+    jenis_armada        = fields.Selection(string='Jenis Armada', selection=[('bis', 'Bis Pariwisata'), ('travel', 'Travel'),('mobil', 'Mobil')], required=True, default='mobil')
+    armada_id = fields.Integer(string='ID Armada')
 
+
+# CREATED BY TRIADI
+# REVISI BY RIZKI
+# ------------------------------- PRODUK ARMADA AUTO CREATE PRODUCT VARIANT --------------------------------
 class CdnProdukArmada(models.Model):
     _name = 'cdn.produk.armada'
     _description = 'Cdn Produk Armada'
@@ -10,6 +21,7 @@ class CdnProdukArmada(models.Model):
         """Method for getting the default uom id"""
         return self.env.ref('uom.product_uom_day')
     
+    # ------------------------------- PRODUK --------------------------------
     name = fields.Char(string='Nama Produk')
     lst_price = fields.Float(string='Harga')
     taxes_id = fields.Many2many(comodel_name='account.tax', string='Pajak')
@@ -19,11 +31,16 @@ class CdnProdukArmada(models.Model):
     uom_id = fields.Many2one(comodel_name='uom.uom', string='Unit of Measure',
                             default=_get_default_uom_id, required=True,
                             help="Default unit of measure used for all stock operations.")
+
+    # CREATED BY TRIADI
+    # ------------------------------- PRIORITASKAN PRODUK --------------------------------
     priority = fields.Selection([
-        ('0', 'Normal'),
-        ('1', 'Favorite'),
-    ], default='0', string="Favorite")
-    
+                        ('0', 'Normal'),
+                        ('1', 'Favorite'),
+                    ], default='0', string="Favorite")
+                    
+    # CREATED BY RIZKI
+    # ------------------------------- AUTO CREATE PRODUCT --------------------------------
     @api.model
     def create(self, vals):
         produk_baru = super(CdnProdukArmada, self).create(vals)
@@ -40,6 +57,8 @@ class CdnProdukArmada(models.Model):
             'armada_id': produk_baru.id
         })
         return produk_baru
+
+    # ------------------------------- UPDATE PRODUCT --------------------------------
     def write(self, vals):
         update = super(CdnProdukArmada, self).write(vals)
         produk = self.env['product.product'].search([('armada_id', '=', self.id)])
@@ -54,6 +73,8 @@ class CdnProdukArmada(models.Model):
             'uom_po_id': self.uom_id.id
         })
         return update
+
+    # ------------------------------- DELETE PRODUCT --------------------------------
     def unlink(self):
         self.env['product.product'].search([('armada_id', '=', self.id)]).unlink()
         return super(CdnProdukArmada, self).unlink()
