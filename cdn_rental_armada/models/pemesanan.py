@@ -56,7 +56,7 @@ class CdnPemesanan(models.Model):
    tanggal_dipakai      = fields.Date(string='Tanggal Pemakaian')
    durasi               = fields.Integer(string='Durasi Sewa / hari', help='Berapa lama?', default="1")
    tanggal_kembali      = fields.Date( string='Tanggal Kembali')
-
+   jumlah_armada        = fields.Integer(string='Jumlah Pesanan Armada', default="1", help='Berapa banyak armada yang disewa?')
 
    # -------------------------------------------- METHOD ---------------------------------------------------
    @api.onchange('durasi','tanggal_dipakai')

@@ -97,22 +97,26 @@ class ArmadaSite(http.Controller):
         # 'kecamatan_tujuan': '9176', 
         # 'desa_tujuan': '16112'
         #}
-
+        partner_id = request.env['res.users'].browse(request.uid).partner_id
+        print(partner_id.name)
         request.env['cdn.pemesanan'].sudo().create({
-            'jenis_armada': kw.get('jenis_armada'),
-            'jmlh': kw.get('jmlh'),
-            'tanggal': kw.get('tanggal'),
-            'durasi': kw.get('durasi'),
-            'alamat_penjemputan': kw.get('alamat-penjemputan'),
-            'provinsi': kw.get('provinsi'),
-            'kota': kw.get('kota'),
-            'kecamatan': kw.get('kecamatan'),
-            'desa': kw.get('desa'),
-            'alamat_tujuan': kw.get('alamat_tujuan'),
-            'provinsi_tujuan': kw.get('provinsi_tujuan'),
-            'kota_tujuan': kw.get('kota_tujuan'),
+            'pelanggan_id'  : partner_id.id,
+            'jenis_armada'  : kw.get('jenis_armada'),
+            'jumlah_armada' : kw.get('jmlh'),
+            'tanggal_dipakai': kw.get('tanggal'),
+            'durasi'        : kw.get('durasi'),
+
+            'tempat_jemput' : kw.get('alamat-penjemputan'),
+            'propinsi'      : kw.get('provinsi'),
+            'kota'          : kw.get('kota'),
+            'kecamatan'     : kw.get('kecamatan'),
+            'desa'          : kw.get('desa'),
+
+            'tujuan'        : kw.get('alamat_tujuan'),
+            'propinsi_tujuan': kw.get('provinsi_tujuan'),
+            'kota_tujuan'   : kw.get('kota_tujuan'),
             'kecamatan_tujuan': kw.get('kecamatan_tujuan'),
-            'desa_tujuan': kw.get('desa_tujuan'),
+            'desa_tujuan'   : kw.get('desa_tujuan'),
         })
         return request.redirect('/form_booking')
 
