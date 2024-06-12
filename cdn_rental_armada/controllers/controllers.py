@@ -70,8 +70,8 @@ class pembayaran(http.Controller):
          
          # action_data = invoice.action_register_payment()
          # invoice.payment_by_id = action_data['context']['default_journal_id'] = request.env.user.company_id.account_journal_id.id
-         wizard = Form(request.env['account.payment.register'].with_context(action_data['context'])).save()
-         action = wizard.action_create_payments()
+         # wizard = Form(request.env['account.payment.register'].with_context(action_data['context'])).save()
+         # action = wizard.action_create_payments()
          # # invoice.write({'payment_state': 'paid'})
          # success_invoice_payment.append(invoice)
 
