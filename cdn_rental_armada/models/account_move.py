@@ -1,9 +1,32 @@
 from odoo import _, api, fields, models
-
+import requests
+import json
+from datetime import date
 class AccountMove(models.Model):
     _inherit = 'account.move' 
     pemesanan_id   = fields.Integer(string='ID Pemesanan')
     tagihan_denda  = fields.Boolean(string='Tagihan Denda', default=False)
+
+    
+    def action_post(self):
+        moves_with_payments = self.filtered('payment_id')
+        other_moves = self - moves_with_payments
+        if moves_with_payments:
+            moves_with_payments.payment_id.action_post()
+        if other_moves:
+            other_moves._post(soft=False)
+        # print('====================')
+        url = self.env['ir.config_parameter'].get_param('cdn_rental_armada.url_api')
+        data_bayar = {
+            "virtual_account" : self.name,
+            "amount" : self.amount_total,
+            "exp_date" : fields.Date.to_string(self.invoice_date_due),
+            "description" : "Pembayaran Invoice",
+        }
+        print(data_bayar)
+        response = requests.post(url, headers={'Content-Type': 'application/json'}, data=json.dumps(data_bayar))
+        return False  
+
 
 class AccountMove(models.Model):
     _inherit = 'account.move.line'
