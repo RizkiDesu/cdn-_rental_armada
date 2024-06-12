@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+    
+        <record id="ID1" model="cdn.deskripsi">
+            <field name="name">Deskripsi Produk</field>
+            <!-- <field name="slogan">Slogan Bisnis Mu</field> -->
+            <field name="deskripsi">Persewaan adalah layanan yang menyediakan barang atau properti kepada individu atau bisnis untuk jangka waktu tertentu dengan biaya sewa yang telah disepakati. Layanan ini menawarkan berbagai keuntungan bagi penyewa, seperti akses ke barang atau properti tanpa harus membelinya, fleksibilitas dalam penggunaan, dan penghematan biaya. Misalnya, dalam konteks persewaan alat berat untuk konstruksi, perusahaan dapat menghindari biaya pembelian yang tinggi dan hanya membayar saat mereka benar-benar membutuhkan alat tersebut. Persewaan properti, seperti apartemen atau rumah, memungkinkan individu untuk tinggal di lokasi tertentu tanpa harus berkomitmen pada pembelian jangka panjang. Dalam era modern, persewaan juga meluas ke sektor teknologi, di mana perangkat seperti komputer, kamera, dan peralatan kantor bisa disewa untuk memenuhi kebutuhan sementara atau proyek spesifik. Model bisnis persewaan ini tidak hanya memberikan kemudahan dan efisiensi, tetapi juga mendukung ekonomi berbagi yang semakin populer, di mana akses lebih diutamakan daripada kepemilikan. </field>
+        </record>
+    
+    </data>
+    
+</odoo>

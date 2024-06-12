@@ -16,6 +16,7 @@ access_karyawan_cdn_kecamatan,access_karyawan_cdn_kecamatan,model_cdn_kecamatan,
 access_karyawan_cdn_kota,access_karyawan_cdn_kota,model_cdn_kota,group_armada_karyawan,1,0,0,0
 access_karyawan_cdn_propinsi,access_karyawan_cdn_propinsi,model_cdn_propinsi,group_armada_karyawan,1,0,0,0
 access_karyawan_cdn_produk_armada,access_karyawan_cdn_produk_armada,model_cdn_produk_armada,group_armada_karyawan,1,0,0,0
+access_karyawan_cdn_deskripsi,access_karyawan_cdn_deskripsi,model_cdn_deskripsi,group_armada_karyawan,1,0,0,0
 
 
 access_spv_cdn_armada,access_spv_cdn_armada,model_cdn_armada,group_armada_spv,1,1,1,0
@@ -35,6 +36,7 @@ access_spv_cdn_desa,access_spv_cdn_desa,model_cdn_desa,group_armada_spv,1,1,1,0
 access_spv_cdn_kecamatan,access_spv_cdn_kecamatan,model_cdn_kecamatan,group_armada_spv,1,1,1,0
 access_spv_cdn_propinsi,access_spv_cdn_propinsi,model_cdn_propinsi,group_armada_spv,1,1,1,0
 access_spv_cdn_produk_armada,access_spv_cdn_produk_armada,model_cdn_produk_armada,group_armada_spv,1,1,1,0
+access_spv_cdn_deskripsi,access_spv_cdn_deskripsi,model_cdn_deskripsi,group_armada_spv,1,1,1,0
 
 
 access_admin_cdn_armada,access_admin_cdn_armada,model_cdn_armada,group_armada_admin,1,1,1,1
@@ -55,6 +57,7 @@ access_admin_cdn_kota,access_admin_cdn_kota,model_cdn_kota,group_armada_admin,1,
 access_admin_cdn_kecamatan,access_admin_cdn_kecamatan,model_cdn_kecamatan,group_armada_admin,1,1,1,1
 access_admin_cdn_propinsi,access_admin_cdn_propinsi,model_cdn_propinsi,group_armada_admin,1,1,1,1
 access_admin_cdn_produk_armada,access_admin_cdn_produk_armada,model_cdn_produk_armada,group_armada_admin,1,1,1,1
+access_admin_cdn_deskripsi,access_admin_cdn_deskripsi,model_cdn_deskripsi,group_armada_admin,1,1,1,1
 
 
 access_manage_cdn_armada,access_manager_cdn_armada,model_cdn_armada,group_armada_manager,1,1,1,1
@@ -74,3 +77,4 @@ access_manager_cdn_kota,access_manager_cdn_kota,model_cdn_kota,group_armada_mana
 access_manager_cdn_kecamatan,access_manager_cdn_kecamatan,model_cdn_kecamatan,group_armada_manager,1,1,1,1
 access_manager_cdn_propinsi,access_manager_cdn_propinsi,model_cdn_propinsi,group_armada_manager,1,1,1,1
 access_manager_cdn_produk_armada,access_manager_cdn_produk_armada,model_cdn_produk_armada,group_armada_manager,1,1,1,1
+access_manager_cdn_deskripsi,access_manager_cdn_deskripsi,model_cdn_deskripsi,group_armada_manager,1,1,1,1
