@@ -1,6 +1,7 @@
 from odoo import _, api, fields, models
 
-#Alvito
+# CREATED BY ALVITO
+# ------------------------------- HISTORY --------------------------------
 class CdnHistory(models.Model):
     _name           = 'cdn.history'
     _description    = 'Rangka & Mesin'

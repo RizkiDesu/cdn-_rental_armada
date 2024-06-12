@@ -5,7 +5,8 @@ import logging
 
 _logger = logging.getLogger(__name__)
 
-# Triadi
+# CREATED BY TRIADI
+# ------------------------------- PERAWATAN ARMADA ATAU SERVICE --------------------------------
 class CdnService(models.Model):
     _name           = 'cdn.service'
     _description    = 'Service'
@@ -36,16 +37,19 @@ class CdnService(models.Model):
     #             cek.kondisi     = False
     #     return record
 
+    
+# CREATED BY ALVITO
+# ------------------------------- UJI KIR --------------------------------
 class CdnUjiKir(models.Model):
     _name           = 'cdn.uji.kir'
     _description    = 'Cdn Uji Kir'
     _rec_name       = 'tanggal_berakhir'
     _inherit        = ['mail.thread', 'mail.activity.mixin']
 
+    foto_uji        = fields.Image('Foto Uji Kir', tracking=True)
     armada_id       = fields.Many2one(comodel_name='cdn.armada', string='Armada', required=True)
     tanggal         = fields.Date(string='Tanggal Uji Kir', tracking=True)
     tanggal_berakhir = fields.Date(string='Berlaku Sampai', tracking=True)
     deskripsi       = fields.Text(string='Deskripsi', tracking=True)
-    foto_uji        = fields.Image('Foto Uji Kir', tracking=True)
 
 

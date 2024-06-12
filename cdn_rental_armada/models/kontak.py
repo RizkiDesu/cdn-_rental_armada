@@ -1,10 +1,11 @@
 from odoo import models, fields, api
 
-# ian
+# CREATED BY IAN
+# ------------------------------- KONTAK INHERIT --------------------------------
 class ResPartner(models.Model):
    _inherit       = 'res.partner'
 
-
+   # ------------------------------- TAMBAHAN FIELD --------------------------------
    jenis_kelamin  = fields.Selection(string='Jenis Kelamin', selection=[('l', 'Laki Laki'), ('p', 'Perempuan')], tracking=True)
    no_ktp         = fields.Char(string='No KTP', tracking=True)
    umur           = fields.Integer(string='Umur', tracking=True)

@@ -2,7 +2,8 @@ from odoo import _, api, fields, models
 from datetime import date
 from dateutil import relativedelta
 
-#adi
+# CREATED TRIADI
+# ------------------------------- ARMADA --------------------------------
 class CdnArmada(models.Model):
     _name            = 'cdn.armada'
     _description     = 'Armada'
@@ -13,48 +14,47 @@ class CdnArmada(models.Model):
         ('unique_no_plat', 'Unique(no_plat)','Nomor polisi tidak boleh sama!'),
         ('unique_no_mesin', 'Unique(no_mesin)','Nomor mesin tidak boleh sama!'),
     ]
-
+    
+    # ------------------------------ ARMADA ---------------------------------------------
+    name             = fields.Char(string='Nama Armada', tracking=True)
+    foto_mobil       = fields.Binary(string='Armada', tracking=True)
     merek_id         = fields.Many2one(comodel_name='cdn.merek', string='Merek Kendaraan', tracking=True)
-    jenis_kendaraan  = fields.Many2one(comodel_name='cdn.jenis.kendaraan', string='Jenis Kendaraan', domain="[('merek_id', '=', merek_id)]", tracking=True)
     jumlah_kursi     = fields.Integer(string='Jumlah Kursi', default="2", tracking=True)
     jenis_armada     = fields.Selection(string='Jenis Armada', selection=[('bis', 'Bis Pariwisata'), ('travel', 'Travel'),('mobil', 'Mobil')], tracking=True)    
     tahun_pembuatan  = fields.Integer(string='Tahun Pembuatan', default=lambda self: date.today().year , tracking=True)
     no_plat          = fields.Char(string='Plat Nomor', tracking=True)
     no_mesin         = fields.Char(string='No Mesin', tracking=True)
     no_rangka        = fields.Char(string='No Rangka', tracking=True)
-    name             = fields.Char(string='Nama Armada', tracking=True)
-    # print(name)
-    
+    jenis_kendaraan  = fields.Many2one(comodel_name='cdn.jenis.kendaraan', string='Jenis Kendaraan', domain="[('merek_id', '=', merek_id)]", tracking=True)
 
-    history_ids      = fields.One2many(comodel_name='cdn.history', inverse_name='armada_id', string='List Armada', tracking=True)
-    
-
-    uji              = fields.Boolean(string='Uji', help="Jika aktif berarti armada dalam kondisi bagus", compute="_compute_uji" , tracking=True)
-   
-
-           
+    # ------------------------------ KONDISI ARMADA ---------------------------------------------
     kondisi          = fields.Boolean(string='Kondisi Kendaraan', help="Jika aktif berarti armada dalam kondisi bagus", compute="_compute_kondisi", tracking=True)
+    state            = fields.Selection(string='Status Armada', selection=[('tidak_siap','Tidak Siap'), ('dipakai', 'Sedang Dipakai'), ('siap', 'Siap Dipakai')])
+    priority = fields.Selection([('0', 'Normal'),('1', 'Favorite'),], default='0', string="Favorite")
 
-    foto_mobil       = fields.Binary(string='Armada', tracking=True)
-    service_ids      = fields.One2many(comodel_name='cdn.service', inverse_name='armada_id', string='List Armada')
-    ujikir_ids       = fields.One2many(comodel_name='cdn.uji.kir', inverse_name='armada_id', string='List Uji Kir')
-    hitung_service   = fields.Integer(string='Jumlah Service', compute="_compute_service_count", store=True)
-    berlaku_ujikir   = fields.Date(string='Berlaku Uji Kir', compute='_compute_tanggal_ujikir_terakhir', store=True)
-    terakhir_service = fields.Date(string='Terakhir Service', compute='_compute_tanggal_service_terakhir', store=True)
+    # CREATED ALVITO
+    # REVISI IAN
+    # ------------------------------ HISTORY ARMADA ---------------------------------------------
+    history_ids      = fields.One2many(comodel_name='cdn.history', inverse_name='armada_id', string='List Armada', tracking=True)
     tanggal_pakai    = fields.Date(string='Terakhir di pakai', compute = '_compute_tanggal_pakai', store = True)   
     km_akhir         = fields.Float(string='Kilometer Terakhir', compute = '_compute_kilometer_terakhir', store = True)   
-    state            = fields.Selection(string='Status Armada', selection=[('tidak_siap','Tidak Siap'), ('dipakai', 'Sedang Dipakai'), ('siap', 'Siap Dipakai')])
     total_jarak      = fields.Integer(string='Total Jarak (km)', compute='_compute_total_jarak', store=True)
+
+    # CREATED TRIADI
+    # REVISI RIZKI
+    # ------------------------------ SERVICE ARMADA ---------------------------------------------
+    service_ids      = fields.One2many(comodel_name='cdn.service', inverse_name='armada_id', string='List Armada')
+    hitung_service   = fields.Integer(string='Jumlah Service', compute="_compute_service_count", store=True)
+    terakhir_service = fields.Date(string='Terakhir Service', compute='_compute_tanggal_service_terakhir', store=True)
+
+    # CREATED ALVITO
+    # REVISI RIZKI
+    # ------------------------------ UJI KIR ARMADA ---------------------------------------------
+    uji              = fields.Boolean(string='Uji', help="Jika aktif berarti armada dalam kondisi bagus", compute="_compute_uji" , tracking=True)  
+    ujikir_ids       = fields.One2many(comodel_name='cdn.uji.kir', inverse_name='armada_id', string='List Uji Kir')
+    berlaku_ujikir   = fields.Date(string='Berlaku Uji Kir', compute='_compute_tanggal_ujikir_terakhir', store=True)
     hitung_ujikir    = fields.Integer(string='Jumlah Service', compute="_compute_ujikir_count", store=True)
-    priority = fields.Selection([
-        ('0', 'Normal'),
-        ('1', 'Favorite'),
-    ], default='0', string="Favorite")
-    # priority         = fields.Boolean(string='Favorit',default="True")
 
-
-
-    
     @api.model
     def create(self, vals):
         # vals['kondisi']
@@ -131,35 +131,17 @@ class CdnArmada(models.Model):
     def name_get(self):
         return [(record.id, "[ %s ][ %s ] %s %s" % (record.jenis_armada, record.no_plat, record.merek_id.name, record.jenis_kendaraan.name)) for record in self]
     
-    # rizki
-    def tombol_ujikir(self):
-        action              = self.env["ir.actions.actions"]._for_xml_id("cdn_rental_armada.cdn_uji_kir_action")
-        action['domain']    = [('armada_id', '=', self.id)]
-        action['context']   = {'default_armada_id': self.id}
-        return action
-    
-    #Alvito
-    def tombol_history(self):
+
+    def tombol_jenis(self):
         return {
-            'name': _('History Perjalanan'),
-            'res_model': 'cdn.history',
-            'view_mode': 'list,form',
-            'context': {'default_history_id':self.id},
-            'domain': [('armada_id','=',self.id)],
-            'target': 'current',
+            'name': _('Armada'),
+            'res_model': 'cdn.armada',
+            'view_mode': 'list,form,kanban',
+            'context': {'default_jenis_armada':self.jenis_armada},
+            'domain': [('jenis_armada','=',self.jenis_armada)],
             'type': 'ir.actions.act_window'
         }
-    
-    def tombol_service(self):
-        return {
-            'name': _('Perawatan Armada'),
-            'res_model': 'cdn.service',
-            'view_mode': 'list,form',
-            'context': {'default_service_id':self.id},
-            'domain': [('armada_id','=',self.id)],
-            'target': 'current',
-            'type': 'ir.actions.act_window'
-        }
+
     @api.depends('service_ids')
     def _compute_service_count(self):
         Jmlh = self.env['cdn.service']
@@ -171,34 +153,12 @@ class CdnArmada(models.Model):
         Jmlh = self.env['cdn.uji.kir']
         for rec in self:
             rec.hitung_ujikir = Jmlh.sudo().search_count([('armada_id','=',rec.id)])
-        
-    def tombol_jenis(self):
-        return {
-            'name': _('Armada'),
-            'res_model': 'cdn.armada',
-            'view_mode': 'list,form,kanban',
-            'context': {'default_jenis_armada':self.jenis_armada},
-            'domain': [('jenis_armada','=',self.jenis_armada)],
-            'type': 'ir.actions.act_window'
-        }
-        
+
     @api.depends('history_ids.jarak')
     def _compute_total_jarak(self):
         for rec in self:
             total = sum(history.jarak for history in rec.history_ids)
             rec.total_jarak = total
-
-    def action_state_siap(self) :
-        for rec in self : 
-            rec.state = 'siap'
-
-    def action_state_dipakai(self) :
-        for rec in self : 
-            rec.state = 'dipakai'
-
-    def action_state_tidak_siap(self) :
-        for rec in self : 
-            rec.state = 'tidak_siap'
             
     @api.depends('berlaku_ujikir')
     def _compute_uji(self):
@@ -228,5 +188,68 @@ class CdnArmada(models.Model):
                     is_keadaan = True
             rec.kondisi = is_keadaan
 
+    # ------------------------------ ACTION ---------------------------------------------
 
-   
+    
+    # ------------------------------ ACTION UJI KIR ---------------------------------------------
+    def tombol_ujikir(self):
+        action              = self.env["ir.actions.actions"]._for_xml_id("cdn_rental_armada.cdn_uji_kir_action")
+        action['domain']    = [('armada_id', '=', self.id)]
+        action['context']   = {'default_armada_id': self.id}
+        return action
+    
+    # CREATED ALVITO
+    # ------------------------------ ACTION HISTORY ---------------------------------------------
+    def tombol_history(self):
+        return {
+            'name': _('History Perjalanan'),
+            'res_model': 'cdn.history',
+            'view_mode': 'list,form',
+            'context': {'default_history_id':self.id},
+            'domain': [('armada_id','=',self.id)],
+            'target': 'current',
+            'type': 'ir.actions.act_window'
+        }
+
+    # CREATED TRIADI
+    # ------------------------------ ACTION SERVICE ---------------------------------------------
+    def tombol_service(self):
+        return {
+            'name': _('Perawatan Armada'),
+            'res_model': 'cdn.service',
+            'view_mode': 'list,form',
+            'context': {'default_service_id':self.id},
+            'domain': [('armada_id','=',self.id)],
+            'target': 'current',
+            'type': 'ir.actions.act_window'
+        }
+    def action_state_siap(self) :
+        for rec in self : 
+            rec.state = 'siap'
+
+    def action_state_dipakai(self) :
+        for rec in self : 
+            rec.state = 'dipakai'
+
+    def action_state_tidak_siap(self) :
+        for rec in self : 
+            rec.state = 'tidak_siap'
+
+# CREATED BY TRIADI
+# ------------------------------- JENIS ARMADA --------------------------------
+class CdnjenisKendaraan(models.Model):
+    _name        = 'cdn.jenis.kendaraan'
+    _description = 'cdn jenis kendaraan'
+
+    name         = fields.Char(string='Jenis Kendaraan', required=True)
+    merek_id     = fields.Many2one(comodel_name='cdn.merek', string='Merek')
+
+
+# CREATED BY TRIADI
+# ------------------------------- MEREK --------------------------------
+class CdnMerek(models.Model):
+    _name        = 'cdn.merek'
+    _description = 'Merek'
+    
+    name         = fields.Char(string='Nama', required=True)
+    jenis_ids    = fields.One2many(comodel_name='cdn.jenis.kendaraan', inverse_name='merek_id', string='Jenis Kendaraan')

@@ -76,7 +76,8 @@
                 </div>
             </div>
             <div class="col-md-6 bg-dark text-white p-5">
-                <form class="custom-form">
+                <!-- <form > -->
+                 <form class="custom-form" t-att-action="'/booking_save'" method="post" enctype="multipart/form-data">
                     <h3 align="center" class="text-primary">Data Booking</h3>
                         <div class="mb-3">
                             <div class="row">

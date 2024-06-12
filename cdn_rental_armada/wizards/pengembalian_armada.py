@@ -3,6 +3,8 @@ from odoo.exceptions import ValidationError
 from datetime import date
 from dateutil import relativedelta
 
+# CREATED BY IAN
+# ------------------------------- PENGEMBALIAN ARMADA --------------------------------
 class CdnPengembalianArmadaWizard(models.TransientModel):
    _name = 'cdn.pengembalian.armada.wizard'
    _description = 'cdn.pengembalian.armada.wizard'
