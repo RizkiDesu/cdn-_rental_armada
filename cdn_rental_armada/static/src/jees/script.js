@@ -102,6 +102,23 @@ odoo.define('cdn_rental_armada.location_filter', function (require) {
         })
     }
 
+    function filterProdukByJenisArmada(jenis_armada) {
+        var $produkSelect = document.getElementById('produk')
+        $produkSelect.innerHTML = ''  // Kosongkan pilihan produk yang ada
+        $produkSelect.append(new Option('', ''))  // Tambahkan opsi kosong
+
+        rpc.query({
+            route: '/get_produk_by_jenis_armada',
+            params: { 'jenis_armada': jenis_armada }
+        }).then(function(data) {
+            data.produk.forEach(function(produk) {
+                var option = new Option(produk.name, produk.id)
+                $produkSelect.append(option)
+            })
+        })
+    }
+    window.filterProdukByJenisArmada = filterProdukByJenisArmada
+
     window.filterKotaByProvinsi         = filterKotaByProvinsi
     window.filterKecamatanByKota        = filterKecamatanByKota
     window.filterDesaByKecamatan        = filterDesaByKecamatan

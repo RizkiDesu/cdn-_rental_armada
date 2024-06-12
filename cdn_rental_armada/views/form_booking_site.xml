@@ -79,27 +79,34 @@
                 <!-- <form > -->
                  <form class="custom-form" t-att-action="'/booking_save'" method="post" enctype="multipart/form-data">
                     <h3 align="center" class="text-primary">Data Booking</h3>
+                        
                         <div class="mb-3">
                             <div class="row">
+                                <!-- <div class="col-md-9">
+                                    <label for="armada" class="form-label">Jenis Armada dan Jumlah</label>
+                                    <input type="text" class="form-control" id="armada" name="armada"/>
+                                </div> -->
                                 <div class="form-group col-md-9">
                                     <label for="jenis_armada">Jenis armada</label>
                                     <div class="form-group">
-                                        <select class="form-select" id="jenis_armada" name="jenis_armada">
+                                        <select class="form-select" id="jenis_armada" name="jenis_armada" onchange="filterProdukByJenisArmada(this.value)">
                                             <option t-att-value="'bis'">Pariwisata</option>
                                             <option t-att-value="'travel'">Travel</option>
                                             <option t-att-value="'mobil'">Mobil</option>
                                         </select>
                                     </div>
                                 </div>
-                                <!-- <div class="col-md-9">
-                                    <label for="armada" class="form-label">Jenis Armada dan Jumlah</label>
-                                    <input type="text" class="form-control" id="armada" name="armada"/>
-                                </div> -->
                                 <div class="col">
                                     <label for="jmlh" class="form-label">Jumlah</label>
                                     <input type="number" class="form-control" id="jmlh" name="jmlh"/>
                                 </div>
                             </div>
+                        </div>
+                        <div class="mb-3 select2-input">
+                            <label for="produk" class="form-label">Produk</label>
+                            <select class="select2" id="produk" name="produk" >
+                                <option value=""></option>
+                            </select>
                         </div>
                         <div class="row">
                             <div class="mb-3 col">
@@ -178,7 +185,7 @@
                             </div>
                             <div class="col mb-3 select2-input">
                                 <label for="kota_tujuan" class="form-label">Kota</label>
-                                <select class=" select2" id="kota_tujuan" name="kota_tujuan" onchange="filterKecamatanByKotaTujuan(this.value)">
+                                <select class="select2" id="kota_tujuan" name="kota_tujuan" onchange="filterKecamatanByKotaTujuan(this.value)">
                                     <option t-att-value=""></option>
                                     <!-- <t t-foreach="kota_tujuan" t-as="kota_tujuan">
                                         <option t-att-value="kota_tujuan.id"><t t-esc="kota_tujuan.name"/></option>

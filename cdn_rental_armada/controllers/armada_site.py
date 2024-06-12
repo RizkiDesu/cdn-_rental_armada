@@ -76,6 +76,14 @@ class ArmadaSite(http.Controller):
         desa_records = request.env['cdn.desa'].sudo().search([('kecamatan_id', '=', int(kecamatan_id))])
         desa_data = [{'id': desa.id, 'name': desa.name} for desa in desa_records]
         return {'status': 200, 'desa': desa_data}
+        
+    #FILTER PRODUK BY JENIS ARMADA
+    @http.route('/get_produk_by_jenis_armada', type='json', auth='public')
+    def get_produk_by_jenis_armada(self, jenis_armada):
+        print(jenis_armada)
+        produk_records = request.env['product.product'].sudo().search([('jenis_armada', '=', jenis_armada)])
+        produk_data = [{'id': produk.id, 'name': produk.name} for produk in produk_records]
+        return {'status': 200, 'produk': produk_data}
     
     # ------------------------------ BOOKING SAVE ---------------------------------------------
     @http.route('/booking_save', auth='user', website=True, csrf=False, methods=['POST'])
