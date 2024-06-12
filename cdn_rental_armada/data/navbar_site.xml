@@ -1,12 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
 <odoo>
-    <data noupdate="1">
-        <record id="menu_beranda_blog" model="website.menu">
-            <field name="name">Beranda</field>
-            <field name="url">/</field>
-            <field name="parent_id" ref="website.main_menu"/>
-            <field name="sequence">10</field>
-        </record>
         <record id="menu_armada_blog" model="website.menu">
             <field name="name">Armada</field>
             <field name="url">/armada</field>
@@ -25,11 +18,4 @@
             <field name="parent_id" ref="website.main_menu"/>
             <field name="sequence">40</field>
         </record>
-        <record id="menu_contactus_blog" model="website.menu">
-            <field name="name">Contactus</field>
-            <field name="url">/contactus</field>
-            <field name="parent_id" ref="website.main_menu"/>
-            <field name="sequence">50</field>
-        </record>
-    </data>
 </odoo>
