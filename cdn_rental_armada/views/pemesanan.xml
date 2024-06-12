@@ -37,7 +37,7 @@
                   <button string="Buat Invoice" name="action_state_buat_invoice" type="object" class="oe_highlight" states="draft"/>
                   <button string="Selesai" name="action_state_selesai" type="object" class="oe_highlight" states="berjalan"/>
                   <button string="Lihat Invoice" name="action_state_lihat_invoice" type="object" class="" states="berjalan,selesai"/>
-                
+                  <!-- <button name="action_response_pembayaran" string="Response Pembayaran" type="object" class="oe_highlight" states="berjalan,selesai"/> -->
                   <field name="state" widget="statusbar" nolabel="1" statusbar_visible="draft,berjalan,selesai"/>
                </header>
                <sheet>

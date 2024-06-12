@@ -135,15 +135,16 @@ class CdnPemesanan(models.Model):
          invoice_id = self.env['account.move'].sudo().create(invoice_vals)
          self.invoice_id = invoice_id
          self.state = 'berjalan'
-         
+
+         # url = self.env['ir.config_parameter'].get_param('cdn_rental_armada.url_api')
          # data_bayar = {
-         #    "virtual_account" : ''.join(random.choices(string.digits, k=10)),
+         #    "virtual_account" : self.name,
          #    "amount" : invoice_id.amount_total,
          #    "exp_date" : fields.Date.to_string(fields.Date.today() + timedelta(days=1)),
          #    # "exp_date" : "2024-07-12",.strftime('%Y-%m-%d %H:%M:%S')
          #    "description" : "Pembayaran Invoice Pemesanan Armada"
          # }
-         # response = requests.post('http://localhost:8069/virtual_account/create', headers={'Content-Type': 'application/json'}, data=json.dumps(data_bayar))
+         # response = requests.post(url, headers={'Content-Type': 'application/json'}, data=json.dumps(data_bayar))
          # resp = response.json()
          
          # if resp['is_success'] != True:
