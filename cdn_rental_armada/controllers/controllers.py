@@ -5,6 +5,9 @@ from odoo.http import Response, request
 from odoo.loglevels import ustr
 import sys
 import json
+from datetime import date
+
+
 # http://localhost:8069/pembayaran/invoice
 class pembayaran(http.Controller):
    @http.route('/pembayaran/invoice', type='http', auth='public', website=False, methods=['POST', 'GET'], csrf=False, cors='*')
@@ -46,20 +49,31 @@ class pembayaran(http.Controller):
          # wizard.action_create_payments()
          
 
-         invoice = request.env['account.move'].sudo().search([('name', '=', datarow['va'])])
-         # akun_move.write({
-         #    'payment_state' : 'paid',
-         #    # 'amount_total'  : datarow['amount'],
-         #    'amount_residual' : 0,
-            
-         # })
-         # invoice.payment_state == 'not_paid' and invoice.state == 'posted':
-         action_data = invoice.action_register_payment()
-         invoice.payment_by_id = action_data['context']['default_journal_id'] = request.env.user.company_id.account_journal_id.id
+         invoice_id = request.env['account.move'].sudo().search([('name', '=', datarow['va'])])
+
+
+         print(invoice_id.name)
+         print(invoice_id.partner_id.name)
+         print(invoice_id.amount_total)
+         # payment.action_post()
+         payment = request.env['account.payment'].sudo().create({
+               # 'payment_type': 'outbound',  # or 'inbound'
+               # 'partner_type': 'supplier',  # or 'customer'
+               'partner_id': invoice_id.partner_id.id,  # ID of the partner
+               'amount': datarow['amount'],
+               'date': datarow['date'],
+               # 'journal_id': 1,  # ID of the payment journal
+               # 'payment_method_id': 1,  # ID of the payment method
+            })
+         payment.action_post()
+        
+         
+         # action_data = invoice.action_register_payment()
+         # invoice.payment_by_id = action_data['context']['default_journal_id'] = request.env.user.company_id.account_journal_id.id
          wizard = Form(request.env['account.payment.register'].with_context(action_data['context'])).save()
          action = wizard.action_create_payments()
-         # invoice.write({'payment_state': 'paid'})
-         success_invoice_payment.append(invoice)
+         # # invoice.write({'payment_state': 'paid'})
+         # success_invoice_payment.append(invoice)
 
       except Exception as e:
          traceback.print_exception(*sys.exc_info()) 
