@@ -37,8 +37,8 @@ class CdnService(models.Model):
     #             cek.kondisi     = False
     #     return record
 
-    
-# CREATED BY ALVITO
+
+# CREATED BY RIZKI
 # ------------------------------- UJI KIR --------------------------------
 class CdnUjiKir(models.Model):
     _name           = 'cdn.uji.kir'
