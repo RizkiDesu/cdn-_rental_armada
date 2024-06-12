@@ -6,7 +6,7 @@ class ProductProduct(models.Model):
     _inherit            = 'product.product'
     
     jenis_armada        = fields.Selection(string='Jenis Armada', selection=[('bis', 'Bis Pariwisata'), ('travel', 'Travel'),('mobil', 'Mobil')], required=True, default='mobil')
-    armada_id = fields.Integer(string='ID Armada')
+    armada_id           = fields.Integer(string='ID Armada')
 
 
 # CREATED BY TRIADI

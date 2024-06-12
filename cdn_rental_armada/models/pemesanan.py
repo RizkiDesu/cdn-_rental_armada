@@ -12,7 +12,6 @@ class CdnPemesanan(models.Model):
 
    # -------------------------------------------- RELATION PELANGGAN --------------------------------------------
    pelanggan_id         = fields.Many2one(comodel_name='res.partner', string='Pelanggan', domain=[('type_orang','=','pelanggan')])
-
    no_ktp               = fields.Char(string='No KTP', related='pelanggan_id.no_ktp')
    jalan                = fields.Char(string='Alamat', related='pelanggan_id.street')
    kota                 = fields.Char(string='Kota', related='pelanggan_id.city')
@@ -21,14 +20,12 @@ class CdnPemesanan(models.Model):
    jenis_kelamin        = fields.Selection(string='Jenis Kelamin', related='pelanggan_id.jenis_kelamin')
    umur                 = fields.Integer(string='Umur', related='pelanggan_id.umur')
 
-
    # -------------------------------------------- PENJEMPUTAN DAN TUJUAN -----------------------------------------
    propinsi             = fields.Many2one(comodel_name='cdn.propinsi', string='Provinsi')
    kota                 = fields.Many2one(comodel_name='cdn.kota', string='Kota')
    kecamatan            = fields.Many2one(comodel_name='cdn.kecamatan', string='Kecamatan')
    desa                 = fields.Many2one(comodel_name='cdn.desa', string='Desa')
    tempat_jemput        = fields.Text(string='Tempat Penjemputan')
-
    propinsi_tujuan      = fields.Many2one(comodel_name='cdn.propinsi', string='Provinsi')
    kota_tujuan          = fields.Many2one(comodel_name='cdn.kota', string='Kota')
    kecamatan_tujuan     = fields.Many2one(comodel_name='cdn.kecamatan', string='Kecamatan')
@@ -48,8 +45,8 @@ class CdnPemesanan(models.Model):
 
    # -------------------------------------------- DETAIL PEMESANAN  ------------------------------------
    name                 = fields.Char(string='No Referensi')
+   product_id           = fields.Many2one(comodel_name='product.product', string='Produk')
    produk_ids           = fields.One2many(comodel_name='cdn.pemesanan.armada', inverse_name='produk_armada_pemesanan_id', string='Daftar Produk', ondelete="cascade")
-
    invoice_id           = fields.Many2one('account.move', copy=False, string='Invoice')
    tanggal_pemesanan    = fields.Date(string='Tanggal Pemesanan', default=date.today())
    total_harga          = fields.Float(string='Total', compute='_compute_total')
@@ -168,9 +165,9 @@ class CdnPemesanan(models.Model):
 # CREATED BY IAN
 # -------------------------------------------- PEMESANAN LINE ---------------------------------------------------------------
 class CdnPemesananArmada(models.Model):
-   _name        = 'cdn.pemesanan.armada'
-   _description = 'cdn.pemesanan.armada'
-   _rec_name = 'armada_id'
+   _name          = 'cdn.pemesanan.armada'
+   _description   = 'cdn.pemesanan.armada'
+   _rec_name      = 'armada_id'
    
    # -------------------------------------------- ARMADA ----------------------------------------------------------------------------
    gambar_mobil               = fields.Image('Gambar', related='armada_id.foto_mobil') 
@@ -179,7 +176,8 @@ class CdnPemesananArmada(models.Model):
    # -------------------------------------------- RELATION PEMESANAN ---------------------------------------------------------------
    produk_armada_pemesanan_id = fields.Many2one(comodel_name='cdn.pemesanan', string='Armada Pemesanan')
    pelanggan_id               = fields.Many2one(related='produk_armada_pemesanan_id.pelanggan_id', store=True)
-   produk_id                  = fields.Many2one(comodel_name='product.product', string='Produk')
+   produk_id                  = fields.Many2one(comodel_name='product.product', string='Produk', compute='_onchange_produk_armada_pemesanan_id', store=True)
+   # produk_id                  = fields.Many2one(relate='produk_armada_pemesanan_id.product_id', store=True)
    supir                      = fields.Many2one(comodel_name='cdn.supir', string='Supir')
    tenaga_bantuan             = fields.Many2one(comodel_name='cdn.tenaga.bantu', string='Tenaga Bantuan')
 
@@ -193,7 +191,13 @@ class CdnPemesananArmada(models.Model):
                                                                                  ('dikembalikan', 'Telah Kembali'), 
                                                                                  ('dikembalikan_denda', 'Telah Kembali (Denda)'),], 
                                                                                     default="siap")
-                                                                        
+
+                                                                                    
+   @api.onchange('produk_armada_pemesanan_id','produk_armada_pemesanan_id.jenis_armada','product_id.product_id')
+   def _onchange_produk_armada_pemesanan_id(self):
+      for rec in self:
+         rec.produk_id = rec.produk_armada_pemesanan_id.product_id.id
+
    @api.onchange('produk_id')
    def _onchange_subtotal(self):
       for rec in self:
