@@ -23,7 +23,7 @@ class ArmadaSite(http.Controller):
 
 
     # ------------------------------ BOOKING ---------------------------------------------
-    @http.route('/form_booking' , auth='public', website=True)
+    @http.route('/form_booking' , auth='user', website=True)
     def Produk(self, **kw):
         var = {
             'provinsi': request.env['cdn.propinsi'].sudo().search([]),
@@ -78,7 +78,7 @@ class ArmadaSite(http.Controller):
         return {'status': 200, 'desa': desa_data}
     
     # ------------------------------ BOOKING SAVE ---------------------------------------------
-    @http.route('/booking_save', auth='public', website=True, csrf=False, methods=['POST'])
+    @http.route('/booking_save', auth='user', website=True, csrf=False, methods=['POST'])
     def save_booking(self, **kw):
         print(kw) 
         # RESPON DARI KW

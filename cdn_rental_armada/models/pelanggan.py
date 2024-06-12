@@ -45,6 +45,7 @@ class CdnPelanggan(models.Model):
                 'name': rec.name,
                 'login': rec.email,
                 'email': rec.email,
+                'partner_id': rec.partner_id.id,
                 'password': rec.no_ktp,
                 'groups_id': [(6, 0, [portal_group.id])],
             })
