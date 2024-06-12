@@ -5,9 +5,9 @@ from odoo.http import Response, request
 from odoo.loglevels import ustr
 import sys
 import json
-
+# http://localhost:8069/pembayaran/invoice
 class pembayaran(http.Controller):
-   @http.route('/pembayaran/tes', type='http', auth='public', website=False, methods=['POST', 'GET'], csrf=False, cors='*')
+   @http.route('/pembayaran/invoice', type='http', auth='public', website=False, methods=['POST', 'GET'], csrf=False, cors='*')
    def tes(self, **kwargs):
       try:
          i_param   = request.get_json_data()
@@ -23,7 +23,22 @@ class pembayaran(http.Controller):
             'date'          : i_date,
             'kode_p'        : i_kp,
          }
+         print(datarow)
 
+
+         # invoices = http.request.env['account.move'].search([('name', '=', datarow['va'])])
+         # if not invoices:
+         #    raise UserError("Invoice with name {} not found.".format(datarow['va']))
+         # wizard = http.request.env['account.payment.register'].create({})
+         # wizard.invoice_ids = [(6, 0, invoices.ids)]
+         # wizard.action_create_payments()
+         
+
+         # akun_move = request.env['account.move'].sudo().search([('name', '=', datarow['va'])])
+         # akun_move.write({
+         #    'payment_state' : 'paid',
+         #    
+         # })
       except Exception as e:
          traceback.print_exception(*sys.exc_info()) 
          datarow['is_success']   = ustr(e)

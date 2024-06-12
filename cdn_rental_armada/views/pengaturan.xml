@@ -91,6 +91,17 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="col-xs-12 col-md-6 o_setting_box">
+                                <div class="o_setting_right_pane border-start-0">
+                                    <div class="content-group">
+                                        <div class="row mt8">
+                                            <label class="col-lg-3" string="Url Api" for="url_api">Url Api</label>
+                                            <field id="url_api" name="url_api" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
                         </div>
 
                     </div>

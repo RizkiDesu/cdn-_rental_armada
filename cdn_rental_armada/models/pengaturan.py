@@ -11,8 +11,8 @@ class ResConfigSetting(models.TransientModel):
     headline        = fields.Char(string='Headline', config_parameter="cdn_rental_armada.headline", default="50%")
     deskripsi_event = fields.Char(string='Deskripsi Event', config_parameter="cdn_rental_armada.event", default="event persewaan")
     tanggal_event   = fields.Datetime(string='Tanggal Event', config_parameter="cdn_rental_armada.tanggal_event")
-    pelayanan       = fields.Many2many(comodel_name='cdn.your.service', string='pelayanan', config_parameter="cdn_rental_armada.pelayanan")
-    
+    # pelayanan       = fields.Many2many(comodel_name='cdn.your.service', string='pelayanan', config_parameter="cdn_rental_armada.pelayanan")
+    url_api         = fields.Char(string='URL API', config_parameter="cdn_rental_armada.url_api" , default="http://localhost:8069/virtual_account/create")
 
 
 class CdnYourService(models.Model):
