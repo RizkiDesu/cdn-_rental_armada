@@ -190,7 +190,7 @@ class CdnArmada(models.Model):
 
     # ------------------------------ ACTION ---------------------------------------------
 
-    
+    # CREATED RIZKI
     # ------------------------------ ACTION UJI KIR ---------------------------------------------
     def tombol_ujikir(self):
         action              = self.env["ir.actions.actions"]._for_xml_id("cdn_rental_armada.cdn_uji_kir_action")
