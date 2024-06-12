@@ -1,9 +1,7 @@
 from odoo import _, api, fields, models
-import time
-import requests
-import json
-import random
-import string
+import xlsxwriter
+import os
+import base64
 
 class WizardArmadaTersedia(models.TransientModel):
     _name = 'wizard.armada.tersedia'
@@ -11,70 +9,92 @@ class WizardArmadaTersedia(models.TransientModel):
     
     jenis_armada = fields.Selection(string='Jenis Armada', selection=[('bis', 'Bis Pariwisata'), ('travel', 'Travel'), ('mobil', 'Mobil')], tracking=True)    
     state = fields.Selection(string='Status Armada', selection=[('tidak_siap', 'Tidak Siap'), ('dipakai', 'Sedang Dipakai'), ('siap', 'Siap Dipakai')])
+    file_export_name = fields.Char(string='Nama File')
+    file_export_data      = fields.Binary(string='File Export')
+    
     
     def export_excel(self):
-        excel_path = 'ARMADA_EXCEL.xlsx'
+        file_name = f"{self.jenis_armada}_{self.state}"
 
-        # path_module         = os.path.dirname(os.path.realpath(__file__))
-        # file_name           = path_module + '\\temp.xlsx'
-        workbook            = xlsxwriter.Workbook(excel_path)
+        # Determine the file path
+        path_module = os.path.dirname(os.path.realpath(__file__))
+        file_path = os.path.join(path_module, file_name)
 
-        cell_format         = workbook.add_format()
-        cell_format.set_align('center')
-        cell_format.set_font_size(15)
-        cell_format.set_bold()
-        # worksheet.merge_range('A1:G1', 'Laporan .....', cell_format)
-        worksheet = workbook.add_worksheet()
-        worksheet.set_column('A:A', 15)
-        worksheet.set_column('B:B', 20)
+        # Create an Excel file
+        with xlsxwriter.Workbook(file_path) as workbook:
+            cell_format = workbook.add_format()
+            worksheet = workbook.add_worksheet()
+            cell_format.set_align('center')
+            cell_format.set_valign('center')
+            cell_format.set_font_size(10)
+            # cell_format.set_bold()
+            cell_format.set_border(1)
 
-        worksheet.write('A9', 'No',             cell_format)
-        worksheet.write('B9', 'Field 1',        cell_format)
-        worksheet.write('C9', 'Field 2',        cell_format)
+            cell_format1 = workbook.add_format({
+                'align': 'center',
+                'valign': 'vcenter',
+                'font_size': 10,
+                'bold': True,
+                'border': 1,
+                'bg_color': '#30649c',
+                'locked': True,
+                'font_color': 'white'
+            })
+            worksheet.merge_range('A2:I3', 'RENTAL ARMADA', cell_format1)
+            worksheet.write('A4', 'No', cell_format)
+            worksheet.write('B4', 'Nama Armada', cell_format)
+            worksheet.write('C4', 'Plat Nomor', cell_format)
+            worksheet.write('D4', 'Merek', cell_format)
+            worksheet.write('E4', 'Jenis Kendaraan', cell_format)
+            worksheet.write('F4', 'No Rangka', cell_format)
+            worksheet.write('G4', 'Tahun Pembuatan', cell_format)
+            worksheet.write('H4', 'State', cell_format)
+            worksheet.write('I4', 'Terakhir Service', cell_format)
+            worksheet.freeze_panes(4, 0)  # Membekukan baris pertama
 
-        # set cell lainnya ....
+            armada = self.env['cdn.armada'].search([('jenis_armada', '=', self.jenis_armada),('state', '=', self.state)])  # Change domain if needed
+            
+            # Write data
+            row = 4
+            no = 1
+            for kendaraan in armada:
+                worksheet.write(row, 0, no, cell_format)
+                worksheet.write(row, 1, "{} {}".format(kendaraan.merek_id.name, kendaraan.jenis_kendaraan.name), cell_format) # model cdn.merek dan cdn kendaraan
+                worksheet.write(row, 2, kendaraan.no_plat, cell_format)
+                worksheet.write(row, 3, kendaraan.merek_id.name, cell_format)
+                worksheet.write(row, 4, kendaraan.jenis_armada, cell_format)
+                worksheet.write(row, 5, kendaraan.no_rangka, cell_format)
+                worksheet.write(row, 6, kendaraan.tahun_pembuatan, cell_format)
+                worksheet.write(row, 7, kendaraan.state, cell_format)
+                worksheet.write(row, 8, kendaraan.terakhir_service, cell_format)
+                row += 1
+                no += 1
+        # Read the file and encode it to base64
+        with open(file_path, 'rb') as file:
+            file_data = file.read()
+            encoded_file_data = base64.b64encode(file_data).decode('utf-8')
 
-        workbook.close()
+        # Save the file data to the record
+        self.write({
+            'file_export_name': file_name,
+            'file_export_data': encoded_file_data,
+        })
 
-        with open(excel_path, 'rb') as file:
-            file_base64 = base64.b64encode(file.read())
+        # Optionally, remove the temporary file
+        os.remove(file_path)
 
-        self.write({'file_export': file_base64})
-
-        if os.path.exists(excel_path):
-            os.remove(excel_path)
-        
         return {
-            'type'      : 'ir.actions.act_url',
-            'target'    : 'self',
-            'url'       : '/web/binary/download_document?model={}&field=file_export&id={}&file_name={}'.format(
-                self._name,
-                self.id, 
-                self.file_export_name
-            )
+            'type': 'ir.actions.act_url',
+            'url': '/web/content/?model=wizard.armada.tersedia&id={}&field=file_export_data&filename_field=file_export_name&download=true'.format(self.id),
+            'target': 'self',
         }
-      # source_data = {
-      #    "virtual_account" : ''.join(random.choices(string.digits, k=10)),
-      #    "amount" : "900000",
-      #    "exp_date" : "2024-07-12",
-      #    "description" : "awokaowdkoa"
-      # }
-      # headers = {'Content-Type': 'application/json'}
-      # response = requests.post('{}/virtual_account/create'.format('http://localhost:8069'), headers={'Content-Type': 'application/json'}, data=json.dumps(source_data))
-      # print(response)
-      # print(response.json()['is_success'])
 
-      # pass
-      # return {
-      #    'type': 'ir.actions.client',
-      #    'tag': 'display_notification',
-      #    'params': {
-      #       'title': 'Berhasil',
-      #       'type': 'success',
-      #       'message': 'Armada telah kembali',
-      #       'sticky': False,
-      #       'next' : {
-      #             'type' : 'ir.actions.act_window_close'
-      #       }
-      #    }
-      # }
+    def export_pdf(self):
+        domain = [('state', '=', self.state), ('jenis_armada', '=', self.jenis_armada)]
+        records = self.env['cdn.armada'].search(domain)
+        data = {
+            'model': 'cdn.armada',
+            'form': self.read()[0],
+            'docs': records.ids
+        }
+        return self.env.ref('cdn_rental_armada.report_armada_semua').report_action(self, data=data)

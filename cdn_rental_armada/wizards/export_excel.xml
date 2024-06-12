@@ -15,10 +15,11 @@
                             <field name="state"/>
                         </group>
                     </sheet>
-                    <footer>
-                            <button string="Submit" name="export_excel" type="object" class="oe_highlight"/>
-                            <button special="cancel" string="Tutup" type="object"/>
-                    </footer>
+                <footer>
+                        <button string="Excel" name="export_excel" type="object" class="oe_highlight"/>
+                        <button string="Pdf" name="export_pdf" type="object" class="oe_highlight"/>
+                        <button special="cancel" string="Tutup" type="object"/>
+                </footer>
                 </form>
             </field>
         </record>
