@@ -74,7 +74,7 @@
                         <field name="tanggal_pemesanan" readonly="True" force_save="1" attrs="{'readonly': [('state','!=','draft')]}"/>
                         <field name="durasi" force_save="1" attrs="{'readonly': [('state','!=','draft')]}"/>
                         <!-- <field name="total_harga"/> -->
-                        <field name="jumlah_armada"/>
+                        <field name="jumlah_armada"  attrs="{'readonly': [('state','!=','draft')]}" />
                      </group>
                      <group>
                         <field name="tanggal_dipakai" attrs="{'readonly': [('state','!=','draft')]}"/>
