@@ -124,6 +124,8 @@ class ArmadaSite(http.Controller):
             'tanggal_dipakai': kw.get('tanggal'),
             'durasi'        : kw.get('durasi'),
 
+            'product_id'    : kw.get('produk'),
+
             'tempat_jemput' : kw.get('alamat-penjemputan'),
             'propinsi'      : kw.get('provinsi'),
             'kota'          : kw.get('kota'),
