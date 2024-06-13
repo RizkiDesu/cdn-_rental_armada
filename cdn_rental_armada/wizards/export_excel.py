@@ -93,15 +93,32 @@ class WizardArmadaTersedia(models.TransientModel):
 
     def generated_data(self):
         armada_list = []
-        armada = self.env["cdn.armada"].search_read(fields=["id", "name"])
-        for rec in armada:
-            armada_list.append(rec)
+        armada = self.env['cdn.armada'].search([('jenis_armada', '=', self.jenis_armada),('state', '=', self.state)])
+        for kendaraan in armada:
+            armada_list.append({
+                'id': kendaraan.id,
+                'jenis_kendaraan': kendaraan.jenis_kendaraan.name,
+                # 'nama_armada': "{} {}".format(kendaraan.merek_id.name, kendaraan.jenis_kendaraan.name),
+                'plat_nomor': kendaraan.no_plat,
+                'merek': kendaraan.merek_id.name,
+                'no_rangka': kendaraan.no_rangka,
+                'jenis_armada': kendaraan.jenis_armada, # 'jenis_armada': 'bis', 'travel', 'mobil
+                'tahun_pembuatan': kendaraan.tahun_pembuatan,
+                'state': kendaraan.state,
+                'jumlah_kursi': kendaraan.jumlah_kursi,
+                'terakhir_service': kendaraan.terakhir_service,
+            })
+
         return armada_list
 
     def export_pdf(self):
+        datas = self.generated_data()
+        # data = datas[0]
         data = {
-            "armadas": self.generated_data(),
+            "armadas": datas,
         }
-        return self.env.ref(
-            "cdn_rental_armada.report_armada_semua"
-        ).report_action(self, data=data)
+        print(data)
+        # return self.env.ref(
+        #     "cdn_rental_armada.report_armada_semua"
+        # ).report_action(self, data=data)
+        return self.env.ref('cdn_rental_armada.report_armada_semua').report_action(self, data=data)

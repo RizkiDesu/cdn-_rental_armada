@@ -25,16 +25,34 @@
                             </tr>
                         </thead>
                         <tbody>
-                        <t t-foreach="armadas" t-as="o">
+                        <t t-foreach="armadas" t-as="line">
                             <tr>
-                                <td style="padding: 2px;" width="50%" ><t t-esc="o"/></td>
-                                <!-- <td style="padding: 2px;" width="50%" ><span t-esc="o.jenis_armada"/></td> -->
-                                <!-- <td style="padding: 2px;" width="50%" ><span t-esc="o['merek_id']"/></td> -->
-                                <!-- <td style="padding: 2px;" width="50%" ><span t-esc="o['jenis_kendaraan']"/></td> -->
-                                <!-- <td style="padding: 2px;" width="50%" ><span t-esc="o.jumlah_kursi"/></td>
-                                <td style="padding: 2px;" width="50%" ><span t-esc="o.tahun_pembuatan"/></td>
-                                <td style="padding: 2px;" width="50%" ><span t-esc="o.no_plat"/></td>
-                                <td style="padding: 2px;" width="50%" ><span t-esc="o.state"/></td> -->
+                                <td style="padding: 2px;" width="50%" >
+                                    <t t-esc="line['id']"/>
+                                </td>
+                                <td style="padding: 2px;" width="50%" >
+                                    <t t-esc="line['jenis_armada']"/>
+                                </td>
+                                <td style="padding: 2px;" width="50%" >
+                                    <t t-esc="line['merek']"/>
+                                </td>
+                                <td style="padding: 2px;" width="50%" >
+                                    <t t-esc="line['jenis_kendaraan']"/>
+                                </td>
+                                <td style="padding: 2px;" width="50%" >
+                                    <t t-esc="line['jumlah_kursi']"/>
+                                </td>
+                                <td style="padding: 2px;" width="50%" >
+                                    <t t-esc="line['tahun_pembuatan']"/>
+                                </td>
+                                <td style="padding: 2px;" width="50%" >
+                                    <t t-esc="line['plat_nomor']"/>
+                                </td>
+                                <td style="padding: 2px;" width="50%" >
+                                    <t t-esc="line['state']"/>
+                                </td>
+                                
+                                
                             </tr>
                         </t>
                         </tbody>
