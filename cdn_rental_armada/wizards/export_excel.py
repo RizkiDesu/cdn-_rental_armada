@@ -91,12 +91,17 @@ class WizardArmadaTersedia(models.TransientModel):
             'target': 'self',
         }
 
+    def generated_data(self):
+        armada_list = []
+        armada = self.env["cdn.armada"].search_read(fields=["id", "name"])
+        for rec in armada:
+            armada_list.append(rec)
+        return armada_list
+
     def export_pdf(self):
-        domain = [('state', '=', self.state), ('jenis_armada', '=', self.jenis_armada)]
-        records = self.env['cdn.armada'].search(domain)
         data = {
-            'model': 'cdn.armada',
-            'form': self.read()[0],
-            'docs': records.ids
+            "armadas": self.generated_data(),
         }
-        return self.env.ref('cdn_rental_armada.report_armada_semua').report_action(self, data=data)
+        return self.env.ref(
+            "cdn_rental_armada.report_armada_semua"
+        ).report_action(self, data=data)
