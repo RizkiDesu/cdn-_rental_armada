@@ -2,6 +2,7 @@ from odoo import _, api, fields, models
 import xlsxwriter
 import os
 import base64
+from datetime import date
 
 # CREATED BY TRIADI
 # ------------------------------- WIZARD ARMADA TERSEDIA EXPORT EXCEL --------------------------------
@@ -116,6 +117,9 @@ class WizardArmadaTersedia(models.TransientModel):
         # data = datas[0]
         data = {
             "armadas": datas,
+            "jenis" : self.jenis_armada,
+            "state" : self.state,
+            "tanggal" : date.today()
         }
         print(data)
         # return self.env.ref(
