@@ -13,7 +13,7 @@
     'website': 'https://www.website.com',
     'license': 'AGPL-3',
     
-    'depends': ['base', 'mail','product', 'account', 'sale', 'stock','website' ],
+    'depends': ['base', 'web', 'mail','product', 'account', 'sale', 'stock','website' ],
     
     'data': [
         'security/group.xml',
@@ -78,6 +78,12 @@
         'demo/demo.xml',
     ],
     'assets': {
+        'web.assets_backend': [
+            '/cdn_rental_armada/static/src/jees/peta.js',
+            'https://unpkg.com/leaflet/dist/leaflet.css',
+            'https://unpkg.com/leaflet/dist/leaflet.js',
+            '/cdn_rental_armada/static/src/xml/peta.xml',
+        ],
         'web.assets_frontend': [
             '/cdn_rental_armada/static/src/css/bootstrap.min.css',
             'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css',
