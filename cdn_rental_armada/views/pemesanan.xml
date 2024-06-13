@@ -89,6 +89,7 @@
                         <field name="kota" domain="[('propinsi_id', '=', propinsi)]"  attrs="{'readonly': [('state','!=','draft')]}"/>
                         <field name="kecamatan" domain="[('kota_id', '=', kota)]"  attrs="{'readonly': [('state','!=','draft')]}"/>
                         <field name="desa" domain="[('kecamatan_id', '=', kecamatan)]"  attrs="{'readonly': [('state','!=','draft')]}"/>
+                        <field name="peta_penjemputan" widget="peta_widget" attrs="{'readonly': [('state','!=','draft')]}"/>
                      </group>
                      <group name="tujuan" string="Tujuan">
                         <field name="tujuan"  attrs="{'readonly': [('state','=','terekam')]}"/>
@@ -96,6 +97,7 @@
                         <field name="kota_tujuan" domain="[('propinsi_id', '=', propinsi_tujuan)]" attrs="{'readonly': [('state','=','terekam')]}"/>
                         <field name="kecamatan_tujuan" domain="[('kota_id', '=', kota_tujuan)]" attrs="{'readonly': [('state','=','terekam')]}"/>
                         <field name="desa_tujuan" domain="[('kecamatan_id', '=', kecamatan_tujuan)]" attrs="{'readonly': [('state','=','terekam')]}"/>
+                        <field name="peta_tujuan" widget="peta_widget" attrs="{'readonly': [('state','=','terekam')]}"/>
 
                      </group>
                   </group>

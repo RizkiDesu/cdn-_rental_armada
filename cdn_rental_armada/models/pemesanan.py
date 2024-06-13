@@ -54,6 +54,11 @@ class CdnPemesanan(models.Model):
    durasi               = fields.Integer(string='Durasi Sewa / hari', help='Berapa lama?', default="1")
    tanggal_kembali      = fields.Date( string='Tanggal Kembali')
    jumlah_armada        = fields.Integer(string='Jumlah Pesanan Armada', default="1", help='Berapa banyak armada yang disewa?')
+   
+   # -------------------------------------------- DETAIL PEMESANAN  ------------------------------------
+   peta_penjemputan     = fields.Char(string='Peta Penjemputan')
+   peta_tujuan          = fields.Char(string='Peta Tujuan')
+   
 
    # -------------------------------------------- METHOD ---------------------------------------------------
    @api.onchange('durasi','tanggal_dipakai')
