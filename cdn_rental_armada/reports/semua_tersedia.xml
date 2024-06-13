@@ -1,63 +1,122 @@
 <?xml version='1.0' encoding='utf-8'?>
 <odoo>
     <template id="semua_tersedia">
-            <t t-call="web.basic_layout">
-                <div class="page">
-                    <style>
-                     table, tr, td {
-                        border: 1px solid #000;
-                        border-collapse: collapse;
-                     }
-                    </style>
-                    <h2 align="center">Armada Tersedia</h2>
-                    <table class="table table-condensed">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th><span>Jenis<b style="color:white">_</b>Armada</span></th>
-                                <th><span>Merek</span></th>
-                                <th><span>Jenis<b style="color:white">_</b>Kendaraan</span></th>
-                                <th><span>Jumlah<b style="color:white">_</b>Kursi</span></th>
-                                <th><span>Tahun<b style="color:white">_</b>Pembuatan</span></th>
-                                <th><span>Plat<b style="color:white">_</b>Nomor</span></th>
-                                <th><span>Status<b style="color:white">_</b>Armada</span></th>
-                                <!-- Add other headers as needed -->
+        <t t-call="web.basic_layout">
+            <div class="page">
+                <style>
+                    body {
+                        font-family: Arial, sans-serif;
+                        margin: 20px;
+                        font-size: 20px;
+                        flex-direction: column;
+                        min-height: 100vh;
+                    }
+                    .header {
+                        text-align: center;
+                        margin-bottom: 20px;
+                    }
+                    .header h1 {
+                        font-size: 24px;
+                        margin: 0;
+                    }
+                    .header p {
+                        margin: 0;
+                    }
+                    table {
+                        border-collapse: collapse !important;
+                        width: 100% ;
+
+                        }
+                    td, th {
+                    border: 1px solid #dddddd !important;
+                    text-align: center;
+                    padding: 8px;
+                    }
+                    tr:nth-child(even) {
+                        background-color: #dddddd;
+                        }
+                
+                    .footer {
+                       margin-top: auto;
+                       margin-bottom : -10rem;
+                    }
+                    .invi {
+                        border: 1px solid white !important;
+                        border-collapse: collapse !important;
+                        font-weight: bold;
+                    }
+                    .thead {
+                        background-color: #004e70 !important;
+                        color : white;
+                    }
+                    .invi2 {
+                        background-color: white;
+                        border: 1px solid white !important;
+                        border-collapse: collapse !important;
+                        font-weight: bold;
+                        text-align: left;
+
+                    }
+                </style>
+                <div class="header">
+                    <img t-att-src="'/cdn_rental_armada/static/img/report_head.png'" width="100%" alt="header"/>
+                </div>
+                <!-- <div style="margin-bottom: 5rem;">
+                <b style="color:white">_</b>
+                </div> -->
+                <div class="row" style="margin-bottom: 1rem;">
+                    <table class="invi2">
+                        <tbody class="invi2">
+                            <tr class="invi2">
+                                <td class="invi2">Jenis Armada</td>
+                                <td class="invi2">: <t t-esc="jenis"/></td>
+                                <td class="invi2"></td>
+                                <td class="invi2" style="text-align: center">Tanggal Cetak</td>
                             </tr>
-                        </thead>
-                        <tbody>
-                        <t t-foreach="armadas" t-as="line">
                             <tr>
-                                <td style="padding: 2px;" width="50%" >
-                                    <t t-esc="line['id']"/>
-                                </td>
-                                <td style="padding: 2px;" width="50%" >
-                                    <t t-esc="line['jenis_armada']"/>
-                                </td>
-                                <td style="padding: 2px;" width="50%" >
-                                    <t t-esc="line['merek']"/>
-                                </td>
-                                <td style="padding: 2px;" width="50%" >
-                                    <t t-esc="line['jenis_kendaraan']"/>
-                                </td>
-                                <td style="padding: 2px;" width="50%" >
-                                    <t t-esc="line['jumlah_kursi']"/>
-                                </td>
-                                <td style="padding: 2px;" width="50%" >
-                                    <t t-esc="line['tahun_pembuatan']"/>
-                                </td>
-                                <td style="padding: 2px;" width="50%" >
-                                    <t t-esc="line['plat_nomor']"/>
-                                </td>
-                                <td style="padding: 2px;" width="50%" >
-                                    <t t-esc="line['state']"/>
-                                </td>
-                                
-                                
+                                <td class="invi2">Status</td>
+                                <td class="invi2">: <t t-esc="state"/></td>
+                                <td class="invi2"></td>
+                                <td class="invi2" style="text-align: center"><t t-esc="tanggal"/></td>
                             </tr>
-                        </t>
                         </tbody>
                     </table>
                 </div>
-            </t>
-        </template>
+                <table class="table invi" style="margin-bottom: 5rem;">
+                        <tr class="invi thead ">
+                            <th class="invi thead">No</th>
+                            <th class="invi thead">No. Polisi</th>
+                            <th class="invi thead">Nama Kendaraan</th>
+                            <th class="invi thead">Jumlah Kursi</th>
+                            <th class="invi thead">Tahun Pembuatan</th>
+                        </tr>
+                        <t t-foreach="armadas" t-as="line">
+                            <tr>
+                                <td style="padding: 2px;">
+                                    <t t-esc="line['id']"/>
+                                </td>
+                                <td style="padding: 2px;">
+                                    <t t-esc="line['plat_nomor']"/>
+                                </td>
+                                <td style="padding: 2px;"> 
+                                    <t t-esc="line['merek']"/>
+                                    <t t-esc="line['jenis_kendaraan']"/>
+                                </td>
+                                <td style="padding: 2px;">
+                                    <t t-esc="line['jumlah_kursi']"/>
+                                </td>
+                                <td style="padding: 2px;">
+                                    <t t-esc="line['tahun_pembuatan']"/>
+                                </td>
+                            </tr>
+                        </t>
+                </table>
+                <div class="address">
+                </div>
+                <div class="footer">
+                    <img t-att-src="'/cdn_rental_armada/static/img/report_foot.png'" width="100%" alt="div"/>
+                </div>
+            </div>
+        </t>
+    </template>
 </odoo>
