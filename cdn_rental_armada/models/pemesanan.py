@@ -55,7 +55,7 @@ class CdnPemesanan(models.Model):
    tanggal_kembali      = fields.Date( string='Tanggal Kembali')
    jumlah_armada        = fields.Integer(string='Jumlah Pesanan Armada', default="1", help='Berapa banyak armada yang disewa?')
    
-   # -------------------------------------------- DETAIL PEMESANAN  ------------------------------------
+   # -------------------------------------------- KATAKAN PETA !!! ------------------------------------
    peta_penjemputan     = fields.Char(string='Peta Penjemputan')
    peta_tujuan          = fields.Char(string='Peta Tujuan')
    
