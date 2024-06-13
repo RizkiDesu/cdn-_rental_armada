@@ -70,11 +70,11 @@
                   <group string="Pemesanan">
                      <group>
                         <field name="jenis_armada" attrs="{'readonly': [('state','=','selesai')]}"/>
-                        <field name="product_id" domain="[('jenis_armada', '=', jenis_armada)]"/>
+                        <field name="product_id" domain="[('jenis_armada', '=', jenis_armada)]" attrs="{'readonly': [('state','=','selesai')]}"/>
                         <field name="tanggal_pemesanan" readonly="True" force_save="1" attrs="{'readonly': [('state','=','selesai')]}"/>
                         <field name="durasi" force_save="1" attrs="{'readonly': [('state','=','selesai')]}"/>
                         <!-- <field name="total_harga"/> -->
-                        <field name="jumlah_armada"/>
+                        <field name="jumlah_armada" attrs="{'readonly': [('state','=','selesai')]}"/>
                      </group>
                      <group>
                         <field name="tanggal_dipakai" attrs="{'readonly': [('state','!=','draft')]}"/>
