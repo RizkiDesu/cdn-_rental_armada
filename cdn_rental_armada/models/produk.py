@@ -15,6 +15,7 @@ class ProductProduct(models.Model):
 class CdnProdukArmada(models.Model):
     _name = 'cdn.produk.armada'
     _description = 'Cdn Produk Armada'
+    _inherit        = ['mail.thread', 'mail.activity.mixin']
 
     @tools.ormcache()
     def _get_default_uom_id(self):
@@ -22,22 +23,22 @@ class CdnProdukArmada(models.Model):
         return self.env.ref('uom.product_uom_day')
     
     # ------------------------------- PRODUK --------------------------------
-    name = fields.Char(string='Nama Produk')
-    lst_price = fields.Float(string='Harga')
-    taxes_id = fields.Many2many(comodel_name='account.tax', string='Pajak')
-    images = fields.Image('image')
-    description = fields.Text(string='Deskripsi')
-    jenis_armada = fields.Selection(string='Jenis Armada', selection=[('bis', 'Bis Pariwisata'), ('travel', 'Travel'),('mobil', 'Mobil')])
+    name = fields.Char(string='Nama Produk', tracking=True) 
+    lst_price = fields.Float(string='Harga', tracking=True)
+    taxes_id = fields.Many2many(comodel_name='account.tax', string='Pajak', tracking=True)
+    images = fields.Image('image', tracking=True)
+    description = fields.Text(string='Deskripsi', tracking=True)
+    jenis_armada = fields.Selection(string='Jenis Armada', selection=[('bis', 'Bis Pariwisata'), ('travel', 'Travel'),('mobil', 'Mobil')], tracking=True)
     uom_id = fields.Many2one(comodel_name='uom.uom', string='Unit of Measure',
                             default=_get_default_uom_id, required=True,
-                            help="Default unit of measure used for all stock operations.")
+                            help="Default unit of measure used for all stock operations.", tracking=True)
 
     # CREATED BY TRIADI
     # ------------------------------- PRIORITASKAN PRODUK --------------------------------
     priority = fields.Selection([
                         ('0', 'Normal'),
                         ('1', 'Favorite'),
-                    ], default='0', string="Favorite")
+                    ], default='0', string="Favorite", tracking=True)
                     
     # CREATED BY RIZKI
     # ------------------------------- AUTO CREATE PRODUCT --------------------------------
