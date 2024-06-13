@@ -85,6 +85,16 @@
                                 <div class="o_setting_right_pane border-start-0">
                                     <div class="content-group">
                                         <div class="row mt8">
+                                            <label class="col-lg-3" string="Deskripsi Detail" for="deskripsi_id">Deskripsi Detail</label>
+                                            <field id="deskripsi_id" name="deskripsi_id" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-md-6 o_setting_box">
+                                <div class="o_setting_right_pane border-start-0">
+                                    <div class="content-group">
+                                        <div class="row mt8">
                                             <label class="col-lg-3" string="Tanggal Event" for="tanggal_event">Tanggal Event</label>
                                             <field id="tanggal_event" name="tanggal_event" />
                                         </div>

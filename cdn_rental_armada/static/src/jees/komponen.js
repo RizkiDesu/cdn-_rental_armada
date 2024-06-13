@@ -1,36 +1,21 @@
-/** @odoo-module **/
-import { registry } from '@web/core/registry';
+odoo.define('cdn_rental_armada.MyWidget', function (require) {
+    "use strict";
 
-const {
-    Component,
-    onMounted,
-    onWillUnmount,
-    useRef,
-} = owl;
+    var AbstractField = require('web.AbstractField');
+    var registry = require('web.field_registry');
 
-export class NamaKomponen extends Component {
-    /** @type {String} */
-    static template = 'nama_modul.NamaKomponen';
+    var MyWidget = AbstractField.extend({
+        template: 'MyWidgetTemplate',
+        events: {
+            'click .my_button': '_onClick',
+        },
 
-    /** @type {HTMLElement} */
-    #element_1;
+        _onClick: function () {
+            alert('Button clicked!');
+        },
+    });
 
-    setup() {
-        super.setup();
+    registry.add('my_widget', MyWidget);
 
-        this.#element_1 = useRef('element_1');
-
-        onMounted(this.#onMounted);
-        onWillUnmount(this.#onWillUnmount);
-
-    }
-
-    #onMounted() {
-
-    }
-
-    #onWillUnmount() {
-    }
-}
-
-registry.category('fields').add('component_or_tag_name', NamaKomponen);
+    return MyWidget;
+});

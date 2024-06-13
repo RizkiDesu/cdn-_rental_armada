@@ -2,12 +2,22 @@ import base64
 from odoo import http
 from odoo.http import request
 
+
+# CREATED BY RIZKI
+# ------------------------------ WEBSITE ---------------------------------------------
 class ArmadaSite(http.Controller):
 
     # ------------------------------ HOME ---------------------------------------------
     @http.route('/' , auth='public', website=True)
     def home(self, **kw):
+
+        seting_id   = request.env['ir.config_parameter'].sudo().get_param('cdn_rental_armada.deskripsi_id')
+        seting      = request.env['cdn.deskripsi'].sudo().search([('id', '=', seting_id)])
         var ={
+            'title': request.env['ir.config_parameter'].sudo().get_param('cdn_rental_armada.slogan'),
+            'title_description': seting.name,
+            'deskripsi': seting.deskripsi,
+
             'products': request.env['cdn.produk.armada'].sudo().search([('priority', '=', '1')]),
             'armadas': request.env['cdn.armada'].sudo().search([('priority', '=', 1)])
         }
@@ -76,7 +86,7 @@ class ArmadaSite(http.Controller):
         desa_records = request.env['cdn.desa'].sudo().search([('kecamatan_id', '=', int(kecamatan_id))])
         desa_data = [{'id': desa.id, 'name': desa.name} for desa in desa_records]
         return {'status': 200, 'desa': desa_data}
-        
+
     #FILTER PRODUK BY JENIS ARMADA
     @http.route('/get_produk_by_jenis_armada', type='json', auth='public')
     def get_produk_by_jenis_armada(self, jenis_armada):
@@ -113,6 +123,8 @@ class ArmadaSite(http.Controller):
             'jumlah_armada' : kw.get('jmlh'),
             'tanggal_dipakai': kw.get('tanggal'),
             'durasi'        : kw.get('durasi'),
+
+            'product_id'    : kw.get('produk'),
 
             'tempat_jemput' : kw.get('alamat-penjemputan'),
             'propinsi'      : kw.get('provinsi'),
