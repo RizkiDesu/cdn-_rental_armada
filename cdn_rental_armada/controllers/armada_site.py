@@ -27,6 +27,7 @@ class ArmadaSite(http.Controller):
     @http.route('/armada', auth='public', website=True)
     def index(self, **kw):
         armadas = request.env['cdn.armada'].sudo().search([('priority', '=', 1)])
+        print(armadas)
         return request.render('cdn_rental_armada.armada_list', {'armadas': armadas})
         
 
