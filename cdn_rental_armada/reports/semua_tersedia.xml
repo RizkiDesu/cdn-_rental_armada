@@ -25,16 +25,18 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr t-foreach="docs" t-as="o" t-if="o.state == 'siap'">
-                                <td style="padding: 2px;" width="50%" ><span t-field="o.id"/></td>
-                                <td style="padding: 2px;" width="50%" ><span t-field="o.jenis_armada"/></td>
-                                <td style="padding: 2px;" width="50%" ><span t-field="o.merek_id"/></td>
-                                <td style="padding: 2px;" width="50%" ><span t-field="o.jenis_kendaraan"/></td>
-                                <td style="padding: 2px;" width="50%" ><span t-field="o.jumlah_kursi"/></td>
-                                <td style="padding: 2px;" width="50%" ><span t-field="o.tahun_pembuatan"/></td>
-                                <td style="padding: 2px;" width="50%" ><span t-field="o.no_plat"/></td>
-                                <td style="padding: 2px;" width="50%" ><span t-field="o.state"/></td>
+                        <t t-foreach="armadas" t-as="o">
+                            <tr>
+                                <td style="padding: 2px;" width="50%" ><t t-esc="o"/></td>
+                                <!-- <td style="padding: 2px;" width="50%" ><span t-esc="o.jenis_armada"/></td> -->
+                                <!-- <td style="padding: 2px;" width="50%" ><span t-esc="o['merek_id']"/></td> -->
+                                <!-- <td style="padding: 2px;" width="50%" ><span t-esc="o['jenis_kendaraan']"/></td> -->
+                                <!-- <td style="padding: 2px;" width="50%" ><span t-esc="o.jumlah_kursi"/></td>
+                                <td style="padding: 2px;" width="50%" ><span t-esc="o.tahun_pembuatan"/></td>
+                                <td style="padding: 2px;" width="50%" ><span t-esc="o.no_plat"/></td>
+                                <td style="padding: 2px;" width="50%" ><span t-esc="o.state"/></td> -->
                             </tr>
+                        </t>
                         </tbody>
                     </table>
                 </div>
