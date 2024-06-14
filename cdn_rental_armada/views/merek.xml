@@ -22,6 +22,7 @@
                         <group>
                             <!-- Add your fields here -->
                             <group>    
+                                <field name="merek_logo" widget="image" class="oe_avatar"/>
                                 <field name="name"/>
                             </group>
                             <group>

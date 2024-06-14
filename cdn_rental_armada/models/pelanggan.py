@@ -28,8 +28,14 @@ class CdnPelanggan(models.Model):
 
 
     # CREATED BY TRIADI
+    # ADD BY RIZKI
     # -------------------------------  STATUS AKUN --------------------------------
     status          = fields.Selection(string='Status', selection=[('terdaftar', 'Terdaftar'), ('tidak_terdaftar', 'Belum Terdaftar'),], default="tidak_terdaftar")
+    priority        = fields.Selection([('0', 'Normal'),('1', 'Favorite'),], default='0', string="Favorite")
+    pekerjaan       = fields.Char(string='Perkerjaan')
+    komentar = fields.Text(string='Komentar')
+    
+
     # ------------------------------- KONFIRMASI MASUKAN KE AKUN PORTAL --------------------------------
     def konfirmasi_web(self):
         portal_group = self.env.ref('base.group_portal')
