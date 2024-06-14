@@ -142,9 +142,9 @@ class ArmadaSite(http.Controller):
             'mobile': kw.get('telepon'),
             'type_orang' : 'pelanggan',
         })
-        return request.redirect('/form_daftar')
+        return request.redirect('/terimakasih/booking')
     
-    
+    # ------------------------------ TERIMAKASIH PAGE -------------------------------------------
     @http.route('/terimakasih/<string:message>', auth='public', website=True)
     def terimakasih(self, message, **kwargs):
         var = {

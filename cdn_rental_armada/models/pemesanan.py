@@ -87,8 +87,7 @@ class CdnPemesanan(models.Model):
       vals['name'] = self.env['ir.sequence'].next_by_code('cdn.pemesanan')
       rekaman = super(CdnPemesanan, self).create(vals)
       rekaman.status_pembayaran = 'not_paid'
-      if len(rekaman.produk_ids) < 1:
-         raise UserError(_('Harap Input Data Armada'))
+      
 
       return rekaman
 
