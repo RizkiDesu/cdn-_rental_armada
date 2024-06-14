@@ -163,6 +163,7 @@ class CdnPemesanan(models.Model):
             'res_id': self.invoice_id.id,
             'target': 'current',
          }
+         
       else:
          raise ValidationError("Silahkan isi Produk Armada")
 

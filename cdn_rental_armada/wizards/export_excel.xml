@@ -4,7 +4,7 @@
     
         <!-- wizard.armada.tersedi form view -->
         <record id="wizard_armada_tersedia_view_form" model="ir.ui.view">
-            <field name="name">wizard.armada.tersedia.view.form</field>
+            <field name="name">Cetak laporan Armada</field>
             <field name="model">wizard.armada.tersedia</field>
             <field name="arch" type="xml">
                 <form string="">
