@@ -15,13 +15,8 @@
             "args": [
                 "--config=C:\\odoo\\odoo16\\server\\odoo.conf",
                 // "--config=C:\\odoo\\addons\\conf\\odoo.conf",
-                //mendirek database "-d",
-                // "db_training",
                 "-u",
-                // "cdn_training",
-                // "om_hospital",
                 "cdn_rental_armada",
-                
                 "-d", 
                 "cdn_rental",
             ],

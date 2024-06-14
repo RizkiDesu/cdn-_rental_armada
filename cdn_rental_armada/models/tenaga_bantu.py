@@ -10,8 +10,7 @@ class CdnTenagaKerja(models.Model):
     _inherits       = {'res.partner': 'partner_id'}
     _inherit         = ['mail.thread', 'mail.activity.mixin']
     
-    state           = fields.Selection(string='Status Tenaga Bantu', selection=[('tidak_aktif','Tidak Aktif'), ('perjalanan', 'Bertugas'), ('siap', 'Siap')], default='tidak_aktif')
-    # sim_ids         = fields.One2many(comodel_name='cdn.sim', inverse_name='sim_id', string='Izin Mengemudi')
+    state           = fields.Selection(string='Status Tenaga Bantu', selection=[('tidak_aktif','Tidak Aktif'), ('perjalanan', 'Bertugas'), ('siap', 'Siap')], default='tidak_aktif', tracking=True)
     
     def action_state_siap(self):
         for rec in self:

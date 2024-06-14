@@ -1,5 +1,5 @@
 from odoo import models, fields, api, _
-
+from odoo.exceptions import UserError, ValidationError
 
 # CREATED BY IAN
 # REVISI BY RIZKI
@@ -37,6 +37,14 @@ class CdnSupir(models.Model):
                 rec.state = 'siap'
             else:
                 rec.state = 'tidak_aktif'
+
+    @api.model
+    def create(self, vals):
+        data = super(CdnSupir, self).create(vals)
+        if len(data.sim_ids) < 1:
+            raise UserError(_('Harap Input Data SIM Kendaraan'))
+
+        return data
     
 # CREATED BY IAN
 # ------------------------------- SIM --------------------------------
@@ -50,10 +58,10 @@ class CdnSim(models.Model):
     sim_id      = fields.Many2one(comodel_name='cdn.supir', string='SUPIR', tracking=True)
 
     # ------------------------------- FIELD --------------------------------
-    name        = fields.Char(string='Nama')
-    no_sim      = fields.Char(string='No Sim', required=True, tracking=True)
-    jenis_sim   = fields.Selection(string='Jenis Sim', selection=[('a', 'Sim A'), ('b', 'Sim B')], required=True, tracking=True) 
-    foto_sim    = fields.Image('Foto Sim', required=True, tracking=True)
+    name        = fields.Char(string='Nama', tracking=True)
+    no_sim      = fields.Char(string='No Sim', tracking=True)
+    jenis_sim   = fields.Selection(string='Jenis Sim', selection=[('a', 'Sim A'), ('b', 'Sim B')], tracking=True) 
+    foto_sim    = fields.Image('Foto Sim', tracking=True)
     masaberlaku = fields.Date(string='Masa Berlaku', tracking=True)
    
    

@@ -1,7 +1,7 @@
 from odoo import models, fields, api, _
 from datetime import date, timedelta
 from dateutil import relativedelta
-from odoo.exceptions import ValidationError
+from odoo.exceptions import UserError, ValidationError
 import http.client
 
 # CREATED BY IAN
@@ -9,55 +9,56 @@ import http.client
 class CdnPemesanan(models.Model):
    _name        = 'cdn.pemesanan'
    _description = 'cdn.pemesanan'
+   _inherit     = ['mail.thread', 'mail.activity.mixin']
 
    # -------------------------------------------- RELATION PELANGGAN --------------------------------------------
-   pelanggan_id         = fields.Many2one(comodel_name='res.partner', string='Pelanggan', domain=[('type_orang','=','pelanggan')])
-   no_ktp               = fields.Char(string='No KTP', related='pelanggan_id.no_ktp')
-   jalan                = fields.Char(string='Alamat', related='pelanggan_id.street')
-   kota                 = fields.Char(string='Kota', related='pelanggan_id.city')
-   ponsel               = fields.Char(string='No Ponsel', related='pelanggan_id.mobile')
-   email                = fields.Char(string='Email', related='pelanggan_id.email')
-   jenis_kelamin        = fields.Selection(string='Jenis Kelamin', related='pelanggan_id.jenis_kelamin')
-   umur                 = fields.Integer(string='Umur', related='pelanggan_id.umur')
+   pelanggan_id         = fields.Many2one(comodel_name='res.partner', string='Pelanggan', domain=[('type_orang','=','pelanggan')], tracking=True)
+   no_ktp               = fields.Char(string='No KTP', related='pelanggan_id.no_ktp', tracking=True)
+   jalan                = fields.Char(string='Alamat', related='pelanggan_id.street', tracking=True)
+   kota                 = fields.Char(string='Kota', related='pelanggan_id.city', tracking=True)
+   ponsel               = fields.Char(string='No Ponsel', related='pelanggan_id.mobile', tracking=True)
+   email                = fields.Char(string='Email', related='pelanggan_id.email', tracking=True)
+   jenis_kelamin        = fields.Selection(string='Jenis Kelamin', related='pelanggan_id.jenis_kelamin', tracking=True)
+   umur                 = fields.Integer(string='Umur', related='pelanggan_id.umur', tracking=True)
 
    # -------------------------------------------- PENJEMPUTAN DAN TUJUAN -----------------------------------------
-   propinsi             = fields.Many2one(comodel_name='cdn.propinsi', string='Provinsi')
-   kota                 = fields.Many2one(comodel_name='cdn.kota', string='Kota')
-   kecamatan            = fields.Many2one(comodel_name='cdn.kecamatan', string='Kecamatan')
-   desa                 = fields.Many2one(comodel_name='cdn.desa', string='Desa')
-   tempat_jemput        = fields.Text(string='Tempat Penjemputan')
-   propinsi_tujuan      = fields.Many2one(comodel_name='cdn.propinsi', string='Provinsi')
-   kota_tujuan          = fields.Many2one(comodel_name='cdn.kota', string='Kota')
+   propinsi             = fields.Many2one(comodel_name='cdn.propinsi', string='Provinsi', tracking=True)
+   kota                 = fields.Many2one(comodel_name='cdn.kota', string='Kota', tracking=True)
+   kecamatan            = fields.Many2one(comodel_name='cdn.kecamatan', string='Kecamatan', tracking=True)
+   desa                 = fields.Many2one(comodel_name='cdn.desa', string='Desa', tracking=True)
+   tempat_jemput        = fields.Text(string='Tempat Penjemputan', tracking=True)
+   propinsi_tujuan      = fields.Many2one(comodel_name='cdn.propinsi', string='Provinsi', tracking=True)
+   kota_tujuan          = fields.Many2one(comodel_name='cdn.kota', string='Kota', tracking=True)
    kecamatan_tujuan     = fields.Many2one(comodel_name='cdn.kecamatan', string='Kecamatan')
-   desa_tujuan          = fields.Many2one(comodel_name='cdn.desa', string='Desa')
-   tujuan               = fields.Text(string='Tempat Tujuan')
+   desa_tujuan          = fields.Many2one(comodel_name='cdn.desa', string='Desa', tracking=True)
+   tujuan               = fields.Text(string='Tempat Tujuan', tracking=True)
 
    # -------------------------------------------- JENIS ARMADA  --------------------------------------------
-   jenis_armada         = fields.Selection(string='Jenis Armada', selection=[('bis', 'Bis Pariwisata'), ('travel', 'Travel'),('mobil', 'Mobil')], required=True) 
+   jenis_armada         = fields.Selection(string='Jenis Armada', selection=[('bis', 'Bis Pariwisata'), ('travel', 'Travel'),('mobil', 'Mobil')], required=True, tracking=True) 
 
 
    # -------------------------------------------- STATUS  --------------------------------------------   
    state                = fields.Selection(string='State', selection=[('draft', 'Draft'), 
                                                             ('berjalan','Sedang Berjalan'), 
-                                                            ('selesai', 'Selesai')], default="draft")
-   status_pembayaran    = fields.Selection(string='Status Pembayaran', related='invoice_id.payment_state',store=True)
+                                                            ('selesai', 'Selesai')], default="draft", tracking=True)
+   status_pembayaran    = fields.Selection(string='Status Pembayaran', related='invoice_id.payment_state',store=True, tracking=True)
 
 
    # -------------------------------------------- DETAIL PEMESANAN  ------------------------------------
-   name                 = fields.Char(string='No Referensi')
-   product_id           = fields.Many2one(comodel_name='product.product', string='Produk')
-   produk_ids           = fields.One2many(comodel_name='cdn.pemesanan.armada', inverse_name='produk_armada_pemesanan_id', string='Daftar Produk', ondelete="cascade")
-   invoice_id           = fields.Many2one('account.move', copy=False, string='Invoice')
-   tanggal_pemesanan    = fields.Date(string='Tanggal Pemesanan', default=date.today())
-   total_harga          = fields.Float(string='Total', compute='_compute_total')
-   tanggal_dipakai      = fields.Date(string='Tanggal Pemakaian')
-   durasi               = fields.Integer(string='Durasi Sewa / hari', help='Berapa lama?', default="1")
-   tanggal_kembali      = fields.Date( string='Tanggal Kembali')
-   jumlah_armada        = fields.Integer(string='Jumlah Pesanan Armada', default="1", help='Berapa banyak armada yang disewa?')
+   name                 = fields.Char(string='No Referensi', tracking=True)
+   product_id           = fields.Many2one(comodel_name='product.product', string='Produk', tracking=True)
+   produk_ids           = fields.One2many(comodel_name='cdn.pemesanan.armada', inverse_name='produk_armada_pemesanan_id', string='Daftar Produk', ondelete="cascade", tracking=True)
+   invoice_id           = fields.Many2one('account.move', copy=False, string='Invoice', tracking=True)
+   tanggal_pemesanan    = fields.Date(string='Tanggal Pemesanan', default=date.today(), tracking=True)
+   total_harga          = fields.Float(string='Total', compute='_compute_total', tracking=True)
+   tanggal_dipakai      = fields.Date(string='Tanggal Pemakaian', tracking=True)
+   durasi               = fields.Integer(string='Durasi Sewa / hari', help='Berapa lama?', default="1", tracking=True)
+   tanggal_kembali      = fields.Date( string='Tanggal Kembali', tracking=True)
+   jumlah_armada        = fields.Integer(string='Jumlah Pesanan Armada', default="1", help='Berapa banyak armada yang disewa?', tracking=True)
    
    # -------------------------------------------- KATAKAN PETA !!! ------------------------------------
-   peta_penjemputan     = fields.Char(string='Peta Penjemputan')
-   peta_tujuan          = fields.Char(string='Peta Tujuan')
+   peta_penjemputan     = fields.Char(string='Peta Penjemputan', tracking=True)
+   peta_tujuan          = fields.Char(string='Peta Tujuan', tracking=True)
    
 
    # -------------------------------------------- METHOD ---------------------------------------------------
@@ -85,6 +86,9 @@ class CdnPemesanan(models.Model):
       vals['name'] = self.env['ir.sequence'].next_by_code('cdn.pemesanan')
       rekaman = super(CdnPemesanan, self).create(vals)
       rekaman.status_pembayaran = 'not_paid'
+      if len(rekaman.produk_ids) < 1:
+         raise UserError(_('Harap Input Data Armada'))
+
       return rekaman
 
    def get_current_company(self):

@@ -57,12 +57,10 @@
             <field name="model">cdn.supir</field>
             <field name="arch" type="xml">
                 <tree sample="1">
-                    <!-- Add your fields here -->
-                    <!-- <field name="i"/> -->
                     <field name="name"/>
                     <field name="no_ktp"/>
-                    <!-- <field name="city"/> -->
-                    <field name="image_1920"/>
+                    <field name="email"/>
+                    <field name="jenis_kelamin"/>
                     <field name="state" 
                             decoration-success="state == 'siap'"
                             decoration-warning="state == 'perjalanan'" 
@@ -102,7 +100,7 @@
                     <div class="oe_title mb24">
                         Nama Sopir
                         <h1>
-                            <field id="individual" class="text-break" name="name" default_focus="1" placeholder="e.g. Brandom Freeman"/>
+                            <field id="individual" required="1" class="text-break" name="name" default_focus="1" placeholder="e.g. Brandom Freeman"/>
                         </h1>
                     </div>
                     <group name = "identitas_utama" string="Identitas Supir">
@@ -123,7 +121,7 @@
                             </group>
                             <notebook>
                                 <page name="SIM" string="SIM">
-                                    <field name="sim_ids" >
+                                    <field name="sim_ids" required="1">
                                         <tree editable="bottom">
                                             <field name="no_sim" required="1"/>
                                             <field name="jenis_sim" required="1"/>

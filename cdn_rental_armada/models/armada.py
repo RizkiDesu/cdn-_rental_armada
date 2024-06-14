@@ -1,6 +1,7 @@
 from odoo import _, api, fields, models
 from datetime import date
 from dateutil import relativedelta
+from odoo.exceptions import UserError, ValidationError
 
 # CREATED TRIADI
 # ------------------------------- ARMADA --------------------------------
@@ -240,9 +241,10 @@ class CdnArmada(models.Model):
 class CdnjenisKendaraan(models.Model):
     _name        = 'cdn.jenis.kendaraan'
     _description = 'cdn jenis kendaraan'
+    _inherit     = ['mail.thread', 'mail.activity.mixin']
 
-    name         = fields.Char(string='Jenis Kendaraan', required=True)
-    merek_id     = fields.Many2one(comodel_name='cdn.merek', string='Merek')
+    name         = fields.Char(string='Jenis Kendaraan', tracking=True)
+    merek_id     = fields.Many2one(comodel_name='cdn.merek', string='Merek', tracking=True)
 
 
 # CREATED BY TRIADI
@@ -250,7 +252,16 @@ class CdnjenisKendaraan(models.Model):
 class CdnMerek(models.Model):
     _name        = 'cdn.merek'
     _description = 'Merek'
+    _inherit     = ['mail.thread', 'mail.activity.mixin']
     
-    name         = fields.Char(string='Nama', required=True)
+    name         = fields.Char(string='Nama', tracking=True)
+    jenis_ids    = fields.One2many(comodel_name='cdn.jenis.kendaraan', inverse_name='merek_id', string='Jenis Kendaraan', tracking=True)
     merek_logo   = fields.Image(string='Merek Logo')
-    jenis_ids    = fields.One2many(comodel_name='cdn.jenis.kendaraan', inverse_name='merek_id', string='Jenis Kendaraan')
+    
+    @api.model
+    def create(self, vals):
+      createMerek = super(CdnMerek, self).create(vals)
+      if len(createMerek.jenis_ids) < 1:
+         raise UserError(_('Harap Input Data Jenis Kendaraan'))
+
+      return createMerek
