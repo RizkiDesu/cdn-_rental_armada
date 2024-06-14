@@ -5,7 +5,7 @@ from odoo import _, api, fields, models, tools
 class ProductProduct(models.Model):
     _inherit            = 'product.product'
     
-    jenis_armada        = fields.Selection(string='Jenis Armada', selection=[('bis', 'Bis Pariwisata'), ('travel', 'Travel'),('mobil', 'Mobil')], required=True, default='mobil')
+    jenis_armada        = fields.Selection(string='Jenis Armada', selection=[('bis', 'Bis Pariwisata'), ('travel', 'Travel'),('mobil', 'Mobil')], required=True)
     armada_id           = fields.Integer(string='ID Armada')
 
 

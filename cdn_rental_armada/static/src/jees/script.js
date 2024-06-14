@@ -103,8 +103,11 @@ odoo.define('cdn_rental_armada.location_filter', function (require) {
     }
 
     function filterProdukByJenisArmada(jenis_armada) {
-        console.log(jenis_armada)
+        // console.log(jenis_armada)
         var $produkSelect = document.getElementById('produk')
+        $produkSelect.selectedIndex = 0;
+        // $produkSelect.onreset = ''
+        $produkSelect.selectedIndex = ''
         $produkSelect.innerHTML = ''  // Kosongkan pilihan produk yang ada
         $produkSelect.append(new Option('', ''))  // Tambahkan opsi kosong
 
@@ -113,6 +116,7 @@ odoo.define('cdn_rental_armada.location_filter', function (require) {
             params: { 'jenis_armada': jenis_armada }
         }).then(function(data) {
             data.produk.forEach(function(produk) {
+                
                 var option = new Option(produk.name, produk.id)
                 $produkSelect.append(option)
             })
@@ -128,17 +132,40 @@ odoo.define('cdn_rental_armada.location_filter', function (require) {
             params: { 'product_id': product_id }
         }
         ).then(function(data) {
-            console.log(data)
+            // $harga.innerHTML = ''
             $harga.innerHTML = data.harga
+            total()
         })
+        // return product_id
     }
- 
-        // var $harga = document.getElementById('harga')
-        // $harga.innerHTML = ''  // Kosongkan pilihan harga yang ada
 
+    function total() {
+        let harga = document.getElementById('harga').innerHTML
+        let jumlah = document.getElementById('jmlh').value
 
+        let total = document.getElementById('total')
+        total.innerHTML = ''
+        total.innerHTML = harga * jumlah
+    }
 
     
+
+    // function total (jumlah, product_id) {
+        
+    //     total = document.getElementById('total')
+    //     total.innerHTML = ''
+    //     rpc.query({
+    //         route: '/get_harga_by_product',
+    //         params: { 'product_id': product_id }
+    //     }).then(function(data) {
+    //         total.innerHTML = data.harga * jumlah
+    //     })
+
+        
+    // }
+    window.total                        = total
+    // window.changeHarga                  = changeHarga
+    // window.changeJumlah                 = changeJumlah
     window.tampilkanHargaProduct        = tampilkanHargaProduct
     window.filterProdukByJenisArmada    = filterProdukByJenisArmada
 
