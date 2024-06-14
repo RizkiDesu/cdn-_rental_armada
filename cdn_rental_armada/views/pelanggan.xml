@@ -11,6 +11,7 @@
                     <field name="name"/>
                     <field name="no_ktp"/>
                     <field name="city"/>
+                    
                     <field name="image_1920"/>
                     <templates>
                         <t t-name="kanban-box">
@@ -22,9 +23,14 @@
                                     <div class="o_kanban_image_fill_left o_kanban_image_full" t-attf-style="background-image: url(#{kanban_image('cdn.pelanggan', 'avatar_128', record.id.raw_value)})" role="img"/>
                                 </t>
                                 <div class="oe_kanban_details">
-                                    <h4>
-                                        <a type="open"><field name="name"/></a>
-                                    </h4>
+                                    <div class="o_kanban_record_top mb-0">
+                                        <div class="o_kanban_record_headings">
+                                            <strong class="o_kanban_record_title">
+                                                <field name="name"/>
+                                            </strong>
+                                        </div>
+                                        <field name="priority" widget="priority"/>
+                                    </div>
                                     <ul>
                                         <li>
                                             <span class="text-muted">No KTP</span> <field name="no_ktp"/>
@@ -108,7 +114,10 @@
                     <div class="oe_title mb24">
                         Nama Pelanggan
                         <h1>
-                            <field id="individual" class="text-break" name="name" default_focus="1" placeholder="e.g. Brandom Freeman"/>
+                            <div class="d-flex">
+                                <field name="priority" widget="priority" class="me-3"/>
+                                <field id="individual" class="text-break" name="name" default_focus="1" placeholder="e.g. Brandom Freeman"/>
+                            </div>
                         </h1>
                     </div>
                         <group name="identitas" string="Identitas Pelanggan">
@@ -123,10 +132,12 @@
                                 <field name="jenis_kelamin" required="1"/>
                                 <field name="umur"/>
                                 <field name="is_menikah"/>
+                                <field name="pekerjaan"/>
                                 <field name="type_orang" invisible="1"/>
                                 <field name="status" invisible="1"/>
                             </group>
                         </group>
+                        <field name="komentar" placeholder="Tambahkan catatan internal..." nolabel="1" height="50"/>
                     </sheet>
                    <div class="oe_chatter">
                         <field name="message_follower_ids" widget="mail_followers"/>
@@ -143,7 +154,7 @@
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">cdn.pelanggan</field>
             <field name="context">{'default_type_orang': 'pelanggan'}</field>
-            <field name="view_mode">tree,kanban,form</field>
+            <field name="view_mode">kanban,tree,form</field>
             <field name="help" type="html">
                 <p class="oe_view_nocontent_create">
                     <!-- Add Text Here -->

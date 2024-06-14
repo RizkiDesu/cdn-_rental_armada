@@ -105,10 +105,17 @@
                         </div>
                         <div class="mb-3 select2-input">
                             <label for="produk" class="form-label">Produk</label>
-                            <select class="select2" id="produk" name="produk" >
+                            <select class="select2" id="produk" name="produk" onchange="tampilkanHargaProduct(this.value)">
                                 <option t-att-value=""></option>
                             </select>
                         </div>
+                            <h4>
+                                <div class="text-primary"> 
+                                    Harga: <div id="harga"> </div> 
+                                </div>
+                            </h4>
+                        <!-- <h2>Total: <div id="total"> </div> </h2> -->
+                       
                         <div class="row">
                             <div class="mb-3 col">
                                 <label for="tanggal" class="form-label">Tanggal Pemakaian</label>

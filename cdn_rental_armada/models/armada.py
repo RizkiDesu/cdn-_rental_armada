@@ -252,4 +252,5 @@ class CdnMerek(models.Model):
     _description = 'Merek'
     
     name         = fields.Char(string='Nama', required=True)
+    merek_logo   = fields.Image(string='Merek Logo')
     jenis_ids    = fields.One2many(comodel_name='cdn.jenis.kendaraan', inverse_name='merek_id', string='Jenis Kendaraan')
