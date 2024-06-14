@@ -111,6 +111,7 @@
             '/cdn_rental_armada/static/src/jees/script.js',
             # '/cdn_rental_armada/static/src/jees/komponen.js',
         ],
+        
     },
     'aplication': True,
     
