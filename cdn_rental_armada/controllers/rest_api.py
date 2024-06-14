@@ -67,6 +67,8 @@ class pembayaran(http.Controller):
 class gpsTracking(http.Controller):
     @http.route('/gpstrack', type='http', auth='public', website=False, methods=['GET'], csrf=False, cors='*')
     def gpstrack(self, **kwargs):
+        # https://myprojects.geoapify.com/api/IeEMCUIaLGtrabHWJLu6/keys
+        # https://www.geoapify.com/
         api_key = 'df672c8ae9854f32908a565119bfef15'
         lat     = kwargs.get('latitude')
         long    = kwargs.get('longitude')
