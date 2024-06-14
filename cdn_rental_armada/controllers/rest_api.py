@@ -3,9 +3,11 @@ from odoo import http
 import traceback
 from odoo.http import Response, request
 from odoo.loglevels import ustr
+import requests
 import sys
 import json
 from datetime import date
+from requests.structures import CaseInsensitiveDict
 
 
 # http://localhost:8069/pembayaran/invoice
@@ -60,4 +62,25 @@ class pembayaran(http.Controller):
                     ('Content-Length', len(body))
                 ]
             )
+
+
+class gpsTracking(http.Controller):
+    @http.route('/gpstrack', type='http', auth='public', website=False, methods=['GET'], csrf=False, cors='*')
+    def gpstrack(self, **kwargs):
+        # https://myprojects.geoapify.com/api/IeEMCUIaLGtrabHWJLu6/keys
+        # https://www.geoapify.com/
+        api_key = 'df672c8ae9854f32908a565119bfef15'
+        lat     = kwargs.get('latitude')
+        long    = kwargs.get('longitude')
+        
+        url = "https://api.geoapify.com/v1/geocode/reverse?lat="+lat+"&lon="+long+"&apiKey="+api_key+""
+
+        headers = CaseInsensitiveDict()
+        headers["Accept"] = "application/json"
+
+        result =  requests.get(url, headers=headers)
+        return Response(
+            result, 
+            status  = 200
+        )
 
