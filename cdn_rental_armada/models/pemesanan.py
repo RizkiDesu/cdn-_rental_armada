@@ -22,6 +22,7 @@ class CdnPemesanan(models.Model):
    umur                 = fields.Integer(string='Umur', related='pelanggan_id.umur', tracking=True)
 
    # -------------------------------------------- PENJEMPUTAN DAN TUJUAN -----------------------------------------
+   waktu_penjemputan    = fields.Char('Waktu Penjemputan')
    propinsi             = fields.Many2one(comodel_name='cdn.propinsi', string='Provinsi', tracking=True)
    kota                 = fields.Many2one(comodel_name='cdn.kota', string='Kota', tracking=True)
    kecamatan            = fields.Many2one(comodel_name='cdn.kecamatan', string='Kecamatan', tracking=True)

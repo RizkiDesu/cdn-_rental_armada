@@ -80,6 +80,7 @@
                   <group name="tempat" >
                      <group name="penjemputan" string="Penjemputan">
                         <field name="tempat_jemput"  attrs="{'readonly': [('state','!=','draft')]}"/>
+                        <field name="waktu_penjemputan" widget="timepicker_time"/>
                         <field name="propinsi"  attrs="{'readonly': [('state','!=','draft')]}"/>
                         <field name="kota" domain="[('propinsi_id', '=', propinsi)]"  attrs="{'readonly': [('state','!=','draft')]}"/>
                         <field name="kecamatan" domain="[('kota_id', '=', kota)]"  attrs="{'readonly': [('state','!=','draft')]}"/>
