@@ -21,24 +21,26 @@
                     <sheet>
                         <group>
                             <!-- Add your fields here -->
-                            <group>    
-                                <field name="merek_logo" widget="image" class="oe_avatar"/>
-                                <field name="name"/>
-                            </group>
                             <group>
-                                
+                                <field name="merek_logo" widget="image" class="oe_avatar"/>
+                                <field name="name" required="1"/>
                             </group>
                             <notebook>
                                 <page name="jenis" string="Jenis Kendaraan">
                                     <field name="jenis_ids">
                                     <tree editable="top">
-                                        <field name="name"/>
+                                        <field name="name" required="1"/>
                                     </tree>
                                     </field>
                                 </page>
                             </notebook>
                         </group>
                     </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
                 </form>
             </field>
         </record>

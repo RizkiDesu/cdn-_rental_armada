@@ -8,19 +8,19 @@
          <field name="arch" type="xml">
             <form string="">
                <group string="Pesanan">
-                  <field name="pemesanan_id" />
-                  <field name="produk_pemesanan_id" attrs="{'readonly': [('pemesanan_id','=',False)]}" domain="[('produk_armada_pemesanan_id','=',pemesanan_id), ('state','=','disewa')]"/>
+                  <field name="pemesanan_id" required="1"/>
+                  <field name="produk_pemesanan_id" required="1" attrs="{'readonly': [('pemesanan_id','=',False)]}" domain="[('produk_armada_pemesanan_id','=',pemesanan_id), ('state','=','disewa')]"/>
                </group>
                <group string="Informasi">
                   <group>
-                     <field name="km_awal" readonly="1" force_save="1"/>
-                     <field name="km_akhir"/>
-                     <field name="jarak_tempuh" force_save="1"/>
+                     <field name="km_awal" readonly="1" force_save="1" required="1"/>
+                     <field name="km_akhir" required="1"/>
+                     <field name="jarak_tempuh" force_save="1" required="1"/>
                   </group>
                   <group>  
-                     <field name="tujuan" readonly="1" force_save="1"/>
-                     <field name="durasi_hari" readonly="1" force_save="1"/>
-                     <field name="status_armada"/>
+                     <field name="tujuan" readonly="1" force_save="1" required="1"/>
+                     <field name="durasi_hari" readonly="1" force_save="1" required="1"/>
+                     <field name="status_armada" required="1"/>
                      <field name="denda"/>
                   </group>
                   
