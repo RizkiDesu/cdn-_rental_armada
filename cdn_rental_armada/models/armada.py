@@ -243,7 +243,7 @@ class CdnjenisKendaraan(models.Model):
     _description = 'cdn jenis kendaraan'
     _inherit     = ['mail.thread', 'mail.activity.mixin']
 
-    name         = fields.Char(string='Jenis Kendaraan', required=True, tracking=True)
+    name         = fields.Char(string='Jenis Kendaraan', tracking=True)
     merek_id     = fields.Many2one(comodel_name='cdn.merek', string='Merek', tracking=True)
 
 
@@ -254,9 +254,10 @@ class CdnMerek(models.Model):
     _description = 'Merek'
     _inherit     = ['mail.thread', 'mail.activity.mixin']
     
-    name         = fields.Char(string='Nama', required=True, tracking=True)
+    name         = fields.Char(string='Nama', tracking=True)
     jenis_ids    = fields.One2many(comodel_name='cdn.jenis.kendaraan', inverse_name='merek_id', string='Jenis Kendaraan', tracking=True)
-
+    merek_logo   = fields.Image(string='Merek Logo')
+    
     @api.model
     def create(self, vals):
       createMerek = super(CdnMerek, self).create(vals)

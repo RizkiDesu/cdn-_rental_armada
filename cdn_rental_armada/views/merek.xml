@@ -21,7 +21,8 @@
                     <sheet>
                         <group>
                             <!-- Add your fields here -->
-                            <group>    
+                            <group>
+                                <field name="merek_logo" widget="image" class="oe_avatar"/>
                                 <field name="name" required="1"/>
                             </group>
                             <notebook>

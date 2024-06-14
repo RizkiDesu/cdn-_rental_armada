@@ -24,54 +24,60 @@
         'data/navbar_site.xml',
         'data/Input_data.xml',
 
-
-        
+        # ------------------------------- WEBSITE --------------------------------
         'views/home_page_site.xml',
         'views/armada_site.xml',
         'views/produk_site.xml',
         'views/form_pendaftaran_site.xml',
         'views/form_booking_site.xml',
 
-        
+        # ------------------------------- REPORT --------------------------------
         'reports/report_booking.xml',
         'reports/test_report.xml',
         'reports/travel_tersedia.xml',
         'reports/mobil_tersedia.xml',
         'reports/bus_tersedia.xml',
         'reports/semua_tersedia.xml',
+        'reports/inherit_report.xml',
 
+        # ------------------------------- MENU --------------------------------
         'views/menu_view.xml',
-        'views/armada.xml',
-        'views/jenis_kendaraan.xml',
-        'views/merek.xml',
-        'views/supir_view.xml',
-        'views/tenaga_bantu.xml',
-        'views/pengaturan.xml',
-        'views/uji_kir_view.xml',
-        'views/perawatan.xml',
-        'views/history.xml',
+
+        # ------------------------------- PELANGGAN ---------------------------------
         'views/pelanggan.xml',
 
+        # ------------------------------- KARYAWAN ---------------------------------
+        'views/supir_view.xml',
+        'views/tenaga_bantu.xml',
+        
+        # ------------------------------- PRODUK DAN LAYANAN --------------------------------
         'views/produk.xml',
         'views/account_move.xml',
         'views/pemesanan.xml',
         'views/penagihan_line.xml',
-        'reports/inherit_report.xml',
 
+        # ------------------------------- PEMESANAN --------------------------------
         # 'views/varian.xml',
         'views/account_move.xml',
         'views/pemesanan.xml',
         'views/denda.xml',
         'wizards/pengembalian_armada.xml',
+
+        # ------------------------------- PENGATURAN --------------------------------
+        'views/pengaturan.xml',
         'wizards/export_excel.xml',
-        
-        
+        'views/armada.xml',
+        'views/merek.xml',
+        'views/uji_kir_view.xml',
+        'views/perawatan.xml',
+        'views/history.xml',
+        'views/jenis_kendaraan.xml',
+        'views/wilayah/propinsi.xml',
+        'views/wilayah/kota.xml',
         'views/wilayah/kecamatan.xml',
         'views/wilayah/desa.xml',
-        'views/wilayah/kota.xml',
-        'views/wilayah/propinsi.xml',
         'views/wilayah/menu.xml',
-
+        'views/service.xml',
 
     ],
     'demo': [
@@ -105,6 +111,7 @@
             '/cdn_rental_armada/static/src/jees/script.js',
             # '/cdn_rental_armada/static/src/jees/komponen.js',
         ],
+        
     },
     'aplication': True,
     

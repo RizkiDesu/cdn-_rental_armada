@@ -39,7 +39,7 @@ class CdnYourService(models.Model):
     _description = 'Your Service'
     
     name = fields.Char(string='Nama Layanan')
-    long_deskripsi = fields.Text(string='Deskripsi Layanan')
+    deskripsi = fields.Text(string='Deskripsi Layanan')
     
 
 

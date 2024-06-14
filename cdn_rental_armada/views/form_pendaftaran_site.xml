@@ -1,8 +1,19 @@
 <?xml version='1.0' encoding='utf-8'?>
 <odoo>
     <data>
+        <template id="terimakasih_website" name="Terimakasih Website">
+            <t t-call="website.layout">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h1 align="center">Terimakasih Telah <t t-esc="message"/></h1>
+                            <p align="center">Terimakasih telah <t t-esc="message"/>, data anda akan kami proses.</p>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </template>
     <!-- Triadi -->
-    
         <template id="form_daftar_website" name="Pendaftaran">
             <t t-call="website.layout">
                 <style>
@@ -73,7 +84,8 @@
                                 <div class="form-group">
                                     <label for="gender">Jenis Kelamin</label>
                                     <div class="form-group">
-                                        <select class="form-select" id="exampleFormControlSelect1" name="kelamin">
+                                        <select class="form-select" id="exampleFormControlSelect1" name="kelamin" placeholder="Kelamin">
+                                            <option t-att-value="">Pilih Jenis Kelamin</option>
                                             <option t-att-value="'l'">Laki-Laki</option>
                                             <option t-att-value="'p'">Perempuan</option>
                                         </select>

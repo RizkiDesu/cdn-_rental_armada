@@ -10,14 +10,14 @@ class ArmadaSite(http.Controller):
     # ------------------------------ HOME ---------------------------------------------
     @http.route('/' , auth='public', website=True)
     def home(self, **kw):
-
         seting_id   = request.env['ir.config_parameter'].sudo().get_param('cdn_rental_armada.deskripsi_id')
         seting      = request.env['cdn.deskripsi'].sudo().search([('id', '=', seting_id)])
         var ={
             'title': request.env['ir.config_parameter'].sudo().get_param('cdn_rental_armada.slogan'),
             'title_description': seting.name,
             'deskripsi': seting.deskripsi,
-
+            'services': request.env['cdn.your.service'].sudo().search([]),
+            'consumers': request.env['cdn.pelanggan'].sudo().search([('priority', '=', '1')]),
             'products': request.env['cdn.produk.armada'].sudo().search([('priority', '=', '1')]),
             'armadas': request.env['cdn.armada'].sudo().search([('priority', '=', 1)])
         }
@@ -27,10 +27,8 @@ class ArmadaSite(http.Controller):
     @http.route('/armada', auth='public', website=True)
     def index(self, **kw):
         armadas = request.env['cdn.armada'].sudo().search([('priority', '=', 1)])
+        print(armadas)
         return request.render('cdn_rental_armada.armada_list', {'armadas': armadas})
-        
-
-
 
     # ------------------------------ BOOKING ---------------------------------------------
     @http.route('/form_booking' , auth='user', website=True)
@@ -90,58 +88,39 @@ class ArmadaSite(http.Controller):
     #FILTER PRODUK BY JENIS ARMADA
     @http.route('/get_produk_by_jenis_armada', type='json', auth='public')
     def get_produk_by_jenis_armada(self, jenis_armada):
-        print(jenis_armada)
         produk_records = request.env['product.product'].sudo().search([('jenis_armada', '=', jenis_armada)])
         produk_data = [{'id': produk.id, 'name': produk.name} for produk in produk_records]
         return {'status': 200, 'produk': produk_data}
-    
+
+    #TAMPILKAN HARGA
+    @http.route('/get_harga_by_product', type='json', auth='public')
+    def get_harga_by_product(self, product_id):
+        product = request.env['product.product'].sudo().search([('id', '=', int(product_id))])
+        return {'status': 200, 'harga': product.lst_price}
+
     # ------------------------------ BOOKING SAVE ---------------------------------------------
     @http.route('/booking_save', auth='user', website=True, csrf=False, methods=['POST'])
     def save_booking(self, **kw):
-        print(kw) 
-        # RESPON DARI KW
-        # {
-        # 'jenis_armada': 'travel', 
-        # 'jmlh': '2', 
-        # 'tanggal': '2024-06-12', 
-        # 'durasi': '1', 
-        # 'alamat-penjemputan': 'adsd', 
-        # 'provinsi': '119', 
-        # 'kota': '742', 'kecamatan': '10473', 
-        # 'desa': '7857', 
-        # 'alamat_tujuan': 'dasdasd', 
-        # 'provinsi_tujuan': '115', 
-        # 'kota_tujuan': '672', 
-        # 'kecamatan_tujuan': '9176', 
-        # 'desa_tujuan': '16112'
-        #}
         partner_id = request.env['res.users'].browse(request.uid).partner_id
-        print(partner_id.name)
         request.env['cdn.pemesanan'].sudo().create({
             'pelanggan_id'  : partner_id.id,
             'jenis_armada'  : kw.get('jenis_armada'),
             'jumlah_armada' : kw.get('jmlh'),
             'tanggal_dipakai': kw.get('tanggal'),
             'durasi'        : kw.get('durasi'),
-
             'product_id'    : kw.get('produk'),
-
             'tempat_jemput' : kw.get('alamat-penjemputan'),
             'propinsi'      : kw.get('provinsi'),
             'kota'          : kw.get('kota'),
             'kecamatan'     : kw.get('kecamatan'),
             'desa'          : kw.get('desa'),
-
             'tujuan'        : kw.get('alamat_tujuan'),
             'propinsi_tujuan': kw.get('provinsi_tujuan'),
             'kota_tujuan'   : kw.get('kota_tujuan'),
             'kecamatan_tujuan': kw.get('kecamatan_tujuan'),
             'desa_tujuan'   : kw.get('desa_tujuan'),
         })
-        return request.redirect('/form_booking')
-
-
-
+        return request.redirect('/terimakasih')
 
     # ------------------------------ DAFTAR FORM ---------------------------------------------
     @http.route('/form_daftar' , auth='public', website=True)
@@ -164,3 +143,7 @@ class ArmadaSite(http.Controller):
             'type_orang' : 'pelanggan',
         })
         return request.redirect('/form_daftar')
+    
+    @http.route('/terimakasih', auth='public', website=True)
+    def terimakasih(self, **kw):
+        return request.render('cdn_rental_armada.terimakasih_website',{})

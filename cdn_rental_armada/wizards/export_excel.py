@@ -2,6 +2,7 @@ from odoo import _, api, fields, models
 import xlsxwriter
 import os
 import base64
+from datetime import date
 
 # CREATED BY TRIADI
 # ------------------------------- WIZARD ARMADA TERSEDIA EXPORT EXCEL --------------------------------
@@ -91,12 +92,37 @@ class WizardArmadaTersedia(models.TransientModel):
             'target': 'self',
         }
 
+    def generated_data(self):
+        armada_list = []
+        armada = self.env['cdn.armada'].search([('jenis_armada', '=', self.jenis_armada),('state', '=', self.state)])
+        for kendaraan in armada:
+            armada_list.append({
+                'id': kendaraan.id,
+                'jenis_kendaraan': kendaraan.jenis_kendaraan.name,
+                # 'nama_armada': "{} {}".format(kendaraan.merek_id.name, kendaraan.jenis_kendaraan.name),
+                'plat_nomor': kendaraan.no_plat,
+                'merek': kendaraan.merek_id.name,
+                'no_rangka': kendaraan.no_rangka,
+                'jenis_armada': kendaraan.jenis_armada, # 'jenis_armada': 'bis', 'travel', 'mobil
+                'tahun_pembuatan': kendaraan.tahun_pembuatan,
+                'state': kendaraan.state,
+                'jumlah_kursi': kendaraan.jumlah_kursi,
+                'terakhir_service': kendaraan.terakhir_service,
+            })
+
+        return armada_list
+
     def export_pdf(self):
-        domain = [('state', '=', self.state), ('jenis_armada', '=', self.jenis_armada)]
-        records = self.env['cdn.armada'].search(domain)
+        datas = self.generated_data()
+        # data = datas[0]
         data = {
-            'model': 'cdn.armada',
-            'form': self.read()[0],
-            'docs': records.ids
+            "armadas": datas,
+            "jenis" : self.jenis_armada,
+            "state" : self.state,
+            "tanggal" : date.today()
         }
+        print(data)
+        # return self.env.ref(
+        #     "cdn_rental_armada.report_armada_semua"
+        # ).report_action(self, data=data)
         return self.env.ref('cdn_rental_armada.report_armada_semua').report_action(self, data=data)
