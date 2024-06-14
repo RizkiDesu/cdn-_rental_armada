@@ -48,11 +48,23 @@
         .select2-container {
             width: 100% !important;
             height: calc(1.5em + .75rem + 2px);
-            padding: .375rem .75rem;
+            padding: 0;
             font-size: 1rem;
             line-height: 1.5;
             border-radius: 10px;
         }
+        .select2-choice {
+            height : 100% !important;
+            border-radius: 10px !important;
+        }
+        .select2-chosen {
+            height: 100%;
+            align-content: center;
+        }
+        .select2-arrow {
+            padding-top: 2%;
+        }
+        
 
         .select2-selection {
             text-align: center;
