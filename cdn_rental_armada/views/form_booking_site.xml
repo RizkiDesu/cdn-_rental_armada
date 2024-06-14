@@ -99,7 +99,7 @@
                                 </div>
                                 <div class="col">
                                     <label for="jmlh" class="form-label">Jumlah</label>
-                                    <input type="number" class="form-control" id="jmlh" name="jmlh"/>
+                                    <input type="number" class="form-control" id="jmlh" name="jmlh" onchange="total()"/>
                                 </div>
                             </div>
                         </div>
@@ -115,7 +115,6 @@
                                 <div id="harga" class="form-control"> </div> 
                             </div>
                         </div>
-                        <!-- <h2>Total: <div id="total"> </div> </h2> -->
                        
                         <div class="row">
                             <div class="mb-3 col">
