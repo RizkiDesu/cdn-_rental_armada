@@ -67,7 +67,7 @@ class CdnPelanggan(models.Model):
             'Sekarang, Anda dapat melanjutkan untuk memesan persewaan armada kami secara online.<br/><br/>'
             'Silahkan Log in menggunakan akun berikut : <br/><br/>'
             '<table><tr><td>Email : %s<td/><tr/>'
-            '<tr><td>Password  : %s<td/><tr/>'
+            '<tr><td>Password  : No. Ktp Anda<td/><tr/>'
             '<table/>'
             '<br/>Jika Anda memiliki pertanyaan atau membutuhkan bantuan lebih lanjut,'
             '<br/>jangan ragu untuk menghubungi tim layanan kami.'
@@ -76,7 +76,7 @@ class CdnPelanggan(models.Model):
             '<br/><br/><br/>%s'
             
             ) % \
-                       (rec.name, rec.email, rec.no_ktp,self.env.user.partner_id.name)
+                       (rec.name, rec.email,self.env.user.partner_id.name)
             main_content = {
                 'subject': "Pendaftaran Akun Rental Armada",
                 'author_id': self.env.user.partner_id.id,
