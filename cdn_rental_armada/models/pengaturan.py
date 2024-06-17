@@ -13,7 +13,7 @@ class ResConfigSetting(models.TransientModel):
     # ------------------------------- PENGATURAN WEBSITE HOME -----------------------------------
     slogan          = fields.Char(string='Slogan', config_parameter="cdn_rental_armada.slogan", default="Pilihan Tepat untuk Setiap Perjalanan.")
     deskripsi       = fields.Char(string='Deskripsi', config_parameter="cdn_rental_armada.deskripsi", default="deskripsi persewaan")
-    deskripsi_id  = fields.Many2one(comodel_name='cdn.deskripsi', string='deskripsi layanan', config_parameter="cdn_rental_armada.deskripsi_id")
+    deskripsi_id    = fields.Many2one(comodel_name='cdn.deskripsi', string='deskripsi layanan', config_parameter="cdn_rental_armada.deskripsi_id")
     
     
     headline        = fields.Char(string='Headline', config_parameter="cdn_rental_armada.headline", default="50%")

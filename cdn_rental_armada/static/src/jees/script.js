@@ -139,10 +139,11 @@ odoo.define('cdn_rental_armada.jees', function (require) {
     function total() {
         let harga = document.getElementById('harga').innerHTML
         let jumlah = document.getElementById('jmlh').value
+        let durasi = document.getElementById('durasi').value
 
         let total = document.getElementById('total')
         total.innerHTML = ''
-        total.innerHTML = harga * jumlah
+        total.innerHTML = harga * jumlah * durasi
     }
 
     
