@@ -4,7 +4,7 @@ from odoo.http import request
 
 
 # CREATED BY RIZKI
-# ------------------------------ WEBSITE ---------------------------------------------
+# --------------------------------- ARMADA SITE --------------------------------
 class ArmadaSite(http.Controller):
 
     # ------------------------------ HOME ---------------------------------------------
@@ -120,10 +120,10 @@ class ArmadaSite(http.Controller):
             'kecamatan_tujuan': kw.get('kecamatan_tujuan'),
             'desa_tujuan'   : kw.get('desa_tujuan'),
         })
-        return request.redirect('/terimakasih')
+        return request.redirect('/terimakasih/Booking')
 
     # ------------------------------ DAFTAR FORM ---------------------------------------------
-    @http.route('/form_daftar' , auth='public', website=True)
+    @http.route('/form_daftar', auth='public', website=True)
     def daftar(self, **kw):
         # buat_pelanggan = 
         return request.render('cdn_rental_armada.form_daftar_website',{})
@@ -142,8 +142,12 @@ class ArmadaSite(http.Controller):
             'mobile': kw.get('telepon'),
             'type_orang' : 'pelanggan',
         })
-        return request.redirect('/form_daftar')
+        return request.redirect('/terimakasih/booking')
     
-    @http.route('/terimakasih', auth='public', website=True)
-    def terimakasih(self, **kw):
-        return request.render('cdn_rental_armada.terimakasih_website',{})
+    # ------------------------------ TERIMAKASIH PAGE -------------------------------------------
+    @http.route('/terimakasih/<string:message>', auth='public', website=True)
+    def terimakasih(self, message, **kwargs):
+        var = {
+            'message': message
+        }
+        return request.render('cdn_rental_armada.terimakasih_website', var)

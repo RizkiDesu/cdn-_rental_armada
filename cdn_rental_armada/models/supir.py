@@ -38,13 +38,13 @@ class CdnSupir(models.Model):
             else:
                 rec.state = 'tidak_aktif'
 
-    @api.model
-    def create(self, vals):
-        data = super(CdnSupir, self).create(vals)
-        if len(data.sim_ids) < 1:
-            raise UserError(_('Harap Input Data SIM Kendaraan'))
+    # @api.model
+    # def create(self, vals):
+    #     data = super(CdnSupir, self).create(vals)
+    #     if len(data.sim_ids) < 1:
+    #         raise UserError(_('Harap Input Data SIM Kendaraan'))
 
-        return data
+    #     return data
     
 # CREATED BY IAN
 # ------------------------------- SIM --------------------------------

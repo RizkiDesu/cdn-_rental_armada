@@ -22,6 +22,7 @@ class CdnPemesanan(models.Model):
    umur                 = fields.Integer(string='Umur', related='pelanggan_id.umur', tracking=True)
 
    # -------------------------------------------- PENJEMPUTAN DAN TUJUAN -----------------------------------------
+   waktu_penjemputan    = fields.Char('Waktu Penjemputan')
    propinsi             = fields.Many2one(comodel_name='cdn.propinsi', string='Provinsi', tracking=True)
    kota                 = fields.Many2one(comodel_name='cdn.kota', string='Kota', tracking=True)
    kecamatan            = fields.Many2one(comodel_name='cdn.kecamatan', string='Kecamatan', tracking=True)
@@ -86,8 +87,7 @@ class CdnPemesanan(models.Model):
       vals['name'] = self.env['ir.sequence'].next_by_code('cdn.pemesanan')
       rekaman = super(CdnPemesanan, self).create(vals)
       rekaman.status_pembayaran = 'not_paid'
-      if len(rekaman.produk_ids) < 1:
-         raise UserError(_('Harap Input Data Armada'))
+      
 
       return rekaman
 
@@ -129,9 +129,12 @@ class CdnPemesanan(models.Model):
          self.state = 'selesai'
 
    # -------------------------------------------- ACTION STATE BUAT INVOICE ---------------------------------------------------
+   def action_kirim_email(self):
+      
+      return
    def action_state_buat_invoice(self):
       """Method for creating invoice"""
-
+      company = self.env.user.company_id
       if self.env['cdn.pemesanan.armada'].search([('produk_armada_pemesanan_id', '=', self.id)]):
          invoice_vals = {
             'move_type': 'out_invoice',
@@ -159,6 +162,164 @@ class CdnPemesanan(models.Model):
          invoice_id = self.env['account.move'].sudo().create(invoice_vals)
          self.invoice_id = invoice_id
          self.state = 'berjalan'
+         # ------------------------ TEMPLATE EMAIL ----------------------------------------------
+         # '<td class="invi" style="text-align: right;border: 1px solid white;border-collapse: collapse">'
+         #                                    '<img t-att-src="image_data_uri(o.env.user.company_id.logo)" alt="Logo" border="0" width="100"/>'
+         #                                '</td>'
+         mail_content = _(
+            '<div class="page">'
+               '<div class="container">'
+                     '<div class="header">'
+                        '<table style="width: 100%%;">'
+                           '<tbody>'
+                                 '<tr>'
+                                    '<td style="text-align: left; margin-bottom: 50px; border: 1px solid white; border-collapse: collapse;">'
+                                       '<h1>%s</h1>'  # company.name
+                                       '<p>%s</p>'  # company.street
+                                    '</td>'
+                                 '</tr>'
+                           '</tbody>'
+                        '</table>'
+                     '</div>'
+                     
+                     '<div class="section" align="center">'
+                        '<div class="section-header" style="background-color: #004e70; color: white; margin-bottom: 20px; padding: 8px"><b>Details Pelanggan</b></div>'
+                        '<div class="section-content">'
+                           '<table style="width: 100%%; border: 1px solid; border-collapse: collapse; margin-bottom: 50px;">'
+                                 '<tbody>'
+                                    '<tr>'
+                                       '<td style="border: 1px solid white;">Nama Pelanggan</td>'
+                                       '<td style="border: 1px solid white;">: %s</td>'  # self.pelanggan_id.name
+                                       '<td style="border: 1px solid white;">Umur</td>'
+                                       '<td style="border: 1px solid white;">: %s</td>'  # self.pelanggan_id.umur
+                                    '</tr>'
+                                    '<tr>'
+                                       '<td style="border: 1px solid white;">Jenis Kelamin</td>'
+                                       '<td style="border: 1px solid white;">: %s</td>'  # self.pelanggan_id.jenis_kelamin
+                                       '<td style="border: 1px solid white;">Alamat</td>'
+                                       '<td style="border: 1px solid white;">: %s</td>'  # self.pelanggan_id.street
+                                    '</tr>'
+                                    '<tr>'
+                                       '<td style="border: 1px solid white;">Email</td>'
+                                       '<td style="border: 1px solid white;">: %s</td>'  # self.pelanggan_id.email
+                                       '<td style="border: 1px solid white;">Telp</td>'
+                                       '<td style="border: 1px solid white;">: %s</td>'  # self.pelanggan_id.mobile
+                                    '</tr>'
+                                 '</tbody>'
+                           '</table>'
+                        '</div>'
+                     '</div>'
+                     
+                     '<div class="section" align="center">'
+                        '<div class="section-header" style="background-color: #004e70; color: white; margin-bottom: 20px;padding: 8px"><b>Detail Pemesanan</b></div>'
+                        '<div class="section-content">'
+                           '<table style="width: 100%%; border: 1px solid; border-collapse: collapse; margin-bottom: 50px;">'
+                                 '<tbody>'
+                                    '<tr>'
+                                       '<td style="border: 1px solid white;">Jenis Kendaraan</td>'
+                                       '<td style="border: 1px solid white;">: %s</td>'  # self.jenis_armada
+                                       '<td style="border: 1px solid white;">Tanggal Pemakaian</td>'
+                                       '<td style="border: 1px solid white;">: %s</td>'  # self.tanggal_dipakai
+                                    '</tr>'
+                                    '<tr>'
+                                       '<td style="border: 1px solid white;">Tanggal Pemesanan</td>'
+                                       '<td style="border: 1px solid white;">: %s</td>'  # self.tanggal_pemesanan
+                                       '<td style="border: 1px solid white;">Tanggal Kembali</td>'
+                                       '<td style="border: 1px solid white;">: %s</td>'  # self.tanggal_kembali
+                                    '</tr>'
+                                    '<tr>'
+                                       '<td style="border: 1px solid white;">Total Biaya</td>'
+                                       '<td style="border: 1px solid white;">: Rp. %s</td>'  # self.total_harga
+                                       '<td style="border: 1px solid white;">Durasi Sewa</td>'
+                                       '<td style="border: 1px solid white;">: %s Hari</td>'  # self.durasi
+                                    '</tr>'
+                                 '</tbody>'
+                           '</table>'
+                        '</div>'
+                     '</div>'
+                     
+                     '<div class="section" align="center">'
+                        '<div class="section-header" style="background-color: #004e70; color: white; margin-bottom: 20px; padding: 8px"><b>Penjemputan dan Tujuan</b></div>'
+                        '<div class="section-content">'
+                           '<table style="width: 100%%; border: 1px solid; border-collapse: collapse; margin-bottom: 50px;">'
+                                 '<tbody >'
+                                    '<tr>'
+                                       '<td style="border: 1px solid white;">Alamat Penjemputan</td>'
+                                       '<td style="border: 1px solid white;">: %s</td>'  # self.tempat_jemput
+                                       '<td style="border: 1px solid white;">Tujuan (jika ada)</td>'
+                                       '<td style="border: 1px solid white;">: %s</td>'  # self.tujuan
+                                    '</tr>'
+                                 '</tbody>'
+                           '</table>'
+                        '</div>'
+                     '</div>'
+                     '<div class="section" align="center">'
+                     '<div class="section-header" style="background-color: #004e70; color: white; margin-bottom: 20px; padding: 8px"><b>Detail Armada</b></div>'
+                     '<div class="section-content">'
+                        '%s'  # Details produk_ids placeholder
+                        
+                     '</div>'
+                     '</div>'
+                     
+                     '<div class="section note">'
+                        '<div class="section-header" style="background-color: #004e70; color: white; margin-bottom: 20px; padding: 8px"><b>Ketentuan - Ketentuan Persewaan Kendaraan :</b></div>'
+                        '<div class="section-content">'
+                           '<ul>'
+                                 '<li>Kendaraan tersebut (yang disewakan) tidak dapat dipindah tangankan kepada pihak lain / kedua tanpa seizin pemilik kendaraan.</li>'
+                                 '<li>Kendaraan tersebut diatas tidak dapat dijadikan jaminan/digadaikan dengan tujuan apapun kepada siapapun.</li>'
+                                 '<li>Pelanggaran akan diproses melalui jalur pidana dan pemilik kendaraan berhak untuk mengambil kembali kendaraan apabila terjadi pelanggaran atau terdapat kejanggalan lainnya mengenai pemakaian kendaraan dimana hal ini dirasakan oleh pemilik kendaraan.</li>'
+                                 '<li>Pengembalian kendaraan harus dalam keadaan seperti pada saat keluarnya surat ini, jika ada body tabrakan adalah tanggung jawab penyewa.</li>'
+                           '</ul>'
+                        '</div>'
+                     '</div>'
+               '</div>'
+            '</div>'
+         ) % (
+            company.name, company.street, self.pelanggan_id.name, self.pelanggan_id.umur,
+            self.pelanggan_id.jenis_kelamin, self.pelanggan_id.street, self.pelanggan_id.email,
+            self.pelanggan_id.mobile, self.jenis_armada, self.tanggal_dipakai, self.tanggal_pemesanan,
+            self.tanggal_kembali, self.total_harga, self.durasi, self.tempat_jemput, self.tujuan,
+            ''.join([
+               '<div class="section" align="center">'
+                     '<div class="section-header" style="background-color: #004e70; color: white; margin-bottom: 20px; padding: 2px"><b></b></div>'
+                     '<div class="section-content">'
+                     
+                        '<table style="width: 100%%; border: 1px solid grey; color : border-collapse: collapse; margin-bottom: 50px;">'
+                           '<tbody>'
+                              '<tr>'
+                                 '<td style="border: 1px solid white;"><b>ID Armada</b></td>'
+                                 '<td style="border: 1px solid white;">: <b>{}</b></td>' 
+                                 '<td style="border: 1px solid white;"></td>' 
+                                 '<td style="border: 1px solid white;">Sopir (jika ada)</td>'
+                                 '<td style="border: 1px solid white;">: {}</td>'       
+                              '</tr>'              
+                              '<tr>'
+                                 '<td style="border: 1px solid white;">Nopol dan Nama Armada</td>'
+                                 '<td style="border: 1px solid white;">: {}</td>' 
+                                 '<td style="border: 1px solid white;"></td>' 
+                                 '<td style="border: 1px solid white;">Tenaga Bantu (jika ada)</td>'
+                                 '<td style="border: 1px solid white;">: {}</td>'
+                              '</tr>'
+                        '</tbody>'
+                     '</table>'
+                        
+                     '</div>'
+                     '</div> <br></br><br></br>'
+                     
+               .format(line.id, line.supir.name, line.armada_id.name, line.tenaga_bantuan.name)
+               for line in self.produk_ids
+            ])
+         )
+
+         main_content = {
+            'subject': "Permintaan Booking Disetujui",
+            'author_id': self.env.user.partner_id.id,
+            'body_html': mail_content,
+            'email_to': self.pelanggan_id.email,
+         }
+
+         self.env['mail.mail'].create(main_content).send()
+
          return {
             'type': 'ir.actions.act_window',
             'name': 'Customer Invoice',
@@ -167,7 +328,6 @@ class CdnPemesanan(models.Model):
             'res_id': self.invoice_id.id,
             'target': 'current',
          }
-         
       else:
          raise ValidationError("Silahkan isi Produk Armada")
 

@@ -1,5 +1,5 @@
-odoo.define('cdn_rental_armada.location_filter', function (require) {
-    "use strict";
+odoo.define('cdn_rental_armada.jees', function (require) {
+    "use strict"
 
     var rpc = require('web.rpc')
 
@@ -7,7 +7,7 @@ odoo.define('cdn_rental_armada.location_filter', function (require) {
 
     function filterKotaByProvinsi(provinsi_id) {
         var $kotaSelect = document.getElementById('kota')
-        $kotaSelect.innerHTML = '';  // Kosongkan pilihan kota yang ada
+        $kotaSelect.innerHTML = ''
         $kotaSelect.append(new Option('', ''))  // Tambahkan opsi kosong
 
         rpc.query({
@@ -23,8 +23,8 @@ odoo.define('cdn_rental_armada.location_filter', function (require) {
 
     function filterKecamatanByKota(kota_id) {
         var $kecamatanSelect = document.getElementById('kecamatan');
-        $kecamatanSelect.innerHTML = '';  // Kosongkan pilihan kecamatan yang ada
-        $kecamatanSelect.append(new Option('', '')) // Tambahkan opsi kosong
+        $kecamatanSelect.innerHTML = ''
+        $kecamatanSelect.append(new Option('', ''))
 
         rpc.query({
             route: '/get_kecamatan_by_kota',
@@ -39,9 +39,8 @@ odoo.define('cdn_rental_armada.location_filter', function (require) {
 
     function filterDesaByKecamatan(kecamatan_id) {
         var $desaSelect = document.getElementById('desa')
-        $desaSelect.innerHTML = ''  // Kosongkan pilihan desa yang ada
-        $desaSelect.append(new Option('', ''))  // Tambahkan opsi kosong
-
+        $desaSelect.innerHTML = ''
+        $desaSelect.append(new Option('', ''))
         rpc.query({
             route: '/get_desa_by_kecamatan',
             params: { 'kecamatan_id': kecamatan_id }
@@ -57,8 +56,8 @@ odoo.define('cdn_rental_armada.location_filter', function (require) {
 
     function filterKotaByProvinsiTujuan(provinsi_id) {
         var $kotaSelect = document.getElementById('kota_tujuan')
-        $kotaSelect.innerHTML = ''  // Kosongkan pilihan kota yang ada
-        $kotaSelect.append(new Option('', ''))  // Tambahkan opsi kosong
+        $kotaSelect.innerHTML = ''
+        $kotaSelect.append(new Option('', ''))
 
         rpc.query({
             route: '/get_kota_by_provinsi_tujuan',
@@ -72,8 +71,8 @@ odoo.define('cdn_rental_armada.location_filter', function (require) {
     }
     function filterKecamatanByKotaTujuan(kota_id) {
         var $kecamatanSelect = document.getElementById('kecamatan_tujuan')
-        $kecamatanSelect.innerHTML = ''  // Kosongkan pilihan kecamatan yang ada
-        $kecamatanSelect.append(new Option('', ''))  // Tambahkan opsi kosong
+        $kecamatanSelect.innerHTML = ''
+        $kecamatanSelect.append(new Option('', ''))
 
         rpc.query({
             route: '/get_kecamatan_by_kota_tujuan',
@@ -88,8 +87,8 @@ odoo.define('cdn_rental_armada.location_filter', function (require) {
 
     function filterDesaByKecamatanTujuan(kecamatan_id) {
         var $desaSelect = document.getElementById('desa_tujuan')
-        $desaSelect.innerHTML = ''  // Kosongkan pilihan desa yang ada
-        $desaSelect.append(new Option('', ''))  // Tambahkan opsi kosong
+        $desaSelect.innerHTML = '' 
+        $desaSelect.append(new Option('', ''))  
 
         rpc.query({
             route: '/get_desa_by_kecamatan_tujuan',
@@ -103,16 +102,18 @@ odoo.define('cdn_rental_armada.location_filter', function (require) {
     }
 
     function filterProdukByJenisArmada(jenis_armada) {
-        console.log(jenis_armada)
         var $produkSelect = document.getElementById('produk')
-        $produkSelect.innerHTML = ''  // Kosongkan pilihan produk yang ada
-        $produkSelect.append(new Option('', ''))  // Tambahkan opsi kosong
+        $produkSelect.selectedIndex = 0;
+        $produkSelect.selectedIndex = ''
+        $produkSelect.innerHTML = ''  
+        $produkSelect.append(new Option('', '')) 
 
         rpc.query({
             route: '/get_produk_by_jenis_armada',
             params: { 'jenis_armada': jenis_armada }
         }).then(function(data) {
             data.produk.forEach(function(produk) {
+                
                 var option = new Option(produk.name, produk.id)
                 $produkSelect.append(option)
             })
@@ -128,17 +129,41 @@ odoo.define('cdn_rental_armada.location_filter', function (require) {
             params: { 'product_id': product_id }
         }
         ).then(function(data) {
-            console.log(data)
+            // $harga.innerHTML = ''
             $harga.innerHTML = data.harga
+            total()
         })
+        // return product_id
     }
- 
-        // var $harga = document.getElementById('harga')
-        // $harga.innerHTML = ''  // Kosongkan pilihan harga yang ada
 
+    function total() {
+        let harga = document.getElementById('harga').innerHTML
+        let jumlah = document.getElementById('jmlh').value
+        let durasi = document.getElementById('durasi').value
 
+        let total = document.getElementById('total')
+        total.innerHTML = ''
+        total.innerHTML = harga * jumlah * durasi
+    }
 
     
+
+    // function total (jumlah, product_id) {
+        
+    //     total = document.getElementById('total')
+    //     total.innerHTML = ''
+    //     rpc.query({
+    //         route: '/get_harga_by_product',
+    //         params: { 'product_id': product_id }
+    //     }).then(function(data) {
+    //         total.innerHTML = data.harga * jumlah
+    //     })
+
+        
+    // }
+    window.total                        = total
+    // window.changeHarga                  = changeHarga
+    // window.changeJumlah                 = changeJumlah
     window.tampilkanHargaProduct        = tampilkanHargaProduct
     window.filterProdukByJenisArmada    = filterProdukByJenisArmada
 

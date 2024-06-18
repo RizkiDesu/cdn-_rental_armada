@@ -88,8 +88,10 @@
             '/cdn_rental_armada/static/src/jees/peta.js',
             'https://unpkg.com/leaflet/dist/leaflet.css',
             'https://unpkg.com/leaflet/dist/leaflet.js',
-            '/cdn_rental_armada/static/src/xml/peta.xml', 
-        ],  
+            '/cdn_rental_armada/static/src/xml/peta.xml',
+            '/cdn_rental_armada/static/src/jees/time_widget.js',
+            '/cdn_rental_armada/static/src/scss/timepicker.scss',
+            '/cdn_rental_armada/static/src/xml/timepicker.xml',
         'web.assets_frontend': [
             '/cdn_rental_armada/static/src/css/bootstrap.min.css',
             'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css',
@@ -109,7 +111,7 @@
             'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js',
             'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css',
             '/cdn_rental_armada/static/src/jees/script.js',
-            # '/cdn_rental_armada/static/src/jees/komponen.js',
+            
         ],
         
     },
