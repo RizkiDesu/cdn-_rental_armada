@@ -1,0 +1,10 @@
+.btn {
+    border-radius: 10px;
+}
+.o_main_navbar {
+    position : relative;
+    height : 46px;
+    background-color : #2B2E4A;
+    color : #F77D0A !important;
+    font-weight: bold !important;
+    }

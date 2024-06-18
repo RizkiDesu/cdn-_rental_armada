@@ -92,6 +92,7 @@
             '/cdn_rental_armada/static/src/xml/peta.xml',
             '/cdn_rental_armada/static/src/jees/time_widget.js',
             '/cdn_rental_armada/static/src/scss/timepicker.scss',
+            '/cdn_rental_armada/static/src/css/style_backend.css',
             '/cdn_rental_armada/static/src/xml/timepicker.xml',
         ],
         'web.assets_frontend': [
