@@ -88,8 +88,8 @@
             '/cdn_rental_armada/static/src/jees/peta.js',
             'https://unpkg.com/leaflet/dist/leaflet.css',
             'https://unpkg.com/leaflet/dist/leaflet.js',
-            '/cdn_rental_armada/static/src/xml/peta.xml',
-        ],
+            '/cdn_rental_armada/static/src/xml/peta.xml', 
+        ],  
         'web.assets_frontend': [
             '/cdn_rental_armada/static/src/css/bootstrap.min.css',
             'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css',

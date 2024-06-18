@@ -78,7 +78,61 @@ class gpsTracking(http.Controller):
         headers = CaseInsensitiveDict()
         headers["Accept"] = "application/json"
 
-        result =  requests.get(url, headers=headers)
+        response =  requests.get(url, headers=headers)
+        if response.status_code == 200:
+            data = response.json()
+            print(data)
+            return json.dumps(data['features'][0]['properties'])
+        else:
+            return {'status': 'error', 'message': 'API request failed'}
+
+class wilayah(http.Controller):
+    @http.route('/provinsi', type='http', auth='public', website=False, methods=['GET'], csrf=False, cors='*')
+    def provinsi(self, **kwargs):
+        url = "https://www.emsifa.com/api-wilayah-indonesia/api/provinces.json"
+
+        headers = {'Content-Type'  : 'application/json'}
+
+        result = requests.get(url, headers=headers)
+        return Response(
+            result, 
+            status  = 200
+        )
+
+    @http.route('/kota', type='http', auth='public', website=False, methods=['GET'], csrf=False, cors='*')
+    def provinsi(self, **kwargs):
+        provinsi_id = kwargs.get('provinsi_id')
+        url = "https://www.emsifa.com/api-wilayah-indonesia/api/regencies/"+provinsi_id+".json"
+
+        headers = {'Content-Type'  : 'application/json'}
+
+        result = requests.get(url, headers=headers)
+        return Response(
+            result, 
+            status  = 200
+        )
+
+    @http.route('/kecamatan', type='http', auth='public', website=False, methods=['GET'], csrf=False, cors='*')
+    def provinsi(self, **kwargs):
+        kota_id = kwargs.get('kota_id')
+        url = "https://www.emsifa.com/api-wilayah-indonesia/api/districts/"+kota_id+".json"
+
+        headers = {'Content-Type'  : 'application/json'}
+
+        result = requests.get(url, headers=headers)
+        return Response(
+            result, 
+            status  = 200
+        )
+
+    @http.route('/desa', type='http', auth='public', website=False, methods=['GET'], csrf=False, cors='*')
+    def provinsi(self, **kwargs):
+        kecamatan_id = kwargs.get('kecamatan_id')
+        url = "https://www.emsifa.com/api-wilayah-indonesia/api/villages/"+kecamatan_id+".json"
+
+        headers = {'Content-Type'  : 'application/json'}
+
+        result = requests.get(url, headers=headers)
         return Response(
             result, 
             status  = 200
