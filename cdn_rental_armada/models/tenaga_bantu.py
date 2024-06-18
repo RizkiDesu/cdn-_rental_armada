@@ -8,7 +8,7 @@ class CdnTenagaKerja(models.Model):
     _name           = "cdn.tenaga.bantu"
     _description    = "Tenaga Bantu"
     _inherits       = {'res.partner': 'partner_id'}
-    _inherit         = ['mail.thread', 'mail.activity.mixin']
+    _inherit        = ['mail.thread', 'mail.activity.mixin']
     
     state           = fields.Selection(string='Status Tenaga Bantu', selection=[('tidak_aktif','Tidak Aktif'), ('perjalanan', 'Bertugas'), ('siap', 'Siap')], default='tidak_aktif', tracking=True)
     

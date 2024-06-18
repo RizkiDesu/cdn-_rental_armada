@@ -19,7 +19,8 @@ class ArmadaSite(http.Controller):
             'services': request.env['cdn.your.service'].sudo().search([]),
             'consumers': request.env['cdn.pelanggan'].sudo().search([('priority', '=', '1')]),
             'products': request.env['product.product'].sudo().search([('priority', '=', '1')]),
-            'armadas': request.env['cdn.armada'].sudo().search([('priority', '=', 1)]),
+            'armadas': request.env['cdn.armada'].sudo().search([('priority', '=', '1')]),
+            'teams' : request.env['res.partner'].sudo().search([('type_orang', 'in', ['sopir','tenaga_bantu']) ]),
             # 'products': request.env['cdn.produk.armada'].sudo().search([('priority', '=', 1)])
         }
         return request.render('cdn_rental_armada.home_page', var)

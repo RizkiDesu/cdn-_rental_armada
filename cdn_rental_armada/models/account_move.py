@@ -7,9 +7,9 @@ from datetime import date
 # CREATED BY IAN
 # ------------------------------ INVOICE ---------------------------------------------
 class AccountMove(models.Model):
-    _inherit = 'account.move' 
-    pemesanan_id   = fields.Integer(string='ID Pemesanan')
-    tagihan_denda  = fields.Boolean(string='Tagihan Denda', default=False)
+    _inherit        = 'account.move' 
+    pemesanan_id    = fields.Integer(string='ID Pemesanan')
+    tagihan_denda   = fields.Boolean(string='Tagihan Denda', default=False)
 
     # CREATED BY RIZKI
     # ------------------------------ KIRIM KE API PEMBAYARAN ---------------------------------------------

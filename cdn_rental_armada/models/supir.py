@@ -52,11 +52,11 @@ class CdnSim(models.Model):
     _name         = 'cdn.sim'
     _description  = 'cdn.sim'
     _rec_name     = 'no_sim'
-    _inherit        = ['mail.thread', 'mail.activity.mixin']
+    _inherit      = ['mail.thread', 'mail.activity.mixin']
 
     # ------------------------------- RELATION --------------------------------
     sim_id      = fields.Many2one(comodel_name='cdn.supir', string='SUPIR', tracking=True)
-
+    
     # ------------------------------- FIELD --------------------------------
     name        = fields.Char(string='Nama', tracking=True)
     no_sim      = fields.Char(string='No Sim', tracking=True)
