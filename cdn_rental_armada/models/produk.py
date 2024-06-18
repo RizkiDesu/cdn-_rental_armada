@@ -30,7 +30,7 @@ class CdnProdukArmada(models.Model):
     description = fields.Text(string='Deskripsi', tracking=True)
     jenis_armada = fields.Selection(string='Jenis Armada', selection=[('bis', 'Bis Pariwisata'), ('travel', 'Travel'),('mobil', 'Mobil')], tracking=True)
     uom_id = fields.Many2one(comodel_name='uom.uom', string='Unit of Measure',
-                            default=_get_default_uom_id, required=True,
+                            default=_get_default_uom_id,
                             help="Default unit of measure used for all stock operations.", tracking=True)
 
     # CREATED BY TRIADI

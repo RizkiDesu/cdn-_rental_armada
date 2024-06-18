@@ -6,7 +6,7 @@ class cdnPropinsi(models.Model):
     _name = 'cdn.propinsi'
     _description = 'Propinsi'
     
-    name = fields.Char(string='Nama Propinsi', required=True)
+    name = fields.Char(string='Nama Propinsi')
     kode = fields.Char(string='Kode Propinsi')
     singkat = fields.Char(string='Singkatan')
     keterangan = fields.Text(string='keterangan')
@@ -19,7 +19,7 @@ class cdnKota(models.Model):
     _name = 'cdn.kota'
     _description = 'Kota'
     
-    name = fields.Char(string='Nama Kota', required=True)
+    name = fields.Char(string='Nama Kota')
     kode = fields.Char(string='Kode Kota')
     singkat = fields.Char(string='Singkatan')
     keterangan = fields.Text(string='keterangan')
@@ -33,7 +33,7 @@ class cdnKecamatan(models.Model):
     _name = 'cdn.kecamatan'
     _description = 'cdn Kecamatan'
     
-    name = fields.Char(string='Nama Kecamatan', required=True)
+    name = fields.Char(string='Nama Kecamatan')
     kode = fields.Char(string='Kode Kecamatan')
     keterangan = fields.Text(string='Keterangan')
     
@@ -46,7 +46,7 @@ class cdnDesa(models.Model):
     _name = 'cdn.desa'
     _description = 'cdn Desa'
     
-    name = fields.Char(string='Nama Desa', required=True)
+    name = fields.Char(string='Nama Desa')
     kode = fields.Char(string='Kode Desa')
     keterangan = fields.Text(string='Keterangan')
 

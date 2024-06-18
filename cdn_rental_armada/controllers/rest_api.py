@@ -12,7 +12,8 @@ from requests.structures import CaseInsensitiveDict
 
 # http://localhost:8069/pembayaran/invoice
 
-# CREATED BY RIZKI
+# CREATED BY IAN
+# MODIF BY RIZKI
 # ------------------------------ KIRIM KE API PEMBAYARAN ---------------------------------------------
 class pembayaran(http.Controller):
     @http.route('/pembayaran/invoice', type='http', auth='public', website=False, methods=['POST', 'GET'], csrf=False, cors='*')
