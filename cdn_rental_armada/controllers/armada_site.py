@@ -18,18 +18,29 @@ class ArmadaSite(http.Controller):
             'deskripsi': seting.deskripsi,
             'services': request.env['cdn.your.service'].sudo().search([]),
             'consumers': request.env['cdn.pelanggan'].sudo().search([('priority', '=', '1')]),
-            'products': request.env['cdn.produk.armada'].sudo().search([('priority', '=', '1')]),
+            'products': request.env['product.product'].sudo().search([('priority', '=', '1')]),
             'armadas': request.env['cdn.armada'].sudo().search([('priority', '=', 1)]),
-            'products': request.env['cdn.produk.armada'].sudo().search([('priority', '=', 1)])
+            # 'products': request.env['cdn.produk.armada'].sudo().search([('priority', '=', 1)])
         }
         return request.render('cdn_rental_armada.home_page', var)
 
-    # ------------------------------ ARMADA ---------------------------------------------
-    @http.route('/armada', auth='public', website=True)
-    def index(self, **kw):
-        products = request.env['cdn.produk.armada'].sudo().search([])
-        print(products)
+    # ------------------------------ PRODUK ---------------------------------------------
+    @http.route('/our_produk', auth='public', website=True)
+    def product(self, **kw):
+        products = request.env['product.product'].sudo().search([('jenis_armada','!=', False)])
         return request.render('cdn_rental_armada.our_produk', {'products': products})
+
+    # ------------------------------ BOOKING BY PRODUK ------------------------------------
+    @http.route('/form_booking/<int:product_id>', auth='user', website=True)
+    def product_id(self, product_id,  **kw):
+        produk_records = request.env['product.product'].sudo().browse(product_id)
+        var = {
+            'product' : produk_records,
+            'provinsi_tujuan': request.env['cdn.propinsi'].sudo().search([]),
+            'provinsi': request.env['cdn.propinsi'].sudo().search([])
+        }
+        return request.render('cdn_rental_armada.form_booking_website', var)
+
 
     # ------------------------------ BOOKING ---------------------------------------------
     @http.route('/form_booking' , auth='user', website=True)
@@ -152,3 +163,5 @@ class ArmadaSite(http.Controller):
             'message': message
         }
         return request.render('cdn_rental_armada.terimakasih_website', var)
+
+    

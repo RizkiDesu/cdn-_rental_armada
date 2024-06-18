@@ -4,7 +4,6 @@ odoo.define('cdn_rental_armada.jees', function (require) {
     var rpc = require('web.rpc')
 
     // ----------------------------------------asal ----------------------------------------
-
     function filterKotaByProvinsi(provinsi_id) {
         var $kotaSelect = document.getElementById('kota')
         $kotaSelect.innerHTML = ''
@@ -101,6 +100,8 @@ odoo.define('cdn_rental_armada.jees', function (require) {
         })
     }
 
+
+// ---------------------------------------- PRODUCT ----------------------------------------
     function filterProdukByJenisArmada(jenis_armada) {
         var $produkSelect = document.getElementById('produk')
         $produkSelect.selectedIndex = 0;
@@ -121,7 +122,7 @@ odoo.define('cdn_rental_armada.jees', function (require) {
     }
 
     function tampilkanHargaProduct(product_id) {
-        console.log(product_id)
+        // console.log(product_id)
         var $harga = document.getElementById('harga')
         $harga.innerHTML = ''  // Kosongkan pilihan harga yang ada
         rpc.query({
@@ -140,30 +141,13 @@ odoo.define('cdn_rental_armada.jees', function (require) {
         let harga = document.getElementById('harga').innerHTML
         let jumlah = document.getElementById('jmlh').value
         let durasi = document.getElementById('durasi').value
-
         let total = document.getElementById('total')
         total.innerHTML = ''
         total.innerHTML = harga * jumlah * durasi
     }
 
     
-
-    // function total (jumlah, product_id) {
-        
-    //     total = document.getElementById('total')
-    //     total.innerHTML = ''
-    //     rpc.query({
-    //         route: '/get_harga_by_product',
-    //         params: { 'product_id': product_id }
-    //     }).then(function(data) {
-    //         total.innerHTML = data.harga * jumlah
-    //     })
-
-        
-    // }
     window.total                        = total
-    // window.changeHarga                  = changeHarga
-    // window.changeJumlah                 = changeJumlah
     window.tampilkanHargaProduct        = tampilkanHargaProduct
     window.filterProdukByJenisArmada    = filterProdukByJenisArmada
 

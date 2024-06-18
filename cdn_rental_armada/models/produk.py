@@ -30,7 +30,7 @@ class CdnProdukArmada(models.Model):
     description = fields.Text(string='Deskripsi', tracking=True)
     jenis_armada = fields.Selection(string='Jenis Armada', selection=[('bis', 'Bis Pariwisata'), ('travel', 'Travel'),('mobil', 'Mobil')], tracking=True)
     uom_id = fields.Many2one(comodel_name='uom.uom', string='Unit of Measure',
-                            default=_get_default_uom_id, required=True,
+                            default=_get_default_uom_id,
                             help="Default unit of measure used for all stock operations.", tracking=True)
 
     # CREATED BY TRIADI
@@ -55,7 +55,8 @@ class CdnProdukArmada(models.Model):
             'jenis_armada': produk_baru.jenis_armada,
             'uom_id': produk_baru.uom_id.id,
             'uom_po_id': produk_baru.uom_id.id,
-            'armada_id': produk_baru.id
+            'armada_id': produk_baru.id,
+            'priority' : produk_baru.priority
         })
         return produk_baru
 
@@ -71,7 +72,8 @@ class CdnProdukArmada(models.Model):
             'description_sale': self.description,
             'jenis_armada': self.jenis_armada,
             'uom_id': self.uom_id.id,
-            'uom_po_id': self.uom_id.id
+            'uom_po_id': self.uom_id.id,
+            'priority' : self.priority
         })
         return update
 

@@ -35,7 +35,7 @@ class CdnPemesanan(models.Model):
    tujuan               = fields.Text(string='Tempat Tujuan', tracking=True)
 
    # -------------------------------------------- JENIS ARMADA  --------------------------------------------
-   jenis_armada         = fields.Selection(string='Jenis Armada', selection=[('bis', 'Bis Pariwisata'), ('travel', 'Travel'),('mobil', 'Mobil')], required=True, tracking=True) 
+   jenis_armada         = fields.Selection(string='Jenis Armada', selection=[('bis', 'Bis Pariwisata'), ('travel', 'Travel'),('mobil', 'Mobil')], tracking=True) 
 
 
    # -------------------------------------------- STATUS  --------------------------------------------   

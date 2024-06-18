@@ -27,7 +27,7 @@
         # ------------------------------- WEBSITE --------------------------------
         'views/home_page_site.xml',
         'views/armada_site.xml',
-        'views/produk_site.xml',
+        # 'views/produk_site.xml',
         'views/form_pendaftaran_site.xml',
         'views/form_booking_site.xml',
         'views/product_site.xml',
