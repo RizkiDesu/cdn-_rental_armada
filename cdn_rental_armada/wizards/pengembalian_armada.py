@@ -108,9 +108,10 @@ class CdnPengembalianArmadaWizard(models.TransientModel):
             'invoice_line_ids': [],
          }
 
+         produk_id = self.env['product.product'].search([('default_code', '=', 'ref_produk_lain')], limit=1)
          if res.bagian_dalam == True:
             invoice_bagian_dalam_line = {
-               # 'product_id': produk_id.id,
+               'product_id': produk_id.id,
                'quantity'            : 1,
                'armada_id'           : produk_armada.armada_id.id,
                'name'                : res.keterangan_bagian_dalam,
@@ -121,7 +122,7 @@ class CdnPengembalianArmadaWizard(models.TransientModel):
 
          if res.bagian_luar == True:
             invoice_bagian_luar_line = {
-               # 'product_id': produk_id.id,
+               'product_id': produk_id.id,
                'quantity'            : 1,
                'armada_id'           : produk_armada.armada_id.id,
                'name'                : res.keterangan_bagian_luar,
@@ -132,7 +133,7 @@ class CdnPengembalianArmadaWizard(models.TransientModel):
 
          if res.denda_telat == True:
             invoice_denda_telat_line = {
-               # 'product_id': produk_id.id,
+               'product_id': produk_id.id,
                'quantity'            : 1,
                'armada_id'           : produk_armada.armada_id.id,
                'name'                : 'Denda keterlambatan pengembalian armada',
