@@ -99,29 +99,51 @@
                             <div class="row">
                                 <div class="form-group col-md-9">
                                     <label for="jenis_armada">Jenis armada</label>
-                                    <select class="form-select" id="jenis_armada" name="jenis_armada" onchange="filterProdukByJenisArmada(this.value)">
-                                        <option t-att-value=""></option>
-                                        <option t-att-value="'bis'">Bis Pariwisata</option>
-                                        <option t-att-value="'travel'">Travel</option>
-                                        <option t-att-value="'mobil'">Mobil</option>
-                                    </select>
+                                    <t t-if="product">
+                                        <select class="form-select" id="jenis_armada" name="jenis_armada">
+                                            <option value=""></option>
+                                            <option t-att-selected="product and product.jenis_armada == 'bis'">Bis Pariwisata</option>
+                                            <option t-att-selected="product and product.jenis_armada == 'travel'">Travel</option>
+                                            <option t-att-selected="product and product.jenis_armada == 'mobil'">Mobil</option>
+                                        </select>
+                                    </t>
+                                    <t t-else="">
+                                        <select class="form-select" id="jenis_armada" name="jenis_armada" onchange="filterProdukByJenisArmada(this.value)">
+                                            <option t-att-value=""></option>
+                                            <option t-att-value="'bis'">Bis Pariwisata</option>
+                                            <option t-att-value="'travel'">Travel</option>
+                                            <option t-att-value="'mobil'">Mobil</option>
+                                        </select>
+                                    </t> 
                                 </div>
                                 <div class="col">
                                     <label for="jmlh" class="form-label">Jumlah</label>
-                                    <input type="number" class="form-control" id="jmlh" name="jmlh" min="1" onchange="total()"/>
+                                    <input type="number" class="form-control" id="jmlh" name="jmlh" min="1" onchange="total()" required="required"/>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col mb-3 select2-input">
                                 <label for="produk" class="form-label">Produk</label>
-                                <select class="select2" id="produk" name="produk" onchange="tampilkanHargaProduct(this.value)">
-                                    <option t-att-value=""></option>
-                                </select>
+                                    <t t-if="product">
+                                        <select class="select2" id="produk" name="produk">
+                                            <option t-att-value="product.id"><t t-esc="product.name"/></option>
+                                        </select>
+                                    </t>
+                                    <t t-else="">
+                                        <select class="select2" id="produk" name="produk" onchange="tampilkanHargaProduct(this.value)">
+                                            <option t-att-value=""></option>
+                                        </select>
+                                    </t> 
                             </div>
                             <div class="col">
                                 <label for="harga" class="form-label">Harga (per hari)</label>
-                                <div id="harga" class="form-control"> </div> 
+                                    <t t-if="product">
+                                        <div id="harga" class="form-control"> <t t-esc="product.lst_price"/></div> 
+                                    </t>
+                                    <t t-else="">
+                                        <div id="harga" class="form-control"> </div> 
+                                    </t> 
                             </div>
                         </div>
                        
@@ -132,7 +154,7 @@
                             </div>
                             <div class="mb-3 col">
                                 <label for="durasi" class="form-label">Durasi Lama (Hari)</label>
-                                <input type="number" class="form-control" id="durasi" name="durasi" min="1" onchange="total()"/>
+                                <input type="number" class="form-control" id="durasi" name="durasi" min="1" t-att-value="'1'" onchange="total()"/>
                             </div>
                         </div>
                         <div class="mb-3">
@@ -156,9 +178,6 @@
                                 <label for="kota" class="form-label">Kota</label>
                                 <select class="select2" id="kota" name="kota" onchange="filterKecamatanByKota(this.value)">
                                     <option t-att-value=""></option>
-                                    <!-- <t t-foreach="kota" t-as="kota">
-                                        <option t-att-value="kota.id"><t t-esc="kota.name"/></option>
-                                    </t> -->
                                 </select>
                             </div>
                         </div>
@@ -167,18 +186,12 @@
                                 <label for="kecamatan" class="form-label">Kecamatan</label>
                                 <select class="select2" id="kecamatan" name="kecamatan" onchange="filterDesaByKecamatan(this.value)">
                                     <option t-att-value=""></option>
-                                    <!-- <t t-foreach="kecamatan" t-as="kecamatan">
-                                        <option t-att-value="kecamatan.id"><t t-esc="kecamatan.name"/></option>
-                                    </t> -->
                                 </select>
                             </div>
                             <div class="col mb-3 select2-input">
                                 <label for="desa" class="form-label">Desa</label>
                                 <select class="select2" id="desa" name="desa" >
                                     <option t-att-value=""></option>
-                                    <!-- <t t-foreach="desa" t-as="desa">
-                                        <option t-att-value="desa.id"><t t-esc="desa.name"/></option>
-                                    </t> -->
                                 </select>
                             </div>
                         </div>
@@ -204,9 +217,6 @@
                                 <label for="kota_tujuan" class="form-label">Kota</label>
                                 <select class="select2" id="kota_tujuan" name="kota_tujuan" onchange="filterKecamatanByKotaTujuan(this.value)">
                                     <option t-att-value=""></option>
-                                    <!-- <t t-foreach="kota_tujuan" t-as="kota_tujuan">
-                                        <option t-att-value="kota_tujuan.id"><t t-esc="kota_tujuan.name"/></option>
-                                    </t> -->
                                 </select>
                             </div>
                         </div>
@@ -215,18 +225,12 @@
                                 <label for="kecamatan_tujuan" class="form-label">Kecamatan</label>
                                 <select class=" select2" id="kecamatan_tujuan" name="kecamatan_tujuan" onchange="filterDesaByKecamatanTujuan(this.value)">
                                     <option t-att-value=""></option>
-                                    <!-- <t t-foreach="kecamatan_tujuan" t-as="kecamatan_tujuan">
-                                        <option t-att-value="kecamatan_tujuan.id"><t t-esc="kecamatan_tujuan.name"/></option>
-                                    </t> -->
                                 </select>
                             </div>
                             <div class="col mb-3 select2-input">
                                 <label for="desa_tujuan" class="form-label">Desa</label>
                                 <select class="select2" id="desa_tujuan" name="desa_tujuan">
                                     <option t-att-value=""></option>
-                                    <!-- <t t-foreach="desa_tujuan" t-as="desa_tujuan">
-                                        <option t-att-value="desa_tujuan.id"><t t-esc="desa_tujuan.name"/></option>
-                                    </t> -->
                                 </select>
                             </div>
                         </div>

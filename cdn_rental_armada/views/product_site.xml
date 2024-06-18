@@ -12,7 +12,7 @@
                             <t t-foreach="products" t-as="product">
                                 <div class="col-lg-4 col-md-6 mb-2">
                                     <div class="rent-item mb-4">
-                                        <img class="img-fluid mb-4" t-attf-src="data:image/jpg;base64,{{ product.images }}" alt="Product"/> 
+                                        <img class="img-fluid mb-4" t-attf-src="data:image/jpg;base64,{{ product.image_1920 }}" alt="Product"/> 
                                         <h4 class="text-uppercase mb-4"><t t-esc="product.name"/></h4>
                                         <div class="d-flex justify-content-center mb-4">
                                             <div class="px-2">
@@ -21,7 +21,7 @@
                                             </div>
                                         </div>
                                             <div class="d-grid gap-2">
-                                                <a class="btn btn-primary" href="form_booking" style="border-radius: 10px;">Pilih</a>
+                                                <a t-att-href="'/form_booking/' + str(product.id)" class="btn btn-primary" style="border-radius: 10px;">Pilih</a>
                                             </div>
                                     </div>
                                 </div>

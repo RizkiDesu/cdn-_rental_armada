@@ -101,6 +101,8 @@ odoo.define('cdn_rental_armada.jees', function (require) {
         })
     }
 
+
+// ---------------------------------------- PRODUCT ----------------------------------------
     function filterProdukByJenisArmada(jenis_armada) {
         var $produkSelect = document.getElementById('produk')
         $produkSelect.selectedIndex = 0;
@@ -121,7 +123,7 @@ odoo.define('cdn_rental_armada.jees', function (require) {
     }
 
     function tampilkanHargaProduct(product_id) {
-        console.log(product_id)
+        // console.log(product_id)
         var $harga = document.getElementById('harga')
         $harga.innerHTML = ''  // Kosongkan pilihan harga yang ada
         rpc.query({
@@ -162,8 +164,6 @@ odoo.define('cdn_rental_armada.jees', function (require) {
         
     // }
     window.total                        = total
-    // window.changeHarga                  = changeHarga
-    // window.changeJumlah                 = changeJumlah
     window.tampilkanHargaProduct        = tampilkanHargaProduct
     window.filterProdukByJenisArmada    = filterProdukByJenisArmada
 

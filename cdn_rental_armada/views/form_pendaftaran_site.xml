@@ -58,6 +58,8 @@
                 </div>
             </t>
         </template>
+
+
     <!-- Triadi -->
         <template id="form_daftar_website" name="Pendaftaran">
             <t t-call="website.layout">
@@ -104,7 +106,7 @@
                         </div>
                         <div class="col-md-6 bg-dark text-white p-5">
                             <h3 align="center" class="text-primary">Data Pelanggan</h3>
-                            <form t-att-action="'/daftar_save'" method="post" enctype="multipart/form-data">
+                            <form t-att-action="products and ('/crud/person/update/' + str(person.id)) or '/daftar_save'" method="post" enctype="multipart/form-data">
                             <!-- <form> -->
                                 <div class="form-group">
                                     <label for="nama">Nama Lengkap</label>
