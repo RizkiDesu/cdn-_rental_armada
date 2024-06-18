@@ -93,6 +93,7 @@
             '/cdn_rental_armada/static/src/jees/time_widget.js',
             '/cdn_rental_armada/static/src/scss/timepicker.scss',
             '/cdn_rental_armada/static/src/xml/timepicker.xml',
+        ],
         'web.assets_frontend': [
             '/cdn_rental_armada/static/src/css/bootstrap.min.css',
             'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css',
