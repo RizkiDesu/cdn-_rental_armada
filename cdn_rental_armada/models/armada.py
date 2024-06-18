@@ -31,7 +31,7 @@ class CdnArmada(models.Model):
     # ------------------------------ KONDISI ARMADA ---------------------------------------------
     kondisi          = fields.Boolean(string='Kondisi Kendaraan', help="Jika aktif berarti armada dalam kondisi bagus", compute="_compute_kondisi", tracking=True)
     state            = fields.Selection(string='Status Armada', selection=[('tidak_siap','Tidak Siap'), ('dipakai', 'Sedang Dipakai'), ('siap', 'Siap Dipakai')])
-    priority = fields.Selection([('0', 'Normal'),('1', 'Favorite'),], default='0', string="Favorite")
+    priority         = fields.Selection([('0', 'Normal'),('1', 'Favorite'),], default='0', string="Favorite")
 
     # CREATED ALVITO
     # REVISI IAN

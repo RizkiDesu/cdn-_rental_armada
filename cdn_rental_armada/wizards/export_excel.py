@@ -7,13 +7,13 @@ from datetime import date
 # CREATED BY TRIADI
 # ------------------------------- WIZARD ARMADA TERSEDIA EXPORT EXCEL --------------------------------
 class WizardArmadaTersedia(models.TransientModel):
-    _name = 'wizard.armada.tersedia'
-    _description = 'Wizard Armada Tersedia'
+    _name               = 'wizard.armada.tersedia'
+    _description        = 'Wizard Armada Tersedia'
     
-    jenis_armada = fields.Selection(string='Jenis Armada', selection=[('bis', 'Bis Pariwisata'), ('travel', 'Travel'), ('mobil', 'Mobil')], tracking=True)    
-    state = fields.Selection(string='Status Armada', selection=[('tidak_siap', 'Tidak Siap'), ('dipakai', 'Sedang Dipakai'), ('siap', 'Siap Dipakai')])
-    file_export_name = fields.Char(string='Nama File')
-    file_export_data      = fields.Binary(string='File Export')
+    jenis_armada        = fields.Selection(string='Jenis Armada', selection=[('bis', 'Bis Pariwisata'), ('travel', 'Travel'), ('mobil', 'Mobil')], tracking=True)    
+    state               = fields.Selection(string='Status Armada', selection=[('tidak_siap', 'Tidak Siap'), ('dipakai', 'Sedang Dipakai'), ('siap', 'Siap Dipakai')])
+    file_export_name    = fields.Char(string='Nama File')
+    file_export_data    = fields.Binary(string='File Export')
     
     
     def export_excel(self):
