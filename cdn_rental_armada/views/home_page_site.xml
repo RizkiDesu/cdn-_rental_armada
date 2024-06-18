@@ -57,7 +57,7 @@
                 <!-- About Start -->
                 <div class="container-fluid py-5">
                     <div class="container pt-5 pb-3">
-                        <h1 class="display-1 text-primary text-center">01</h1>
+                        <!-- <h1 class="display-1 text-primary text-center">01</h1> -->
                         <h1 class="display-4 text-uppercase text-center mb-5">Welcome To <span class="text-primary">
                             <t t-esc="title_description"/>
                         </span></h1>
@@ -103,7 +103,7 @@
                 <!-- Services Start -->
                 <div class="container-fluid py-5">
                     <div class="container pt-5 pb-3">
-                        <h1 class="display-1 text-primary text-center">02</h1>
+                        <!-- <h1 class="display-1 text-primary text-center">02</h1> -->
                         <h1 class="display-4 text-uppercase text-center mb-5">Layanan Kami</h1>
                         <div class="row">
                             <t t-foreach="services" t-as="service">
@@ -143,11 +143,38 @@
                 </div>
                 <!-- Banner End -->
 
+                <!-- product ............................................................................................................................................. -->
+                <div class="container-fluid py-5">
+                    <div class="container pt-5 pb-3">
+                        <!-- <h1 class="display-1 text-primary text-center"></h1> -->
+                        <h1 class="display-4 text-uppercase text-center mb-5">Product</h1>
+                        <div class="row">
+                            <t t-foreach="products" t-as="product">
+                                <div class="col-lg-4 col-md-6 mb-2">
+                                    <div class="rent-item mb-4">
+                                        <img class="img-fluid mb-4" t-attf-src="data:image/jpg;base64,{{ product.images }}" alt="Product"/> 
+                                        <h4 class="text-uppercase mb-4"><t t-esc="product.name"/></h4>
+                                        <div class="d-flex justify-content-center mb-4">
+                                            <div class="px-2">
+                                                <!-- <i class="fas fa-dollar-sign text-primary mr-1"></i> -->
+                                                <b class="text-primary">Rp. <span><t t-esc="product.lst_price"/></span></b>
+                                            </div>
+                                        </div>
+                                            <div class="d-grid gap-2">
+                                                <a class="btn btn-primary" href="form_booking" style="border-radius: 10px;">Pilih</a>
+                                            </div>
+                                    </div>
+                                </div>
+                            </t>
+                        </div>
+                    </div>
+                </div>
+                <!-- Product End......................................................................................................................................... -->
 
                 <!-- Rent A Car Start............................................................................................................................................. -->
                 <div class="container-fluid py-5">
                     <div class="container pt-5 pb-3">
-                        <h1 class="display-1 text-primary text-center">03</h1>
+                        <!-- <h1 class="display-1 text-primary text-center">03</h1> -->
                         <h1 class="display-4 text-uppercase text-center mb-5">Armada Favorit Rental</h1>
                         <div class="row">
                             <t t-foreach="armadas" t-as="armada">
@@ -182,7 +209,7 @@
                 <!-- Team Start -->
                 <div class="container-fluid py-5">
                     <div class="container py-5">
-                        <h1 class="display-1 text-primary text-center">04</h1>
+                        <!-- <h1 class="display-1 text-primary text-center">04</h1> -->
                         <h1 class="display-4 text-uppercase text-center mb-5">Meet Our Team</h1>
                         <div class="owl-carousel team-carousel position-relative" style="padding: 0 30px;">
                             <div class="team-item">
@@ -272,7 +299,7 @@
                 <!-- Testimonial Start -->
                 <div class="container-fluid py-5">
                     <div class="container py-5">
-                        <h1 class="display-1 text-primary text-center">05</h1>
+                        <!-- <h1 class="display-1 text-primary text-center">05</h1> -->
                         <h1 class="display-4 text-uppercase text-center mb-5">Pelanggan Rental</h1>
                         <div class="owl-carousel testimonial-carousel">
                             <!-- <t t-foreach="armadas" t-as="armada"> -->

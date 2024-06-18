@@ -3,11 +3,56 @@
     <data>
         <template id="terimakasih_website" name="Terimakasih Website">
             <t t-call="website.layout">
-                <div class="container">
+            <style>
+            container {
+                background-color: 01374c;
+            }
+                .cantain {
+                margin-top: 10rem;
+                justify-content: center;
+                align-items: center;
+                margin-bottom: 5rem;
+                }
+                .thank-you-container {
+                text-align: center;
+                
+                }
+                h1 {
+                font-weight: bold;
+                color: #01374c;
+                margin-bottom: 1rem;
+                }
+                h5 {
+                color: #01374c;
+                }
+                .thank-you-container p {
+                font-size: 1.25rem;
+                }
+                .heart {
+                color: #ff5c5c;
+                width: 15rem;
+                }
+                .line {
+                    padding: 0.5rem;
+                    background-color: #01374c;
+                    margin-bottom: 2rem;
+                }
+            </style>
+                <div class="container cantain">
                     <div class="row">
-                        <div class="col-md-12">
-                            <h1 align="center">Terimakasih Telah <t t-esc="message"/></h1>
-                            <p align="center">Terimakasih telah <t t-esc="message"/>, data anda akan kami proses.</p>
+                        <div class="col">
+                            <h1 class="">TERIMAKASIH !</h1>
+                            <h5>Informasi login anda akan kami kirimkan melalui email yang anda daftarkan.</h5>
+                            <div class="line">
+
+                            </div>
+                            <div>
+                            <a href="#" class="btn btn-outline-primary">Beranda</a>
+                            <a href="#" class="btn btn-outline-primary">Login</a>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="heart"><img src="/cdn_rental_armada/static/src/img/love.png" alt="" width="100%"/></div>
                         </div>
                     </div>
                 </div>

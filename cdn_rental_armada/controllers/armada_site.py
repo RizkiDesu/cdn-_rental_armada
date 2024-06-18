@@ -19,16 +19,17 @@ class ArmadaSite(http.Controller):
             'services': request.env['cdn.your.service'].sudo().search([]),
             'consumers': request.env['cdn.pelanggan'].sudo().search([('priority', '=', '1')]),
             'products': request.env['cdn.produk.armada'].sudo().search([('priority', '=', '1')]),
-            'armadas': request.env['cdn.armada'].sudo().search([('priority', '=', 1)])
+            'armadas': request.env['cdn.armada'].sudo().search([('priority', '=', 1)]),
+            'products': request.env['cdn.produk.armada'].sudo().search([('priority', '=', 1)])
         }
         return request.render('cdn_rental_armada.home_page', var)
 
     # ------------------------------ ARMADA ---------------------------------------------
     @http.route('/armada', auth='public', website=True)
     def index(self, **kw):
-        armadas = request.env['cdn.armada'].sudo().search([('priority', '=', 1)])
-        print(armadas)
-        return request.render('cdn_rental_armada.armada_list', {'armadas': armadas})
+        products = request.env['cdn.produk.armada'].sudo().search([])
+        print(products)
+        return request.render('cdn_rental_armada.our_produk', {'products': products})
 
     # ------------------------------ BOOKING ---------------------------------------------
     @http.route('/form_booking' , auth='user', website=True)
