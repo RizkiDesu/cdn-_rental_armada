@@ -3,10 +3,10 @@
         <!-- Add custom CSS inside the template -->
         <xpath expr="." position="inside">
             <style type="text/css">
-                table, tr, td {
+                <!-- table, tr, td {
                         border: 1px solid #000;
                         border-collapse: collapse;
-                     }
+                     } -->
             </style>
         </xpath>
         
