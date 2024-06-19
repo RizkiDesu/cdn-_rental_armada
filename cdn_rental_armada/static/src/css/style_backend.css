@@ -1,3 +1,4 @@
+
 .btn {
     border-radius: 10px;
 }
@@ -8,3 +9,83 @@
     color : #F77D0A !important;
     font-weight: bold !important;
     }
+@font-face {
+    font-family: 'kanvas';
+    src: url('/cdn_rental_armada/static/src/font2.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+    }
+
+body{
+    font-family: 'kanvas';
+}
+.o_web_client{
+    background-color : #2B2E4A !important;
+
+}
+.o_main_navbar {
+    /* border-radius: 20px; */
+    border: 3px solid #2B2E4A;
+    /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  */
+}
+.o_action_manager {
+    margin: 1.5rem;
+    background-color: #f0f0f0; /* Example background color */
+    border-radius: 20px;
+    /* border: 3px solid #F77D0A; */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adding shadow */
+}
+.o_control_panel {
+    border-radius: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Adding shadow */
+    margin: 1rem;
+    margin-top: 2rem;
+    padding: 20px;
+}
+.o_content {
+    margin: 1.5rem;
+    border-radius: 20px; /* Adding border-radius */
+}
+/* kanban */
+.o_kanban_view .o_kanban_record {
+    border-radius: 5px; /* Adding border-radius */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Adding shadow */
+    border: 2px #F77D0A;
+}
+
+
+/* Styling the table in the tree view */
+.o_list_view table.o_list_table {
+    border-radius: 10px; /* Adding border-radius to the table */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Adding shadow */
+    background-color: #fff; /* Changing background color of the table */
+    overflow: hidden; /* Ensuring the border-radius affects the children elements */
+}
+
+.o_list_view table.o_list_table th {
+    background-color: #2a1a72; /* Changing background color of the table headers */
+    color: #ffffff; /* Changing text color of the table headers */
+    padding: 10px; /* Adding padding to the table headers */
+    text-align: center;
+    
+}
+
+.o_list_view table.o_list_table td {
+    padding: 10px; /* Adding padding to table cells */
+    border-bottom: 1px solid #ddd; /* Adding border to table rows */
+}
+
+.o_list_view table.o_list_table tr:nth-child(even) {
+    background-color: #f9f9f9; /* Adding background color to even rows */
+}
+
+.o_list_view table.o_list_table tr:hover {
+    background-color: #ddd; /* Adding hover effect to rows */
+}
+
+/* Styling the table container to match the rounded corners */
+.o_list_view {
+    border-radius: 10px; /* Adding border-radius to the container */
+    overflow: hidden; /* Ensuring the border-radius affects the children elements */
+}
+
