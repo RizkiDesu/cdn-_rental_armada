@@ -94,6 +94,7 @@
             '/cdn_rental_armada/static/src/scss/timepicker.scss',
             '/cdn_rental_armada/static/src/css/style_backend.css',
             '/cdn_rental_armada/static/src/xml/timepicker.xml',
+            # '/cdn_rental_armada/static/src/font.otf',
         ],
         'web.assets_frontend': [
             '/cdn_rental_armada/static/src/css/bootstrap.min.css',
