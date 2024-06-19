@@ -6,9 +6,12 @@
     --dark: #1C1E32;
 }
 .navbar-light .navbar-nav .nav-link {
-    color: #f8f9fa !important;
+    color: #F77D0A !important;
     background-color: #2B2E4A !important;
     font-weight: bold;
+}
+main {
+    /* background-color: #122b3b !important; */
 }
 .navbar {
     background-color: #2B2E4A !important;
