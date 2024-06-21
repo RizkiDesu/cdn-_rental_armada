@@ -1,7 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <odoo>
-    <record id="paperformat_payslip_group"
-            model="report.paperformat">
+    <record id="paperformat_payslip_group" model="report.paperformat">
         <field name="name">European A4</field>
         <field name="default" eval="True"/>
         <field name="format">A4</field>
@@ -15,22 +14,22 @@
         <field name="header_line" eval="False"/>
         <field name="header_spacing">43</field>
         <field name="dpi">90</field>
-        
     </record>
 
     <record id="report_pelanggan_menu" model="ir.actions.report">
             <field name="name">Cetak Rekan Medis</field>
-            <field name="model">cdn.pelanggan</field>
+            <field name="model">cdn.pemesanan</field>
             <field name="report_type">qweb-pdf</field>
             <field name="report_name">cdn_rental_armada.report_rm</field>
             <field name="report_file">cdn_rental_armada.report_rm</field>
-            <field name="binding_model_id" ref="model_cdn_pelanggan"/>
+            <field name="binding_model_id" ref="model_cdn_pemesanan"/>
             <field name="binding_type">report</field>
             <field name="paperformat_id" ref="cdn_rental_armada.paperformat_payslip_group"/>
     </record>
 
     <template id="report_rm">
             <t t-call="web.external_layout">
+            
                 <div class="page">
                     <style>
                     body{
@@ -443,7 +442,10 @@
                             <td>12-12-2012</td>
                         </tr>
                         <tr align="right">
-                            <td>BARCODE</td>
+                            <td>
+                                <!-- <t t-call="web.basic_layout" t-foreach="docs" t-as="o"> -->
+                                <img t-attf-src="data:image/jpg;base64,{{ docs.barcode_tdd }}" class="card-img-top" style="width:100px; height:100px; object-fit:cover;" />
+                            </td>
                         </tr>
                         </tbody>
                     </table>
