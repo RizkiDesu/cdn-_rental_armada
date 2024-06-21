@@ -1,0 +1,77 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <template id="header_simrs">
+        <t t-call="web.basic_layout">
+            <div class="page">
+                <style>
+                    .kepala{
+                        justify-content: center;
+                    }
+                    .kepala-text{
+                        text-align: center;
+                    }
+                    .rs-name{
+                        font-size: 26px;
+                        margin-bottom: 2px;
+                    }
+                    .rs-address{
+                        font-size: 17px;
+                        margin: 0;
+                    }
+                    .rs-contact{
+                        margin: 0;
+                        font-size: 17px;
+                    }
+                    .rs-city{
+                        margin: 4px 0 0 0;
+                    }
+                    .link{
+                        color: blue;
+                        text-decoration-line: underline;
+                    }
+                    hr{
+                        border: 3px solid #000000 !important;
+                    }
+                    table {
+                        width: 80%;
+                        vertical-align: middle;
+                    }
+                    tr, td, table{
+                    border: 1px solid white !important;
+                    border-collapse: collapse !important;
+                    }
+                    .vimg {
+                        vertical-align: bottom;
+                        text-align: right;
+                    }
+                    p {
+                        font-size: 10px;
+                    }
+
+                </style>
+                <div class="kepala">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td class="vimg">
+                                    <div class="kepala-img">
+                                        <img t-att-src="'/cdn_rental_armada/static/img/logo-al-shaqy.jpeg'" width="160" alt="kepala"/>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="kepala-text">
+                                        <h5 class="rs-name">RUMAH SAKIT KHUSUS BEDAH <br/>AL - ISHAQIY</h5>
+                                        <p class="rs-address">Jl. RE. Martadianata No 34 Telp. (031)3090319</p>
+                                        <p class="rs-contact">Website: <span class="link">www.Rsbedahalishaqiy.com</span><br/>E-mail <span class="link">Official@rsbedahalishaqiy.com</span></p>
+                                        <p class="rs-city">BANGKALAN</p>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <hr/>
+            </div>
+        </t>
+    </template>
+</odoo>

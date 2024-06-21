@@ -1,0 +1,454 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <record id="paperformat_payslip_group"
+            model="report.paperformat">
+        <field name="name">European A4</field>
+        <field name="default" eval="True"/>
+        <field name="format">A4</field>
+        <field name="page_height">0</field>
+        <field name="page_width">0</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">5</field>
+        <field name="margin_bottom">10</field>
+        <field name="margin_left">5</field>
+        <field name="margin_right">5</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">43</field>
+        <field name="dpi">90</field>
+        
+    </record>
+
+    <record id="report_pelanggan_menu" model="ir.actions.report">
+            <field name="name">Cetak Rekan Medis</field>
+            <field name="model">cdn.pelanggan</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">cdn_rental_armada.report_rm</field>
+            <field name="report_file">cdn_rental_armada.report_rm</field>
+            <field name="binding_model_id" ref="model_cdn_pelanggan"/>
+            <field name="binding_type">report</field>
+            <field name="paperformat_id" ref="cdn_rental_armada.paperformat_payslip_group"/>
+    </record>
+
+    <template id="report_rm">
+            <t t-call="web.external_layout">
+                <div class="page">
+                    <style>
+                    body{
+                        font-size: 11px;
+                    }
+                    .tableborder {
+                    border: 1px solid black !important;
+                    border-collapse: collapse !important;
+                    
+                    }
+                    .tableatas {
+                    border: 2px solid grey !important;
+                    border-collapse: collapse !important;
+                    }
+                    .table {
+                    width: 100%;
+                    max-width: 100%;
+                    margin-bottom: 1rem;
+                    border: 2px solid grey;
+                    border-collapse: collapse !important;
+                    }
+
+                    .table th,
+                    .table td {
+                    padding: 0.75rem;
+                    vertical-align: top;
+                    border-top: 1px solid #eceeef;
+                    
+                    }
+
+                    .table thead th {
+                    vertical-align: bottom;
+                    border-bottom: 2px solid #eceeef;
+                    }
+
+                    .table tbody + tbody {
+                    border-top: 2px solid #eceeef;
+                    }
+
+                    .table .table {
+                    background-color: #fff;
+                    }
+
+                    .table-sm th,
+                    .table-sm td {
+                    padding: 0.3rem;
+                    }
+
+                    .table-bordered {
+                    border: 1px solid #eceeef;
+                    }
+
+                    .table-bordered th,
+                    .table-bordered td {
+                    border: 1px solid #eceeef;
+                    }
+
+                    .table-bordered thead th,
+                    .table-bordered thead td {
+                    border-bottom-width: 2px;
+                    }
+
+                    .table-striped tbody tr:nth-of-type(odd) {
+                    background-color: rgba(0, 0, 0, 0.05);
+                    }
+
+                    .table-hover tbody tr:hover {
+                    background-color: rgba(0, 0, 0, 0.075);
+                    }
+
+                    .table-active,
+                    .table-active > th,
+                    .table-active > td {
+                    background-color: rgba(0, 0, 0, 0.075);
+                    }
+
+                    .table-hover .table-active:hover {
+                    background-color: rgba(0, 0, 0, 0.075);
+                    }
+
+                    .table-hover .table-active:hover > td,
+                    .table-hover .table-active:hover > th {
+                    background-color: rgba(0, 0, 0, 0.075);
+                    }
+
+                    .table-success,
+                    .table-success > th,
+                    .table-success > td {
+                    background-color: #38cc34 !important;
+                    font-weight: bold;
+                    }
+
+                    .table-hover .table-success:hover {
+                    background-color: #d0e9c6;
+                    }
+
+                    .table-hover .table-success:hover > td,
+                    .table-hover .table-success:hover > th {
+                    background-color: #d0e9c6;
+                    }
+
+                    .table-info,
+                    .table-info > th,
+                    .table-info > td {
+                    background-color: #d9edf7;
+                    }
+
+                    .table-hover .table-info:hover {
+                    background-color: #c4e3f3;
+                    }
+
+                    .table-hover .table-info:hover > td,
+                    .table-hover .table-info:hover > th {
+                    background-color: #c4e3f3;
+                    }
+
+                    .table-warning,
+                    .table-warning > th,
+                    .table-warning > td {
+                    background-color: #fcf8e3;
+                    }
+
+                    .table-hover .table-warning:hover {
+                    background-color: #faf2cc;
+                    }
+
+                    .table-hover .table-warning:hover > td,
+                    .table-hover .table-warning:hover > th {
+                    background-color: #faf2cc;
+                    }
+
+                    .table-danger,
+                    .table-danger > th,
+                    .table-danger > td {
+                    background-color: #f2dede;
+                    }
+
+                    .table-hover .table-danger:hover {
+                    background-color: #ebcccc;
+                    }
+
+                    .table-hover .table-danger:hover > td,
+                    .table-hover .table-danger:hover > th {
+                    background-color: #ebcccc;
+                    }
+
+                    .thead-inverse th {
+                    color: #fff;
+                    background-color: #292b2c;
+                    }
+
+                    .thead-default th {
+                    color: #464a4c;
+                    background-color: #eceeef;
+                    }
+
+                    .table-inverse {
+                    color: #fff;
+                    background-color: #292b2c;
+                    }
+
+                    .table-inverse th,
+                    .table-inverse td,
+                    .table-inverse thead th {
+                    border-color: #fff;
+                    }
+
+                    .table-inverse.table-bordered {
+                    border: 0;
+                    }
+
+                    .table-responsive {
+                    display: block;
+                    width: 100%;
+                    overflow-x: auto;
+                    -ms-overflow-style: -ms-autohiding-scrollbar;
+                    }
+
+                    .table-responsive.table-bordered {
+                    border: 0;
+                    }
+                    .hilang {
+                    border: 1px solid white !important;
+                    border-collapse: collapse !important;
+                    }
+                    .header{
+                        display: flex;
+                        justify-content: center;
+                    }
+                    .header-img{
+                        width: 200px;
+                    }
+                    .header-text{
+                        text-align: center;
+                    }
+                    .rs-name{
+                        font-size: 26px;
+                        margin-bottom: 2px;
+                    }
+                    .rs-address{
+                        font-size: 17px;
+                        margin: 0;
+                    }
+                    .rs-contact{
+                        margin: 0;
+                        font-size: 17px;
+                    }
+                    .rs-city{
+                        margin: 4px 0 0 0;
+                    }
+                    .link{
+                        color: blue;
+                        text-decoration-line: underline;
+                    }
+                    hr{
+                        border: 3px solid #000000 !important;
+                    }
+                    </style>
+                    <div>
+            <t t-call="cdn_rental_armada.header_simrs"/>
+
+                    <table class="table table-sm tableatas">
+                        <tbody>
+                        <tr>
+                            <td class="table-success">Indikasi MRS</td>
+                        </tr>
+                        <tr>
+                            <td>Indikasi MRS</td>
+                        </tr>
+                        <tr>
+                            <td class="table-success">ANAMNESIS</td>
+                        </tr>
+                        <tr>
+                            <td>Keluhan Utama</td>
+                        </tr>
+                        <tr>
+                            <td class="table-success">PEMERIKSAAN FISIK</td>
+                        </tr>
+                        <tr>
+                            <td>
+                            <table>
+                            <tr>
+                                <td class="hilang">Fisik</td>
+                                <td class="hilang">
+                                <table>
+                                    <tbody>
+                                    <tr>
+                                        <td class="hilang">KU</td>
+                                        <td class="hilang">:</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="hilang">GCS</td>
+                                        <td class="hilang">: E:V:M:</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="hilang">TD</td>
+                                        <td class="hilang">: mmHg</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="hilang">Nadi</td>
+                                        <td class="hilang">: 60/menit</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="hilang">Respirasi</td>
+                                        <td class="hilang">: 60/menit</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="hilang">Suhu</td>
+                                        <td class="hilang">: 35°C</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="hilang">Saturasi O2</td>
+                                        <td class="hilang">: 70%</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="hilang">Patologi Klinik</td>
+                                <td class="hilang"></td>
+                            </tr>
+                            <tr>
+                                <td class="hilang">Patologi Anatomi</td>
+                                <td class="hilang"></td>
+                            </tr>
+                            <tr>
+                                <td class="hilang">Radiologi</td>
+                                <td class="hilang"></td>
+                            </tr>
+                            <tr>
+                                <td class="hilang">Pemeriksaan Penunjang Lain</td>
+                                <td class="hilang"></td>
+                            </tr> 
+                            </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <tr>
+                            <td class="table-success">DIAGNOSIS</td>
+                            </tr>
+                            <td>
+                            <table class="table tableborder">
+                            <tr class="tableborder" style="text-align: center; font-weight: bold;">
+                                <td class="tableborder">Diagnosis Utama</td>
+                                <td class="tableborder">kode ICDX</td>
+                                <td class="tableborder">Diagnosis Sekunder</td>
+                                <td class="tableborder">kode ICDX</td>
+                            </tr>
+                            <tr class="table tableborder">
+                                <td class="tableborder">Other Salmonella infection</td>
+                                <td class="tableborder">a02</td>
+                                <td class="tableborder"></td>
+                                <td class="tableborder"></td>
+                            </tr>
+                            </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="table-success">RIWAYAT ALERGI</td>
+                        </tr>
+                        <tr>
+                            <td><table>
+                            <tr>
+                                <td class="hilang" rowspan="3">Alergi</td>
+                                <td class="hilang">Alergi Obat</td>
+                                <td class="hilang">:</td>
+                            </tr>
+                            <tr>
+                                <td class="hilang">Alergi makanan </td>
+                                <td class="hilang">:</td>
+                            </tr>
+                            <tr>
+                                <td class="hilang">Alergi Lain </td>
+                                <td class="hilang">:</td>
+                            </tr>
+                            </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="table-success">RIWAYAT KONSUL</td>
+                        </tr>
+                        <tr>
+                            <td>Konsultasi</td>
+                        </tr>
+                        <tr>
+                            <td class="table-success">TINDAKAN MEDIS</td>
+                        </tr>
+                        <tr>
+                            <td> AFF Infus, BIAYA KAMAR KELAS III, Ganti Cairan, Injeksi IM /IV, Mengantar Pasien, Mengukur saturasi O2 (Tanpa Monitor), Observasi tanda-tanda Vital, Visite Apoteker, visite dr
+                            spesialis</td>
+                        </tr>
+                        <tr>
+                            <td class="table-success">Riwayat Obat-obatan Selama MRS</td>
+                        </tr>
+                        <tr>
+                            <td><table>
+                            <tr>
+                                <td class="hilang">Daftar Obat-obatan yang telah diberikan selama perawatan</td>
+                                <td class="hilang">CEFTRIAXON INJEKSI 1GRAM, FURAMIN INJEKSI, INFUSET DEWASA, METAMIZOLE SODIUM 500MG/ML INJ, METOCLOPRAMID INJEKSI, NACL 0,9% INFUS 500ML, OMEPRAZOL KAPSUL 20MG, SPUIT 3CC, SPUIT 5CC, SUCRALFAT SIRUP 100ML</td>
+                            </tr>
+                            </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="table-success">INDIKASI KRS</td>
+                        </tr>
+                        <tr>
+                            <td><table class="table">
+                            <tr>
+                                <td class="hilang">Status Keluar</td>
+                                <td class="hilang">: Pulang Paksa</td>
+                            </tr>
+                            <tr>
+                                <td class="hilang">Catatan Keluar</td>
+                                <td class="hilang">: </td>
+                            </tr>
+                            </table></td>
+                        </tr>
+                        <tr class="table-success">
+                            <td>PROGNOSIS</td>
+                        </tr>
+                        <tr>
+                            <td>Prognosis</td>
+                        </tr>
+                        <tr class="table-success">
+                            <td>NAMA OBAT</td>
+                        </tr>
+                        <tr>
+                            <td>Paracetamol</td>
+                        </tr>
+                        <tr class="table-success">
+                            <td>KONTROL</td>
+                        </tr>
+                        <tr>
+                            <td><table class="table"><tr>
+                            <td class="hilang">Kontrol</td>
+                            <td class="hilang">1 Minggu Sekali</td>
+                            </tr>
+                            <tr>
+                            <td class="hilang">Rujuk</td>
+                            <td class="hilang"></td>
+                            </tr>
+                            <tr>
+                            <td class="hilang">Dokter</td>
+                            <td class="hilang">Dr. Jekyll and Hyde</td>
+                            </tr></table></td>
+                        </tr>
+                        <tr align="right">
+                            <td>12-12-2012</td>
+                        </tr>
+                        <tr align="right">
+                            <td>BARCODE</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    </div>
+                </div>
+            </t>
+        </template>
+</odoo>
