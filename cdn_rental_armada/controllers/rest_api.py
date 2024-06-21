@@ -82,60 +82,47 @@ class gpsTracking(http.Controller):
         response =  requests.get(url, headers=headers)
         if response.status_code == 200:
             data = response.json()
-            print(data)
-            return json.dumps(data['features'][0]['properties'])
+            return json.dumps(data)
         else:
             return {'status': 'error', 'message': 'API request failed'}
 
 class wilayah(http.Controller):
-    @http.route('/provinsi', type='http', auth='public', website=False, methods=['GET'], csrf=False, cors='*')
-    def provinsi(self, **kwargs):
+    @http.route('/provinsi-api', type='http', auth='public', website=False, methods=['GET'], csrf=False, cors='*')
+    def provinsiApi(self, **kwargs):
         url = "https://www.emsifa.com/api-wilayah-indonesia/api/provinces.json"
 
         headers = {'Content-Type'  : 'application/json'}
 
         result = requests.get(url, headers=headers)
-        return Response(
-            result, 
-            status  = 200
-        )
+        return json.dumps(result.json())
+        # return json.dumps([{'id': province.id, 'name': province.name} for province in result.json()])
 
-    @http.route('/kota', type='http', auth='public', website=False, methods=['GET'], csrf=False, cors='*')
-    def provinsi(self, **kwargs):
+    @http.route('/kota-api', type='http', auth='public', website=False, methods=['GET'], csrf=False, cors='*')
+    def kotaApi(self, **kwargs):
         provinsi_id = kwargs.get('provinsi_id')
         url = "https://www.emsifa.com/api-wilayah-indonesia/api/regencies/"+provinsi_id+".json"
 
         headers = {'Content-Type'  : 'application/json'}
 
         result = requests.get(url, headers=headers)
-        return Response(
-            result, 
-            status  = 200
-        )
-
-    @http.route('/kecamatan', type='http', auth='public', website=False, methods=['GET'], csrf=False, cors='*')
-    def provinsi(self, **kwargs):
+        return json.dumps(result.json())
+    
+    @http.route('/kecamatan-api', type='http', auth='public', website=False, methods=['GET'], csrf=False, cors='*')
+    def kecamatanApi(self, **kwargs):
         kota_id = kwargs.get('kota_id')
         url = "https://www.emsifa.com/api-wilayah-indonesia/api/districts/"+kota_id+".json"
 
         headers = {'Content-Type'  : 'application/json'}
 
         result = requests.get(url, headers=headers)
-        return Response(
-            result, 
-            status  = 200
-        )
+        return json.dumps(result.json())
 
-    @http.route('/desa', type='http', auth='public', website=False, methods=['GET'], csrf=False, cors='*')
-    def provinsi(self, **kwargs):
+    @http.route('/desa-api', type='http', auth='public', website=False, methods=['GET'], csrf=False, cors='*')
+    def desaApi(self, **kwargs):
         kecamatan_id = kwargs.get('kecamatan_id')
         url = "https://www.emsifa.com/api-wilayah-indonesia/api/villages/"+kecamatan_id+".json"
 
         headers = {'Content-Type'  : 'application/json'}
 
         result = requests.get(url, headers=headers)
-        return Response(
-            result, 
-            status  = 200
-        )
-
+        return json.dumps(result.json())

@@ -89,6 +89,8 @@
             '/cdn_rental_armada/static/src/jees/peta.js',
             'https://unpkg.com/leaflet/dist/leaflet.css',
             'https://unpkg.com/leaflet/dist/leaflet.js',
+            '/cdn_rental_armada/static/src/xml/wilayah.xml',
+            '/cdn_rental_armada/static/src/jees/wilayah.js',
             '/cdn_rental_armada/static/src/xml/peta.xml',
             '/cdn_rental_armada/static/src/jees/time_widget.js',
             '/cdn_rental_armada/static/src/scss/timepicker.scss',

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates id="template" xml:space="preserve">
+    <t t-name="WilayahWidget" owl="1">
+        <select t-on-change="this._onChangeProvinsi" t-ref="provinsi-select" class="form-control">
+            <option value="">Pilih Provinsi</option>
+            <option t-foreach="state.provinsi" t-as="province" t-key="province.id" t-att-value="province.id" t-att-selected="state.props.provinsi.id === province.id">
+                <t t-esc="province.name"/>
+            </option>
+        </select>
+        <select t-on-change="this._onChangeKota" t-ref="kota-select" class="form-control">
+            <option value="">Pilih Kab/Kota</option>
+            <option t-foreach="state.kota" t-as="kota" t-key="kota.id" t-att-value="kota.id" t-att-selected="state.props.kota.id === kota.id">
+                <t t-esc="kota.name"/>
+            </option>
+        </select>
+        <select t-on-change="this._onChangeKecamatan" t-ref="kecamatan-select" class="form-control">
+            <option value="">Pilih Kecamatan</option>
+            <option t-foreach="state.kecamatan" t-as="kecamatan" t-key="kecamatan.id" t-att-value="kecamatan.id" t-att-selected="state.props.kecamatan.id === kecamatan.id">
+                <t t-esc="kecamatan.name"/>
+            </option>
+        </select>
+        <select  t-on-change="this._onChangeDesa" t-ref="desa-select" class="form-control">
+            <option value="">Pilih Desa</option>
+            <option t-foreach="state.desa" t-as="desa" t-key="desa.id" t-att-value="desa.id" t-att-selected="state.props.desa.id === desa.id">
+                <t t-esc="desa.name"/>
+            </option>
+        </select>
+    </t>
+</templates>
