@@ -3,6 +3,7 @@
     <template id="semua_tersedia">
         <t t-call="web.basic_layout">
             <div class="page">
+            <t t-call="cdn_rental_armada.header_simrs"/>
                 <style>
                     body {
                         font-family: Arial, sans-serif;
@@ -58,9 +59,9 @@
 
                     }
                 </style>
-                <div class="header">
+                <!-- <div class="header">
                     <img t-att-src="'/cdn_rental_armada/static/img/report_head.png'" width="100%" alt="header"/>
-                </div>
+                </div> -->
                 <!-- <div style="margin-bottom: 5rem;">
                 <b style="color:white">_</b>
                 </div> -->

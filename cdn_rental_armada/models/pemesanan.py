@@ -26,16 +26,18 @@ class CdnPemesanan(models.Model):
 
    # -------------------------------------------- PENJEMPUTAN DAN TUJUAN -----------------------------------------
    waktu_penjemputan    = fields.Char('Waktu Penjemputan')
-   propinsi             = fields.Many2one(comodel_name='cdn.propinsi', string='Provinsi', tracking=True)
-   kota                 = fields.Many2one(comodel_name='cdn.kota', string='Kota', tracking=True)
-   kecamatan            = fields.Many2one(comodel_name='cdn.kecamatan', string='Kecamatan', tracking=True)
-   desa                 = fields.Many2one(comodel_name='cdn.desa', string='Desa', tracking=True)
    tempat_jemput        = fields.Text(string='Tempat Penjemputan', tracking=True)
-   propinsi_tujuan      = fields.Many2one(comodel_name='cdn.propinsi', string='Provinsi', tracking=True)
-   kota_tujuan          = fields.Many2one(comodel_name='cdn.kota', string='Kota', tracking=True)
-   kecamatan_tujuan     = fields.Many2one(comodel_name='cdn.kecamatan', string='Kecamatan')
-   desa_tujuan          = fields.Many2one(comodel_name='cdn.desa', string='Desa', tracking=True)
+   wilayah_penjemputan  = fields.Char(string='Wilayah Penjemputan')
+   wilayah_tujuan       = fields.Char(string='Wilayah Tujuan')
    tujuan               = fields.Text(string='Tempat Tujuan', tracking=True)
+   # propinsi             = fields.Many2one(comodel_name='cdn.propinsi', string='Provinsi', tracking=True)
+   # kota                 = fields.Many2one(comodel_name='cdn.kota', string='Kota', tracking=True)
+   # kecamatan            = fields.Many2one(comodel_name='cdn.kecamatan', string='Kecamatan', tracking=True)
+   # desa                 = fields.Many2one(comodel_name='cdn.desa', string='Desa', tracking=True)
+   # propinsi_tujuan      = fields.Many2one(comodel_name='cdn.propinsi', string='Provinsi', tracking=True)
+   # kota_tujuan          = fields.Many2one(comodel_name='cdn.kota', string='Kota', tracking=True)
+   # kecamatan_tujuan     = fields.Many2one(comodel_name='cdn.kecamatan', string='Kecamatan')
+   # desa_tujuan          = fields.Many2one(comodel_name='cdn.desa', string='Desa', tracking=True)
 
    # -------------------------------------------- JENIS ARMADA  --------------------------------------------
    jenis_armada         = fields.Selection(string='Jenis Armada', selection=[('bis', 'Bis Pariwisata'), ('travel', 'Travel'),('mobil', 'Mobil')], tracking=True) 
