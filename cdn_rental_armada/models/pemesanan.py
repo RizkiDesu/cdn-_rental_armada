@@ -2,7 +2,10 @@ from odoo import models, fields, api, _
 from datetime import date, timedelta
 from dateutil import relativedelta
 from odoo.exceptions import UserError, ValidationError
-import http.client
+
+import qrcode
+import base64
+from io import BytesIO
 
 # CREATED BY IAN
 # -------------------------------------------- PEMESANAN ---------------------------------------------------------------
@@ -43,6 +46,7 @@ class CdnPemesanan(models.Model):
                                                             ('berjalan','Sedang Berjalan'), 
                                                             ('selesai', 'Selesai')], default="draft", tracking=True)
    status_pembayaran    = fields.Selection(string='Status Pembayaran', related='invoice_id.payment_state',store=True, tracking=True)
+   barcode_tdd          = fields.Binary('QR Code', attachment=True)
 
 
    # -------------------------------------------- DETAIL PEMESANAN  ------------------------------------
@@ -63,6 +67,19 @@ class CdnPemesanan(models.Model):
    
 
    # -------------------------------------------- METHOD ---------------------------------------------------
+   def tanda_tangan(self):
+      data = 'tdd ala rizki desu'
+      for record in self:
+         qr = qrcode.QRCode(version=1, error_correction=qrcode.constants.ERROR_CORRECT_L, box_size=20, border=4)
+         qr.add_data(data)
+         qr.make(fit=True)
+         img = qr.make_image(fill='black', back_color='white')
+         buffer = BytesIO()
+         img.save(buffer, format="PNG")
+         qr_code_image = base64.b64encode(buffer.getvalue())
+         record.barcode_tdd = qr_code_image
+
+
    @api.onchange('durasi','tanggal_dipakai')
    def _onchange_tanggal_kembali(self):
       for rec in self:
@@ -335,6 +352,7 @@ class CdnPemesanan(models.Model):
 # CREATED BY IAN
 # -------------------------------------------- PEMESANAN LINE ---------------------------------------------------------------
 class CdnPemesananArmada(models.Model):
+
    _name          = 'cdn.pemesanan.armada'
    _description   = 'cdn.pemesanan.armada'
    _rec_name      = 'armada_id'

@@ -169,6 +169,10 @@
                             </ul>
                         </div>
                     </div>
+                    <div>
+                        Tdd
+                        <img t-attf-src="data:image/jpg;base64,{{ o.barcode_tdd }}" class="card-img-top" style="width:100px; height:100px; object-fit:cover;" />
+                    </div>
                 </div>
                 </div>
             </t>
