@@ -88,4 +88,23 @@ body{
     border-radius: 10px; /* Adding border-radius to the container */
     overflow: hidden; /* Ensuring the border-radius affects the children elements */
 }
+/* form view */
+
+.o_form_statusbar{
+    border-radius: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Adding shadow */
+    margin: 1rem;
+    margin-top: 2rem;
+    padding: 20px;
+}
+.o_form_sheet {
+    border-radius: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Adding shadow */
+    margin: 1rem;
+    margin-top: 2rem;
+    padding: 20px;
+}
+.o_form_sheet_bg {
+    background-color: white;
+}
 

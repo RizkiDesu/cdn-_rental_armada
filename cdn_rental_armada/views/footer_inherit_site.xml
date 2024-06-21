@@ -1,0 +1,7 @@
+<template id="new_footer" inherit_id="website.layout">
+           <xpath expr="//footer" position="replace">
+               <footer>
+                   <br></br>
+               </footer>
+           </xpath>
+</template>

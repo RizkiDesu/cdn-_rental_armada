@@ -31,6 +31,7 @@
         'views/form_pendaftaran_site.xml',
         'views/form_booking_site.xml',
         'views/product_site.xml',
+        # 'views/footer_inherit_site.xml',
 
         # ------------------------------- REPORT --------------------------------
         'reports/report_booking.xml',
@@ -40,6 +41,8 @@
         'reports/bus_tersedia.xml',
         'reports/semua_tersedia.xml',
         'reports/inherit_report.xml',
+        'reports/report_rm.xml',
+        'reports/header_simrs.xml',
 
         # ------------------------------- MENU --------------------------------
         'views/menu_view.xml',
@@ -91,10 +94,11 @@
             'https://unpkg.com/leaflet/dist/leaflet.js',
             '/cdn_rental_armada/static/src/xml/peta.xml',
             '/cdn_rental_armada/static/src/jees/time_widget.js',
+            # '/cdn_rental_armada/static/src/jees/backjs.js',
             '/cdn_rental_armada/static/src/scss/timepicker.scss',
             '/cdn_rental_armada/static/src/css/style_backend.css',
             '/cdn_rental_armada/static/src/xml/timepicker.xml',
-            # '/cdn_rental_armada/static/src/font.otf',
+            # 'https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css',
         ],
         'web.assets_frontend': [
             '/cdn_rental_armada/static/src/css/bootstrap.min.css',

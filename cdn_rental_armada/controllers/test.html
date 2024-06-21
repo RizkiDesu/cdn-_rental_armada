@@ -4,12 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Thank You Page</title>
-  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
   <style>
     .table {
   width: 100%;
   max-width: 100%;
   margin-bottom: 1rem;
+  border: 1px solid black;
+  border-collapse: collapse !important;
 }
 
 .table th,
@@ -17,6 +18,7 @@
   padding: 0.75rem;
   vertical-align: top;
   border-top: 1px solid #eceeef;
+  
 }
 
 .table thead th {
@@ -77,7 +79,8 @@
 .table-success,
 .table-success > th,
 .table-success > td {
-  background-color: #dff0d8;
+  background-color: #38cc34;
+  font-weight: bold;
 }
 
 .table-hover .table-success:hover {
@@ -169,16 +172,204 @@
 .table-responsive.table-bordered {
   border: 0;
 }
+.invisible {
+  border: 1px solid white !important;
+  border-collapse: collapse !important;
+}
   </style>
 </head> 
 <body>
-    <table class="table table-primary">
-      <div><th>
-        <td>No</td>
-        <td>Nama</td>
-        <td>Jalan</td>
-      </th></div>
-    </table>
+  <table class="table table-bordered  ">
+    <tbody>
+      <tr>
+        <td class="table-success">Indikasi MRS</td>
+      </tr>
+      <tr>
+        <td>Indikasi MRS</td>
+      </tr>
+      <tr>
+        <td class="table-success">ANAMNESIS</td>
+      </tr>
+      <tr>
+        <td>Keluhan Utama</td>
+      </tr>
+      <tr>
+        <td class="table-success">PEMERIKSAAN FISIK</td>
+      </tr>
+      <tr>
+        <td>
+          <table>
+          <tr >
+            <td class="invisible">Fisik</td>
+            <td class="invisible">
+              <table>
+                <tbody>
+                  <tr>
+                    <td class="invisible">KU</td>
+                    <td class="invisible">:</td>
+                  </tr>
+                  <tr>
+                    <td class="invisible">GCS</td>
+                    <td class="invisible">: E:V:M:</td>
+                  </tr>
+                  <tr>
+                    <td class="invisible">TD</td>
+                    <td class="invisible">: mmHg</td>
+                  </tr>
+                  <tr>
+                    <td class="invisible">Nadi</td>
+                    <td class="invisible">: 60/menit</td>
+                  </tr>
+                  <tr>
+                    <td class="invisible">Respirasi</td>
+                    <td class="invisible">: 60/menit</td>
+                  </tr>
+                  <tr>
+                    <td class="invisible">Suhu</td>
+                    <td class="invisible">: 35°C</td>
+                  </tr>
+                  <tr>
+                    <td class="invisible">Saturasi O2</td>
+                    <td class="invisible">: 70%</td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+          </tr>
+          <tr>
+            <td class="invisible">Patologi Klinik</td>
+            <td class="invisible"></td>
+          </tr>
+          <tr>
+            <td class="invisible">Patologi Anatomi</td>
+            <td class="invisible"></td>
+          </tr>
+          <tr>
+            <td class="invisible">Radiologi</td>
+            <td class="invisible"></td>
+          </tr>
+          <tr>
+            <td class="invisible">Pemeriksaan Penunjang Lain</td>
+            <td class="invisible"></td>
+          </tr> 
+        </td>
+      </tr></table>
+      <tr>
+        <tr>
+          <td class="table-success">DIAGNOSIS</td>
+        </tr>
+        <td>
+        <table class="table">
+          <tr>
+            <td>Diagnosis Utama</td>
+            <td>kode ICDX</td>
+            <td>Diagnosis Sekunder</td>
+            <td>kode ICDX</td>
+          </tr>
+          <tr>
+            <td>Other Salmonella infection</td>
+            <td>a02</td>
+            <td></td>
+            <td></td>
+          </tr>
+        </td>
+      </tr></table>
+      <tr>
+        <td class="table-success">RIWAYAT ALERGI</td>
+      </tr>
+      <tr>
+        <td><table>
+          <tr>
+            <td class="invisible" rowspan="3">Alergi</td>
+            <td class="invisible">Alergi Obat</td>
+            <td class="invisible">:</td>
+          </tr>
+          <tr>
+            <td class="invisible">Alergi makanan </td>
+            <td class="invisible">:</td>
+          </tr>
+          <tr>
+            <td class="invisible">Alergi Lain </td>
+            <td class="invisible">:</td>
+          </tr>
+        </td>
+      </tr></table>
+      <tr>
+        <td class="table-success">RIWAYAT KONSUL</td>
+      </tr>
+      <tr>
+        <td>Konsultasi</td>
+      </tr>
+      <tr>
+        <td class="table-success">TINDAKAN MEDIS</td>
+      </tr>
+      <tr>
+        <td> AFF Infus, BIAYA KAMAR KELAS III, Ganti Cairan, Injeksi IM /IV, Mengantar Pasien, Mengukur saturasi O2 (Tanpa Monitor), Observasi tanda-tanda Vital, Visite Apoteker, visite dr
+          spesialis</td>
+      </tr>
+      <tr>
+        <td class="table-success">Riwayat Obat-obatan Selama MRS</td>
+      </tr>
+      <tr>
+        <td><table>
+          <tr>
+            <td class="invisible">Daftar Obat-obatan yang telah diberikan selama perawatan</td>
+            <td class="invisible">CEFTRIAXON INJEKSI 1GRAM, FURAMIN INJEKSI, INFUSET DEWASA, METAMIZOLE SODIUM 500MG/ML INJ, METOCLOPRAMID INJEKSI, NACL 0,9% INFUS 500ML, OMEPRAZOL KAPSUL 20MG, SPUIT 3CC, SPUIT 5CC, SUCRALFAT SIRUP 100ML</td>
+          </tr>
+        </td></table>
+      </tr>
+      <tr>
+        <td class="table-success">INDIKASI KRS</td>
+      </tr>
+      <tr>
+        <td><table class="table">
+          <tr>
+            <td class="invisible">Status Keluar</td>
+            <td class="invisible">: Pulang Paksa</td>
+          </tr>
+          <tr>
+            <td class="invisible">Catatan Keluar</td>
+            <td class="invisible">: </td>
+          </tr>
+        </td></table>
+      </tr>
+      <tr class="table-success">
+        <td>PROGNOSIS</td>
+      </tr>
+      <tr>
+        <td>Prognosis</td>
+      </tr>
+      <tr class="table-success">
+        <td>NAMA OBAT</td>
+      </tr>
+      <tr>
+        <td>Paracetamol</td>
+      </tr>
+      <tr class="table-success">
+        <td>KONTROL</td>
+      </tr>
+      <tr>
+        <td><table class="table"><tr>
+          <td class="invisible">Kontrol</td>
+          <td class="invisible">1 Minggu Sekali</td>
+        </tr>
+        <tr>
+          <td class="invisible">Rujuk</td>
+          <td class="invisible"></td>
+        </tr>
+        <tr>
+          <td class="invisible">Dokter</td>
+          <td class="invisible">Dr. Jekyll and Hyde</td>
+        </tr></td>
+      </tr></table>
+      <tr align="right">
+        <td>12-12-2012</td>
+      </tr>
+      <tr align="right">
+        <td>BARCODE</td>
+      </tr>
+    </tbody>
+  </table>
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

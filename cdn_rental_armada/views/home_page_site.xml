@@ -2,7 +2,7 @@
 <odoo>
     <data>
         <template id="home_page" name="Home Page">
-            <t t-call="website.layout">]\
+            <t t-call="website.layout">
                 <style>
                     .container-fluid {
                         .background-color: white !important;
